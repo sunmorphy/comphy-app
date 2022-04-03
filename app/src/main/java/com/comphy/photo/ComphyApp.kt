@@ -1,4 +1,5 @@
 package com.comphy.photo
 
-class ComphyApp {
-}
+import android.app.Application
+
+class ComphyApp : Application()

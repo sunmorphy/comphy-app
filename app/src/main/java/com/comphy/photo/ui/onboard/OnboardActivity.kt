@@ -1,0 +1,108 @@
+package com.comphy.photo.ui.onboard
+
+import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.comphy.photo.R
+import com.comphy.photo.databinding.ActivityOnboardBinding
+import com.comphy.photo.ui.login.LoginActivity
+import com.comphy.photo.ui.onboard.adapter.OnboardPagerAdapter
+import com.comphy.photo.ui.onboard.viewmodel.OnboardViewModel
+import com.comphy.photo.ui.register.RegisterActivity
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
+import splitties.activities.start
+
+class OnboardActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityOnboardBinding
+
+    private val viewModel by viewModels<OnboardViewModel> {
+        ViewModelProvider.NewInstanceFactory()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityOnboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        supportActionBar?.hide()
+
+        viewModel.listAssets.observe(this) {
+            setupViewPager(it.image, it.title, it.desc)
+        }
+    }
+
+    private fun setupViewPager(
+        listImages: List<Int>,
+        listTitles: List<Int>,
+        listDescriptions: List<Int>
+    ) {
+        val pagerAdapter = OnboardPagerAdapter(listImages)
+        binding.vpOnboard.apply {
+            adapter = pagerAdapter
+            (getChildAt(0) as RecyclerView).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+
+                    repeat(3) {
+                        if (position == it) {
+                            binding.txtOnboardTitle.text = resources.getString(listTitles[position])
+                            binding.txtOnboardDescription.text =
+                                resources.getString(listDescriptions[position])
+                            setButtonOnboard(position)
+                        }
+                    }
+                }
+            })
+        }
+
+        binding.vpOnboardIndicator.apply {
+            setSliderColor(
+                ContextCompat.getColor(this@OnboardActivity, R.color.normal_pager_indicator),
+                ContextCompat.getColor(this@OnboardActivity, R.color.checked_pager_indicator)
+            )
+            setSliderWidth(resources.getDimension(R.dimen.dp_9))
+            setSliderHeight(resources.getDimension(R.dimen.dp_9))
+            setIndicatorGap(resources.getDimension(R.dimen.dp_10))
+            setSlideMode(IndicatorSlideMode.WORM)
+            setIndicatorStyle(IndicatorStyle.CIRCLE)
+            setupWithViewPager(binding.vpOnboard)
+        }
+    }
+
+    private fun setButtonOnboard(position: Int) {
+        when {
+            position < 2 -> {
+                binding.btnOnboardNext.apply {
+                    text = resources.getText(R.string.button_onboard_next)
+                    setOnClickListener {
+                        binding.vpOnboard.setCurrentItem(position + 1, true)
+                    }
+                }
+                binding.btnOnboardSkip.apply {
+                    text = resources.getText(R.string.button_onboard_skip)
+                    setOnClickListener { start<RegisterActivity>() }
+                }
+            }
+            position == 2 -> {
+                binding.btnOnboardNext.apply {
+                    text = resources.getText(R.string.string_login)
+                    setOnClickListener { start<LoginActivity>() }
+                }
+                binding.btnOnboardSkip.apply {
+                    text = resources.getText(R.string.string_register)
+                    setOnClickListener { start<RegisterActivity>() }
+                }
+            }
+        }
+    }
+}
