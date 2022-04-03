@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Comphy</string>
+    <string name="tagline">Show us what you see in your mind</string>
 
     <string name="string_register">Daftar</string>
     <string name="string_login">Masuk</string>

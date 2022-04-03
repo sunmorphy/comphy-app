@@ -30,7 +30,7 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
-    <style name="Theme.Login.Comphy" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Orange.Comphy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_orange</item>
         <item name="colorPrimaryVariant">@color/primary_orange</item>
@@ -43,7 +43,5 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:ambientShadowAlpha">1</item>
-        <item name="android:spotShadowAlpha">1</item>
     </style>
 </resources>
