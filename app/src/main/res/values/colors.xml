@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="normal_pager_indicator">#DBDBDB</color>
+    <color name="checked_pager_indicator">#FFB347</color>
+
+    <color name="primary_background">#FAFAFA</color>
+    <color name="primary_orange">#FCAE3F</color>
+    <color name="primary_gray">#8B8B8B</color>
+    <color name="neutral_gray">#E8EDF1</color>
+    <color name="neutral_black">#2C2C2C</color>
+    <color name="neutral_black_30">#4D2C2C2C</color>
+    <color name="neutral_black_20">#332C2C2C</color>
+
 </resources>

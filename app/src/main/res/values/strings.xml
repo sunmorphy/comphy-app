@@ -1,3 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Comphy</string>
+
+    <string name="string_register">Daftar</string>
+    <string name="string_login">Masuk</string>
+    <string name="string_your_email">Email Kamu</string>
+    <string name="string_your_password">Password Kamu</string>
+    <string name="string_input_email">Masukan Email Kamu</string>
+    <string name="string_input_password">Masukan Password Kamu</string>
+    <string name="string_forgot_password">Lupa Password ?</string>
+
+    <!-- Onboard Strings -->
+    <string name="title_onboard_1">Bergabunglah Dengan Komunitas!</string>
+    <string name="title_onboard_2">Kami Menyediakan Mini Course Untuk Kamu!</string>
+    <string name="title_onboard_3">Share Hasil Terbaik Kamu ke Sesama Pengguna!</string>
+
+    <string name="desc_onboard_1">Comphy Menyediakan 5 Kategori Komunitas yang bisa kamu pilih sesuai keinginan kamu!</string>
+    <string name="desc_onboard_2">Mini Course tersedia untuk kamu yang ingin menambah wawasan dibidang fotografi dan dapatkan reward berupa badge!</string>
+    <string name="desc_onboard_3">Dapatkan Like dan Komentar sebanyak mungkin dari pengguna lain untuk karya kamu yang menakjubkan!</string>
+
+    <string name="button_onboard_skip">Lewati</string>
+    <string name="button_onboard_next">Lanjut</string>
+
+    <!-- Login Strings -->
+    <string name="login_greetings_1">Hallo,</string>
+    <string name="login_greetings_2">Selamat Datang!</string>
+    <string name="login_to_register">Belum Punya Akun ?</string>
+    <string name="login_to">Masuk ke</string>
+    <string name="login_with_google">Masuk menggunakan google</string>
+    <string name="login_or">Atau</string>
+    <string name="login_error_title">Maaf Kamu Gagal Masuk!Jangan Khawatir Coba Ulangi</string>
+    <string name="login_error_description">Pastikan Email dan Password Kamu Sudah Benar.</string>
 </resources>

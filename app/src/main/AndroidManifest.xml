@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Comphy">
         <activity
-            android:name=".repository.MainActivity"
-            android:exported="true">
+            android:name=".ui.onboard.OnboardActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Onboard.Comphy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

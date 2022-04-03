@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.onboard.OnboardActivity">
+
+    <carbon.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="25dp">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpOnboard"
+            android:layout_width="match_parent"
+            android:layout_height="298dp"
+            android:layout_marginTop="25dp"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.zhpan.indicator.IndicatorView
+            android:id="@+id/vpOnboardIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="@id/vpOnboard"
+            app:layout_constraintStart_toStartOf="@+id/vpOnboard"
+            app:layout_constraintTop_toBottomOf="@id/vpOnboard" />
+
+        <carbon.widget.ConstraintLayout
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/white"
+            android:padding="24dp"
+            app:carbon_cornerRadius="14dp"
+            app:carbon_elevation="20dp"
+            app:carbon_elevationShadowColor="#FFDAA3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vpOnboardIndicator">
+
+            <TextView
+                android:id="@+id/txtOnboardTitle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:lines="2"
+                android:textAlignment="center"
+                android:textColor="@color/primary_orange"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtOnboardDescription"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins_medium"
+                android:lines="3"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/txtOnboardTitle"
+                app:layout_constraintStart_toStartOf="@id/txtOnboardTitle"
+                app:layout_constraintTop_toBottomOf="@id/txtOnboardTitle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOnboardSkip"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_0"
+                android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="2dp"
+                android:stateListAnimator="@null"
+                android:text="@string/button_onboard_skip"
+                android:textAllCaps="false"
+                android:textColor="@color/primary_gray"
+                android:textSize="12sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnOnboardNext"
+                app:layout_constraintStart_toStartOf="@id/txtOnboardDescription"
+                app:layout_constraintTop_toTopOf="@+id/btnOnboardNext"
+                app:strokeColor="@color/neutral_gray"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOnboardNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/primary_orange"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="2dp"
+                android:stateListAnimator="@null"
+                android:text="@string/button_onboard_next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="@id/txtOnboardDescription"
+                app:layout_constraintTop_toBottomOf="@id/txtOnboardDescription" />
+
+        </carbon.widget.ConstraintLayout>
+
+    </carbon.widget.ConstraintLayout>
+
+</ScrollView>

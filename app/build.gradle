@@ -34,6 +34,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -51,6 +52,8 @@ dependencies {
     implementation 'com.github.skydoves:sandwich:1.2.3'
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.zhpanvip:viewpagerindicator:1.2.1'
+    api 'tk.zielony:carbon:0.16.0.1'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
