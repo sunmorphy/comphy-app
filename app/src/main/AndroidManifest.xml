@@ -19,8 +19,12 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ui.onboard.OnboardActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Onboard.Comphy" />
+        <activity
+            android:name=".ui.splash.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.Onboard.Comphy">
+            android:theme="@style/Theme.Orange.Comphy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
