@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Comphy">
         <activity
+            android:name=".ui.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Orange.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
             android:name=".ui.onboard.OnboardActivity"
             android:exported="false"
             android:theme="@style/Theme.Onboard.Comphy" />
