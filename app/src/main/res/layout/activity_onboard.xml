@@ -38,8 +38,8 @@
             android:background="@color/white"
             android:padding="24dp"
             app:carbon_cornerRadius="14dp"
-            app:carbon_elevation="20dp"
-            app:carbon_elevationShadowColor="#FFDAA3"
+            app:carbon_elevation="22dp"
+            app:carbon_elevationShadowColor="#FFEACB"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vpOnboardIndicator">
