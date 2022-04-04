@@ -90,7 +90,7 @@ class OnboardActivity : AppCompatActivity() {
                 }
                 binding.btnOnboardSkip.apply {
                     text = resources.getText(R.string.button_onboard_skip)
-                    setOnClickListener { start<RegisterActivity>() }
+                    setOnClickListener { binding.vpOnboard.setCurrentItem(2, true) }
                 }
             }
             position == 2 -> {
