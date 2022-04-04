@@ -3,13 +3,19 @@
     <string name="app_name">Comphy</string>
     <string name="tagline">Show us what you see in your mind</string>
 
+    <string name="string_hello">Hallo,</string>
+    <string name="string_welcome">Selamat Datang!</string>
+    <string name="string_or">Atau</string>
+
     <string name="string_register">Daftar</string>
     <string name="string_login">Masuk</string>
+    <string name="string_create_account">Buat Akun</string>
     <string name="string_your_email">Email Kamu</string>
     <string name="string_your_password">Password Kamu</string>
     <string name="string_input_email">Masukan Email Kamu</string>
     <string name="string_input_password">Masukan Password Kamu</string>
     <string name="string_forgot_password">Lupa Password ?</string>
+    <string name="string_password_length">5+ Karakter &amp; Angka (0-9)</string>
 
     <!-- Onboard Strings -->
     <string name="title_onboard_1">Bergabunglah Dengan Komunitas!</string>
@@ -24,12 +30,18 @@
     <string name="button_onboard_next">Lanjut</string>
 
     <!-- Login Strings -->
-    <string name="login_greetings_1">Hallo,</string>
-    <string name="login_greetings_2">Selamat Datang!</string>
     <string name="login_to_register">Belum Punya Akun ?</string>
     <string name="login_to">Masuk ke</string>
     <string name="login_with_google">Masuk menggunakan google</string>
-    <string name="login_or">Atau</string>
     <string name="login_error_title">Maaf Kamu Gagal Masuk!Jangan Khawatir Coba Ulangi</string>
     <string name="login_error_description">Pastikan Email dan Password Kamu Sudah Benar.</string>
+
+    <!-- Register Strings -->
+    <string name="register_to_login">Sudah Punya Akun ?</string>
+    <string name="register_to">Daftar ke</string>
+    <string name="register_with_google">Daftar menggunakan google</string>
+    <string name="register_email_error_title">Maaf Kamu Gagal membuat akun! Coba Ulangi</string>
+    <string name="register_email_error_description">Masukkan Email Kamu dengan Benar</string>
+    <string name="register_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
+    <string name="register_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
 </resources>
