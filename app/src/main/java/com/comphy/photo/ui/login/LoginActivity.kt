@@ -1,9 +1,10 @@
 package com.comphy.photo.ui.login
 
-import android.os.Build
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +23,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+
+        /*
+         *      THIS IS AN EXAMPLE OF ERROR AND A LOADING ANIMATION
+         */
         binding.btnLogin.setOnClickListener {
             lifecycleScope.launch {
                 setButtonLoading(true)
@@ -29,6 +34,11 @@ class LoginActivity : AppCompatActivity() {
                 binding.txtHello.visibility = View.INVISIBLE
                 binding.txtWelcome.visibility = View.INVISIBLE
                 binding.errorLayout.visibility = View.VISIBLE
+                binding.edtEmail.background =
+                    ContextCompat.getDrawable(this@LoginActivity, R.drawable.widget_error)
+
+                binding.edtPassword.background =
+                    ContextCompat.getDrawable(this@LoginActivity, R.drawable.widget_error)
                 setButtonLoading(false)
             }
         }
@@ -38,41 +48,13 @@ class LoginActivity : AppCompatActivity() {
             binding.txtWelcome.visibility = View.VISIBLE
             binding.errorLayout.visibility = View.GONE
         }
-
-        binding.edtEmail
-
-        setFocusWidget()
     }
 
-    private fun setFocusWidget() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            binding.root.setOnScrollChangeListener { _, _, _, _, _ ->
-                binding.btnGoogleLogin.setBackgroundColor(
-                    ContextCompat.getColor(
-                        this,
-                        R.color.white
-                    )
-                )
-                binding.btnGoogleLogin.setTextColor(
-                    ContextCompat.getColor(
-                        this,
-                        R.color.neutral_black
-                    )
-                )
-            }
-        }
-
-        binding.btnGoogleLogin.setOnClickListener {
-            binding.btnGoogleLogin.setTextColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.primary_orange
-                )
-            )
-            binding.btnGoogleLogin.background =
-                ContextCompat.getDrawable(it.context, R.drawable.btn_selected)
-        }
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        binding.rootView.requestFocus()
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun setButtonLoading(state: Boolean) {
@@ -88,7 +70,10 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
         } else {
-            binding.imgLoadingBtn.visibility = View.GONE
+            binding.imgLoadingBtn.apply {
+                clearAnimation()
+                visibility = View.GONE
+            }
             binding.btnLogin.text = resources.getString(R.string.string_login)
         }
     }
