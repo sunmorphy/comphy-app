@@ -56,4 +56,9 @@
     <string name="verify_success_title">Berhasil Verifikasi Akun</string>
     <string name="verify_success_description">Selamat Telah Berhasil melakukan Verifikasi terhadap akun Kamu</string>
     <string name="verify_to_profile">Lengkapi Profilmu!</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mohon_cek_email_kamu">Mohon Cek Email Kamu!</string>
+    <string name="dummy_verifikasi">Kami Telah Mengirimkan Kode Verifikasi Ke <b>Thavitaaa13@gmail.com</b></string>
+    <string name="verifikasi">Verifikasi</string>
 </resources>
