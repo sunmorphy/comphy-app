@@ -53,6 +53,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.zhpanvip:viewpagerindicator:1.2.1'
     implementation 'tk.zielony:carbon:0.17.0'
+    implementation "com.airbnb.android:lottie:5.0.3"
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
@@ -71,7 +72,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
 
     implementation 'com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0'
-    implementation 'com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0'
+    implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0")
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
