@@ -3,6 +3,8 @@
     <string name="app_name">Comphy</string>
     <string name="tagline">Show us what you see in your mind</string>
 
+    <string name="example_mail">Thavitaaa13@gmail.com</string>
+
     <string name="string_hello">Hallo,</string>
     <string name="string_welcome">Selamat Datang!</string>
     <string name="string_or">Atau</string>
@@ -16,6 +18,7 @@
     <string name="string_input_password">Masukan Password Kamu</string>
     <string name="string_forgot_password">Lupa Password ?</string>
     <string name="string_password_length">5+ Karakter &amp; Angka (0-9)</string>
+    <string name="string_verify">Verifikasi</string>
 
     <!-- Onboard Strings -->
     <string name="title_onboard_1">Bergabunglah Dengan Komunitas!</string>
@@ -44,4 +47,13 @@
     <string name="register_email_error_description">Masukkan Email Kamu dengan Benar</string>
     <string name="register_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
     <string name="register_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
+
+    <!-- Verify Strings -->
+    <string name="verify_account">Verifikasi Akun!</string>
+    <string name="verify_send">Kami Telah Mengirimkan kode verifikasi anda melalui</string>
+    <string name="verify_error_title">Masukkan Kode sesuai yang kami berikan!</string>
+    <string name="verify_error_description">Cek Email kamu untuk melihat kode yang kami berikan.</string>
+    <string name="verify_success_title">Berhasil Verifikasi Akun</string>
+    <string name="verify_success_description">Selamat Telah Berhasil melakukan Verifikasi terhadap akun Kamu</string>
+    <string name="verify_to_profile">Lengkapi Profilmu!</string>
 </resources>
