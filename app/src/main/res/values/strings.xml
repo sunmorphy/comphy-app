@@ -3,7 +3,7 @@
     <string name="app_name">Comphy</string>
     <string name="tagline">Show us what you see in your mind</string>
 
-    <string name="example_mail">Thavitaaa13@gmail.com</string>
+    <string name="example_mail"><b>Thavitaaa13@gmail.com</b></string>
 
     <string name="string_hello">Hallo,</string>
     <string name="string_welcome">Selamat Datang!</string>
@@ -47,18 +47,15 @@
     <string name="register_email_error_description">Masukkan Email Kamu dengan Benar</string>
     <string name="register_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
     <string name="register_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
+    <string name="register_success_title">Mohon Cek Email Kamu!</string>
+    <string name="register_success_description">Kami Telah Mengirimkan Kode Verifikasi Ke </string>
 
     <!-- Verify Strings -->
     <string name="verify_account">Verifikasi Akun!</string>
-    <string name="verify_send">Kami Telah Mengirimkan kode verifikasi anda melalui</string>
+    <string name="verify_send">Kami Telah Mengirimkan kode verifikasi anda melalui </string>
     <string name="verify_error_title">Masukkan Kode sesuai yang kami berikan!</string>
     <string name="verify_error_description">Cek Email kamu untuk melihat kode yang kami berikan.</string>
     <string name="verify_success_title">Berhasil Verifikasi Akun</string>
     <string name="verify_success_description">Selamat Telah Berhasil melakukan Verifikasi terhadap akun Kamu</string>
     <string name="verify_to_profile">Lengkapi Profilmu!</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="mohon_cek_email_kamu">Mohon Cek Email Kamu!</string>
-    <string name="dummy_verifikasi">Kami Telah Mengirimkan Kode Verifikasi Ke <b>Thavitaaa13@gmail.com</b></string>
-    <string name="verifikasi">Verifikasi</string>
 </resources>

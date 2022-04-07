@@ -3,69 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bottom_sheet"
+    android:paddingBottom="58dp">
 
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="match_parent"
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="145dp"
         android:layout_marginTop="24dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_bottom"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animView"
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgBottom"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator"
         app:lottie_autoPlay="true"
         app:lottie_loop="true" />
 
     <TextView
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtSheetTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginEnd="80dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:textColor="#2C2C2C"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:textAlignment="center"
+        android:textColor="@color/neutral_black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/animView" />
 
     <TextView
-        android:id="@+id/txtVerifikasi"
-        android:layout_width="match_parent"
+        android:id="@+id/txtSheetDesc"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="59dp"
+        android:layout_marginHorizontal="58dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="58dp"
-        android:textAlignment="center"
         android:fontFamily="@font/poppins_medium"
+        android:textAlignment="center"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/txtEmail"
-        app:layout_constraintTop_toBottomOf="@id/txtEmail"/>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSheetTitle" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnVerifikasi"
-        android:layout_width="328dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        android:id="@+id/btnSheetAction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/poppins_bold"
-        android:textAlignment="center"
+        android:paddingVertical="12dp"
+        android:stateListAnimator="@null"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtVerifikasi"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/txtSheetDesc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
