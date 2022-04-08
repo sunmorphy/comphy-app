@@ -2,18 +2,18 @@ package com.comphy.photo.ui.register
 
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
-import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
+import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityRegisterBinding
+import com.comphy.photo.ui.verify.VerifyActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import splitties.activities.start
 
-class RegisterActivity : AppCompatActivity() {
+
+class RegisterActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,30 +22,67 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /*
-         *      THIS IS AN EXAMPLE OF ERROR AND A LOADING ANIMATION
-         */
+        inputWidgets = listOf(binding.edtEmail, binding.edtPassword)
+        actionWidgets = listOf(binding.btnLogin, binding.btnGoogleRegister, binding.btnRegister)
+        greetingWidgets = listOf(binding.txtHello, binding.txtWelcome)
+        loadingImage = binding.imgLoadingBtn
+        errorLayout = binding.errorLayout
+        registerErrorTitle = binding.txtErrorTitle
+        registerErrorDesc = binding.txtErrorDesc
+        mainButtonText = R.string.string_create_account
+
+        bottomSheetBinding.apply {
+            val sheetDesc =
+                resources.getString(R.string.register_success_description) + binding.edtEmail.text.toString()
+            animView.setAnimation(R.raw.anim_send)
+            txtSheetTitle.text = resources.getString(R.string.register_success_title)
+            txtSheetDesc.text = sheetDesc
+            btnSheetAction.text = resources.getString(R.string.string_verify)
+        }
+
         binding.btnRegister.setOnClickListener {
             lifecycleScope.launch {
+                showError(false)
                 setButtonLoading(true)
-                delay(5000)
-                binding.txtHello.visibility = View.INVISIBLE
-                binding.txtWelcome.visibility = View.INVISIBLE
-                binding.errorLayout.visibility = View.VISIBLE
-                binding.edtEmail.background =
-                    ContextCompat.getDrawable(this@RegisterActivity, R.drawable.widget_error)
+                delay(2000)
 
-                binding.edtPassword.background =
-                    ContextCompat.getDrawable(this@RegisterActivity, R.drawable.widget_error)
+                if (fieldIsEmpty()) {
+                    setFieldError()
+
+                } else if (binding.edtEmail.text.toString()
+                        .isEmpty() && binding.edtPassword.text.toString().isNotEmpty()
+                ) {
+                    binding.txtErrorTitle.text =
+                        resources.getString(R.string.register_password_error_title)
+                    binding.txtErrorDesc.text =
+                        resources.getString(R.string.register_password_error_description)
+                    showError(true)
+
+                } else {
+                    setFieldError()
+
+                    if (emailValidator(binding.edtEmail.text.toString())
+                        && passwordValidator(binding.edtPassword.text.toString())
+                    ) {
+                        showBottomSheetDialog { start<VerifyActivity>() }
+
+                    } else if (!passwordValidator(binding.edtPassword.text.toString())) {
+                        binding.txtErrorTitle.text =
+                            resources.getString(R.string.register_password_error_title)
+                        binding.txtErrorDesc.text =
+                            resources.getString(R.string.register_password_error_description)
+                        showError(true)
+
+                    } else {
+                        showError(true)
+
+                    }
+                }
                 setButtonLoading(false)
             }
         }
 
-        binding.btnDismissError.setOnClickListener {
-            binding.txtHello.visibility = View.VISIBLE
-            binding.txtWelcome.visibility = View.VISIBLE
-            binding.errorLayout.visibility = View.GONE
-        }
+        binding.btnDismissError.setOnClickListener { showError(false) }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -53,26 +90,5 @@ class RegisterActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         binding.rootView.requestFocus()
         return super.dispatchTouchEvent(ev)
-    }
-
-    private fun setButtonLoading(state: Boolean) {
-        if (state) {
-            binding.btnRegister.text = null
-            binding.imgLoadingBtn.apply {
-                visibility = View.VISIBLE
-                startAnimation(
-                    AnimationUtils.loadAnimation(
-                        this@RegisterActivity,
-                        R.anim.btn_loading_anim
-                    )
-                )
-            }
-        } else {
-            binding.imgLoadingBtn.apply {
-                clearAnimation()
-                visibility = View.GONE
-            }
-            binding.btnRegister.text = resources.getString(R.string.string_login)
-        }
     }
 }

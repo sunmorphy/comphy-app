@@ -2,18 +2,16 @@ package com.comphy.photo.ui.login
 
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
-import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
+import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityLoginBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,33 +19,44 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
 
+        inputWidgets = listOf(binding.edtEmail, binding.edtPassword)
+        actionWidgets = listOf(binding.btnRegister, binding.btnGoogleLogin, binding.btnLogin)
+        greetingWidgets = listOf(binding.txtHello, binding.txtWelcome)
+        loadingImage = binding.imgLoadingBtn
+        errorLayout = binding.errorLayout
+        mainButtonText = R.string.string_login
 
-        /*
-         *      THIS IS AN EXAMPLE OF ERROR AND A LOADING ANIMATION
-         */
         binding.btnLogin.setOnClickListener {
             lifecycleScope.launch {
+                showError(false)
                 setButtonLoading(true)
-                delay(5000)
-                binding.txtHello.visibility = View.INVISIBLE
-                binding.txtWelcome.visibility = View.INVISIBLE
-                binding.errorLayout.visibility = View.VISIBLE
-                binding.edtEmail.background =
-                    ContextCompat.getDrawable(this@LoginActivity, R.drawable.widget_error)
+                delay(2000)
 
-                binding.edtPassword.background =
-                    ContextCompat.getDrawable(this@LoginActivity, R.drawable.widget_error)
+                if (fieldIsEmpty()) {
+                    setFieldError()
+
+                } else {
+                    setFieldError()
+
+                    if (emailValidator(binding.edtEmail.text.toString())
+                        && passwordValidator(binding.edtPassword.text.toString())
+                    ) {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Move To Next Activity",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    } else {
+                        showError(true)
+                    }
+                }
                 setButtonLoading(false)
             }
         }
 
-        binding.btnDismissError.setOnClickListener {
-            binding.txtHello.visibility = View.VISIBLE
-            binding.txtWelcome.visibility = View.VISIBLE
-            binding.errorLayout.visibility = View.GONE
-        }
+        binding.btnDismissError.setOnClickListener { showError(false) }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -55,26 +64,5 @@ class LoginActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         binding.rootView.requestFocus()
         return super.dispatchTouchEvent(ev)
-    }
-
-    private fun setButtonLoading(state: Boolean) {
-        if (state) {
-            binding.btnLogin.text = null
-            binding.imgLoadingBtn.apply {
-                visibility = View.VISIBLE
-                startAnimation(
-                    AnimationUtils.loadAnimation(
-                        this@LoginActivity,
-                        R.anim.btn_loading_anim
-                    )
-                )
-            }
-        } else {
-            binding.imgLoadingBtn.apply {
-                clearAnimation()
-                visibility = View.GONE
-            }
-            binding.btnLogin.text = resources.getString(R.string.string_login)
-        }
     }
 }
