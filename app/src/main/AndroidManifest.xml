@@ -12,6 +12,12 @@
         android:theme="@style/Theme.Comphy"
         tools:ignore="LockedOrientationActivity">
         <activity
+            android:name=".ui.ResetPasswordActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Orange.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
             android:name=".ui.verify.VerifyActivity"
             android:exported="false"
             android:screenOrientation="portrait"
