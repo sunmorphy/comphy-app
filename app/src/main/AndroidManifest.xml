@@ -12,11 +12,11 @@
         android:theme="@style/Theme.Comphy"
         tools:ignore="LockedOrientationActivity">
         <activity
-            android:name=".ui.reset.ResetPasswordActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Orange.Comphy"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:name=".ui.forgotpassword.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity_forgot_password"
+            android:exported="false" />
         <activity
             android:name=".ui.verify.VerifyActivity"
             android:exported="false"
