@@ -57,7 +57,8 @@
     <string name="verify_send">Kami Telah Mengirimkan kode verifikasi anda melalui </string>
     <string name="verify_error_title">Masukkan Kode sesuai yang kami berikan!</string>
     <string name="verify_error_description">Cek Email kamu untuk melihat kode yang kami berikan.</string>
-    <string name="verify_resend">Tidak Menerima Email? Kirim Ulang</string>
+    <string name="verify_resend_1">Tidak Menerima Email?</string>
+    <string name="verify_resend_2">Kirim Ulang</string>
     <string name="verify_success_title">Berhasil Verifikasi Akun</string>
     <string name="verify_success_description">Selamat Telah Berhasil melakukan Verifikasi terhadap akun Kamu</string>
     <string name="verify_to_profile">Lengkapi Profilmu!</string>

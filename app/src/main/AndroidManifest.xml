@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Comphy"
         tools:ignore="LockedOrientationActivity">
         <activity
-            android:name=".ui.ResetPasswordActivity"
+            android:name=".ui.reset.ResetPasswordActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Orange.Comphy"
