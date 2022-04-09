@@ -1,18 +1,60 @@
 package com.comphy.photo.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.comphy.photo.BuildConfig
 import com.comphy.photo.R
 import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityLoginBinding
+import com.comphy.photo.ui.HomeActivity
+import com.comphy.photo.ui.register.RegisterActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import splitties.activities.start
+import timber.log.Timber
 
+
+@AndroidEntryPoint
 class LoginActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private val viewModel: LoginViewModel by viewModels()
+
+    private val googleSignIn =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            println(task)
+            println(task.exception)
+            println(task.isCanceled)
+            println(task.isComplete)
+            println(task.isSuccessful)
+                val account = task.getResult(ApiException::class.java)
+            println(account)
+            println(account.account)
+            try {
+                if (account.id != null) {
+                    Timber.tag("TASK IS SUCCESS").i(account.serverAuthCode)
+                    lifecycleScope.launch {
+                        viewModel.userGoogleLogin(
+                            account.email!!,
+                            account.idToken!!
+                        ) { start<HomeActivity>() }
+                    }
+                } else {
+                    Log.e("TASK IS NULL", account.id.toString())
+                }
+            } catch (e: ApiException) {
+                Timber.tag("Google Api Exception").e(e)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +69,12 @@ class LoginActivity : BaseAuthActivity() {
         errorLayout = binding.errorLayout
         mainButtonText = R.string.string_login
 
+        setupObserver()
+
         binding.btnLogin.setOnClickListener {
             lifecycleScope.launch {
                 showError(false)
-                setButtonLoading(true)
-                delay(2000)
+                delay(1500)
 
                 if (fieldIsEmpty()) {
                     setFieldError()
@@ -42,21 +85,39 @@ class LoginActivity : BaseAuthActivity() {
                     if (emailValidator(binding.edtEmail.text.toString())
                         && passwordValidator(binding.edtPassword.text.toString())
                     ) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Move To Next Activity",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        viewModel.userLogin(
+                            binding.edtEmail.text.toString(),
+                            binding.edtPassword.text.toString()
+                        ) {
+                            // TODO INTENT HOME ACTIVITY
+                        }
 
                     } else {
                         showError(true)
                     }
                 }
-                setButtonLoading(false)
             }
         }
 
+        binding.btnRegister.setOnClickListener { start<RegisterActivity>() }
         binding.btnDismissError.setOnClickListener { showError(false) }
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(BuildConfig.CLIENT_ID)
+            .requestEmail()
+            .build()
+        binding.btnGoogleLogin.setOnClickListener {
+            googleSignIn.launch(
+                GoogleSignIn.getClient(
+                    this,
+                    gso
+                ).signInIntent
+            )
+        }
+    }
+
+    private fun setupObserver() {
+        viewModel.isLoading.observe(this) { setButtonLoading(it) }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

@@ -8,10 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
 import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityVerifyBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class VerifyActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityVerifyBinding
 
@@ -38,11 +39,9 @@ class VerifyActivity : BaseAuthActivity() {
         inputEachField()
 
         binding.btnVerify.setOnClickListener {
-            inputWidgets.forEach { it.clearFocus() }
             lifecycleScope.launch {
                 setButtonLoading(true)
-                delay(4000)
-                setButtonLoading(false)
+                delay(2000)
 
                 if (fieldIsEmpty()) {
                     setFieldError()
@@ -51,14 +50,17 @@ class VerifyActivity : BaseAuthActivity() {
                     setFieldError()
                     Toast.makeText(this@VerifyActivity, "Field Is Not Empty", Toast.LENGTH_SHORT)
                         .show()
+                    val otpResult =
+                        binding.edtOtp1.text.toString() + binding.edtOtp2.text.toString() + binding.edtOtp3.text.toString() + binding.edtOtp4.text.toString()
                     showBottomSheetDialog {
                         Toast.makeText(
                             this@VerifyActivity,
-                            "Verified",
-                            Toast.LENGTH_SHORT
+                            "Verified ${otpResult.toInt()}",
+                            Toast.LENGTH_LONG
                         ).show()
                     }
                 }
+                setButtonLoading(false)
             }
         }
     }

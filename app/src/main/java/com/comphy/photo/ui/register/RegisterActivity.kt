@@ -7,12 +7,14 @@ import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
 import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityRegisterBinding
+import com.comphy.photo.ui.login.LoginActivity
 import com.comphy.photo.ui.verify.VerifyActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.activities.start
 
-
+@AndroidEntryPoint
 class RegisterActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
@@ -53,9 +55,9 @@ class RegisterActivity : BaseAuthActivity() {
                         .isEmpty() && binding.edtPassword.text.toString().isNotEmpty()
                 ) {
                     binding.txtErrorTitle.text =
-                        resources.getString(R.string.register_password_error_title)
+                        resources.getString(R.string.string_password_error_title)
                     binding.txtErrorDesc.text =
-                        resources.getString(R.string.register_password_error_description)
+                        resources.getString(R.string.string_password_error_description)
                     showError(true)
 
                 } else {
@@ -68,9 +70,9 @@ class RegisterActivity : BaseAuthActivity() {
 
                     } else if (!passwordValidator(binding.edtPassword.text.toString())) {
                         binding.txtErrorTitle.text =
-                            resources.getString(R.string.register_password_error_title)
+                            resources.getString(R.string.string_password_error_title)
                         binding.txtErrorDesc.text =
-                            resources.getString(R.string.register_password_error_description)
+                            resources.getString(R.string.string_password_error_description)
                         showError(true)
 
                     } else {
@@ -82,6 +84,7 @@ class RegisterActivity : BaseAuthActivity() {
             }
         }
 
+        binding.btnLogin.setOnClickListener { start<LoginActivity>() }
         binding.btnDismissError.setOnClickListener { showError(false) }
     }
 

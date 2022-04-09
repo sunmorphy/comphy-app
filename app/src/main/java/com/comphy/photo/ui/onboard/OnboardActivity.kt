@@ -15,14 +15,14 @@ import com.comphy.photo.ui.onboard.viewmodel.OnboardViewModel
 import com.comphy.photo.ui.register.RegisterActivity
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
+import dagger.hilt.android.AndroidEntryPoint
 import splitties.activities.start
 
+@AndroidEntryPoint
 class OnboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardBinding
 
-    private val viewModel by viewModels<OnboardViewModel> {
-        ViewModelProvider.NewInstanceFactory()
-    }
+    private val viewModel by viewModels<OnboardViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
