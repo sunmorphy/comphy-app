@@ -136,7 +136,8 @@ abstract class BaseAuthActivity : AppCompatActivity() {
     }
 
     protected fun passwordValidator(password: String): Boolean {
-        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$"
+//        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$"
+        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z]).{6,}$"
         val pattern = Pattern.compile(passwordPattern)
         val matcher = pattern.matcher(password)
 

@@ -7,10 +7,12 @@ import com.comphy.photo.R
 import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityResetPasswordBinding
 import com.comphy.photo.ui.register.RegisterActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.activities.start
 
+@AndroidEntryPoint
 class ResetPasswordActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityResetPasswordBinding
 

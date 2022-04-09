@@ -3,9 +3,15 @@ package com.comphy.photo.ui.onboard.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.comphy.photo.R
+import com.comphy.photo.data.AuthRepository
 import com.comphy.photo.data.model.OnboardModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OnboardViewModel : ViewModel() {
+@HiltViewModel
+class OnboardViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     val listAssets = MutableLiveData(
         OnboardModel(
