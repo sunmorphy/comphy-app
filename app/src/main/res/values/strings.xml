@@ -3,7 +3,7 @@
     <string name="app_name">Comphy</string>
     <string name="tagline">Show us what you see in your mind</string>
 
-    <string name="example_mail"><b>Thavitaaa13@gmail.com</b></string>
+    <string name="example_mail">Thavitaaa13@gmail.com</string>
 
     <string name="string_hello">Hallo,</string>
     <string name="string_welcome">Selamat Datang!</string>
@@ -19,10 +19,6 @@
     <string name="string_forgot_password">Lupa Password ?</string>
     <string name="string_password_length">5+ Karakter &amp; Angka (0-9)</string>
     <string name="string_verify">Verifikasi</string>
-    <string name="string_back">Kembali</string>
-    <string name="string_save">Simpan</string>
-    <string name="string_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
-    <string name="string_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
 
     <!-- Onboard Strings -->
     <string name="title_onboard_1">Bergabunglah Dengan Komunitas!</string>
@@ -49,26 +45,24 @@
     <string name="register_with_google">Daftar menggunakan google</string>
     <string name="register_email_error_title">Maaf Kamu Gagal membuat akun! Coba Ulangi</string>
     <string name="register_email_error_description">Masukkan Email Kamu dengan Benar</string>
-    <string name="register_success_title">Mohon Cek Email Kamu!</string>
-    <string name="register_success_description">Kami Telah Mengirimkan Kode Verifikasi Ke </string>
+    <string name="register_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
+    <string name="register_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
 
     <!-- Verify Strings -->
     <string name="verify_account">Verifikasi Akun!</string>
-    <string name="verify_send">Kami Telah Mengirimkan kode verifikasi anda melalui </string>
+    <string name="verify_send">Kami Telah Mengirimkan kode verifikasi anda melalui</string>
     <string name="verify_error_title">Masukkan Kode sesuai yang kami berikan!</string>
     <string name="verify_error_description">Cek Email kamu untuk melihat kode yang kami berikan.</string>
-    <string name="verify_resend_1">Tidak Menerima Email?</string>
-    <string name="verify_resend_2">Kirim Ulang</string>
     <string name="verify_success_title">Berhasil Verifikasi Akun</string>
     <string name="verify_success_description">Selamat Telah Berhasil melakukan Verifikasi terhadap akun Kamu</string>
     <string name="verify_to_profile">Lengkapi Profilmu!</string>
 
-    <!-- Reset Password Strings -->
-    <string name="reset_your_password">Reset Password Kamu</string>
-    <string name="reset_password_length">Perkuat Password Kamu dengan Menggunakan Lebih dari 5 Karakter dan angka (0-9).</string>
-    <string name="reset_confirm_error_title">Konfirmasi Password Tidak Sesuai!</string>
-    <string name="reset_confirm_error_description">Pastikan Password baru dan Konfirmasi Password Sesuai</string>
-    <string name="reset_success_title">Berhasil Menyimpan</string>
-    <string name="reset_success_description">Kamu berhasil menyimpan Password baru dan coba lagi untuk mulai masuk.</string>
-
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mohon_cek_email_kamu">Mohon Cek Email Kamu!</string>
+    <string name="dummy_verify">Kami Telah Mengirimkan Kode Verifikasi Ke <b>Thavitaaa13@gmail.com</b></string>
+    <string name="verify">Verifikasi</string>
+    <string name="Kembali">Kembali</string>
+    <string name="lupa_password_kamu">Lupa Password Kamu?</string>
+    <string name="reset_password">Jangan Khawatir, Masukkan Email Kamu dan Tunggu Email dari Kami untuk mendapatkan Link Reset Password.</string>
+    <string name="kirim_email">Kirim Email</string>
 </resources>
