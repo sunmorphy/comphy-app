@@ -22,6 +22,20 @@ interface ApiService {
     ): ApiResponse<Data>
 
     /**
+     * Register
+     */
+    @POST("auth/register")
+    suspend fun userRegister(
+        @Body authBody: AuthBody
+    ): ApiResponse<AuthResponse>
+
+    @POST("auth/register/verify")
+    suspend fun userRegisterVerify(
+        @Query("otp") otp: String,
+        @Query("email") email: String
+    ): ApiResponse<AuthResponse>
+
+    /**
      * Forgot Password
      */
     @POST("auth/forgot-password")
