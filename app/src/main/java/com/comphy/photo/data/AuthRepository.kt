@@ -1,8 +1,9 @@
 package com.comphy.photo.data
 
-import com.comphy.photo.data.model.response.google.GoogleBody
-import com.comphy.photo.data.model.response.login.LoginBody
+import com.comphy.photo.data.model.response.auth.AuthBody
+import com.comphy.photo.data.model.response.auth.AuthResponse
 import com.comphy.photo.data.remote.ApiService
+import com.google.gson.Gson
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
@@ -18,20 +19,121 @@ class AuthRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher,
 ) {
 
-    suspend fun userLogin(email: String, password: String) = flow {
-        val loginBody = LoginBody(email, password)
-        val response = apiService.userLogin(loginBody)
-        response.suspendOnSuccess { emit(this.data) }
-            .onError { Timber.tag("On Error").e(this.message()) }
-            .onException { Timber.tag("On Exception").e(this.message()) }
+    suspend fun userLogin(
+        email: String,
+        password: String,
+        responseStatus: (statusCode: Int) -> Unit,
+        responseMessage: (message: String) -> Unit,
+    ) = flow {
+        val authBody = AuthBody(username = email, password = password)
+        val response = apiService.userLogin(authBody)
+        response.suspendOnSuccess {
+            responseStatus(statusCode.code)
+            emit(data)
+        }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                responseStatus(statusCode.code)
+                responseMessage(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
     }.flowOn(ioDispatcher)
 
-    suspend fun userGoogleLogin(email: String, token: String) = flow {
-        val googleBody = GoogleBody(email, token)
-        val response = apiService.userGoogleLogin(googleBody)
-        response.suspendOnSuccess { emit(this.data) }
-            .onError { Timber.tag("On Error").e(this.message()) }
-            .onException { Timber.tag("On Exception").e(this.message()) }
+    suspend fun userLoginGoogle(
+        email: String,
+        token: String,
+        responseStatus: (statusCode: Int) -> Unit,
+        responseMessage: (message: String) -> Unit,
+    ) = flow {
+        val authBody = AuthBody(username = email, token = token)
+        val response = apiService.userLoginGoogle(authBody)
+        response.suspendOnSuccess {
+            responseStatus(statusCode.code)
+            emit(data)
+        }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                responseStatus(statusCode.code)
+                responseMessage(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun userForgot(
+        email: String,
+        responseStatus: (statusCode: Int) -> Unit,
+        responseMessage: (message: String) -> Unit
+    ) = flow {
+        val response = apiService.userForgot(email)
+        response.suspendOnSuccess {
+            responseStatus(statusCode.code)
+            emit(data)
+        }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                responseStatus(statusCode.code)
+                responseMessage(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun userForgotVerify(
+        otp: String,
+        email: String,
+        responseStatus: (statusCode: Int) -> Unit,
+        responseMessage: (message: String) -> Unit
+    ) = flow {
+        val response = apiService.userForgotVerify(otp, email)
+        response.suspendOnSuccess {
+            responseStatus(statusCode.code)
+            emit(data)
+        }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                responseStatus(statusCode.code)
+                responseMessage(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun userForgotReset(
+        otp: String,
+        newPassword: String,
+        email: String,
+        responseStatus: (statusCode: Int) -> Unit,
+        responseMessage: (message: String) -> Unit
+    ) = flow {
+        val response = apiService.userForgotReset(otp, newPassword, email)
+        response.suspendOnSuccess {
+            responseStatus(statusCode.code)
+            emit(data)
+        }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                responseStatus(statusCode.code)
+                responseMessage(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
     }.flowOn(ioDispatcher)
 
 }

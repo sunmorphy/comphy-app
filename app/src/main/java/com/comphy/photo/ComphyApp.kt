@@ -12,6 +12,17 @@ import timber.log.Timber
 
 @HiltAndroidApp
 class ComphyApp : Application() {
+
+    companion object {
+        init {
+            System.loadLibrary("native-lib")
+        }
+    }
+
+    external fun baseUrl(): String
+
+    external fun clientId(): String
+
     override fun onCreate() {
         super.onCreate()
         setupTimber()

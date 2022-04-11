@@ -1,11 +1,10 @@
-package com.comphy.photo.data.model.response.register
-
+package com.comphy.photo.data.model.response.auth
 
 import com.google.gson.annotations.SerializedName
 
-data class RegisterResponse(
+data class AuthResponse(
     @SerializedName("data")
-    val `data`: Any,
+    val responseData: Data?,
     @SerializedName("message")
     val message: String,
     @SerializedName("Status")
