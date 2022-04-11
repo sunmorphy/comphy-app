@@ -67,6 +67,31 @@ class AuthRepository @Inject constructor(
             }
     }.flowOn(ioDispatcher)
 
+    suspend fun userRegister(
+        email: String,
+        password: String,
+        token: String,
+        responseStatus: (statusCode: Int) -> Unit,
+        responseMessage: (message: String) -> Unit
+    ) = flow {
+        val authBody = AuthBody(username = email, password = password, token = token)
+        val response = apiService.userRegister(authBody)
+        response.suspendOnSuccess {
+            responseStatus(statusCode.code)
+            emit(data)
+        }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                responseStatus(statusCode.code)
+                responseMessage(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
     suspend fun userForgot(
         email: String,
         responseStatus: (statusCode: Int) -> Unit,
@@ -135,5 +160,26 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
-
+    suspend fun userRegisterVerify(
+        otp: String,
+        email: String,
+        responseStatus: (statusCode: Int) -> Unit,
+        responseMessage: (message: String) -> Unit
+    ) = flow {
+        val response = apiService.userRegisterVerify(otp, email)
+        response.suspendOnSuccess {
+            responseStatus(statusCode.code)
+            emit(data)
+        }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                responseStatus(statusCode.code)
+                responseMessage(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
 }
