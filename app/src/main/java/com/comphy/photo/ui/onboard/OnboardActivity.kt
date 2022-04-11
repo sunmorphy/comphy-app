@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.comphy.photo.R
+import com.comphy.photo.data.local.auth.AuthSharedPref
 import com.comphy.photo.databinding.ActivityOnboardBinding
 import com.comphy.photo.ui.login.LoginActivity
 import com.comphy.photo.ui.onboard.adapter.OnboardPagerAdapter
@@ -21,15 +21,18 @@ import splitties.activities.start
 @AndroidEntryPoint
 class OnboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardBinding
-
     private val viewModel by viewModels<OnboardViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (AuthSharedPref.isLogin) {
+            // TODO INTENT TO HOME
+//            start<HomeActivity>()
+//            finish()
+        }
         super.onCreate(savedInstanceState)
 
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
 
         viewModel.listAssets.observe(this) {
             setupViewPager(it.image, it.title, it.desc)

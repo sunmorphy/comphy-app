@@ -1,5 +1,7 @@
 package com.comphy.photo.di
 
+import android.app.Application
+import com.comphy.photo.ComphyApp
 import com.comphy.photo.data.remote.ApiClient
 import com.comphy.photo.data.remote.ApiService
 import dagger.Module
@@ -14,13 +16,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(): ApiService {
-        return ApiClient.instance
+    fun provideApiService(application: Application): ApiService {
+        return ApiClient.instance((application as ComphyApp).baseUrl())
     }
-
-//    @Provides
-//    @Singleton
-//    fun provideNetworkStateManager(application: Application): NetworkStateManager {
-//        return NetworkStateManagerImpl(application)
-//    }
 }
