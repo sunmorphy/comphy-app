@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.forgot
+package com.comphy.photo.ui.auth.forgot
 
 import com.comphy.photo.base.BaseAuthViewModel
 import com.comphy.photo.data.AuthRepository

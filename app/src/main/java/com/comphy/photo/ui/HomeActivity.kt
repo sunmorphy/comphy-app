@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.comphy.photo.data.local.auth.AuthSharedPref
 import com.comphy.photo.databinding.ActivityHomeBinding
-import com.comphy.photo.ui.login.LoginActivity
+import com.comphy.photo.ui.auth.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import splitties.activities.start
 

@@ -5,13 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_background"
-    tools:context=".ui.verify.VerifyActivity">
-
-    <!--    android:fillViewport="true"-->
-    <!--    <carbon.widget.ConstraintLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@drawable/img_background">-->
+    tools:context=".ui.auth.verify.VerifyActivity">
 
     <TextView
         android:id="@+id/txtHello"
@@ -286,6 +280,7 @@
                 android:layout_marginTop="44dp"
                 android:backgroundTint="@color/primary_orange"
                 android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
                 android:paddingVertical="12dp"
                 android:stateListAnimator="@null"
                 android:text="@string/string_verify"
@@ -341,7 +336,5 @@
         </carbon.widget.ConstraintLayout>
 
     </carbon.widget.ConstraintLayout>
-
-    <!--    </carbon.widget.ConstraintLayout>-->
 
 </carbon.widget.ConstraintLayout>

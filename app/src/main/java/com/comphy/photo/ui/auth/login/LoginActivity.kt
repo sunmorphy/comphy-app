@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.login
+package com.comphy.photo.ui.auth.login
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -7,8 +7,8 @@ import com.comphy.photo.R
 import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityLoginBinding
 import com.comphy.photo.ui.HomeActivity
-import com.comphy.photo.ui.forgot.ForgotPasswordActivity
-import com.comphy.photo.ui.register.RegisterActivity
+import com.comphy.photo.ui.auth.forgot.ForgotPasswordActivity
+import com.comphy.photo.ui.auth.register.RegisterActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,9 +30,9 @@ class LoginActivity : BaseAuthActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
+
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         inputWidgets = listOf(binding.edtEmail, binding.edtPassword)
@@ -41,7 +41,9 @@ class LoginActivity : BaseAuthActivity() {
         loadingImage = binding.imgLoadingBtn
         errorLayout = binding.errorLayout
         mainButtonText = R.string.string_login
+    }
 
+    override fun setupClickListener() {
         binding.btnLogin.setOnClickListener {
             setFieldError(false)
             lifecycleScope.launch {

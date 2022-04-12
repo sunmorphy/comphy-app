@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.login
+package com.comphy.photo.ui.auth.login
 
 import com.comphy.photo.base.BaseAuthViewModel
 import com.comphy.photo.data.AuthRepository

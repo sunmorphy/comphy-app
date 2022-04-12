@@ -1,13 +1,19 @@
-package com.comphy.photo.ui.register
+package com.comphy.photo.ui.auth.register
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
 import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityRegisterBinding
-import com.comphy.photo.ui.login.LoginActivity
-import com.comphy.photo.ui.verify.VerifyActivity
+import com.comphy.photo.ui.auth.login.LoginActivity
+import com.comphy.photo.ui.auth.verify.VerifyActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -17,11 +23,13 @@ import splitties.activities.start
 class RegisterActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var email: String
+    private lateinit var password: String
     private val viewModel: RegisterViewModel by viewModels()
 
     private val googleRegister =
         googleAuth { account ->
             email = account.email!!
+            password = account.idToken!!
             lifecycleScope.launch {
                 viewModel.userRegisterGoogle(
                     account.email!!,
@@ -31,9 +39,9 @@ class RegisterActivity : BaseAuthActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         binding = ActivityRegisterBinding.inflate(layoutInflater)
+
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         inputWidgets = listOf(binding.edtEmail, binding.edtPassword)
@@ -48,15 +56,15 @@ class RegisterActivity : BaseAuthActivity() {
             txtSheetTitle.text = resources.getString(R.string.register_success_title)
             btnSheetAction.text = resources.getString(R.string.string_verify)
         }
+    }
 
+    override fun setupClickListener() {
         binding.btnRegister.setOnClickListener {
             setFieldError(false)
             email = binding.edtEmail.text.toString()
+            password = binding.edtPassword.text.toString()
             lifecycleScope.launch {
-                viewModel.userRegister(
-                    email,
-                    binding.edtPassword.text.toString()
-                )
+                viewModel.userRegister(email, password)
             }
         }
 
@@ -85,11 +93,32 @@ class RegisterActivity : BaseAuthActivity() {
             setFieldError(true)
         }
         viewModel.authResponse.observe(this) {
-            bottomSheetBinding.txtSheetDesc.text = it
+            val spanMessage = SpannableString(it)
+            spanMessage.apply {
+                setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    41,
+                    it.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            this@RegisterActivity,
+                            R.color.neutral_black
+                        )
+                    ),
+                    41,
+                    it.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+            bottomSheetBinding.txtSheetDesc.text = spanMessage
             showBottomSheetDialog {
                 start<VerifyActivity> {
                     putExtra("extra_source", "register")
                     putExtra("extra_email", email)
+                    putExtra("extra_password", password)
                 }
             }
         }

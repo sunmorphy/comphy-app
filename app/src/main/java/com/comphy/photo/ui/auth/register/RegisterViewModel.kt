@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.reset
+package com.comphy.photo.ui.auth.register
 
 import com.comphy.photo.base.BaseAuthViewModel
 import com.comphy.photo.data.AuthRepository
@@ -8,15 +8,14 @@ import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 @HiltViewModel
-class ResetPasswordViewModel @Inject constructor(
+class RegisterViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : BaseAuthViewModel() {
 
-    suspend fun userForgotReset(otp: String, newPassword: String, email: String) {
-        authRepository.userForgotReset(
-            otp,
-            newPassword,
+    suspend fun userRegister(email: String, password: String) {
+        authRepository.userRegister(
             email,
+            password,
             onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
@@ -24,4 +23,14 @@ class ResetPasswordViewModel @Inject constructor(
             .collect { authResponse.postValue(it.message) }
     }
 
+    suspend fun userRegisterGoogle(email: String, token: String) {
+        authRepository.userRegisterGoogle(
+            email,
+            token,
+            onError = { message.postValue(it.message) }
+        )
+            .onStart { isLoading.postValue(true) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { authResponse.postValue(it.message) }
+    }
 }

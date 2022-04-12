@@ -1,13 +1,19 @@
-package com.comphy.photo.ui.forgot
+package com.comphy.photo.ui.auth.forgot
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
 import com.comphy.photo.base.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityForgotPasswordBinding
-import com.comphy.photo.ui.register.RegisterActivity
-import com.comphy.photo.ui.verify.VerifyActivity
+import com.comphy.photo.ui.auth.register.RegisterActivity
+import com.comphy.photo.ui.auth.verify.VerifyActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
@@ -18,9 +24,9 @@ class ForgotPasswordActivity : BaseAuthActivity() {
     private val viewModel: ForgotPasswordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
+
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         inputWidgets = listOf(binding.edtEmail)
@@ -35,7 +41,9 @@ class ForgotPasswordActivity : BaseAuthActivity() {
             txtSheetTitle.text = resources.getString(R.string.register_success_title)
             btnSheetAction.text = resources.getString(R.string.string_verify)
         }
+    }
 
+    override fun setupClickListener() {
         binding.btnSendEmail.setOnClickListener {
             setFieldError(false)
             lifecycleScope.launch { viewModel.userForgot(binding.edtEmail.text.toString()) }
@@ -55,7 +63,27 @@ class ForgotPasswordActivity : BaseAuthActivity() {
             setFieldError(true)
         }
         viewModel.authResponse.observe(this) {
-            bottomSheetBinding.txtSheetDesc.text = it
+            val spanMessage = SpannableString(it)
+            spanMessage.apply {
+                setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    41,
+                    it.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            this@ForgotPasswordActivity,
+                            R.color.neutral_black
+                        )
+                    ),
+                    41,
+                    it.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+            bottomSheetBinding.txtSheetDesc.text = spanMessage
             showBottomSheetDialog {
                 start<VerifyActivity> {
                     putExtra("extra_source", "forgot")

@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.onboard.adapter
+package com.comphy.photo.ui.onboard
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,12 +11,12 @@ class OnboardPagerAdapter(private val listImages: List<Int>) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): OnboardPagerAdapter.ViewHolder {
+    ): ViewHolder {
         val view = ItemPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: OnboardPagerAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val image = listImages[position]
 
         Glide.with(holder.itemView)

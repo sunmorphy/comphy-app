@@ -10,10 +10,8 @@ import com.comphy.photo.R
 import com.comphy.photo.data.local.auth.AuthSharedPref
 import com.comphy.photo.databinding.ActivityOnboardBinding
 import com.comphy.photo.ui.HomeActivity
-import com.comphy.photo.ui.login.LoginActivity
-import com.comphy.photo.ui.onboard.adapter.OnboardPagerAdapter
-import com.comphy.photo.ui.onboard.viewmodel.OnboardViewModel
-import com.comphy.photo.ui.register.RegisterActivity
+import com.comphy.photo.ui.auth.login.LoginActivity
+import com.comphy.photo.ui.auth.register.RegisterActivity
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import dagger.hilt.android.AndroidEntryPoint
