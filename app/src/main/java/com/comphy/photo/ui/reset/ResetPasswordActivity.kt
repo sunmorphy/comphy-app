@@ -50,20 +50,18 @@ class ResetPasswordActivity : BaseAuthActivity() {
         binding.btnSave.setOnClickListener {
             setFieldError(false)
             lifecycleScope.launch {
-                if (passwordValidator(binding.edtPassword.text.toString())) {
-                    if (binding.edtConfirmPassword.text.toString() == binding.edtPassword.text.toString()) {
-                        viewModel.userForgotReset(
-                            otpExtra,
-                            binding.edtPassword.text.toString(),
-                            emailExtra
-                        )
-                    } else {
-                        binding.txtErrorTitle.text =
-                            resources.getString(R.string.reset_confirm_error_title)
-                        binding.txtErrorDesc.text =
-                            resources.getString(R.string.reset_confirm_error_description)
-                        setFieldError(true)
-                    }
+                if (binding.edtConfirmPassword.text.toString() == binding.edtPassword.text.toString()) {
+                    viewModel.userForgotReset(
+                        otpExtra,
+                        binding.edtPassword.text.toString(),
+                        emailExtra
+                    )
+                } else {
+                    binding.txtErrorTitle.text =
+                        resources.getString(R.string.reset_confirm_error_title)
+                    binding.txtErrorDesc.text =
+                        resources.getString(R.string.reset_confirm_error_description)
+                    setFieldError(true)
                 }
             }
         }

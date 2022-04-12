@@ -80,6 +80,7 @@ class VerifyActivity : BaseAuthActivity() {
         bottomSheetBinding.apply {
             animView.setAnimation(R.raw.anim_success)
             txtSheetTitle.text = resources.getString(R.string.verify_success_title)
+            txtSheetDesc.text = resources.getString(R.string.verify_success_description)
             when (sourceExtra) {
                 EXTRA_REGISTER -> {
                     btnSheetAction.text = resources.getString(R.string.verify_to_profile)
