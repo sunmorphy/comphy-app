@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.comphy.photo">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,40 +17,56 @@
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false"
-            android:theme="@style/Theme.White.Comphy" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.auth.forgot.ForgotPasswordActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Orange.Comphy"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.auth.reset.ResetPasswordActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Orange.Comphy"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.auth.verify.VerifyActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Orange.Comphy"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.auth.register.RegisterActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Orange.Comphy"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.auth.login.LoginActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Orange.Comphy"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.onboard.OnboardActivity"
             android:exported="false"
-            android:theme="@style/Theme.White.Comphy" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.Orange.Comphy">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Orange.Comphy"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
