@@ -12,24 +12,25 @@ class RegisterViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : BaseAuthViewModel() {
 
-    suspend fun userRegister(
-        email: String,
-        password: String,
-        token: String,
-        onComplete: () -> Unit
-    ) {
+    suspend fun userRegister(email: String, password: String) {
         authRepository.userRegister(
             email,
             password,
-            token,
-            responseStatus = { statusCode.postValue(it) },
-            responseMessage = { message.postValue(it) }
+            onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
-            .onCompletion {
-                isLoading.postValue(false)
-                onComplete()
-            }
-            .collect { message.postValue(it.message) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { authResponse.postValue(it.message) }
+    }
+
+    suspend fun userRegisterGoogle(email: String, token: String) {
+        authRepository.userRegisterGoogle(
+            email,
+            token,
+            onError = { message.postValue(it.message) }
+        )
+            .onStart { isLoading.postValue(true) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { authResponse.postValue(it.message) }
     }
 }

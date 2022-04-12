@@ -15,7 +15,6 @@ import splitties.activities.start
 @AndroidEntryPoint
 class ForgotPasswordActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
-    private var statusCode: Int = 0
     private val viewModel: ForgotPasswordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,21 +38,7 @@ class ForgotPasswordActivity : BaseAuthActivity() {
 
         binding.btnSendEmail.setOnClickListener {
             setFieldError(false)
-            lifecycleScope.launch {
-                val email = binding.edtEmail.text.toString()
-                viewModel.userForgot(email) {
-                    if (statusCode == 200) {
-                        showBottomSheetDialog {
-                            start<VerifyActivity> {
-                                putExtra("extra_source", "forgot")
-                                putExtra("extra_email", email)
-                            }
-                        }
-                    } else {
-                        setFieldError(true)
-                    }
-                }
-            }
+            lifecycleScope.launch { viewModel.userForgot(binding.edtEmail.text.toString()) }
         }
 
         binding.btnBack.setOnClickListener { onBackPressed() }
@@ -63,14 +48,19 @@ class ForgotPasswordActivity : BaseAuthActivity() {
 
     override fun setupObserver() {
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
-        viewModel.statusCode.observe(this) { statusCode = it }
         viewModel.message.observe(this) {
-            if (statusCode == 200) {
-                bottomSheetBinding.txtSheetDesc.text = it
-            } else {
-                val errMessage = it.split("\n")
-                binding.txtErrorTitle.text = errMessage[0]
-                binding.txtErrorDesc.text = errMessage[1]
+            val errMessage = it.split("\n")
+            binding.txtErrorTitle.text = errMessage[0]
+            binding.txtErrorDesc.text = errMessage[1]
+            setFieldError(true)
+        }
+        viewModel.authResponse.observe(this) {
+            bottomSheetBinding.txtSheetDesc.text = it
+            showBottomSheetDialog {
+                start<VerifyActivity> {
+                    putExtra("extra_source", "forgot")
+                    putExtra("extra_email", binding.edtEmail.text.toString())
+                }
             }
         }
     }

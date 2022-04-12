@@ -12,22 +12,16 @@ class ResetPasswordViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : BaseAuthViewModel() {
 
-    suspend fun userForgotReset(
-        otp: String,
-        newPassword: String,
-        email: String,
-        onComplete: () -> Unit
-    ) {
-        authRepository.userForgotReset(otp, newPassword, email,
-            responseStatus = { statusCode.postValue(it) },
-            responseMessage = { message.postValue(it) }
+    suspend fun userForgotReset(otp: String, newPassword: String, email: String) {
+        authRepository.userForgotReset(
+            otp,
+            newPassword,
+            email,
+            onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
-            .onCompletion {
-                isLoading.postValue(false)
-                onComplete()
-            }
-            .collect { message.postValue(it.message) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { authResponse.postValue(it.message) }
     }
 
 }

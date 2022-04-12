@@ -12,17 +12,13 @@ class ForgotPasswordViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : BaseAuthViewModel() {
 
-    suspend fun userForgot(email: String, onComplete: () -> Unit) {
-        authRepository.userForgot(email,
-            responseStatus = { statusCode.postValue(it) },
-            responseMessage = { message.postValue(it) }
+    suspend fun userForgot(email: String) {
+        authRepository.userForgot(
+            email,
+            onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
-            .onCompletion {
-                isLoading.postValue(false)
-                onComplete()
-            }
-            .collect { message.postValue(it.message) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { authResponse.postValue(it.message) }
     }
-
 }

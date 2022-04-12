@@ -33,7 +33,7 @@ class VerifyActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityVerifyBinding
     private lateinit var sourceExtra: String
     private lateinit var emailExtra: String
-    private var statusCode: Int = 0
+    private lateinit var otpResult: String
     private val viewModel: VerifyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +80,6 @@ class VerifyActivity : BaseAuthActivity() {
         bottomSheetBinding.apply {
             animView.setAnimation(R.raw.anim_success)
             txtSheetTitle.text = resources.getString(R.string.verify_success_title)
-            txtSheetDesc.text = resources.getString(R.string.verify_success_description)
             when (sourceExtra) {
                 EXTRA_REGISTER -> {
                     btnSheetAction.text = resources.getString(R.string.verify_to_profile)
@@ -93,37 +92,13 @@ class VerifyActivity : BaseAuthActivity() {
 
         binding.btnVerify.setOnClickListener {
             setFieldError(false)
+            otpResult =
+                binding.edtOtp1.text.toString() + binding.edtOtp2.text.toString() + binding.edtOtp3.text.toString() + binding.edtOtp4.text.toString()
             lifecycleScope.launch {
-                val otpResult =
-                    binding.edtOtp1.text.toString() + binding.edtOtp2.text.toString() + binding.edtOtp3.text.toString() + binding.edtOtp4.text.toString()
 
                 when (sourceExtra) {
-                    EXTRA_REGISTER -> {
-                        // TODO VERIFY REGISTER CODE
-//                        viewModel.userRegisterVerify(otpResult, emailExtra) {
-//                            if (statusCode == 200) {
-//                                showBottomSheetDialog {
-//                                    start<LoginActivity>()
-//                                }
-//                            } else {
-//                                setFieldError(true)
-//                            }
-//                        }
-                    }
-                    EXTRA_FORGOT -> {
-                        viewModel.userForgotVerify(otpResult, emailExtra) {
-                            if (statusCode == 200) {
-                                showBottomSheetDialog {
-                                    start<ResetPasswordActivity> {
-                                        putExtra("extra_email", emailExtra)
-                                        putExtra("extra_otp", otpResult)
-                                    }
-                                }
-                            } else {
-                                setFieldError(true)
-                            }
-                        }
-                    }
+                    EXTRA_REGISTER -> viewModel.userRegisterVerify(otpResult, emailExtra)
+                    EXTRA_FORGOT -> viewModel.userForgotVerify(otpResult, emailExtra)
                 }
             }
         }
@@ -141,12 +116,21 @@ class VerifyActivity : BaseAuthActivity() {
 
     override fun setupObserver() {
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
-        viewModel.statusCode.observe(this) { statusCode = it }
         viewModel.message.observe(this) {
-            if (statusCode != 200) {
-                val errMessage = it.split("\n")
-                binding.txtErrorTitle.text = errMessage[0]
-                binding.txtErrorDesc.text = errMessage[1]
+            val errMessage = it.split("\n")
+            binding.txtErrorTitle.text = errMessage[0]
+            binding.txtErrorDesc.text = errMessage[1]
+            setFieldError(true)
+        }
+        viewModel.authResponse.observe(this) {
+            when (sourceExtra) {
+                EXTRA_REGISTER -> showBottomSheetDialog { start<LoginActivity>() }
+                EXTRA_FORGOT -> showBottomSheetDialog {
+                    start<ResetPasswordActivity> {
+                        putExtra("extra_email", emailExtra)
+                        putExtra("extra_otp", otpResult)
+                    }
+                }
             }
         }
     }

@@ -17,25 +17,15 @@ import splitties.activities.start
 @AndroidEntryPoint
 class LoginActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private var statusCode = 0
     private val viewModel: LoginViewModel by viewModels()
 
     private val googleLogin =
         googleAuth { account ->
-            println(account.serverAuthCode)
             lifecycleScope.launch {
                 viewModel.userLoginGoogle(
                     account.email!!,
                     account.idToken!!
-                ) {
-                    viewModel.statusCode.observe(this@LoginActivity) { code ->
-                        if (code == 200) {
-                            start<HomeActivity>()
-                        } else {
-                            setGoogleError(true)
-                        }
-                    }
-                }
+                )
             }
         }
 
@@ -58,36 +48,30 @@ class LoginActivity : BaseAuthActivity() {
                 viewModel.userLogin(
                     binding.edtEmail.text.toString(),
                     binding.edtPassword.text.toString()
-                ) {
-                    if (statusCode == 200) {
-                        // TODO INTENT TO HOME
-                    } else {
-                        setFieldError(true)
-                    }
-                }
+                )
             }
         }
 
-        binding.btnRegister.setOnClickListener { start<RegisterActivity>() }
-        binding.btnDismissError.setOnClickListener { showError(false) }
-        binding.btnForgotPassword.setOnClickListener { start<ForgotPasswordActivity>() }
         binding.btnGoogleLogin.setOnClickListener {
             setGoogleError(false)
             googleLogin.launch(
                 GoogleSignIn.getClient(this, gso).signInIntent
             )
         }
+
+        binding.btnRegister.setOnClickListener { start<RegisterActivity>() }
+        binding.btnDismissError.setOnClickListener { showError(false) }
+        binding.btnForgotPassword.setOnClickListener { start<ForgotPasswordActivity>() }
     }
 
     override fun setupObserver() {
-        viewModel.statusCode.observe(this) { statusCode = it }
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
         viewModel.message.observe(this) {
-            if (statusCode != 200) {
-                val errMessage = it.split("\n")
-                binding.txtErrorTitle.text = errMessage[0]
-                binding.txtErrorDesc.text = errMessage[1]
-            }
+            val errMessage = it.split("\n")
+            binding.txtErrorTitle.text = errMessage[0]
+            binding.txtErrorDesc.text = errMessage[1]
+            setFieldError(true)
         }
+        viewModel.authResponse.observe(this) { start<HomeActivity>() }
     }
 }

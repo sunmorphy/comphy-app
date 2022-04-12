@@ -56,13 +56,7 @@ class ResetPasswordActivity : BaseAuthActivity() {
                             otpExtra,
                             binding.edtPassword.text.toString(),
                             emailExtra
-                        ) {
-                            if (statusCode == 200) {
-                                showBottomSheetDialog { start<LoginActivity>() }
-                            } else {
-                                setFieldError(true)
-                            }
-                        }
+                        )
                     } else {
                         binding.txtErrorTitle.text =
                             resources.getString(R.string.reset_confirm_error_title)
@@ -81,15 +75,15 @@ class ResetPasswordActivity : BaseAuthActivity() {
 
     override fun setupObserver() {
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
-        viewModel.statusCode.observe(this) { statusCode = it }
         viewModel.message.observe(this) {
-            if (statusCode == 200) {
-                bottomSheetBinding.txtSheetDesc.text = it
-            } else {
-                val errMessage = it.split("\n")
-                binding.txtErrorTitle.text = errMessage[0]
-                binding.txtErrorDesc.text = errMessage[1]
-            }
+            val errMessage = it.split("\n")
+            binding.txtErrorTitle.text = errMessage[0]
+            binding.txtErrorDesc.text = errMessage[1]
+            setFieldError(true)
+        }
+        viewModel.authResponse.observe(this) {
+            bottomSheetBinding.txtSheetDesc.text = it
+            showBottomSheetDialog { start<LoginActivity>() }
         }
     }
 }

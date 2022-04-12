@@ -12,30 +12,26 @@ class VerifyViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : BaseAuthViewModel() {
 
-    suspend fun userRegisterVerify(otp: String, email: String, onComplete: () -> Unit) {
-        authRepository.userForgotVerify(otp, email,
-            responseStatus = { statusCode.postValue(it) },
-            responseMessage = { message.postValue(it) }
+    suspend fun userRegisterVerify(otp: String, email: String) {
+        authRepository.userRegisterVerify(
+            otp,
+            email,
+            onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
-            .onCompletion {
-                isLoading.postValue(false)
-                onComplete()
-            }
-            .collect { message.postValue(it.message) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { authResponse.postValue(it.message) }
     }
-    
-    suspend fun userForgotVerify(otp: String, email: String, onComplete: () -> Unit) {
-        authRepository.userForgotVerify(otp, email,
-            responseStatus = { statusCode.postValue(it) },
-            responseMessage = { message.postValue(it) }
+
+    suspend fun userForgotVerify(otp: String, email: String) {
+        authRepository.userForgotVerify(
+            otp,
+            email,
+            onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
-            .onCompletion {
-                isLoading.postValue(false)
-                onComplete()
-            }
-            .collect { message.postValue(it.message) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { authResponse.postValue(it.message) }
     }
 
 }
