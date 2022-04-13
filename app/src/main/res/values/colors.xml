@@ -20,5 +20,6 @@
     <color name="neutral_black_30">#4D2C2C2C</color>
     <color name="neutral_black_20">#332C2C2C</color>
     <color name="neutral_black_50">#802C2C2C</color>
+    <color name="black_40">#65000000</color>
 
 </resources>

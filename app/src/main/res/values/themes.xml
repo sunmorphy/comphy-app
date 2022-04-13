@@ -15,7 +15,7 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
-    <style name="Theme.Onboard.Comphy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.White.Comphy" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_orange</item>
         <item name="colorPrimaryVariant">@color/primary_background</item>

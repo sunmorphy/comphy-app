@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.login
+package com.comphy.photo.ui.auth.login
 
 import com.comphy.photo.base.BaseAuthViewModel
 import com.comphy.photo.data.AuthRepository
@@ -13,38 +13,32 @@ class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : BaseAuthViewModel() {
 
-    suspend fun userLogin(email: String, password: String, onComplete: () -> Unit) {
+    suspend fun userLogin(email: String, password: String) {
         authRepository.userLogin(
             email,
             password,
-            responseStatus = { statusCode.postValue(it) },
-            responseMessage = { message.postValue(it) }
+            onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
-            .onCompletion {
-                isLoading.postValue(false)
-                onComplete()
-            }
+            .onCompletion { isLoading.postValue(false) }
             .collect {
+                authResponse.postValue(it.toString())
                 AuthSharedPref.accessToken = it.accessToken
                 AuthSharedPref.refreshToken = it.refreshToken
                 AuthSharedPref.isLogin = true
             }
     }
 
-    suspend fun userLoginGoogle(email: String, token: String, onComplete: () -> Unit) {
+    suspend fun userLoginGoogle(email: String, token: String) {
         authRepository.userLoginGoogle(
             email,
             token,
-            responseStatus = { statusCode.postValue(it) },
-            responseMessage = { message.postValue(it) }
+            onError = { message.postValue(it.message) }
         )
             .onStart { isLoading.postValue(true) }
-            .onCompletion {
-                isLoading.postValue(false)
-                onComplete()
-            }
+            .onCompletion { isLoading.postValue(false) }
             .collect {
+                authResponse.postValue(it.toString())
                 AuthSharedPref.accessToken = it.accessToken
                 AuthSharedPref.refreshToken = it.refreshToken
                 AuthSharedPref.isLogin = true

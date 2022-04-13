@@ -3,7 +3,6 @@ package com.comphy.photo.base
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Patterns
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -24,10 +23,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import timber.log.Timber
-import java.util.regex.Pattern
 import kotlin.properties.Delegates
 
 abstract class BaseAuthActivity : AppCompatActivity() {
+    private lateinit var bottomSheetDialog: BottomSheetDialog
     protected lateinit var bottomSheetBinding: BottomSheetBinding
     protected lateinit var gso: GoogleSignInOptions
     protected lateinit var inputWidgets: List<EditText>
@@ -40,12 +39,16 @@ abstract class BaseAuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bottomSheetBinding = BottomSheetBinding.inflate(layoutInflater, null, false)
+        bottomSheetBinding = BottomSheetBinding.inflate(layoutInflater)
+        bottomSheetDialog = BottomSheetDialog(this, R.style.CustomBottomSheetTheme)
+
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken((application as ComphyApp).clientId())
             .requestEmail()
             .build()
+
         setupObserver()
+        setupClickListener()
     }
 
     protected fun googleAuth(onSuccess: (account: GoogleSignInAccount) -> Unit): ActivityResultLauncher<Intent> {
@@ -54,24 +57,17 @@ abstract class BaseAuthActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (task.isSuccessful) {
-                    Timber.tag("TASK IS SUCCESS").i(account.serverAuthCode)
+                    Timber.tag("Task Is Successful").i(account.account.toString())
                     onSuccess(account)
                 } else {
-                    Timber.tag("Task Is Failed").e(account.id.toString())
+                    Timber.tag("Task Is Failed").e(account.account.toString())
+                    setGoogleError(true)
                 }
             } catch (e: ApiException) {
                 Timber.tag("Google Api Exception").e(e)
+                setGoogleError(true)
             }
         }
-    }
-
-    protected fun fieldIsEmpty(): Boolean {
-        inputWidgets.forEach { edt ->
-            if (edt.text.isEmpty()) {
-                return true
-            }
-        }
-        return false
     }
 
     protected fun setButtonLoading(state: Boolean) {
@@ -99,26 +95,12 @@ abstract class BaseAuthActivity : AppCompatActivity() {
         }
     }
 
-    protected fun setFieldError(state: Boolean, eachField: Boolean? = false) {
+    protected fun setFieldError(state: Boolean) {
         if (state) {
-            if (eachField == true) {
-                inputWidgets.forEach {
-                    if (it.text.isEmpty()) {
-                        it.background =
-                            ContextCompat.getDrawable(this, R.drawable.widget_error)
-                        showError(true)
-                    } else {
-                        it.background =
-                            ContextCompat.getDrawable(this, R.drawable.state_field)
-                        showError(false)
-                    }
-                }
-            } else {
-                inputWidgets.forEach {
-                    it.background =
-                        ContextCompat.getDrawable(this, R.drawable.widget_error)
-                    showError(true)
-                }
+            inputWidgets.forEach {
+                it.background =
+                    ContextCompat.getDrawable(this, R.drawable.widget_error)
+                showError(true)
             }
         } else {
             inputWidgets.forEach {
@@ -152,8 +134,8 @@ abstract class BaseAuthActivity : AppCompatActivity() {
         }
     }
 
-    protected fun showBottomSheetDialog(onFinish: () -> Unit) {
-        val bottomSheetDialog = BottomSheetDialog(this, R.style.CustomBottomSheetTheme)
+    protected fun showBottomSheetDialog(onFinishTask: () -> Unit) {
+        var isDismissed = true
         val nextScreenTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val nextScreen = "Selanjutnya (${millisUntilFinished / 1000}s)"
@@ -162,45 +144,59 @@ abstract class BaseAuthActivity : AppCompatActivity() {
                 actionWidgets[actionWidgets.size - 1].apply {
                     text = nextScreen
                     isEnabled = true
-                    setOnClickListener { onFinish() }
+                    setOnClickListener {
+                        cancel()
+                        onFinish()
+                    }
                 }
             }
 
             override fun onFinish() {
-                onFinish()
+                actionWidgets[actionWidgets.size - 1].apply {
+                    text = resources.getString(mainButtonText)
+                    setBackgroundColor(
+                        ContextCompat.getColor(
+                            this@BaseAuthActivity,
+                            R.color.primary_orange
+                        )
+                    )
+                }
+                onFinishTask()
             }
         }
 
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
         bottomSheetDialog.show()
         bottomSheetDialog.setOnDismissListener {
-            inputWidgets.forEach {
-                it.background =
-                    ContextCompat.getDrawable(this, R.drawable.widget_focused)
-            }
-            actionWidgets[actionWidgets.size - 1].setBackgroundColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.primary_green
+            if (isDismissed) {
+                inputWidgets.forEach {
+                    it.background =
+                        ContextCompat.getDrawable(this, R.drawable.widget_focused)
+                }
+                actionWidgets[actionWidgets.size - 1].setBackgroundColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.primary_green
+                    )
                 )
-            )
-            nextScreenTimer.start()
+                nextScreenTimer.start()
+            } else {
+                onFinishTask()
+            }
         }
-        bottomSheetBinding.btnSheetAction.setOnClickListener { onFinish() }
+
+        bottomSheetBinding.btnSheetAction.setOnClickListener {
+            isDismissed = false
+            bottomSheetDialog.dismiss()
+        }
     }
 
-    protected fun emailValidator(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email)
-            .matches()
-    }
-
-    protected fun passwordValidator(password: String): Boolean {
-        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z]).{6,}$"
-        val pattern = Pattern.compile(passwordPattern)
-        val matcher = pattern.matcher(password)
-
-        return matcher.matches()
-    }
+    protected abstract fun setupClickListener()
 
     protected abstract fun setupObserver()
+
+    override fun onResume() {
+        super.onResume()
+        setupClickListener()
+    }
 }

@@ -29,7 +29,12 @@ interface ApiService {
         @Body authBody: AuthBody
     ): ApiResponse<AuthResponse>
 
-    @POST("auth/register/verify")
+    @POST("auth/register")
+    suspend fun userRegisterGoogle(
+        @Body authBody: AuthBody
+    ): ApiResponse<AuthResponse>
+
+    @PUT("auth/register/verify-otp")
     suspend fun userRegisterVerify(
         @Query("otp") otp: String,
         @Query("email") email: String

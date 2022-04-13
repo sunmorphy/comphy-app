@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.onboard.viewmodel
+package com.comphy.photo.ui.onboard
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

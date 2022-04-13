@@ -22,20 +22,15 @@ class AuthRepository @Inject constructor(
     suspend fun userLogin(
         email: String,
         password: String,
-        responseStatus: (statusCode: Int) -> Unit,
-        responseMessage: (message: String) -> Unit,
+        onError: (errorResponse: AuthResponse) -> Unit
     ) = flow {
         val authBody = AuthBody(username = email, password = password)
         val response = apiService.userLogin(authBody)
-        response.suspendOnSuccess {
-            responseStatus(statusCode.code)
-            emit(data)
-        }
+        response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: AuthResponse =
                     Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
-                responseStatus(statusCode.code)
-                responseMessage(responseResult.message)
+                onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
             .onException {
@@ -46,20 +41,15 @@ class AuthRepository @Inject constructor(
     suspend fun userLoginGoogle(
         email: String,
         token: String,
-        responseStatus: (statusCode: Int) -> Unit,
-        responseMessage: (message: String) -> Unit,
+        onError: (errorResponse: AuthResponse) -> Unit
     ) = flow {
         val authBody = AuthBody(username = email, token = token)
         val response = apiService.userLoginGoogle(authBody)
-        response.suspendOnSuccess {
-            responseStatus(statusCode.code)
-            emit(data)
-        }
+        response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: AuthResponse =
                     Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
-                responseStatus(statusCode.code)
-                responseMessage(responseResult.message)
+                onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
             .onException {
@@ -70,21 +60,52 @@ class AuthRepository @Inject constructor(
     suspend fun userRegister(
         email: String,
         password: String,
-        token: String,
-        responseStatus: (statusCode: Int) -> Unit,
-        responseMessage: (message: String) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit
     ) = flow {
-        val authBody = AuthBody(username = email, password = password, token = token)
+        val authBody = AuthBody(username = email, password = password)
         val response = apiService.userRegister(authBody)
-        response.suspendOnSuccess {
-            responseStatus(statusCode.code)
-            emit(data)
-        }
+        response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: AuthResponse =
                     Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
-                responseStatus(statusCode.code)
-                responseMessage(responseResult.message)
+                onError(responseResult)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun userRegisterGoogle(
+        email: String,
+        token: String,
+        onError: (errorResponse: AuthResponse) -> Unit
+    ) = flow {
+        val authBody = AuthBody(username = email, token = token)
+        val response = apiService.userRegisterGoogle(authBody)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                onError(responseResult)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun userRegisterVerify(
+        otp: String,
+        email: String,
+        onError: (errorResponse: AuthResponse) -> Unit
+    ) = flow {
+        val response = apiService.userRegisterVerify(otp, email)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: AuthResponse =
+                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
             .onException {
@@ -94,19 +115,14 @@ class AuthRepository @Inject constructor(
 
     suspend fun userForgot(
         email: String,
-        responseStatus: (statusCode: Int) -> Unit,
-        responseMessage: (message: String) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit
     ) = flow {
         val response = apiService.userForgot(email)
-        response.suspendOnSuccess {
-            responseStatus(statusCode.code)
-            emit(data)
-        }
+        response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: AuthResponse =
                     Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
-                responseStatus(statusCode.code)
-                responseMessage(responseResult.message)
+                onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
             .onException {
@@ -117,19 +133,14 @@ class AuthRepository @Inject constructor(
     suspend fun userForgotVerify(
         otp: String,
         email: String,
-        responseStatus: (statusCode: Int) -> Unit,
-        responseMessage: (message: String) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit
     ) = flow {
         val response = apiService.userForgotVerify(otp, email)
-        response.suspendOnSuccess {
-            responseStatus(statusCode.code)
-            emit(data)
-        }
+        response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: AuthResponse =
                     Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
-                responseStatus(statusCode.code)
-                responseMessage(responseResult.message)
+                onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
             .onException {
@@ -141,47 +152,18 @@ class AuthRepository @Inject constructor(
         otp: String,
         newPassword: String,
         email: String,
-        responseStatus: (statusCode: Int) -> Unit,
-        responseMessage: (message: String) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit
     ) = flow {
         val response = apiService.userForgotReset(otp, newPassword, email)
-        response.suspendOnSuccess {
-            responseStatus(statusCode.code)
-            emit(data)
-        }
+        response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: AuthResponse =
                     Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
-                responseStatus(statusCode.code)
-                responseMessage(responseResult.message)
+                onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
             .onException {
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
-
-    suspend fun userRegisterVerify(
-        otp: String,
-        email: String,
-        responseStatus: (statusCode: Int) -> Unit,
-        responseMessage: (message: String) -> Unit
-    ) = flow {
-        val response = apiService.userRegisterVerify(otp, email)
-        response.suspendOnSuccess {
-            responseStatus(statusCode.code)
-            emit(data)
-        }
-            .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
-                responseStatus(statusCode.code)
-                responseMessage(responseResult.message)
-                Timber.tag("On Error").e(message())
-            }
-            .onException {
-                Timber.tag("On Exception").e(message())
-            }
-    }.flowOn(ioDispatcher)
-
 }

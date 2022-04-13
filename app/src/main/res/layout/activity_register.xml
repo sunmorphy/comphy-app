@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/img_background"
-    tools:context=".ui.register.RegisterActivity">
+    tools:context=".ui.auth.register.RegisterActivity">
 
     <carbon.widget.ConstraintLayout
         android:id="@+id/rootView"
@@ -367,6 +367,7 @@
                     android:layout_marginTop="24dp"
                     android:backgroundTint="@color/primary_orange"
                     android:fontFamily="@font/poppins_bold"
+                    android:includeFontPadding="false"
                     android:paddingVertical="12dp"
                     android:stateListAnimator="@null"
                     android:text="@string/string_create_account"

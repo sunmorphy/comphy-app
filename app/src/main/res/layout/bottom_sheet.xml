@@ -65,6 +65,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
         android:paddingVertical="12dp"
         android:stateListAnimator="@null"
         android:textAllCaps="false"
