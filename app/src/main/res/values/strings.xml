@@ -81,4 +81,8 @@
     <string name="lupa_password_kamu">Lupa Password Kamu?</string>
     <string name="reset_password">Jangan Khawatir, Masukkan Email Kamu dan Tunggu Email dari Kami untuk mendapatkan Link Reset Password.</string>
     <string name="kirim_email">Kirim Email</string>
+
+    <!-- Biodata Strings -->
+    <string name="biodata_form">Form Profile</string>
+    <string name="biodata_CompletedProfile">Silahkan Lengkapi Profil Kamu dengan benar!</string>
 </resources>

@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF2222</color>
+
 
     <color name="normal_pager_indicator">#DBDBDB</color>
     <color name="checked_pager_indicator">#FFB347</color>
@@ -21,5 +23,6 @@
     <color name="neutral_black_20">#332C2C2C</color>
     <color name="neutral_black_50">#802C2C2C</color>
     <color name="black_40">#65000000</color>
+
 
 </resources>
