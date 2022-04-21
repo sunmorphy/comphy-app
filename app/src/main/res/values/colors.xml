@@ -13,6 +13,7 @@
     <color name="normal_pager_indicator">#DBDBDB</color>
     <color name="checked_pager_indicator">#FFB347</color>
 
+    <color name="primary_red">#F14343</color>
     <color name="primary_background">#FAFAFA</color>
     <color name="primary_orange">#FCAE3F</color>
     <color name="primary_gray">#8B8B8B</color>
@@ -23,6 +24,7 @@
     <color name="neutral_black_20">#332C2C2C</color>
     <color name="neutral_black_50">#802C2C2C</color>
     <color name="black_40">#65000000</color>
+
 
 
 </resources>
