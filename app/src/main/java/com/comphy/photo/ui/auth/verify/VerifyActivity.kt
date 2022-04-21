@@ -140,15 +140,18 @@ class VerifyActivity : BaseAuthActivity() {
             val itIndex = inputWidgets.indexOf(it)
             it.keyListener = DigitsKeyListener.getInstance("0123456789")
             it.doAfterTextChanged { s ->
-                if (s?.length == 1) {
-                    if (itIndex < inputWidgets.size - 1) {
+                if (itIndex < inputWidgets.size - 1) {
+                    if (s?.toString()?.length == 1) {
                         inputWidgets[itIndex + 1].requestFocus()
                     }
                 }
             }
             inputWidgets[itIndex].setOnKeyListener { _, i, event ->
                 if (itIndex > 0) {
-                    if (event!!.action == KeyEvent.ACTION_DOWN && i == KeyEvent.KEYCODE_DEL) {
+                    if (event!!.action == KeyEvent.ACTION_DOWN
+                        && i == KeyEvent.KEYCODE_DEL
+                        && inputWidgets[itIndex].text.isEmpty()
+                    ) {
                         inputWidgets[itIndex - 1].text = null
                         inputWidgets[itIndex - 1].requestFocus()
                     }
