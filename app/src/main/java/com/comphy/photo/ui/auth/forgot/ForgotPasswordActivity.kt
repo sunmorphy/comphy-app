@@ -106,6 +106,7 @@ class ForgotPasswordActivity : BaseAuthActivity() {
                     putExtra("extra_source", "forgot")
                     putExtra("extra_email", binding.edtEmail.text.toString())
                 }
+                finish()
             }
         }
     }
