@@ -22,7 +22,8 @@ class AuthRepository @Inject constructor(
     suspend fun userLogin(
         email: String,
         password: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val authBody = AuthBody(username = email, password = password)
         val response = apiService.userLogin(authBody)
@@ -34,6 +35,7 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
@@ -41,7 +43,8 @@ class AuthRepository @Inject constructor(
     suspend fun userLoginGoogle(
         email: String,
         token: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val authBody = AuthBody(username = email, token = token)
         val response = apiService.userLoginGoogle(authBody)
@@ -53,16 +56,19 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
 
     suspend fun userRegister(
+        name: String,
         email: String,
         password: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
-        val authBody = AuthBody(username = email, password = password)
+        val authBody = AuthBody(name = name, username = email, password = password)
         val response = apiService.userRegister(authBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
@@ -72,16 +78,19 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
 
     suspend fun userRegisterGoogle(
+        name: String,
         email: String,
         token: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
-        val authBody = AuthBody(username = email, token = token)
+        val authBody = AuthBody(name = name, username = email, token = token)
         val response = apiService.userRegisterGoogle(authBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
@@ -91,6 +100,7 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
@@ -98,7 +108,8 @@ class AuthRepository @Inject constructor(
     suspend fun userRegisterVerify(
         otp: String,
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userRegisterVerify(otp, email)
         response.suspendOnSuccess { emit(data) }
@@ -109,13 +120,15 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
 
     suspend fun userForgot(
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userForgot(email)
         response.suspendOnSuccess { emit(data) }
@@ -126,6 +139,7 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
@@ -133,7 +147,8 @@ class AuthRepository @Inject constructor(
     suspend fun userForgotVerify(
         otp: String,
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userForgotVerify(otp, email)
         response.suspendOnSuccess { emit(data) }
@@ -144,6 +159,7 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
@@ -152,7 +168,8 @@ class AuthRepository @Inject constructor(
         otp: String,
         newPassword: String,
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit
+        onError: (errorResponse: AuthResponse) -> Unit,
+        onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userForgotReset(otp, newPassword, email)
         response.suspendOnSuccess { emit(data) }
@@ -163,6 +180,7 @@ class AuthRepository @Inject constructor(
                 Timber.tag("On Error").e(message())
             }
             .onException {
+                onException(message)
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)

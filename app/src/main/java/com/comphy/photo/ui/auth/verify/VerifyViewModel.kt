@@ -19,18 +19,34 @@ class VerifyViewModel @Inject constructor(
         authRepository.userRegisterVerify(
             otp,
             email,
-            onError = { message.postValue(it.message) }
+            onError = { message.postValue(it.message) },
+            onException = { responseException.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
             .collect { authResponse.postValue(it.message) }
     }
 
-    suspend fun userRegisterResendCode(email: String, password: String) {
+    suspend fun userRegisterResendCode(name: String, email: String, password: String) {
         authRepository.userRegister(
+            name,
             email,
             password,
-            onError = { resendMessage.postValue("Failed Resend Code") }
+            onError = { resendMessage.postValue("Failed Resend Code") },
+            onException = { message.postValue(it) }
+        )
+            .onStart { isLoading.postValue(true) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { resendMessage.postValue("Resend Code Success") }
+    }
+
+    suspend fun userRegisterGoogleResendCode(name: String, email: String, token: String) {
+        authRepository.userRegisterGoogle(
+            name,
+            email,
+            token,
+            onError = { message.postValue(it.message) },
+            onException = { responseException.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
@@ -41,7 +57,8 @@ class VerifyViewModel @Inject constructor(
         authRepository.userForgotVerify(
             otp,
             email,
-            onError = { message.postValue(it.message) }
+            onError = { message.postValue(it.message) },
+            onException = { responseException.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
@@ -51,7 +68,8 @@ class VerifyViewModel @Inject constructor(
     suspend fun userForgotResendCode(email: String) {
         authRepository.userForgot(
             email,
-            onError = { resendMessage.postValue("Failed Resend Code") }
+            onError = { resendMessage.postValue("Failed Resend Code") },
+            onException = { responseException.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }

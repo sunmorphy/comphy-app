@@ -1,12 +1,12 @@
 package com.comphy.photo.ui.auth.verify
 
-import android.graphics.Typeface
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.method.DigitsKeyListener
 import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
+import android.view.KeyEvent
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
@@ -27,41 +27,55 @@ class VerifyActivity : BaseAuthActivity() {
         private const val EXTRA_SOURCE = "extra_source"
         private const val EXTRA_REGISTER = "register"
         private const val EXTRA_FORGOT = "forgot"
+        private const val EXTRA_NAME = "extra_name"
         private const val EXTRA_EMAIL = "extra_email"
         private const val EXTRA_PASSWORD = "extra_password"
+        private const val EXTRA_TOKEN = "extra_token"
     }
 
     private lateinit var binding: ActivityVerifyBinding
+    private lateinit var resendCodeTimer: CountDownTimer
     private lateinit var sourceExtra: String
     private lateinit var emailExtra: String
     private lateinit var otpResult: String
+    private var nameExtra: String? = null
     private var passwordExtra: String? = null
+    private var tokenExtra: String? = null
     private val viewModel: VerifyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityVerifyBinding.inflate(layoutInflater)
-
         super.onCreate(savedInstanceState)
+
+        binding = ActivityVerifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         sourceExtra = intent.getStringExtra(EXTRA_SOURCE)!!
         emailExtra = intent.getStringExtra(EXTRA_EMAIL)!!
+        nameExtra = intent.getStringExtra(EXTRA_NAME)
         passwordExtra = intent.getStringExtra(EXTRA_PASSWORD)
+        tokenExtra = intent.getStringExtra(EXTRA_TOKEN)
 
         inputWidgets = listOf(binding.edtOtp1, binding.edtOtp2, binding.edtOtp3, binding.edtOtp4)
         actionWidgets = listOf(binding.btnLogin, binding.btnVerify)
         greetingWidgets = listOf(binding.txtHello, binding.txtWelcome)
+        errorWidgets = listOf(binding.txtErrorOTP)
         loadingImage = binding.imgLoadingBtn
         errorLayout = binding.errorLayout
         mainButtonText = R.string.string_verify
+        isDismissed = true
 
         val verifySend = resources.getString(R.string.verify_send) + " "
         val spanVerifySend = SpannableString(verifySend + emailExtra)
         spanVerifySend.apply {
             setSpan(
-                StyleSpan(Typeface.BOLD),
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        this@VerifyActivity,
+                        R.color.neutral_black_30
+                    )
+                ),
+                0,
                 verifySend.length,
-                (verifySend + emailExtra).length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
             setSpan(
@@ -92,32 +106,76 @@ class VerifyActivity : BaseAuthActivity() {
             }
         }
 
+        resendCodeTimer = object : CountDownTimer(30000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val resendCode = "${millisUntilFinished / 1000}s"
+                binding.txtCountDown.text = resendCode
+                binding.btnResendCode.isEnabled = false
+                binding.txtResend.setTextColor(
+                    ContextCompat.getColor(
+                        this@VerifyActivity,
+                        R.color.neutral_black_50
+                    )
+                )
+            }
+
+            override fun onFinish() {
+                binding.txtCountDown.text = null
+                binding.btnResendCode.isEnabled = true
+                binding.txtResend.setTextColor(
+                    ContextCompat.getColor(
+                        this@VerifyActivity,
+                        R.color.neutral_blue
+                    )
+                )
+            }
+        }
+
         inputEachField()
+        setupClickListener()
     }
 
     private fun inputEachField() {
         inputWidgets.forEach {
+            val itIndex = inputWidgets.indexOf(it)
             it.keyListener = DigitsKeyListener.getInstance("0123456789")
             it.doAfterTextChanged { s ->
-                if (s?.length == 1) {
-                    val itIndex = inputWidgets.indexOf(it)
-                    if (itIndex < inputWidgets.size - 1) {
+                if (itIndex < inputWidgets.size - 1) {
+                    if (s?.toString()?.length == 1) {
                         inputWidgets[itIndex + 1].requestFocus()
                     }
                 }
             }
+            inputWidgets[itIndex].setOnKeyListener { _, i, event ->
+                if (itIndex > 0) {
+                    if (event!!.action == KeyEvent.ACTION_DOWN
+                        && i == KeyEvent.KEYCODE_DEL
+                        && inputWidgets[itIndex].text.isEmpty()
+                    ) {
+                        inputWidgets[itIndex - 1].text = null
+                        inputWidgets[itIndex - 1].requestFocus()
+                    }
+                }
+                false
+            }
         }
     }
 
-    override fun setupClickListener() {
+    private fun setupClickListener() {
         binding.btnVerify.setOnClickListener {
             setFieldError(false)
             otpResult =
                 binding.edtOtp1.text.toString() + binding.edtOtp2.text.toString() + binding.edtOtp3.text.toString() + binding.edtOtp4.text.toString()
-            lifecycleScope.launch {
-                when (sourceExtra) {
-                    EXTRA_REGISTER -> viewModel.userRegisterVerify(otpResult, emailExtra)
-                    EXTRA_FORGOT -> viewModel.userForgotVerify(otpResult, emailExtra)
+
+            if (isFieldEmpty()) {
+                setFieldError(true, eachField = true)
+
+            } else {
+                lifecycleScope.launch {
+                    when (sourceExtra) {
+                        EXTRA_REGISTER -> viewModel.userRegisterVerify(otpResult, emailExtra)
+                        EXTRA_FORGOT -> viewModel.userForgotVerify(otpResult, emailExtra)
+                    }
                 }
             }
         }
@@ -126,8 +184,17 @@ class VerifyActivity : BaseAuthActivity() {
             lifecycleScope.launch {
                 when (sourceExtra) {
                     EXTRA_REGISTER -> {
-                        if (passwordExtra != null) {
-                            viewModel.userRegisterResendCode(emailExtra, passwordExtra!!)
+                        when {
+                            passwordExtra != null -> viewModel.userRegisterResendCode(
+                                nameExtra!!,
+                                emailExtra,
+                                passwordExtra!!
+                            )
+                            tokenExtra != null -> viewModel.userRegisterGoogleResendCode(
+                                nameExtra!!,
+                                emailExtra,
+                                tokenExtra!!
+                            )
                         }
                     }
                     EXTRA_FORGOT -> viewModel.userForgotResendCode(emailExtra)
@@ -135,7 +202,10 @@ class VerifyActivity : BaseAuthActivity() {
             }
         }
 
-        binding.btnLogin.setOnClickListener { start<LoginActivity>() }
+        binding.btnLogin.setOnClickListener {
+            start<LoginActivity>()
+            finish()
+        }
         binding.btnDismissError.setOnClickListener { showError(false) }
     }
 
@@ -149,15 +219,30 @@ class VerifyActivity : BaseAuthActivity() {
         }
         viewModel.authResponse.observe(this) {
             when (sourceExtra) {
-                EXTRA_REGISTER -> showBottomSheetDialog { start<LoginActivity>() }
-                EXTRA_FORGOT -> showBottomSheetDialog {
-                    start<ResetPasswordActivity> {
-                        putExtra("extra_email", emailExtra)
-                        putExtra("extra_otp", otpResult)
+                EXTRA_REGISTER -> showBottomSheetDialog {
+                    start<LoginActivity>()
+                    finish()
+                }
+                EXTRA_FORGOT -> {
+                    showBottomSheetDialog {
+                        start<ResetPasswordActivity> {
+                            putExtra("extra_email", emailExtra)
+                            putExtra("extra_otp", otpResult)
+                        }
+                        finish()
                     }
                 }
             }
         }
-        viewModel.resendMessage.observe(this) { toast(it) }
+        viewModel.responseException.observe(this) { if (it != null) toast(it) }
+        viewModel.resendMessage.observe(this) {
+            toast(it)
+            resendCodeTimer.start()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupClickListener()
     }
 }

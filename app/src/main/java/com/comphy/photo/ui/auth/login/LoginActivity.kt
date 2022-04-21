@@ -13,9 +13,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
+import splitties.toast.toast
 
 @AndroidEntryPoint
 class LoginActivity : BaseAuthActivity() {
+    companion object {
+        private const val EXTRA_EMAIL = "extra_email"
+    }
+
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
 
@@ -30,27 +35,43 @@ class LoginActivity : BaseAuthActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-
         super.onCreate(savedInstanceState)
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         inputWidgets = listOf(binding.edtEmail, binding.edtPassword)
         actionWidgets = listOf(binding.btnRegister, binding.btnGoogleLogin, binding.btnLogin)
         greetingWidgets = listOf(binding.txtHello, binding.txtWelcome)
+        errorWidgets = listOf(binding.txtErrorEmail, binding.txtErrorPassword)
         loadingImage = binding.imgLoadingBtn
         errorLayout = binding.errorLayout
         mainButtonText = R.string.string_login
+
+        val extraEmail = intent.getStringExtra(EXTRA_EMAIL)
+
+        if (extraEmail != null) binding.edtEmail.text = extraEmail
+
+        setupClickListener()
     }
 
-    override fun setupClickListener() {
+    private fun setupClickListener() {
         binding.btnLogin.setOnClickListener {
             setFieldError(false)
-            lifecycleScope.launch {
-                viewModel.userLogin(
-                    binding.edtEmail.text.toString(),
-                    binding.edtPassword.text.toString()
-                )
+            var email = binding.edtEmail.text.toString()
+            var password = binding.edtPassword.text.toString()
+
+            if (isFieldEmpty()) {
+                setFieldError(true, eachField = true)
+
+            } else {
+                when {
+                    !isEmailValid(email) -> email = ""
+                    !isPasswordValid(password.lowercase()) -> password = ""
+                }
+                lifecycleScope.launch {
+                    viewModel.userLogin(email, password)
+                }
             }
         }
 
@@ -74,6 +95,12 @@ class LoginActivity : BaseAuthActivity() {
             binding.txtErrorDesc.text = errMessage[1]
             setFieldError(true)
         }
+        viewModel.responseException.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) { start<HomeActivity>() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupClickListener()
     }
 }

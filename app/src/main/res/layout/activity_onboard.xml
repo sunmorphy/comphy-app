@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/primary_background"
     tools:context=".ui.onboard.OnboardActivity">
 
@@ -15,7 +15,8 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpOnboard"
             android:layout_width="match_parent"
-            android:layout_height="298dp"
+            android:layout_height="270dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="25dp"
             android:overScrollMode="never"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,9 +49,8 @@
                 android:id="@+id/txtOnboardTitle"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="25dp"
                 android:fontFamily="@font/poppins_semi_bold"
-                android:minLines="2"
+                android:text="@string/title_onboard_1"
                 android:textAlignment="center"
                 android:textColor="@color/primary_orange"
                 android:textSize="18sp"
@@ -62,9 +62,10 @@
                 android:id="@+id/txtOnboardDescription"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins_medium"
-                android:minLines="3"
+                android:text="@string/desc_onboard_1"
                 android:textAlignment="center"
                 android:textColor="@color/black_40"
                 android:textSize="12sp"

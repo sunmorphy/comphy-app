@@ -18,12 +18,16 @@
     <color name="primary_orange">#FCAE3F</color>
     <color name="primary_gray">#8B8B8B</color>
     <color name="primary_green">#28A138</color>
+    <color name="primary_red">#F14343</color>
     <color name="neutral_gray">#E8EDF1</color>
     <color name="neutral_black">#2C2C2C</color>
     <color name="neutral_black_30">#4D2C2C2C</color>
     <color name="neutral_black_20">#332C2C2C</color>
     <color name="neutral_black_50">#802C2C2C</color>
     <color name="black_40">#65000000</color>
+    <color name="black_12">#1F000000</color>
+    <color name="neutral_blue">#397AF9</color>
+    <color name="neutral_5">#858C94</color>
 
 
 

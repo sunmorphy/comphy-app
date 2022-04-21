@@ -17,7 +17,8 @@ class LoginViewModel @Inject constructor(
         authRepository.userLogin(
             email,
             password,
-            onError = { message.postValue(it.message) }
+            onError = { message.postValue(it.message) },
+            onException = { responseException.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
@@ -33,7 +34,8 @@ class LoginViewModel @Inject constructor(
         authRepository.userLoginGoogle(
             email,
             token,
-            onError = { message.postValue(it.message) }
+            onError = { message.postValue(it.message) },
+            onException = { responseException.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }

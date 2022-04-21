@@ -3,6 +3,7 @@ package com.comphy.photo.base
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Patterns
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -23,18 +24,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import timber.log.Timber
+import java.util.regex.Pattern
 import kotlin.properties.Delegates
 
 abstract class BaseAuthActivity : AppCompatActivity() {
     private lateinit var bottomSheetDialog: BottomSheetDialog
+
     protected lateinit var bottomSheetBinding: BottomSheetBinding
     protected lateinit var gso: GoogleSignInOptions
     protected lateinit var inputWidgets: List<EditText>
     protected lateinit var actionWidgets: List<Button>
     protected lateinit var greetingWidgets: List<TextView>
+    protected lateinit var errorWidgets: List<TextView>
     protected lateinit var loadingImage: ImageView
     protected lateinit var errorLayout: ConstraintLayout
     protected var mainButtonText by Delegates.notNull<Int>()
+    protected var isDismissed = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +52,18 @@ abstract class BaseAuthActivity : AppCompatActivity() {
             .requestEmail()
             .build()
 
+        isDismissed = false
+
         setupObserver()
-        setupClickListener()
+    }
+
+    protected fun isFieldEmpty(): Boolean {
+        inputWidgets.forEach {
+            if (it.text.isEmpty()) {
+                return true
+            }
+        }
+        return false
     }
 
     protected fun googleAuth(onSuccess: (account: GoogleSignInAccount) -> Unit): ActivityResultLauncher<Intent> {
@@ -95,12 +110,26 @@ abstract class BaseAuthActivity : AppCompatActivity() {
         }
     }
 
-    protected fun setFieldError(state: Boolean) {
+    protected fun setFieldError(state: Boolean, eachField: Boolean? = false) {
         if (state) {
-            inputWidgets.forEach {
-                it.background =
-                    ContextCompat.getDrawable(this, R.drawable.widget_error)
-                showError(true)
+            if (eachField == true) {
+                inputWidgets.forEach {
+                    if (it.text.isEmpty()) {
+                        it.background = ContextCompat.getDrawable(this, R.drawable.widget_error)
+
+                        if (errorWidgets.size < 2) {
+                            errorWidgets.forEach { item -> item.visibility = View.VISIBLE }
+                        } else {
+                            errorWidgets[inputWidgets.indexOf(it)].visibility = View.VISIBLE
+                        }
+                    }
+                }
+            } else {
+                inputWidgets.forEach {
+                    it.background =
+                        ContextCompat.getDrawable(this, R.drawable.widget_error)
+                    showError(true)
+                }
             }
         } else {
             inputWidgets.forEach {
@@ -108,6 +137,7 @@ abstract class BaseAuthActivity : AppCompatActivity() {
                     ContextCompat.getDrawable(this, R.drawable.state_field)
                 showError(false)
             }
+            errorWidgets.forEach { error -> error.visibility = View.GONE }
         }
     }
 
@@ -135,7 +165,6 @@ abstract class BaseAuthActivity : AppCompatActivity() {
     }
 
     protected fun showBottomSheetDialog(onFinishTask: () -> Unit) {
-        var isDismissed = true
         val nextScreenTimer = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val nextScreen = "Selanjutnya (${millisUntilFinished / 1000}s)"
@@ -191,12 +220,22 @@ abstract class BaseAuthActivity : AppCompatActivity() {
         }
     }
 
-    protected abstract fun setupClickListener()
+    protected fun isEmailValid(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email)
+            .matches()
+    }
+
+    protected fun isPasswordValid(password: String): Boolean {
+        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z]).{6,}$"
+        val pattern = Pattern.compile(passwordPattern)
+        val matcher = pattern.matcher(password)
+
+        return matcher.matches()
+    }
 
     protected abstract fun setupObserver()
 
-    override fun onResume() {
-        super.onResume()
-        setupClickListener()
+    override fun onBackPressed() {
+        if (!isDismissed) super.onBackPressed()
     }
 }

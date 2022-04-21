@@ -8,5 +8,7 @@ data class AuthBody(
     @SerializedName("token")
     var token: String? = null,
     @SerializedName("username")
-    val username: String
+    val username: String,
+    @SerializedName("fullname")
+    var name: String? = null
 )
