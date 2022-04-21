@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class AuthResponse(
     @SerializedName("data")
-    val responseData: Data?,
+    var responseData: Data? = null,
     @SerializedName("message")
     val message: String,
     @SerializedName("Status")
-    val status: String
+    var status: String? = null
 )

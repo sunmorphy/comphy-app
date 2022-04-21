@@ -1,5 +1,7 @@
 package com.comphy.photo.ui.onboard
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +26,6 @@ class OnboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (AuthSharedPref.isLogin) {
-            // TODO INTENT TO HOME
             start<HomeActivity>()
             finish()
         }

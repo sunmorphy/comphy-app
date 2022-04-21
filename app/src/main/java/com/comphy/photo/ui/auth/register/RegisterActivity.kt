@@ -1,11 +1,9 @@
 package com.comphy.photo.ui.auth.register
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -18,53 +16,69 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
+import splitties.toast.toast
 
 @AndroidEntryPoint
 class RegisterActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var name: String
     private lateinit var email: String
     private lateinit var password: String
+    private var token: String? = null
     private val viewModel: RegisterViewModel by viewModels()
 
     private val googleRegister =
         googleAuth { account ->
+            name = account.displayName!!
             email = account.email!!
-            password = account.idToken!!
+            token = account.idToken!!
             lifecycleScope.launch {
-                viewModel.userRegisterGoogle(
-                    account.email!!,
-                    account.idToken!!
-                )
+                viewModel.userRegisterGoogle(name, email, token!!)
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
-
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
 
-        inputWidgets = listOf(binding.edtEmail, binding.edtPassword)
-        actionWidgets = listOf(binding.btnLogin, binding.btnGoogleRegister, binding.btnRegister)
-        greetingWidgets = listOf(binding.txtHello, binding.txtWelcome)
-        loadingImage = binding.imgLoadingBtn
-        errorLayout = binding.errorLayout
-        mainButtonText = R.string.string_create_account
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         bottomSheetBinding.apply {
             animView.setAnimation(R.raw.anim_send)
             txtSheetTitle.text = resources.getString(R.string.register_success_title)
             btnSheetAction.text = resources.getString(R.string.string_verify)
         }
+
+        inputWidgets = listOf(binding.edtName, binding.edtEmail, binding.edtPassword)
+        actionWidgets = listOf(binding.btnLogin, binding.btnGoogleRegister, binding.btnRegister)
+        greetingWidgets = listOf(binding.txtHello, binding.txtWelcome)
+        errorWidgets = listOf(binding.txtErrorName, binding.txtErrorEmail, binding.txtErrorPassword)
+        loadingImage = binding.imgLoadingBtn
+        errorLayout = binding.errorLayout
+        mainButtonText = R.string.string_create_account
+
+        setupClickListener()
     }
 
-    override fun setupClickListener() {
+    private fun setupClickListener() {
         binding.btnRegister.setOnClickListener {
             setFieldError(false)
+            name = binding.edtName.text.toString()
             email = binding.edtEmail.text.toString()
             password = binding.edtPassword.text.toString()
-            lifecycleScope.launch {
-                viewModel.userRegister(email, password)
+
+            if (isFieldEmpty()) {
+                setFieldError(true, eachField = true)
+
+            } else {
+                when {
+                    !isEmailValid(email) -> email = ""
+                    !isPasswordValid(password.lowercase())
+                            || password.contains(" ") -> password = ""
+                }
+                lifecycleScope.launch {
+                    viewModel.userRegister(name, email, password)
+                }
             }
         }
 
@@ -92,13 +106,19 @@ class RegisterActivity : BaseAuthActivity() {
             }
             setFieldError(true)
         }
+        viewModel.responseException.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) {
             val spanMessage = SpannableString(it)
             spanMessage.apply {
                 setSpan(
-                    StyleSpan(Typeface.BOLD),
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            this@RegisterActivity,
+                            R.color.neutral_black_30
+                        )
+                    ),
+                    0,
                     41,
-                    it.length,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
                 setSpan(
@@ -114,13 +134,21 @@ class RegisterActivity : BaseAuthActivity() {
                 )
             }
             bottomSheetBinding.txtSheetDesc.text = spanMessage
+            isDismissed = true
             showBottomSheetDialog {
                 start<VerifyActivity> {
                     putExtra("extra_source", "register")
+                    putExtra("extra_name", name)
                     putExtra("extra_email", email)
                     putExtra("extra_password", password)
+                    putExtra("extra_token", token)
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupClickListener()
     }
 }
