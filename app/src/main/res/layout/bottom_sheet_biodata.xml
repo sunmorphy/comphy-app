@@ -367,6 +367,7 @@
             android:inputType="text"
             android:gravity="top"
             android:paddingStart="29dp"
+            android:drawablePadding="20dp"
             android:paddingVertical="18dp"
             android:textColor="@color/neutral_black"
             android:textColorHint="@color/neutral_black_20"
@@ -396,9 +397,5 @@
             app:layout_constraintEnd_toEndOf="@id/edtMediaSocial"
             app:layout_constraintStart_toStartOf="@id/edtMediaSocial"
             app:layout_constraintTop_toBottomOf="@id/edtMediaSocial" />
-
-
     </carbon.widget.ConstraintLayout>
-
-
 </ScrollView>

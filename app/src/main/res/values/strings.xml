@@ -116,4 +116,6 @@
     <string name="profile_are_you_sure">Apakah Kamu sudah Yakin ?</string>
     <string name="profile_checked">Cek Lagi</string>
     <string name="profile_save2">Simpan</string>
+    <string name="string_success_tittle">Selamat, Berhasil Menyimpan Profile Kamu!</string>
+    <string name="string_success_desc"><![CDATA[Untuk Mengubah Profile Silahkan Masuk ke halaman Profile > Edit Profile]]></string>
 </resources>
