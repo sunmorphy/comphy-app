@@ -90,4 +90,32 @@
     <string name="lupa_password_kamu">Lupa Password Kamu?</string>
     <string name="reset_password">Jangan Khawatir, Masukkan Email Kamu dan Tunggu Email dari Kami untuk mendapatkan Kode OTP Reset Password.</string>
     <string name="kirim_email">Kirim Email</string>
+
+    <!-- Profile Strings -->
+    <string name="Profile_form">Form Profile</string>
+    <string name="profile_CompletedProfile">Silahkan Lengkapi Profil Kamu dengan benar!</string>
+    <string name="profile_edit_name">Masukan Nama Kamu</string>
+    <string name="profile_indicator">*</string>
+    <string name="profile_completed_name">Nama Panjang Kamu</string>
+    <string name="profile_location">Lokasi Kamu</string>
+    <string name="profile_edit_location">Masukan Lokasi Kamu</string>
+    <string name="profile_erorr_desc">*Silahkan Masukkan Nama Panjang Kamu.</string>
+    <string name="profile_erorr_desc2">*Silahkan Masukkan Lokasi Kamu.</string>
+    <string name="profile_edit_number_telephone">Masukan Nomor Ponsel Kamu</string>
+    <string name="profile_edit_number">Masukan Nomor Ponsel Kamu</string>
+    <string name="profile_your_job">Pekerjaan Kamu</string>
+    <string name="profile_edit_Jobs">Masukan Pekerjaan Kamu</string>
+    <string name="profile_erorr_desc3">*Silahkan Masukkan Pekerjaan Kamu.</string>
+    <string name="profile_number_telephone">Masukan Nomor Ponsel Kamu</string>
+    <string name="profile_description">Deskripsi Kamu</string>
+    <string name="profile_edit_description">Masukan Deskripsi Kamu</string>
+    <string name="profile_erorr_desc4">* Silahkan Masukkan Deskripi Kamu.</string>
+    <string name="profile_social_media">Social Media Kamu</string>
+    <string name="profile_ediit_media_social">Masukkan Instagram Kamu</string>
+    <string name="profile_save">Simpan</string>
+    <string name="profile_are_you_sure">Apakah Kamu sudah Yakin ?</string>
+    <string name="profile_checked">Cek Lagi</string>
+    <string name="profile_save2">Simpan</string>
+    <string name="string_success_tittle">Selamat, Berhasil Menyimpan Profile Kamu!</string>
+    <string name="string_success_desc"><![CDATA[Untuk Mengubah Profile Silahkan Masuk ke halaman Profile > Edit Profile]]></string>
 </resources>
