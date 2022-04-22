@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.comphy.photo.databinding.ItemPagerBinding
+import com.comphy.photo.databinding.ItemOnboardPagerBinding
 
-class OnboardPagerAdapter(private val listImages: List<Int>) :
-    RecyclerView.Adapter<OnboardPagerAdapter.ViewHolder>() {
+class OnboardPagerAdapter(
+    private val listImages: List<Int>
+) : RecyclerView.Adapter<OnboardPagerAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val view = ItemPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemOnboardPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
@@ -27,5 +29,6 @@ class OnboardPagerAdapter(private val listImages: List<Int>) :
 
     override fun getItemCount(): Int = 3
 
-    inner class ViewHolder(var binding: ItemPagerBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(var binding: ItemOnboardPagerBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
