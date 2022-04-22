@@ -5,6 +5,11 @@
 
     <string name="example_mail"><b>Thavitaaa13@gmail.com</b></string>
 
+    <string name="nav_title_home">Beranda</string>
+    <string name="nav_title_feed">Feed Post</string>
+    <string name="nav_title_job">Info Job</string>
+    <string name="nav_title_training">Pelatihan</string>
+
     <string name="string_hello">Hallo,</string>
     <string name="string_welcome">Selamat Datang!</string>
     <string name="string_or">Atau</string>
@@ -26,6 +31,12 @@
     <string name="string_save">Simpan</string>
     <string name="string_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
     <string name="string_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
+    <string name="string_current_location">Yogyakarta,Indonesia</string>
+    <string name="string_search_hint">Cari disini “Womenesia”</string>
+    <string name="string_create_community">Buat Komunitas</string>
+    <string name="string_max_community">Maksimal 2 Komunitas</string>
+    <string name="string_see_all">Lihat Semua</string>
+    <string name="string_notification">Notification</string>
 
     <string name="error_email">*Masukkan Email Kamu dengan Benar</string>
     <string name="error_password">*Masukkan Password min.6 Karakter &amp; Angka (0-9)</string>
@@ -118,4 +129,15 @@
     <string name="profile_save2">Simpan</string>
     <string name="string_success_tittle">Selamat, Berhasil Menyimpan Profile Kamu!</string>
     <string name="string_success_desc"><![CDATA[Untuk Mengubah Profile Silahkan Masuk ke halaman Profile > Edit Profile]]></string>
+
+    <!-- Home Strings -->
+    <string name="home_community_category">Kategori Komunitas</string>
+    <string name="home_your_community">Komunitasmu</string>
+    <string name="home_followed_community">Komunitas yang diikuti</string>
+    <string name="home_community_limit">Kamu Telah Mencapai Batas.</string>
+    <string name="home_community_upgrade">Upgrade Akun Sekarang!</string>
+    <string name="home_explore_community">Jelajahi Komunitas Sekarang</string>
+    <string name="home_offer_title">Mau Cuan Ga Nih??</string>
+    <string name="home_offer_description">Jual Foto kamu ke salah satu website ini!</string>
+    <string name="home_tips">Tips Fotografi Buat Kamu!</string>
 </resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    android:background="@color/white"
+    android:padding="14dp"
+    app:carbon_cornerRadius="14dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgCommunity"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="centerCrop"
+        android:src="@color/amber_50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtCommunityTitle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="28dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:maxLines="1"
+        android:text="@string/nav_title_home"
+        android:textColor="@color/neutral_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/btnOption"
+        app:layout_constraintStart_toEndOf="@id/imgCommunity"
+        app:layout_constraintTop_toTopOf="@id/imgCommunity" />
+
+    <TextView
+        android:id="@+id/txtCommunityCategory"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/nav_title_home"
+        android:textColor="@color/neutral_4"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@id/imgCommunity"
+        app:layout_constraintEnd_toEndOf="@id/txtCommunityTitle"
+        app:layout_constraintStart_toStartOf="@id/txtCommunityTitle" />
+
+    <ImageButton
+        android:id="@+id/btnOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_dots"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+</carbon.widget.ConstraintLayout>

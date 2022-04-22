@@ -9,6 +9,7 @@ import com.comphy.photo.databinding.ActivityLoginBinding
 import com.comphy.photo.ui.HomeActivity
 import com.comphy.photo.ui.auth.forgot.ForgotPasswordActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
+import com.comphy.photo.ui.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -96,7 +97,10 @@ class LoginActivity : BaseAuthActivity() {
             setFieldError(true)
         }
         viewModel.responseException.observe(this) { if (it != null) toast(it) }
-        viewModel.authResponse.observe(this) { start<HomeActivity>() }
+        viewModel.authResponse.observe(this) {
+            start<MainActivity>()
+            finish()
+        }
     }
 
     override fun onResume() {

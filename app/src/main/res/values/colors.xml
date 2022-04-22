@@ -19,15 +19,20 @@
     <color name="primary_green">#28A138</color>
     <color name="primary_green_20">#2D7738</color>
     <color name="primary_red">#F14343</color>
+    <color name="neutral_orange">#FFB546</color>
     <color name="neutral_gray">#E8EDF1</color>
     <color name="neutral_black">#2C2C2C</color>
-    <color name="neutral_black_30">#4D2C2C2C</color>
     <color name="neutral_black_20">#332C2C2C</color>
+    <color name="neutral_black_30">#4D2C2C2C</color>
+    <color name="neutral_black_40">#662C2C2C</color>
     <color name="neutral_black_50">#802C2C2C</color>
+    <color name="neutral_black_80">#CC2C2C2C</color>
     <color name="black_40">#65000000</color>
     <color name="black_12">#1F000000</color>
     <color name="neutral_blue">#397AF9</color>
     <color name="neutral_5">#858C94</color>
+    <color name="neutral_3">#CFCFCF</color>
+    <color name="neutral_4">#B6B6B6</color>
 
 
 

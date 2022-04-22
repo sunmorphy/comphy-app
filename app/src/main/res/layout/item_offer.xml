@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="138dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="14dp"
+    android:background="@color/white"
+    android:paddingHorizontal="15dp"
+    android:paddingVertical="18dp"
+    app:carbon_cornerRadius="8dp"
+    app:carbon_elevation="16dp"
+    app:carbon_elevationShadowColor="#FFEACB">
+
+    <ImageView
+        android:id="@+id/imgOfferLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_shutterstock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+</carbon.widget.ConstraintLayout>

@@ -1,7 +1,5 @@
 package com.comphy.photo.ui.onboard
 
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +9,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.comphy.photo.R
 import com.comphy.photo.data.local.auth.AuthSharedPref
 import com.comphy.photo.databinding.ActivityOnboardBinding
-import com.comphy.photo.ui.HomeActivity
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
+import com.comphy.photo.ui.main.MainActivity
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +24,7 @@ class OnboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (AuthSharedPref.isLogin) {
-            start<HomeActivity>()
+            start<MainActivity>()
             finish()
         }
         super.onCreate(savedInstanceState)

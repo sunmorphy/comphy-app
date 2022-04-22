@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:minHeight">@dimen/dp_0</item>
+    </style>
+
+    <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BottomNavigation.InactiveItemTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    
+</resources>
