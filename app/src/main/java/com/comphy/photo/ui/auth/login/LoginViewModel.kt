@@ -1,6 +1,6 @@
 package com.comphy.photo.ui.auth.login
 
-import com.comphy.photo.base.BaseAuthViewModel
+import com.comphy.photo.base.viewmodel.BaseAuthViewModel
 import com.comphy.photo.data.AuthRepository
 import com.comphy.photo.data.local.auth.AuthSharedPref
 import dagger.hilt.android.lifecycle.HiltViewModel

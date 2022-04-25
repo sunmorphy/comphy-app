@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
-import com.comphy.photo.base.BaseAuthActivity
+import com.comphy.photo.base.activity.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityVerifyBinding
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.reset.ResetPasswordActivity

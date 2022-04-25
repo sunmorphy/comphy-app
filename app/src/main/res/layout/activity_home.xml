@@ -11,6 +11,24 @@
         android:layout_height="wrap_content"
         android:paddingBottom="30dp">
 
+        <AutoCompleteTextView
+            android:id="@+id/edtAutocomplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/state_field"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="top"
+            android:hint="@string/profile_edit_location"
+            android:inputType="text"
+            android:paddingHorizontal="29dp"
+            android:paddingVertical="18dp"
+            android:textColor="@color/neutral_black"
+            android:textColorHint="@color/neutral_black_20"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/txtAccessToken"
             android:layout_width="@dimen/dp_0"
@@ -22,7 +40,7 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtAutocomplete"
             app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView

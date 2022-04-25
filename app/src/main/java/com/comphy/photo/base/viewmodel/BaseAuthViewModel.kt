@@ -1,4 +1,4 @@
-package com.comphy.photo.base
+package com.comphy.photo.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

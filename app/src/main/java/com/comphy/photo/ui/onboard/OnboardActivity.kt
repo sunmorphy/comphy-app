@@ -11,7 +11,7 @@ import com.comphy.photo.data.local.auth.AuthSharedPref
 import com.comphy.photo.databinding.ActivityOnboardBinding
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
-import com.comphy.photo.ui.main.MainActivity
+import com.comphy.photo.ui.biodata.BiodataActivity
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +24,7 @@ class OnboardActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (AuthSharedPref.isLogin) {
-            start<MainActivity>()
+            start<BiodataActivity>()
             finish()
         }
         super.onCreate(savedInstanceState)

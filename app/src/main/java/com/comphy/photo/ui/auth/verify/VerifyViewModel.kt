@@ -1,7 +1,7 @@
 package com.comphy.photo.ui.auth.verify
 
 import androidx.lifecycle.MutableLiveData
-import com.comphy.photo.base.BaseAuthViewModel
+import com.comphy.photo.base.viewmodel.BaseAuthViewModel
 import com.comphy.photo.data.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion

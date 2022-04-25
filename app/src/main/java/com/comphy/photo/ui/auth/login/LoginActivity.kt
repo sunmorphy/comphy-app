@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
-import com.comphy.photo.base.BaseAuthActivity
+import com.comphy.photo.base.activity.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityLoginBinding
-import com.comphy.photo.ui.HomeActivity
 import com.comphy.photo.ui.auth.forgot.ForgotPasswordActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
-import com.comphy.photo.ui.main.MainActivity
+import com.comphy.photo.ui.biodata.BiodataActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -98,7 +97,7 @@ class LoginActivity : BaseAuthActivity() {
         }
         viewModel.responseException.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) {
-            start<MainActivity>()
+            start<BiodataActivity>()
             finish()
         }
     }

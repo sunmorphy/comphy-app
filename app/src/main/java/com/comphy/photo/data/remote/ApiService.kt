@@ -3,6 +3,8 @@ package com.comphy.photo.data.remote
 import com.comphy.photo.data.model.response.auth.AuthBody
 import com.comphy.photo.data.model.response.auth.AuthResponse
 import com.comphy.photo.data.model.response.auth.Data
+import com.comphy.photo.data.model.response.location.province.ProvinceResponse
+import com.comphy.photo.data.model.response.location.regency.RegencyResponse
 import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.*
 
@@ -68,4 +70,18 @@ interface ApiService {
     suspend fun userRefresh(
         @Header("refresh-token") refreshToken: String
     ): ApiResponse<AuthResponse>
+
+    /**
+     * Location
+     */
+    @GET
+    suspend fun getProvinces(
+        @Url url: String
+    ): ApiResponse<ProvinceResponse>
+
+    @GET
+    suspend fun getRegencies(
+        @Url url: String
+    ): ApiResponse<RegencyResponse>
+
 }

@@ -3,46 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/img_background">
 
+    <TextView
+        android:id="@+id/txtProfileForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:text="@string/Profile_form"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtProfileForm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="45dp"
-            android:fontFamily="@font/poppins_bold"
-            android:includeFontPadding="false"
-            android:text="@string/Profile_form"
-            android:textColor="@color/white"
-            android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtCompletedProfile"
-            android:layout_width="275dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="22dp"
-            android:fontFamily="@font/poppins_medium"
-            android:includeFontPadding="false"
-            android:text="@string/profile_CompletedProfile"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtProfileForm" />
-
+    <TextView
+        android:id="@+id/txtCompletedProfile"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="69dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/profile_CompletedProfile"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/txtProfileForm"
+        app:layout_constraintTop_toBottomOf="@id/txtProfileForm" />
 
     <carbon.widget.ConstraintLayout
-        android:id="@+id/succes"
+        android:id="@+id/layoutSuccess"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="17dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="13dp"
         android:background="#FAEAEA"
         android:visibility="gone"
         app:carbon_cornerRadius="8dp"
@@ -78,7 +75,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtSuccesDesc"
+            android:id="@+id/txtSuccessDesc"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -88,7 +85,7 @@
             android:textColor="@color/primary_green_20"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/txtErrorTitle"
+            app:layout_constraintEnd_toEndOf="@id/txtSuccessTitle"
             app:layout_constraintStart_toStartOf="@id/txtSuccessTitle"
             app:layout_constraintTop_toBottomOf="@id/txtSuccessTitle" />
 
@@ -107,7 +104,14 @@
 
     </carbon.widget.ConstraintLayout>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/layoutSheetBiodata"
+            layout="@layout/bottom_sheet_biodata" />
 
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

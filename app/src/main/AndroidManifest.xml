@@ -15,8 +15,19 @@
         android:theme="@style/Theme.Comphy"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Orange.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.biodata.BiodataActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Orange.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.HomeActivity"
             android:exported="false"

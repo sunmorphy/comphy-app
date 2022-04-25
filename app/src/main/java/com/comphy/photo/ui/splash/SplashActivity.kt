@@ -2,19 +2,21 @@ package com.comphy.photo.ui.splash
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.databinding.ActivitySplashBinding
 import com.comphy.photo.ui.onboard.OnboardActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.activities.start
+import timber.log.Timber
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
+    private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +25,19 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         lifecycleScope.launch {
-            delay(2000)
-            start<OnboardActivity>()
-            finish()
+            viewModel.fetchLocation()
+        }
+//            delay(2000)
+//            start<OnboardActivity>()
+//            finish()
+
+        viewModel.isFetching.observe(this) {
+            if (it) {
+                Timber.tag("Fetching").i(it.toString())
+            } else {
+                start<OnboardActivity>()
+                finish()
+            }
         }
     }
 }

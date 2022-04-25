@@ -1,61 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="288dp"
-    android:layout_height="231dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="34dp">
 
     <TextView
-        android:id="@+id/Sure"
-        android:layout_width="match_parent"
+        android:id="@+id/txtSure"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="34dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/profile_are_you_sure"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnchecked"
+        android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="42dp"
+        android:layout_marginEnd="25dp"
         android:backgroundTint="@color/neutral_gray"
         android:fontFamily="@font/poppins_bold"
         android:includeFontPadding="false"
+        android:insetBottom="@dimen/dp_0"
         android:paddingHorizontal="24dp"
         android:stateListAnimator="@null"
         android:text="@string/profile_checked"
         android:textAllCaps="false"
         android:textColor="@color/primary_gray"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:cornerRadius="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Sure"/>
+        app:layout_constraintEnd_toStartOf="@id/btnSave"
+        app:layout_constraintStart_toStartOf="@id/txtSure"
+        app:layout_constraintTop_toBottomOf="@id/txtSure" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:backgroundTint="@color/primary_orange"
         android:fontFamily="@font/poppins_bold"
         android:includeFontPadding="false"
-        android:paddingVertical="2dp"
+        android:insetBottom="@dimen/dp_0"
         android:paddingHorizontal="24dp"
         android:stateListAnimator="@null"
         android:text="@string/profile_save2"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnchecked"
-        app:layout_constraintTop_toTopOf="@id/btnchecked" />
+        app:layout_constraintBottom_toBottomOf="@id/btnCancel"
+        app:layout_constraintEnd_toEndOf="@id/txtSure"
+        app:layout_constraintStart_toEndOf="@id/btnCancel"
+        app:layout_constraintTop_toTopOf="@id/btnCancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

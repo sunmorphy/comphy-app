@@ -48,7 +48,7 @@
     <style name="ThemeOverlay.AppTheme.TextInputEditText.Outlined" parent="">
         <item name="colorPrimary">@color/neutral_black</item>
     </style>
-    
+
     <style name="CustomBottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="background">@drawable/rounded_bottom_sheet</item>
     </style>

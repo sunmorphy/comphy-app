@@ -1,4 +1,4 @@
-package com.comphy.photo.base
+package com.comphy.photo.base.activity
 
 import android.content.Intent
 import android.os.Bundle
