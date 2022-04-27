@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
 import splitties.toast.toast
-import timber.log.Timber
 
 @AndroidEntryPoint
 class BiodataActivity : BaseMainActivity() {
