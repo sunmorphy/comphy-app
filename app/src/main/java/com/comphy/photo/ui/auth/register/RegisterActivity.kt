@@ -59,7 +59,6 @@ class RegisterActivity : BaseAuthActivity() {
 
         setupClickListener()
     }
-
     private fun setupClickListener() {
         binding.btnRegister.setOnClickListener {
             setFieldError(false)
