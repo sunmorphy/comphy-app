@@ -26,6 +26,13 @@ object AuthSharedPref {
             field = value
         }
 
+    var userId: Int? = null
+        get() = Hawk.get(REFRESH_TOKEN)
+        set(value) {
+            Hawk.put(REFRESH_TOKEN, value)
+            field = value
+        }
+
     var isLogin: Boolean = false
         get() = Hawk.get(IS_LOGIN, false)
         set(value) {

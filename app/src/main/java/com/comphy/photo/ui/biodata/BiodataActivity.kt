@@ -3,7 +3,6 @@ package com.comphy.photo.ui.biodata
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.icu.number.IntegerWidth
 import android.os.Bundle
 import android.view.Window
 import android.widget.ArrayAdapter
@@ -15,24 +14,20 @@ import com.comphy.photo.R
 import com.comphy.photo.base.activity.BaseMainActivity
 import com.comphy.photo.databinding.ActivityBiodataBinding
 import com.comphy.photo.databinding.DialogBiodataConfirmBinding
-import com.comphy.photo.ui.HomeActivity
-import com.comphy.photo.ui.auth.login.LoginActivity
+import com.comphy.photo.ui.main.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
 import splitties.toast.toast
+import timber.log.Timber
 
 @AndroidEntryPoint
-class BiodataActivity : BiodataActivity() {
+class BiodataActivity : BaseMainActivity() {
 
     private lateinit var binding: ActivityBiodataBinding
-    private lateinit var name : String
-    private lateinit var location : String
-    private lateinit var telephone : Integer
-    private lateinit var jobs: String
-    private lateinit var description: String
-    private lateinit var socialMedia: String
+    private lateinit var confirmDialog: Dialog
+    private lateinit var dialogBiodata: DialogBiodataConfirmBinding
     private lateinit var sheetBiodata: BottomSheetBehavior<ConstraintLayout>
     private val viewModel: BiodataViewModel by viewModels()
 
@@ -42,60 +37,126 @@ class BiodataActivity : BiodataActivity() {
         binding = ActivityBiodataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        inputWidgets = listOf(binding.edtName, binding.edtEmail, binding.edtPassword)
-        errorWidgets = listOf(binding.txtErrorName, binding.txtErrorEmail, binding.txtErrorPassword)
-        loadingImage = binding.imgLoadingBtn
-        errorLayout = binding.errorLayout
-        mainButtonText = R.string.string_create_account
+        lifecycleScope.launch {
+            viewModel.fetchLocation()
+            viewModel.getRegencies()
+        }
 
+        init()
         setupClickListener()
-    }
-    private fun setupClickListener() {
-        binding.btnSave.setOnClickListener {
-            setFieldError(false)
-            name = binding.edtName.text.toString()
-            location = binding.edtLocation.text.toString()
-            telephone = binding.edtTelephone.toInteger()
-            jobs = binding.edtJobs.text.toString()
-            description = binding.edtDescription.text.toString()
-            socialMedia = binding.edtMediaSocial.text.toString()
 
-            if (isFieldEmpty()) {
-                setFieldError(true, eachField = true)
+    }
+
+    override fun init() {
+        confirmDialog = Dialog(this)
+        dialogBiodata = DialogBiodataConfirmBinding.inflate(layoutInflater)
+        sheetBiodata = BottomSheetBehavior.from(binding.layoutSheetBiodata.root)
+
+        confirmDialog.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            setContentView(dialogBiodata.root)
+        }
+
+        inputWidgets = listOf(
+            binding.layoutSheetBiodata.edtName,
+            binding.layoutSheetBiodata.edtLocation,
+            binding.layoutSheetBiodata.edtNumber,
+            binding.layoutSheetBiodata.edtJob,
+            binding.layoutSheetBiodata.edtDescription,
+            binding.layoutSheetBiodata.edtMediaSocial
+        )
+        requiredWidgets = listOf(
+            binding.layoutSheetBiodata.edtName,
+            binding.layoutSheetBiodata.edtNumber,
+            binding.layoutSheetBiodata.edtJob,
+            binding.layoutSheetBiodata.edtDescription
+        )
+        actionWidgets = listOf(binding.layoutSheetBiodata.btnSave)
+        errorWidgets = listOf(
+            binding.layoutSheetBiodata.txtErrorName,
+            binding.layoutSheetBiodata.txtErrorLocation,
+            binding.layoutSheetBiodata.txtErrorJob,
+            binding.layoutSheetBiodata.txtErrorDescription
+        )
+        responseLayout = binding.layoutSuccess
+    }
+
+    override fun setupClickListener() {
+        binding.layoutSheetBiodata.btnSave.setOnClickListener {
+            setRequiredFieldError(false)
+
+            if (isRequiredFieldEmpty()) {
+                setRequiredFieldError(true, eachField = true)
 
             } else {
-                lifecycleScope.launch {
-                    viewModel.user(name, location, telephone, jobs, description, socialMedia)
-                }
+                confirmDialog.show()
             }
         }
-
-        binding.btn.setOnClickListener { start<Biodatactivity>() }
-        binding.btnDismissError.setOnClickListener { showError(false) }
+        dialogBiodata.btnCancel.setOnClickListener { confirmDialog.dismiss() }
+        dialogBiodata.btnSave.setOnClickListener {
+            confirmDialog.dismiss()
+            toast("Saved")
+            start<MainActivity>()
+        }
     }
 
-        override fun setupObserver() {
-            viewModel.isLoading.observe(this) { setButtonLoading(it) }
-            viewModel.message.observe(this) {
-                val errMessage = it.split("\n")
-                binding.txtErrorTitle.text = errMessage[0]
-                if (errMessage.size > 2) {
-                    val error = "${errMessage[1]} ${errMessage[2]}"
-                    binding.txtErrorDesc.text = error
+    override fun setupObserver() {
+        viewModel.isFetching.observe(this) {
+            if (it) {
+                binding.layoutSheetBiodata.btnSave.isEnabled = false
+                binding.layoutSheetBiodata.edtLocation.isEnabled = false
+            } else {
+                binding.layoutSheetBiodata.btnSave.isEnabled = true
+                binding.layoutSheetBiodata.edtLocation.isEnabled = true
+            }
+        }
+        viewModel.regencies.observe(this) { regencies ->
+            var listRegency = mutableListOf<String>()
+
+            regencies.forEach { regency ->
+                val regencyName = regency.regencyName.split(" ")
+
+                if (regencyName.size > 2) {
+                    listRegency.add(
+                        "${
+                            regencyName[regencyName.size - 2].lowercase()
+                                .replaceFirstChar { it.titlecase() }
+                        } ${
+                            regencyName[regencyName.size - 1].lowercase()
+                                .replaceFirstChar { it.titlecase() }
+                        }, Indonesia"
+                    )
                 } else {
-                    binding.txtErrorDesc.text = errMessage[1]
+                    listRegency.add(
+                        "${
+                            regencyName[regencyName.size - 1].lowercase()
+                                .replaceFirstChar { it.titlecase() }
+                        }, Indonesia"
+                    )
                 }
-                setFieldError(true)
             }
 
-            viewModel.responseException.observe(this) { if (it != null) toast(it) }
-            viewModel.authResponse.observe(this) {
-                start<HomeActivity>()
-                finish()
+            listRegency = listRegency.distinct().toMutableList()
+
+            val locationAdapter =
+                ArrayAdapter(
+                    this@BiodataActivity,
+                    R.layout.custom_dropdown_location,
+                    R.id.txtLocationItem,
+                    listRegency
+                )
+
+            binding.layoutSheetBiodata.edtLocation.apply {
+                setDropDownBackgroundDrawable(
+                    ContextCompat.getDrawable(
+                        this@BiodataActivity,
+                        R.drawable.bg_dialog
+                    )
+                )
+                threshold = 1
+                setAdapter(locationAdapter)
             }
         }
-            override fun onResume() {
-                super.onResume()
-                setupClickListener()
-            }
-        }
+    }
+}

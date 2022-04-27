@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rounded_bottom_sheet"
+    android:background="@drawable/bg_bottom_sheet"
     app:behavior_hideable="false"
     app:behavior_peekHeight="500dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -35,30 +35,19 @@
             android:paddingBottom="32dp">
 
             <TextView
-                android:id="@+id/CompletedName"
+                android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="28dp"
+                android:drawablePadding="13dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/profile_completed_name"
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
+                app:drawableEndCompat="@drawable/ic_required_small"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgIndicator" />
-
-            <TextView
-                android:id="@+id/indicator1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:layout_marginTop="22dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_indicator"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/CompletedName"
-                app:layout_constraintTop_toTopOf="@+id/imgIndicator" />
 
             <carbon.widget.EditText
                 android:id="@+id/edtName"
@@ -67,11 +56,10 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/state_field"
-                android:elevation="30dp"
                 android:fontFamily="@font/poppins_medium"
-                android:gravity="top"
                 android:hint="@string/profile_edit_name"
                 android:inputType="textPersonName"
+                android:maxLines="1"
                 android:paddingHorizontal="29dp"
                 android:paddingVertical="18dp"
                 android:textColor="@color/neutral_black"
@@ -81,11 +69,11 @@
                 app:carbon_elevation="30dp"
                 app:carbon_elevationShadowColor="#FFF4E5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/CompletedName"
-                app:layout_constraintTop_toBottomOf="@id/CompletedName" />
+                app:layout_constraintStart_toStartOf="@id/txtName"
+                app:layout_constraintTop_toBottomOf="@id/txtName" />
 
             <TextView
-                android:id="@+id/txtErrorDesc1"
+                android:id="@+id/txtErrorName"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -100,54 +88,44 @@
                 app:layout_constraintTop_toBottomOf="@id/edtName" />
 
             <TextView
-                android:id="@+id/YourLocation"
+                android:id="@+id/txtLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
+                android:drawablePadding="13dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/profile_location"
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
+                app:drawableEndCompat="@drawable/ic_required_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorDesc1" />
-
-            <TextView
-                android:id="@+id/indicator2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_indicator"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/YourLocation"
-                app:layout_constraintTop_toBottomOf="@+id/txtErrorDesc1" />
+                app:layout_constraintTop_toBottomOf="@id/txtErrorName" />
 
             <carbon.widget.LinearLayout
                 android:id="@+id/layoutLocation"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
                 app:carbon_cornerRadius="14dp"
                 app:carbon_elevation="30dp"
                 app:carbon_elevationShadowColor="#FFF4E5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/edtName"
-                app:layout_constraintTop_toBottomOf="@id/YourLocation">
+                app:layout_constraintTop_toBottomOf="@id/txtLocation">
 
                 <AutoCompleteTextView
                     android:id="@+id/edtLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="16dp"
                     android:background="@drawable/state_field"
+                    android:dropDownSelector="@drawable/bg_dialog"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="top"
-                    android:dropDownSelector="@drawable/bg_dialog"
                     android:hint="@string/profile_edit_location"
                     android:inputType="text"
+                    android:maxLines="1"
                     android:paddingHorizontal="29dp"
                     android:paddingVertical="18dp"
                     android:textColor="@color/neutral_black"
@@ -157,7 +135,7 @@
             </carbon.widget.LinearLayout>
 
             <TextView
-                android:id="@+id/txtErrorDesc2"
+                android:id="@+id/txtErrorLocation"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -172,7 +150,7 @@
                 app:layout_constraintTop_toBottomOf="@id/layoutLocation" />
 
             <TextView
-                android:id="@+id/YourNumberTelephone"
+                android:id="@+id/txtNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -182,20 +160,19 @@
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorDesc2" />
+                app:layout_constraintTop_toBottomOf="@id/txtErrorLocation" />
 
             <carbon.widget.EditText
-                android:id="@+id/edtTelephone"
+                android:id="@+id/edtNumber"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/state_field"
-                android:elevation="30dp"
                 android:fontFamily="@font/poppins_medium"
-                android:gravity="top"
                 android:hint="@string/profile_edit_number"
                 android:inputType="number"
+                android:maxLines="1"
                 android:paddingHorizontal="29dp"
                 android:paddingVertical="18dp"
                 android:textColor="@color/neutral_black"
@@ -206,46 +183,34 @@
                 app:carbon_elevationShadowColor="#FFF4E5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/edtName"
-                app:layout_constraintTop_toBottomOf="@id/YourNumberTelephone" />
+                app:layout_constraintTop_toBottomOf="@id/txtNumber" />
 
             <TextView
-                android:id="@+id/YourJobs"
+                android:id="@+id/txtJob"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
+                android:drawablePadding="13dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/profile_your_job"
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
+                app:drawableEndCompat="@drawable/ic_required_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtNumberTelephone" />
-
-            <TextView
-                android:id="@+id/indicator3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_indicator"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/YourJobs"
-                app:layout_constraintTop_toBottomOf="@+id/edtNumberTelephone" />
+                app:layout_constraintTop_toBottomOf="@id/edtNumber" />
 
             <carbon.widget.EditText
-                android:id="@+id/edtJobs"
+                android:id="@+id/edtJob"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/state_field"
-                android:elevation="30dp"
                 android:fontFamily="@font/poppins_medium"
-                android:gravity="top"
                 android:hint="@string/profile_edit_Jobs"
                 android:inputType="text"
+                android:maxLines="1"
                 android:paddingHorizontal="29dp"
                 android:paddingVertical="18dp"
                 android:textColor="@color/neutral_black"
@@ -255,11 +220,11 @@
                 app:carbon_elevation="30dp"
                 app:carbon_elevationShadowColor="#FFF4E5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/YourJobs"
-                app:layout_constraintTop_toBottomOf="@id/YourJobs" />
+                app:layout_constraintStart_toStartOf="@id/txtJob"
+                app:layout_constraintTop_toBottomOf="@id/txtJob" />
 
             <TextView
-                android:id="@+id/txtErrorDesc3"
+                android:id="@+id/txtErrorJob"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -271,33 +236,22 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtJobs" />
+                app:layout_constraintTop_toBottomOf="@id/edtJob" />
 
             <TextView
-                android:id="@+id/YourDescription"
+                android:id="@+id/txtDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
+                android:drawablePadding="13dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/profile_description"
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
+                app:drawableEndCompat="@drawable/ic_required_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorDesc3" />
-
-            <TextView
-                android:id="@+id/indicator4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_indicator"
-                android:textColor="@color/red"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/YourDescription"
-                app:layout_constraintTop_toBottomOf="@+id/txtErrorDesc3" />
+                app:layout_constraintTop_toBottomOf="@id/txtErrorJob" />
 
             <carbon.widget.EditText
                 android:id="@+id/edtDescription"
@@ -306,7 +260,6 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/state_field"
-                android:elevation="30dp"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="top"
                 android:hint="@string/profile_edit_description"
@@ -321,11 +274,11 @@
                 app:carbon_elevationShadowColor="#FFF4E5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/YourDescription"
-                app:layout_constraintTop_toBottomOf="@id/YourDescription" />
+                app:layout_constraintStart_toStartOf="@id/txtDescription"
+                app:layout_constraintTop_toBottomOf="@id/txtDescription" />
 
             <TextView
-                android:id="@+id/txtErrorDesc4"
+                android:id="@+id/txtErrorDescription"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -340,7 +293,7 @@
                 app:layout_constraintTop_toBottomOf="@id/edtDescription" />
 
             <TextView
-                android:id="@+id/YourMediaSocial"
+                android:id="@+id/txtMediaSocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -350,7 +303,7 @@
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorDesc4" />
+                app:layout_constraintTop_toBottomOf="@id/txtErrorDescription" />
 
             <carbon.widget.EditText
                 android:id="@+id/edtMediaSocial"
@@ -361,10 +314,10 @@
                 android:background="@drawable/state_field"
                 android:drawableStart="@drawable/ic_socmed"
                 android:drawablePadding="20dp"
-                android:elevation="30dp"
                 android:fontFamily="@font/poppins_medium"
                 android:hint="@string/profile_ediit_media_social"
                 android:inputType="text"
+                android:maxLines="1"
                 android:paddingHorizontal="29dp"
                 android:paddingVertical="18dp"
                 android:textColor="@color/neutral_black"
@@ -374,8 +327,8 @@
                 app:carbon_elevation="30dp"
                 app:carbon_elevationShadowColor="#FFF4E5"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/YourMediaSocial"
-                app:layout_constraintTop_toBottomOf="@id/YourMediaSocial" />
+                app:layout_constraintStart_toStartOf="@id/txtMediaSocial"
+                app:layout_constraintTop_toBottomOf="@id/txtMediaSocial" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
