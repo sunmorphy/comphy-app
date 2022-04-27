@@ -13,12 +13,14 @@ import com.comphy.photo.R
 import com.comphy.photo.data.model.CommunityCategoryModel
 import com.comphy.photo.data.model.CommunityPreviewModel
 import com.comphy.photo.databinding.FragmentHomeBinding
+import com.comphy.photo.ui.community.CreateCommunityActivity
 import com.comphy.photo.ui.main.fragment.home.adapter.*
 import com.comphy.photo.vo.CommunityType
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import splitties.fragments.start
 
 class HomeFragment : Fragment() {
 
@@ -72,6 +74,8 @@ class HomeFragment : Fragment() {
 
         setupViewPager(mList)
         setupRecycler(communities, categories)
+
+        binding.btnCreateCommunity.setOnClickListener { start<CreateCommunityActivity>() }
     }
 
     private fun setupViewPager(listImages: List<String>) {

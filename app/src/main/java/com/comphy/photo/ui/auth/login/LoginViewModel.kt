@@ -26,6 +26,7 @@ class LoginViewModel @Inject constructor(
                 authResponse.postValue(it.toString())
                 AuthSharedPref.accessToken = it.accessToken
                 AuthSharedPref.refreshToken = it.refreshToken
+                AuthSharedPref.userId = it.userId
                 AuthSharedPref.isLogin = true
             }
     }

@@ -7,6 +7,8 @@ data class Data(
     val accessToken: String,
     @SerializedName("refresh_token")
     val refreshToken: String,
+    @SerializedName("userId")
+    val userId: Int? = null,
     @SerializedName("user")
-    val user: User?
+    val user: User? = null
 )

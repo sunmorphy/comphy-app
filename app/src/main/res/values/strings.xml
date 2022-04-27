@@ -37,6 +37,19 @@
     <string name="string_max_community">Maksimal 2 Komunitas</string>
     <string name="string_see_all">Lihat Semua</string>
     <string name="string_notification">Notification</string>
+    <string name="string_upload_banner">Upload Banner</string>
+    <string name="string_required">*</string>
+    <string name="string_community_type_private">Privat</string>
+    <string name="string_community_type_public">Publik</string>
+
+    <!-- Community Category -->
+    <string-array name="community_category">
+        <item>Human Interest Photography</item>
+        <item>Portrait Photography</item>
+        <item>Landscape Photography</item>
+        <item>Fashion Photography</item>
+        <item>Journalism Photography</item>
+    </string-array>
 
     <string name="error_email">*Masukkan Email Kamu dengan Benar</string>
     <string name="error_password">*Masukkan Password min.6 Karakter &amp; Angka (0-9)</string>
@@ -140,4 +153,25 @@
     <string name="home_offer_title">Mau Cuan Ga Nih??</string>
     <string name="home_offer_description">Jual Foto kamu ke salah satu website ini!</string>
     <string name="home_tips">Tips Fotografi Buat Kamu!</string>
+
+    <!-- Create Community Strings -->
+    <string name="cc_create_community">Buat Komunitas</string>
+    <string name="cc_upload_banner_size">Upload Banner  1280 x 388.</string>
+    <string name="cc_upload_banner_max">Max. 3 mb</string>
+    <string name="cc_community_category">Pilih Kategori Komunitas</string>
+    <string name="cc_community_name">Nama Komunitas</string>
+    <string name="cc_community_location">Lokasi Komunitas</string>
+    <string name="cc_community_description">Deskripsi Komunitas</string>
+    <string name="cc_community_type">Pilih Tipe Komunitas</string>
+    <string name="cc_community_category_text">Kategori Komunitas</string>
+    <string name="cc_community_name_text">Masukan Nama Komunitas</string>
+    <string name="cc_community_location_text">Masukan Lokasi Komunitas</string>
+    <string name="cc_community_description_text">Masukan Deskripsi Komunitas</string>
+    <string name="cc_community_category_error">*Silahkan Pilih Kategori Komunitas</string>
+    <string name="cc_community_name_error">*Masukkan Nama Komunitas</string>
+    <string name="cc_community_location_error">*Masukkan Lokasi Komunitas</string>
+    <string name="cc_community_description_error">*Masukkan Deskripsi Komunitas</string>
+    <string name="cc_community_type_error">*Pilih Tipe Komunitas</string>
+    <string name="cc_error_community_name_title">Gagal Membuat Komunitas!</string>
+    <string name="cc_error_community_name_description">Nama Komunitas yang kamu pakai telah terpakai.</string>
 </resources>
