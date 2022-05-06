@@ -34,7 +34,7 @@ class ForgotPasswordActivity : BaseAuthActivity() {
         errorWidgets = listOf(binding.txtErrorEmail)
         loadingImage = binding.imgLoadingBtn
         errorLayout = binding.errorLayout
-        mainButtonText = R.string.forgot_send
+        mainButtonText = R.string.string_send
 
         bottomSheetBinding.apply {
             animView.setAnimation(R.raw.anim_success)

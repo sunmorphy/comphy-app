@@ -1,8 +1,8 @@
 package com.comphy.photo.di
 
 import android.app.Application
-import com.comphy.photo.data.local.ComphyDatabase
-import com.comphy.photo.data.local.location.LocationDao
+import com.comphy.photo.data.source.local.room.ComphyDatabase
+import com.comphy.photo.data.source.local.room.location.LocationDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

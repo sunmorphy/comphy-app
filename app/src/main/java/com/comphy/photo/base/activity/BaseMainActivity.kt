@@ -94,7 +94,7 @@ abstract class BaseMainActivity : AppCompatActivity() {
     protected fun showError(state: Boolean) =
         if (state) responseLayout.visibility = View.VISIBLE else responseLayout.visibility = View.GONE
 
-    protected fun formatLocationInput(regency: String): String = "$regency, Indonesia"
+//    protected fun formatLocationInput(regency: String): String = "$regency, Indonesia"
 
     protected abstract fun init()
 

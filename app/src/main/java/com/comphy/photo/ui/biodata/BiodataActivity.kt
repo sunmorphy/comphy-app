@@ -19,7 +19,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
-import splitties.toast.toast
 
 @AndroidEntryPoint
 class BiodataActivity : BaseMainActivity() {
@@ -33,13 +32,13 @@ class BiodataActivity : BaseMainActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityBiodataBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         lifecycleScope.launch {
-            viewModel.fetchLocation()
+            viewModel.getUserDetails()
             viewModel.getRegencies()
         }
+
+        binding = ActivityBiodataBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         init()
         setupClickListener()
@@ -67,7 +66,7 @@ class BiodataActivity : BaseMainActivity() {
         )
         requiredWidgets = listOf(
             binding.layoutSheetBiodata.edtName,
-            binding.layoutSheetBiodata.edtNumber,
+            binding.layoutSheetBiodata.edtLocation,
             binding.layoutSheetBiodata.edtJob,
             binding.layoutSheetBiodata.edtDescription
         )
@@ -87,29 +86,32 @@ class BiodataActivity : BaseMainActivity() {
 
             if (isRequiredFieldEmpty()) {
                 setRequiredFieldError(true, eachField = true)
-
             } else {
                 confirmDialog.show()
             }
         }
         dialogBiodata.btnCancel.setOnClickListener { confirmDialog.dismiss() }
         dialogBiodata.btnSave.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.updateUserDetails(
+                    binding.layoutSheetBiodata.edtName.text.toString(),
+                    binding.layoutSheetBiodata.edtLocation.text.toString(),
+                    binding.layoutSheetBiodata.edtNumber.text.toString(),
+                    binding.layoutSheetBiodata.edtJob.text.toString(),
+                    binding.layoutSheetBiodata.edtDescription.text.toString(),
+                    binding.layoutSheetBiodata.edtMediaSocial.text.toString()
+                )
+            }
             confirmDialog.dismiss()
-            toast("Saved")
-            start<MainActivity>()
         }
     }
 
     override fun setupObserver() {
-        viewModel.isFetching.observe(this) {
-            if (it) {
-                binding.layoutSheetBiodata.btnSave.isEnabled = false
-                binding.layoutSheetBiodata.edtLocation.isEnabled = false
-            } else {
-                binding.layoutSheetBiodata.btnSave.isEnabled = true
-                binding.layoutSheetBiodata.edtLocation.isEnabled = true
-            }
+        viewModel.updateResponse.observe(this) {
+            start<MainActivity>()
+            finishAffinity()
         }
+        viewModel.userFullname.observe(this) { binding.layoutSheetBiodata.edtName.text = it }
         viewModel.regencies.observe(this) { regencies ->
             var listRegency = mutableListOf<String>()
 
@@ -117,22 +119,19 @@ class BiodataActivity : BaseMainActivity() {
                 val regencyName = regency.regencyName.split(" ")
 
                 if (regencyName.size > 2) {
-                    listRegency.add(
-                        "${
-                            regencyName[regencyName.size - 2].lowercase()
-                                .replaceFirstChar { it.titlecase() }
-                        } ${
-                            regencyName[regencyName.size - 1].lowercase()
-                                .replaceFirstChar { it.titlecase() }
-                        }, Indonesia"
-                    )
+                    val splitRegency =
+                        regencyName[regencyName.size - 2].lowercase()
+                            .replaceFirstChar { it.titlecase() } +
+                                regencyName[regencyName.size - 2].lowercase()
+                                    .replaceFirstChar { it.titlecase() }
+
+                    listRegency.add("$splitRegency, Indonesia")
+
                 } else {
-                    listRegency.add(
-                        "${
-                            regencyName[regencyName.size - 1].lowercase()
-                                .replaceFirstChar { it.titlecase() }
-                        }, Indonesia"
-                    )
+                    val splitRegency = regencyName[regencyName.size - 1].lowercase()
+                        .replaceFirstChar { it.titlecase() }
+
+                    listRegency.add("$splitRegency, Indonesia")
                 }
             }
 

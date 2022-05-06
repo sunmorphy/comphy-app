@@ -1,8 +1,8 @@
 package com.comphy.photo.ui.auth.login
 
 import com.comphy.photo.base.viewmodel.BaseAuthViewModel
-import com.comphy.photo.data.AuthRepository
-import com.comphy.photo.data.local.auth.AuthSharedPref
+import com.comphy.photo.data.repository.AuthRepository
+import com.comphy.photo.data.source.local.sharedpref.auth.UserLogin
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
@@ -11,6 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
+    private val userLogin: UserLogin
 ) : BaseAuthViewModel() {
 
     suspend fun userLogin(email: String, password: String) {
@@ -24,10 +25,10 @@ class LoginViewModel @Inject constructor(
             .onCompletion { isLoading.postValue(false) }
             .collect {
                 authResponse.postValue(it.toString())
-                AuthSharedPref.accessToken = it.accessToken
-                AuthSharedPref.refreshToken = it.refreshToken
-                AuthSharedPref.userId = it.userId
-                AuthSharedPref.isLogin = true
+                userLogin.userId = it.userId!!
+                userLogin.userAccessToken = it.accessToken
+                userLogin.userRefreshToken = it.refreshToken
+                userLogin.isLogin = true
             }
     }
 
@@ -42,9 +43,10 @@ class LoginViewModel @Inject constructor(
             .onCompletion { isLoading.postValue(false) }
             .collect {
                 authResponse.postValue(it.toString())
-                AuthSharedPref.accessToken = it.accessToken
-                AuthSharedPref.refreshToken = it.refreshToken
-                AuthSharedPref.isLogin = true
+                userLogin.userId = it.userId!!
+                userLogin.userAccessToken = it.accessToken
+                userLogin.userRefreshToken = it.refreshToken
+                userLogin.isLogin = true
             }
     }
 

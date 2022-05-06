@@ -1,7 +1,7 @@
 package com.comphy.photo.ui.auth.forgot
 
 import com.comphy.photo.base.viewmodel.BaseAuthViewModel
-import com.comphy.photo.data.AuthRepository
+import com.comphy.photo.data.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
