@@ -27,6 +27,7 @@
     <color name="neutral_black_40">#662C2C2C</color>
     <color name="neutral_black_50">#802C2C2C</color>
     <color name="neutral_black_60">#9A2C2C2C</color>
+    <color name="neutral_black_70">#B22C2C2C</color>
     <color name="neutral_black_80">#CC2C2C2C</color>
     <color name="black_40">#65000000</color>
     <color name="black_12">#1F000000</color>
@@ -34,5 +35,6 @@
     <color name="neutral_5">#858C94</color>
     <color name="neutral_3">#CFCFCF</color>
     <color name="neutral_4">#B6B6B6</color>
+    <color name="neutral_2">#616161</color>
 
 </resources>

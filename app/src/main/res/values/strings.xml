@@ -29,6 +29,7 @@
     <string name="string_verify">Verifikasi</string>
     <string name="string_back">Kembali</string>
     <string name="string_save">Simpan</string>
+    <string name="string_choose">Pilih</string>
     <string name="string_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
     <string name="string_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
     <string name="string_current_location">Yogyakarta,Indonesia</string>
@@ -41,6 +42,20 @@
     <string name="string_required">*</string>
     <string name="string_community_type_private">Privat</string>
     <string name="string_community_type_public">Publik</string>
+    <string name="string_set_filter">Filter</string>
+    <string name="string_set_bookmark">Bookmark</string>
+    <string name="string_apply">Terapkan</string>
+    <string name="string_visit_job">Kunjungi Lowongan</string>
+    <string name="string_job_description">Deskripsi</string>
+    <string name="string_job_requirement">Persyaratan</string>
+    <string name="string_send">Kirim</string>
+    <string name="string_upload_text">Text/Artikel</string>
+    <string name="string_upload_video">Upload Video</string>
+    <string name="string_upload_image">Upload Foto</string>
+    <string name="string_feed_main">Utama</string>
+    <string name="string_feed_recommendation">Rekomendasi</string>
+    <string name="string_post">Unggah Post</string>
+    <string name="string_upload_post">Unggah Post</string>
 
     <!-- Community Category -->
     <string-array name="community_category">
@@ -105,7 +120,6 @@
     <string name="reset_success_title">Berhasil Menyimpan</string>
     <string name="reset_success_description">Kamu berhasil menyimpan Password baru dan coba lagi untuk mulai masuk.</string>
 
-    <string name="forgot_send">Kirim</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mohon_cek_email_kamu">Mohon Cek Email Kamu!</string>
     <string name="dummy_verify">Kami Telah Mengirimkan Kode Verifikasi Ke <b>Thavitaaa13@gmail.com</b></string>
@@ -153,6 +167,10 @@
     <string name="home_offer_title">Mau Cuan Ga Nih??</string>
     <string name="home_offer_description">Jual Foto kamu ke salah satu website ini!</string>
     <string name="home_tips">Tips Fotografi Buat Kamu!</string>
+    <string name="home_your_community_empty">Sorry, Komunitas kamu masih kosong</string>
+    <string name="home_your_community_empty_create">Buat Komunitas Sekarang!</string>
+    <string name="home_followed_community_empty">Sorry, Kamu belum mengikuti Komunitas</string>
+    <string name="home_followed_community_empty_follow">Temukan dan ikuti Sekarang!</string>
 
     <!-- Create Community Strings -->
     <string name="cc_create_community">Buat Komunitas</string>
@@ -174,4 +192,106 @@
     <string name="cc_community_type_error">*Pilih Tipe Komunitas</string>
     <string name="cc_error_community_name_title">Gagal Membuat Komunitas!</string>
     <string name="cc_error_community_name_description">Nama Komunitas yang kamu pakai telah terpakai.</string>
+
+    <!-- Job Vacancy Strings -->
+    <string name="job_find_your_job">Cari Jobmu!</string>
+    <string name="job_find_your_career">Tentukan Perjalanan Karirmu Sekarang juga!</string>
+    <string name="job_search_hint">Cari disini “Fotografe SYNRGY”</string>
+    <string name="job_is_empty">Sorry, Saat ini belum tersedia mohon tunggu update terbaru dari kami.</string>
+    <string name="job_job_title">Freelancer Fotografer ipsum dolor sit amet</string>
+    <string name="job_job_company">CV. Asap Sambal Tanjung Dolor Sit Amet</string>
+    <string name="job_job_location">Jakarta Raya</string>
+    <string name="job_job_type">Part Time</string>
+    <string name="job_job_time_passed">2h yang lalu</string>
+    <string name="job_job_salary">IDR 1.000.000 - IDR 1.500.000/Bulan</string>
+    <string name="job_filter_job">Filter Job</string>
+    <string name="job_filter_region">Daerah/Region</string>
+    <string name="job_filter_search_hint">Masukan Daerah “Jakarta Selatan”</string>
+    <string name="job_filter_job_type">Tipe Pekerjaan</string>
+    <string name="job_type_part">Part Time</string>
+    <string name="job_type_full">Full Time</string>
+    <string name="job_job_description">Deskripsi Pekerjaan :</string>
+    <string name="job_job_description_content">1. Melakukan produksi video produk masakan dan makanan restoran, dari proses pengembangan konsep hingga hasil video siap dipublikasi.\n2. Merencanakan dan berkoordinasi dengan tim dalam mengambil video.\n3. Mengambil video untuk berbagai macam kebutuhan sosial media &amp; marketing produk yang berkualitas sesuai dengan style yang menarik.\n4. Bertanggung jawab atas manajemen data video.</string>
+    <string name="job_job_requirement">Persyaratan :</string>
+    <string name="job_job_requirement_content">1. Minimal pengalaman 1 tahun sebagai videographer, Fresh Graduate dipersilahkan untuk melamar\n2. Memahami dan menguasai teknik pengambilan foto dan video (Angle,pencahayaan)\n3. Bersedia bekerja jika dibutuhkan di weekend atau hari libur nasional\n4. Mohon melampirkan portofolio design\n5. Memahami tehnik fotografi terutama foto produk\n6. Bisa videografi / editing video menjadi nilai plus</string>
+    <string name="job_detail_vacancy_time">Waktu Proses Lamaran :</string>
+    <string name="job_detail_vacancy_time_content">24 Hari</string>
+    <string name="job_detail_level">Tingkat Pekerjaan :</string>
+    <string name="job_detail_level_content">Pegawai (non-manajemen &amp; non-supervisor)</string>
+    <string name="job_detail_industry">Industri :</string>
+    <string name="job_detail_industry_content">Makanan &amp; Minuman/Katering/Restoran</string>
+    <string name="job_detail_allowances">Tunjangan dan Lain-lain :</string>
+    <string name="job_detail_allowances_content">Tip, Bisnis (contoh: Kemeja)</string>
+
+    <!-- Feed Post Strings -->
+    <string name="feed_write_here">Tulis Sesuatu disini....</string>
+    <string name="feed_user_name">Ana Marie ayy</string>
+    <string name="feed_bookmark">Bookmark This Post</string>
+    <string name="feed_add_user">Add User</string>
+    <string name="feed_time_passed">1 hari yang lalu</string>
+    <string name="feed_caption">GrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaa</string>
+    <string name="feed_likes_count">247 Orang Menyukai Postingan ini</string>
+    <string name="feed_comment">Komentari</string>
+    <string name="feed_like">Suka</string>
+    <string name="feed_data_exif">Data EXIF Foto : </string>
+    <string name="feed_data_exif_camera">Kamera : Sony A7 Mark IIIIIIIIIIIIIII</string>
+    <string name="feed_data_exif_lens">Lensa : Youngno Fix Youngno Fix Youngno Fix</string>
+    <string name="feed_data_exif_flash">Flash : Godox</string>
+    <string name="feed_data_exif_iso">ISO : 160</string>
+    <string name="feed_data_exif_shutter">Shutter Speed : 1/500</string>
+    <string name="feed_data_exif_aperture">Aperture : F/5.6</string>
+    <string name="feed_comment_count">24 Orang berkomentar</string>
+    <string name="feed_comment_see_all">Lihat Semua Komentar ></string>
+    <string name="feed_post_community">Landscaper Bekasi</string>
+
+    <!-- Comment Strings -->
+    <string name="comment_count">24 Orang berkomentar</string>
+    <string name="comment_profile">Putiputiputi</string>
+    <string name="comment_job">Freelancer</string>
+    <string name="comment_time_passed">5m yang lalu</string>
+    <string name="comment_content">Bagus banget sih buat keluaran sony apalagi yang alpha a7 series emang ga ada obatttttttttttt!!</string>
+    <string name="comment_reply_count">3 Balasan</string>
+    <string name="comment_reply">Balas Komentar</string>
+    <string name="comment_reply_content">Balasan Komentar</string>
+    <string name="comment_write">Tulis Komentar</string>
+
+    <!-- Create Post Strings -->
+    <string name="post_choose_photo">Pilih Foto/Gambar</string>
+    <string name="post_choose_photo_desc">Max. 3 Mb</string>
+    <string name="post_choose_video">Pilih Video</string>
+    <string name="post_choose_video_desc">Max. 100 Mb</string>
+    <string name="post_choose_text">Text/Artikel</string>
+    <string name="post_choose_text_desc">Tap disini</string>
+    <string name="post_input_title">Judul Postingan</string>
+    <string name="post_input_title_max_char">0/40 karakter</string>
+    <string name="post_input_title_hint">Masukan Judul Postingan</string>
+    <string name="post_input_caption">Apa yang ingin kamu tulis?</string>
+    <string name="post_input_caption_max_char">0/400 karakter</string>
+    <string name="post_input_caption_hint">Masukkan Text Disini</string>
+    <string name="post_input_camera">Kamera</string>
+    <string name="post_input_camera_hint">Tipe Kamera</string>
+    <string name="post_input_lens">Lensa</string>
+    <string name="post_input_lens_hint">Tipe Lensa</string>
+    <string name="post_input_flash">Flash</string>
+    <string name="post_input_flash_hint">Tipe Flash</string>
+    <string name="post_input_iso">ISO</string>
+    <string name="post_input_iso_hint">Masukkan ISO</string>
+    <string name="post_input_shutter">Shutter Speed</string>
+    <string name="post_input_shutter_hint">Masukkan Shutter Speed</string>
+    <string name="post_input_aperture">Aperture</string>
+    <string name="post_input_aperture_hint">Masukkan Aperture</string>
+    <string name="post_to_set">Pengaturan Postingan</string>
+    <string name="set_post">Atur Postingan</string>
+    <string name="set_post_input_location">Masukkan Lokasi</string>
+    <string name="set_post_input_location_hint">Masukan Lokasi</string>
+    <string name="set_post_choose_category">Pilih Kategori</string>
+    <string name="set_post_choose_category_hint">Kategori Komunitas</string>
+    <string name="set_post_to">Kirim Ke?</string>
+    <string name="set_post_to_option_1">Komunitas</string>
+    <string name="set_post_to_option_2">Publik</string>
+    <string name="set_post_to_choose_community">Pilih Komunitas</string>
+    <string name="set_post_to_choose_community_none">Tidak ada Komunitas yang dipilih</string>
+    <string name="choose_community">Pilih Komunitas</string>
+    <string name="choose_community_description">Untuk Saat Ini kamu hanya dapat memilih satu komunitas yang akan kamu tuju.</string>
+
 </resources>
