@@ -2,7 +2,7 @@ package com.comphy.photo.ui.auth.login
 
 import com.comphy.photo.base.viewmodel.BaseAuthViewModel
 import com.comphy.photo.data.repository.AuthRepository
-import com.comphy.photo.data.source.local.sharedpref.auth.UserLogin
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val userLogin: UserLogin
+    private val userAuth: UserAuth
 ) : BaseAuthViewModel() {
 
     suspend fun userLogin(email: String, password: String) {
@@ -25,10 +25,10 @@ class LoginViewModel @Inject constructor(
             .onCompletion { isLoading.postValue(false) }
             .collect {
                 authResponse.postValue(it.toString())
-                userLogin.userId = it.userId!!
-                userLogin.userAccessToken = it.accessToken
-                userLogin.userRefreshToken = it.refreshToken
-                userLogin.isLogin = true
+                userAuth.userId = it.userId!!
+                userAuth.userAccessToken = it.accessToken
+                userAuth.userRefreshToken = it.refreshToken
+                userAuth.isLogin = true
             }
     }
 
@@ -43,10 +43,10 @@ class LoginViewModel @Inject constructor(
             .onCompletion { isLoading.postValue(false) }
             .collect {
                 authResponse.postValue(it.toString())
-                userLogin.userId = it.userId!!
-                userLogin.userAccessToken = it.accessToken
-                userLogin.userRefreshToken = it.refreshToken
-                userLogin.isLogin = true
+                userAuth.userId = it.userId!!
+                userAuth.userAccessToken = it.accessToken
+                userAuth.userRefreshToken = it.refreshToken
+                userAuth.isLogin = true
             }
     }
 

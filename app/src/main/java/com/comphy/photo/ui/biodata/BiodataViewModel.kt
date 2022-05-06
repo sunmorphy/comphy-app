@@ -2,14 +2,12 @@ package com.comphy.photo.ui.biodata
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.comphy.photo.data.repository.AuthRepository
 import com.comphy.photo.data.repository.LocationRepository
 import com.comphy.photo.data.repository.UserRepository
-import com.comphy.photo.data.source.local.sharedpref.auth.UserLogin
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.data.source.local.entity.ProvinceWithRegency
 import com.comphy.photo.data.source.local.entity.RegencyEntity
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
-import com.comphy.photo.data.source.remote.response.biodata.BiodataBody
 import com.comphy.photo.data.source.remote.response.user.UserDataBody
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
@@ -20,7 +18,7 @@ import javax.inject.Inject
 class BiodataViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val locationRepository: LocationRepository,
-    private val userLogin: UserLogin
+    private val userAuth: UserAuth
 ) : ViewModel() {
 
     val userFullname = MutableLiveData<String>()
@@ -30,8 +28,8 @@ class BiodataViewModel @Inject constructor(
     val updateResponse = MutableLiveData<AuthResponse>()
 
     suspend fun getUserDetails() {
-        if (userLogin.userId != 0) {
-            userRepository.getUserDetails(userLogin.userId)
+        if (userAuth.userId != 0) {
+            userRepository.getUserDetails(userAuth.userId)
                 .onStart { isFetching.postValue(true) }
                 .onCompletion { isFetching.postValue(false) }
                 .collect {
@@ -57,7 +55,7 @@ class BiodataViewModel @Inject constructor(
             job = job,
             description = description,
             socialMedia = socialMedia,
-            id = userLogin.userId
+            id = userAuth.userId
         )
         userRepository.updateUserDetails(
             userDataBody,

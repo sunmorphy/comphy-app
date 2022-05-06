@@ -2,7 +2,7 @@ package com.comphy.photo
 
 import android.app.Application
 import androidx.viewbinding.BuildConfig
-import com.comphy.photo.data.local.auth.AuthSharedPref
+import com.comphy.photo.data.source.local.sharedpref.auth.AuthSharedPref
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

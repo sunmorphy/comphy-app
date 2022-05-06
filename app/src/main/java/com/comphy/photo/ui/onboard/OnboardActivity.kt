@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.comphy.photo.R
-import com.comphy.photo.data.local.auth.AuthSharedPref
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.databinding.ActivityOnboardBinding
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
@@ -16,18 +16,22 @@ import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import dagger.hilt.android.AndroidEntryPoint
 import splitties.activities.start
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardActivity : AppCompatActivity() {
+    @Inject
+    lateinit var userAuth: UserAuth
+
     private lateinit var binding: ActivityOnboardBinding
     private val viewModel by viewModels<OnboardViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (AuthSharedPref.isLogin) {
+        super.onCreate(savedInstanceState)
+        if (userAuth.isLogin) {
             start<BiodataActivity>()
             finish()
         }
-        super.onCreate(savedInstanceState)
 
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
