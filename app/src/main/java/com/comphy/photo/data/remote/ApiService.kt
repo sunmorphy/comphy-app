@@ -1,8 +1,11 @@
 package com.comphy.photo.data.remote
 
+import com.comphy.photo.data.LocationRepository
 import com.comphy.photo.data.model.response.auth.AuthBody
 import com.comphy.photo.data.model.response.auth.AuthResponse
 import com.comphy.photo.data.model.response.auth.Data
+import com.comphy.photo.data.model.response.biodata.BiodataBody
+import com.comphy.photo.data.model.response.biodata.BiodataResponse
 import com.comphy.photo.data.model.response.location.province.ProvinceResponse
 import com.comphy.photo.data.model.response.location.regency.RegencyResponse
 import com.skydoves.sandwich.ApiResponse
@@ -62,6 +65,14 @@ interface ApiService {
         @Query("newPassword") newPassword: String,
         @Query("email") email: String
     ): ApiResponse<AuthResponse>
+
+    /**
+     * Biodata
+     */
+    @PUT ("comphy/user/update")
+    suspend fun updateUserData(
+        @Body biodataBody: BiodataBody
+    ): ApiResponse<BiodataResponse>
 
     /**
      * Refresh Token

@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateCommunityViewModel @Inject constructor(
-    private val locationRepository: LocationRepository
+    val locationRepository: LocationRepository
 ) : ViewModel() {
 
     val regencies = MutableLiveData<List<RegencyEntity>>()

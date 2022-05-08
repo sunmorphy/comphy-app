@@ -12,7 +12,7 @@ interface LocationDao {
     @Query("SELECT * FROM province")
     fun getLocation(): List<ProvinceWithRegency>
 
-    @Query("SeLECt * frOm regency")
+    @Query("SeLECt * from regency")
     fun getRegencies(): List<RegencyEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
