@@ -16,7 +16,7 @@ class ForgotPasswordViewModel @Inject constructor(
         authRepository.userForgot(
             email,
             onError = { message.postValue(it.message) },
-            onException = { responseException.postValue(it) }
+            onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }

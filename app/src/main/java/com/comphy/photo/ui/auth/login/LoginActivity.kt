@@ -9,6 +9,8 @@ import com.comphy.photo.databinding.ActivityLoginBinding
 import com.comphy.photo.ui.auth.forgot.ForgotPasswordActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
 import com.comphy.photo.ui.biodata.BiodataActivity
+import com.comphy.photo.utils.Extension
+import com.comphy.photo.utils.Extension.formatErrorMessage
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ class LoginActivity : BaseAuthActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
+    private lateinit var email: String
 
     private val googleLogin =
         googleAuth { account ->
@@ -58,7 +61,7 @@ class LoginActivity : BaseAuthActivity() {
     private fun setupClickListener() {
         binding.btnLogin.setOnClickListener {
             setFieldError(false)
-            var email = binding.edtEmail.text.toString()
+            email = binding.edtEmail.text.toString()
             var password = binding.edtPassword.text.toString()
 
             if (isFieldEmpty()) {
@@ -90,14 +93,14 @@ class LoginActivity : BaseAuthActivity() {
     override fun setupObserver() {
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
         viewModel.message.observe(this) {
-            val errMessage = it.split("\n")
-            binding.txtErrorTitle.text = errMessage[0]
-            binding.txtErrorDesc.text = errMessage[1]
+            formatErrorMessage(it, binding.txtErrorTitle, binding.txtErrorDesc)
             setFieldError(true)
         }
-        viewModel.responseException.observe(this) { if (it != null) toast(it) }
+        viewModel.exceptionResponse.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) {
-            start<BiodataActivity>()
+            start<BiodataActivity> {
+                putExtra("EXTRA_EMAIL", email)
+            }
             finish()
         }
     }

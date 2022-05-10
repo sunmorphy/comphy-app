@@ -4,17 +4,23 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.comphy.photo.R
+import com.comphy.photo.data.repository.LocationRepository
 import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.databinding.ActivityOnboardBinding
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
 import com.comphy.photo.ui.biodata.BiodataActivity
+import com.comphy.photo.ui.main.MainActivity
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import splitties.activities.start
 import javax.inject.Inject
 
@@ -26,12 +32,16 @@ class OnboardActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardBinding
     private val viewModel by viewModels<OnboardViewModel>()
 
+//    @Inject lateinit var locationRepository: LocationRepository
+//    @Inject lateinit var ioDispatcher: CoroutineDispatcher
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (userAuth.isLogin) {
             start<BiodataActivity>()
             finish()
         }
+//        FetchHelper(locationRepository, ioDispatcher).fetchLocation()
 
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -5,13 +5,34 @@ import androidx.lifecycle.ViewModel
 import com.comphy.photo.R
 import com.comphy.photo.data.repository.AuthRepository
 import com.comphy.photo.data.model.OnboardModel
+import com.comphy.photo.data.repository.UserRepository
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
+import com.comphy.photo.data.source.remote.response.auth.User
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val userRepository: UserRepository,
+    private val userAuth: UserAuth
 ) : ViewModel() {
+
+    val userData = MutableLiveData<User>()
+
+//    suspend fun getUserDetails() {
+//        if (userAuth.userId != 0) {
+//            userRepository.getUserDetails()
+////                .onStart { isFetching.postValue(true) }
+////                .onCompletion { isFetching.postValue(false) }
+//                .collect {
+//                    if (it.responseData != null) {
+//                        userData.postValue(it.responseData!!.user!!)
+//                    }
+//                }
+//        }
+//    }
 
     val listAssets = MutableLiveData(
         OnboardModel(

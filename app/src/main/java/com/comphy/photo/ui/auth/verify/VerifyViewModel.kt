@@ -20,7 +20,7 @@ class VerifyViewModel @Inject constructor(
             otp,
             email,
             onError = { message.postValue(it.message) },
-            onException = { responseException.postValue(it) }
+            onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
@@ -46,7 +46,7 @@ class VerifyViewModel @Inject constructor(
             email,
             token,
             onError = { message.postValue(it.message) },
-            onException = { responseException.postValue(it) }
+            onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
@@ -58,7 +58,7 @@ class VerifyViewModel @Inject constructor(
             otp,
             email,
             onError = { message.postValue(it.message) },
-            onException = { responseException.postValue(it) }
+            onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
@@ -69,7 +69,7 @@ class VerifyViewModel @Inject constructor(
         authRepository.userForgot(
             email,
             onError = { resendMessage.postValue("Failed Resend Code") },
-            onException = { responseException.postValue(it) }
+            onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }

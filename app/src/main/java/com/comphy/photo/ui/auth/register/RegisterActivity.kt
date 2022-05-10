@@ -12,6 +12,7 @@ import com.comphy.photo.base.activity.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityRegisterBinding
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.verify.VerifyActivity
+import com.comphy.photo.utils.Extension.formatErrorMessage
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -59,6 +60,7 @@ class RegisterActivity : BaseAuthActivity() {
 
         setupClickListener()
     }
+
     private fun setupClickListener() {
         binding.btnRegister.setOnClickListener {
             setFieldError(false)
@@ -95,17 +97,10 @@ class RegisterActivity : BaseAuthActivity() {
     override fun setupObserver() {
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
         viewModel.message.observe(this) {
-            val errMessage = it.split("\n")
-            binding.txtErrorTitle.text = errMessage[0]
-            if (errMessage.size > 2) {
-                val error = "${errMessage[1]} ${errMessage[2]}"
-                binding.txtErrorDesc.text = error
-            } else {
-                binding.txtErrorDesc.text = errMessage[1]
-            }
+            formatErrorMessage(it, binding.txtErrorTitle, binding.txtErrorDesc)
             setFieldError(true)
         }
-        viewModel.responseException.observe(this) { if (it != null) toast(it) }
+        viewModel.exceptionResponse.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) {
             val spanMessage = SpannableString(it)
             spanMessage.apply {

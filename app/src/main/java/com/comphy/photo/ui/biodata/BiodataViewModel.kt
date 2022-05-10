@@ -4,12 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.comphy.photo.data.repository.LocationRepository
 import com.comphy.photo.data.repository.UserRepository
-import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.data.source.local.entity.ProvinceWithRegency
 import com.comphy.photo.data.source.local.entity.RegencyEntity
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
+import com.comphy.photo.data.source.remote.response.user.UserData
 import com.comphy.photo.data.source.remote.response.user.UserDataBody
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
@@ -18,10 +20,11 @@ import javax.inject.Inject
 class BiodataViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val locationRepository: LocationRepository,
+    private val ioDispatcher: CoroutineDispatcher,
     private val userAuth: UserAuth
 ) : ViewModel() {
 
-    val userFullname = MutableLiveData<String>()
+    val userData = MutableLiveData<UserData>()
     val isFetching = MutableLiveData(false)
     val locationResponse = MutableLiveData<List<ProvinceWithRegency>>()
     val regencies = MutableLiveData<List<RegencyEntity>>()
@@ -29,12 +32,12 @@ class BiodataViewModel @Inject constructor(
 
     suspend fun getUserDetails() {
         if (userAuth.userId != 0) {
-            userRepository.getUserDetails(userAuth.userId)
+            userRepository.getUserDetails()
                 .onStart { isFetching.postValue(true) }
                 .onCompletion { isFetching.postValue(false) }
                 .collect {
-                    if (it.responseData != null) {
-                        userFullname.postValue(it.responseData!!.user!!.fullname!!)
+                    if (it.userData != null) {
+                        userData.postValue(it.userData!!)
                     }
                 }
         }

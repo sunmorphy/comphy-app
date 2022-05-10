@@ -8,9 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.databinding.ActivitySplashBinding
 import com.comphy.photo.ui.onboard.OnboardActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.activities.start
-import timber.log.Timber
 
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
@@ -24,20 +24,14 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        viewModel.ffetchLocation()
+
         lifecycleScope.launch {
             viewModel.fetchLocation()
-        }
-//            delay(2000)
-//            start<OnboardActivity>()
-//            finish()
 
-        viewModel.isFetching.observe(this) {
-            if (it) {
-                Timber.tag("Fetching").i(it.toString())
-            } else {
-                start<OnboardActivity>()
-                finish()
-            }
+            delay(2000)
+            start<OnboardActivity>()
+            finish()
         }
     }
 }

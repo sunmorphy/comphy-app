@@ -8,5 +8,5 @@ abstract class BaseAuthViewModel : ViewModel() {
     val isLoading = MutableLiveData<Boolean>()
     val message = MutableLiveData<String>()
     val authResponse = MutableLiveData<String>()
-    val responseException = MutableLiveData<String?>()
+    val exceptionResponse = MutableLiveData<String?>()
 }

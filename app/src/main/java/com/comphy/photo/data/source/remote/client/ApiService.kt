@@ -3,12 +3,18 @@ package com.comphy.photo.data.source.remote.client
 import com.comphy.photo.data.source.remote.response.auth.AuthBody
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
 import com.comphy.photo.data.source.remote.response.auth.Data
+import com.comphy.photo.data.source.remote.response.community.category.CommunityResponse
 import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
 import com.comphy.photo.data.source.remote.response.location.province.ProvinceResponse
 import com.comphy.photo.data.source.remote.response.location.regency.RegencyResponse
+import com.comphy.photo.data.source.remote.response.post.create.CreatePostBody
+import com.comphy.photo.data.source.remote.response.post.update.UpdatePostBody
 import com.comphy.photo.data.source.remote.response.upload.UploadResponse
 import com.comphy.photo.data.source.remote.response.user.UserDataBody
+import com.comphy.photo.data.source.remote.response.user.UserResponse
 import com.skydoves.sandwich.ApiResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -91,9 +97,7 @@ interface ApiService {
      * User Details
      */
     @GET("comphy/user/details")
-    suspend fun getUserDetails(
-        @Query("id") userId: Int
-    ): ApiResponse<AuthResponse>
+    suspend fun getUserDetails(): ApiResponse<UserResponse>
 
     @PUT("comphy/user/update")
     suspend fun updateUserDetails(
@@ -110,27 +114,101 @@ interface ApiService {
         @Query("amount") amount: Int
     ): ApiResponse<UploadResponse>
 
+    @Headers(
+        "Content-Type: image/*",
+        "X-Goog-Content-Length-Range: 0,3145728"
+    )
+    @PUT
+    suspend fun uploadImagesNonPost(
+        @Url url: String,
+        @Body image: RequestBody
+    ): ApiResponse<String>
+
+    @Headers(
+        "Content-Type: image/*",
+        "X-Goog-Content-Length-Range: 0,5242880"
+    )
+    @PUT
+    suspend fun uploadImagesPost(
+        @Url url: String,
+        @Body image: RequestBody
+    ): ApiResponse<Any>
+
+    @Headers(
+        "Content-Type: video/*",
+        "X-Goog-Content-Length-Range: 0,104857600"
+    )
+    @PUT
+    suspend fun uploadVideosPost(
+        @Url url: String,
+        @Body video: RequestBody
+    ): ApiResponse<Any>
+
     /**
      * Community
      */
-    @POST("comphy/comunity/join")
+    @POST("comphy/community/join")
     suspend fun joinCommunity(
         @Query("communityId") communityId: Int,
-        @Query("communityCode") communityCode: String?
+        @Query("communityCode") communityCode: String? = null
     ) // TODO RESPONSE NOT READY YET
 
-    @POST("comphy/comunity/create")
+    @POST("comphy/community/create")
     suspend fun createCommunity(
         @Body createCommunityBody: CreateCommunityBody
-    ) // TODO RESPONSE NOT READY YET
+    ): ApiResponse<CommunityResponse>
 
-    @GET("comphy/comunity/details")
+    @GET("comphy/community/details")
     suspend fun detailCommunity(
         @Query("id") id: Int
     ) // TODO RESPONSE NOT READY YET
 
-    @DELETE("comphy/comunity/out")
+    @DELETE("comphy/community/out")
     suspend fun leaveCommunity(
         @Query("communityId") communityId: Int
     ) // TODO RESPONSE NOT READY YET
+
+    @GET("comphy/community/list")
+    suspend fun getCommunities(): ApiResponse<CommunityResponse>
+
+    @GET("comphy/community/category/list")
+    suspend fun getCommunityCategories(): ApiResponse<CommunityResponse>
+
+    /**
+     * Job Vacancies
+     */
+    @GET("comphy/jobVacancy/listpage")
+    suspend fun getJobs() //TODO RESPONSE NOT READY YET
+
+    @GET("comphy/jobVacancy/filter")
+    suspend fun filterJobs() //TODO RESPONSE NOT READY YET
+
+    /**
+     * Post
+     */
+    @GET("comphy/post/feedpost")
+    suspend fun getFeedPosts(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null
+    ) //TODO RESPONSE NOT READY YET
+
+    @GET("comphy/post/details")
+    suspend fun getPostDetails(
+        @Query("postId") postId: String
+    ) //TODO RESPONSE NOT READY YET
+
+    @POST("comphy/post/create")
+    suspend fun createPost(
+        @Body createPostBody: CreatePostBody
+    ) //TODO RESPONSE NOT READY YET
+
+    @PUT("comphy/post/update")
+    suspend fun updatePost(
+        @Body updatePostBody: UpdatePostBody
+    ) //TODO RESPONSE NOT READY YET
+
+    @DELETE("comphy/post/delete")
+    suspend fun deletePost(
+        @Query("postId") postId: String
+    ) //TODO RESPONSE NOT READY YET
 }

@@ -4,19 +4,22 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
 import com.comphy.photo.base.activity.BaseMainActivity
 import com.comphy.photo.databinding.ActivityBiodataBinding
 import com.comphy.photo.databinding.DialogBiodataConfirmBinding
 import com.comphy.photo.ui.main.MainActivity
+import com.comphy.photo.utils.Extension
+import com.comphy.photo.utils.Extension.changeDrawable
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.activities.start
 
@@ -27,6 +30,7 @@ class BiodataActivity : BaseMainActivity() {
     private lateinit var confirmDialog: Dialog
     private lateinit var dialogBiodata: DialogBiodataConfirmBinding
     private lateinit var sheetBiodata: BottomSheetBehavior<ConstraintLayout>
+    private var isSuccess = false
     private val viewModel: BiodataViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +46,7 @@ class BiodataActivity : BaseMainActivity() {
 
         init()
         setupClickListener()
+        showSuccess(false)
 
     }
 
@@ -95,7 +100,7 @@ class BiodataActivity : BaseMainActivity() {
             lifecycleScope.launch {
                 viewModel.updateUserDetails(
                     binding.layoutSheetBiodata.edtName.text.toString(),
-                    binding.layoutSheetBiodata.edtLocation.text.toString(),
+                    binding.layoutSheetBiodata.edtLocation.text.toString().split(",")[0],
                     binding.layoutSheetBiodata.edtNumber.text.toString(),
                     binding.layoutSheetBiodata.edtJob.text.toString(),
                     binding.layoutSheetBiodata.edtDescription.text.toString(),
@@ -108,53 +113,51 @@ class BiodataActivity : BaseMainActivity() {
 
     override fun setupObserver() {
         viewModel.updateResponse.observe(this) {
+            showSuccess(true)
+            lifecycleScope.launch { delay(1500) }
             start<MainActivity>()
             finishAffinity()
         }
-        viewModel.userFullname.observe(this) { binding.layoutSheetBiodata.edtName.text = it }
-        viewModel.regencies.observe(this) { regencies ->
-            var listRegency = mutableListOf<String>()
-
-            regencies.forEach { regency ->
-                val regencyName = regency.regencyName.split(" ")
-
-                if (regencyName.size > 2) {
-                    val splitRegency =
-                        regencyName[regencyName.size - 2].lowercase()
-                            .replaceFirstChar { it.titlecase() } +
-                                regencyName[regencyName.size - 2].lowercase()
-                                    .replaceFirstChar { it.titlecase() }
-
-                    listRegency.add("$splitRegency, Indonesia")
-
-                } else {
-                    val splitRegency = regencyName[regencyName.size - 1].lowercase()
-                        .replaceFirstChar { it.titlecase() }
-
-                    listRegency.add("$splitRegency, Indonesia")
-                }
+        viewModel.userData.observe(this) {
+            if (it.location != null && it.job != null && it.description != null) {
+                start<MainActivity>()
+                finishAffinity()
+            } else {
+                binding.layoutSheetBiodata.edtName.text = it.fullname!!
             }
-
-            listRegency = listRegency.distinct().toMutableList()
-
+        }
+        viewModel.regencies.observe(this) { regencies ->
             val locationAdapter =
                 ArrayAdapter(
                     this@BiodataActivity,
                     R.layout.custom_dropdown_location,
                     R.id.txtLocationItem,
-                    listRegency
+                    Extension.formatRegency(regencies)
                 )
 
             binding.layoutSheetBiodata.edtLocation.apply {
-                setDropDownBackgroundDrawable(
-                    ContextCompat.getDrawable(
-                        this@BiodataActivity,
-                        R.drawable.bg_dialog
-                    )
-                )
+                setDropDownBackgroundDrawable(this@BiodataActivity.changeDrawable(R.drawable.bg_dialog))
                 threshold = 1
                 setAdapter(locationAdapter)
             }
         }
+    }
+
+    private fun showSuccess(state: Boolean) {
+        if (state) {
+            isSuccess = true
+            binding.layoutSuccess.visibility = View.VISIBLE
+            inputWidgets.forEach { it.isEnabled = false }
+            actionWidgets.forEach { it.isEnabled = false }
+        } else {
+            isSuccess = false
+            binding.layoutSuccess.visibility = View.GONE
+            inputWidgets.forEach { it.isEnabled = true }
+            actionWidgets.forEach { it.isEnabled = true }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (!isSuccess) super.onBackPressed()
     }
 }

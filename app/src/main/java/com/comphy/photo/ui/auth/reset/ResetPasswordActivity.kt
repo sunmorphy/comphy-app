@@ -10,6 +10,7 @@ import com.comphy.photo.base.activity.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityResetPasswordBinding
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
+import com.comphy.photo.utils.Extension.formatErrorMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
@@ -95,12 +96,10 @@ class ResetPasswordActivity : BaseAuthActivity() {
     override fun setupObserver() {
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
         viewModel.message.observe(this) {
-            val errMessage = it.split("\n")
-            binding.txtErrorTitle.text = errMessage[0]
-            binding.txtErrorDesc.text = errMessage[1]
+            formatErrorMessage(it, binding.txtErrorTitle, binding.txtErrorDesc)
             setFieldError(true)
         }
-        viewModel.responseException.observe(this) { if (it != null) toast(it) }
+        viewModel.exceptionResponse.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) {
             bottomSheetBinding.txtSheetDesc.text = it
             isDismissed = true

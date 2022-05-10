@@ -19,8 +19,8 @@ class UserRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher,
 ) {
 
-    suspend fun getUserDetails(userId: Int) = flow {
-        val response = apiService.getUserDetails(userId)
+    suspend fun getUserDetails() = flow {
+        val response = apiService.getUserDetails()
         response.suspendOnSuccess { emit(data) }
             .onError { Timber.tag("On Error").e(message()) }
             .onException { Timber.tag("On Exception").e(message()) }

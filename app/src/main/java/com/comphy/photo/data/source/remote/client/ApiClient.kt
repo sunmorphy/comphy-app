@@ -7,19 +7,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
-
 class ApiClient @Inject constructor(
-    private val authInterceptor: AuthInterceptor
+    private val okHttpClient: OkHttpClient
 ) {
 
     fun instance(baseUrl: String): ApiService {
         val retrofit = Retrofit.Builder()
-            .client(
-                OkHttpClient.Builder()
-                    .addInterceptor(authInterceptor)
-                    .addInterceptor(logging)
-                    .build()
-            )
+            .client(okHttpClient)
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
@@ -27,12 +21,18 @@ class ApiClient @Inject constructor(
 
         return retrofit.create(ApiService::class.java)
     }
-
-    private val logging: HttpLoggingInterceptor
-        get() {
-            val httpLoggingInterceptor = HttpLoggingInterceptor()
-            return httpLoggingInterceptor.apply {
-                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            }
-        }
 }
+
+fun okHttpClient(authInterceptor: AuthInterceptor): OkHttpClient =
+    OkHttpClient.Builder()
+        .addInterceptor(authInterceptor)
+        .addInterceptor(logging)
+        .build()
+
+private val logging: HttpLoggingInterceptor
+    get() {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        return httpLoggingInterceptor.apply {
+            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        }
+    }

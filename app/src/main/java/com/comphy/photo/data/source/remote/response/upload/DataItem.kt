@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class DataItem(
 
-	@field:SerializedName("storagePath")
-	val storagePath: String? = null,
+	@SerializedName("storagePath")
+	val storagePath: String,
 
-	@field:SerializedName("storageUrl")
-	val storageUrl: String? = null
+	@SerializedName("storageUrl")
+	val storageUrl: String
 )
