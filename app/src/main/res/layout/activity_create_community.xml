@@ -54,14 +54,30 @@
                 android:id="@+id/btnCreateCommunity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:fontFamily="@font/poppins_medium"
                 android:includeFontPadding="false"
                 android:text="@string/cc_create_community"
-                android:textColor="@color/neutral_black_50"
+                android:textColor="@color/state_button_toolbar"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/btnBack"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+            <ImageView
+                android:id="@+id/imgLoadingToolbarBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:rotation="90"
+                android:src="@drawable/ic_loading_btn"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/btnCreateCommunity"
+                app:layout_constraintEnd_toEndOf="@id/btnCreateCommunity"
+                app:layout_constraintStart_toStartOf="@id/btnCreateCommunity"
+                app:layout_constraintTop_toTopOf="@id/btnCreateCommunity"
+                app:tint="@color/primary_orange"
+                tools:ignore="ContentDescription" />
 
         </carbon.widget.ConstraintLayout>
 
@@ -88,22 +104,24 @@
                     app:carbon_elevationShadowColor="#FFEACB"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
+                    <carbon.widget.ImageView
                         android:id="@+id/imgBanner"
                         android:layout_width="@dimen/dp_0"
                         android:layout_height="110dp"
-                        android:background="@drawable/bg_upload"
                         android:contentDescription="@string/string_upload_banner"
+                        android:src="@drawable/bg_upload"
+                        app:carbon_cornerRadius="14dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
+                    <carbon.widget.ImageView
                         android:id="@+id/imgBannerOverlay"
                         android:layout_width="@dimen/dp_0"
                         android:layout_height="@dimen/dp_0"
                         android:background="@color/neutral_black_20"
                         android:visibility="gone"
+                        app:carbon_cornerRadius="14dp"
                         app:layout_constraintBottom_toBottomOf="@id/imgBanner"
                         app:layout_constraintEnd_toEndOf="@id/imgBanner"
                         app:layout_constraintStart_toStartOf="@id/imgBanner"
