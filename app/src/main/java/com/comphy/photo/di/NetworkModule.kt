@@ -5,10 +5,12 @@ import com.comphy.photo.ComphyApp
 import com.comphy.photo.data.source.remote.client.ApiClient
 import com.comphy.photo.data.source.remote.client.ApiService
 import com.comphy.photo.data.source.remote.client.AuthInterceptor
+import com.comphy.photo.data.source.remote.client.okHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 @Module
@@ -19,8 +21,13 @@ object NetworkModule {
     @Singleton
     fun provideApiService(
         application: Application,
-        authInterceptor: AuthInterceptor
+        okHttpClient: OkHttpClient
     ): ApiService {
-        return ApiClient(authInterceptor).instance((application as ComphyApp).baseUrl())
+        return ApiClient(okHttpClient).instance((application as ComphyApp).baseUrl())
     }
+
+    @Provides
+    fun provideOkHttpClient(
+        authInterceptor: AuthInterceptor
+    ): OkHttpClient = okHttpClient(authInterceptor)
 }
