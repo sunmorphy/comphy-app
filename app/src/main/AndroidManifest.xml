@@ -4,16 +4,39 @@
     package="com.comphy.photo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ComphyApp"
         android:allowBackup="true"
         android:icon="@drawable/img_logo_orange"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/img_logo_orange"
         android:supportsRtl="true"
         android:theme="@style/Theme.Comphy"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.post.CreatePostActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.comment.CommentActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.job.JobDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.community.CreateCommunityActivity"
             android:exported="false"
