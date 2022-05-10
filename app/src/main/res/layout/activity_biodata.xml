@@ -34,15 +34,27 @@
         app:layout_constraintStart_toStartOf="@id/txtProfileForm"
         app:layout_constraintTop_toBottomOf="@id/txtProfileForm" />
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/layoutSheetBiodata"
+            layout="@layout/bottom_sheet_biodata" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <carbon.widget.ConstraintLayout
         android:id="@+id/layoutSuccess"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="17dp"
         android:layout_marginTop="13dp"
-        android:background="#FAEAEA"
+        android:background="#EBF4EC"
         android:visibility="gone"
         app:carbon_cornerRadius="8dp"
+        app:carbon_stroke="#D7EAD9"
+        app:carbon_strokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -103,15 +115,5 @@
             tools:ignore="ContentDescription" />
 
     </carbon.widget.ConstraintLayout>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/layoutSheetBiodata"
-            layout="@layout/bottom_sheet_biodata" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

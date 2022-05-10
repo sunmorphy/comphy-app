@@ -59,12 +59,6 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.HomeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.White.Comphy"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".ui.auth.forgot.ForgotPasswordActivity"
             android:exported="false"
             android:screenOrientation="portrait"

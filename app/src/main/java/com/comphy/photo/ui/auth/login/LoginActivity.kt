@@ -9,7 +9,6 @@ import com.comphy.photo.databinding.ActivityLoginBinding
 import com.comphy.photo.ui.auth.forgot.ForgotPasswordActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
 import com.comphy.photo.ui.biodata.BiodataActivity
-import com.comphy.photo.utils.Extension
 import com.comphy.photo.utils.Extension.formatErrorMessage
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
