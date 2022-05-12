@@ -1,14 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_background"
     tools:context=".ui.main.fragment.job.JobFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="@dimen/dp_0"
+        android:background="@color/primary_background"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0"
+                android:background="@android:color/transparent"
+                android:scaleType="fitStart"
+                android:src="@drawable/img_primary_background_raw"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtFindJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/job_find_your_job"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtFindCareer"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/job_find_your_career"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/txtFindJob"
+                app:layout_constraintStart_toStartOf="@id/txtFindJob"
+                app:layout_constraintTop_toBottomOf="@id/txtFindJob" />
+
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="23dp"
+                android:background="@drawable/state_field"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="14dp"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="@string/job_search_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingVertical="14dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="19dp"
+                android:textColor="@color/neutral_3"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/btnFilter"
+                app:layout_constraintStart_toStartOf="@id/txtFindCareer"
+                app:layout_constraintTop_toBottomOf="@id/txtFindCareer" />
+
+            <ImageButton
+                android:id="@+id/btnFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/string_set_filter"
+                android:src="@drawable/ic_filter"
+                app:layout_constraintBottom_toBottomOf="@id/edtSearch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edtSearch"
+                app:tint="@color/white" />
+
+            <carbon.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="18dp"
+                android:background="@color/primary_background"
+                android:paddingBottom="18dp"
+                app:carbon_cornerRadiusTopEnd="24dp"
+                app:carbon_cornerRadiusTopStart="24dp"
+                app:layout_constraintTop_toBottomOf="@id/edtSearch">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="54dp"
+                    android:layout_marginTop="82dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imgSad"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_sad"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#CECECE"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtJobEmpty"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="22dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/job_is_empty"
+                        android:textAlignment="center"
+                        android:textColor="#CECECE"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imgSad" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_job" />
+
+            </carbon.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

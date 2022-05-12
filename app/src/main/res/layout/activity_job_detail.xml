@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.job.JobDetailActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/layoutCustomBar"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@android:color/transparent"
+                android:drawablePadding="@dimen/dp_0"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0"
+                android:minWidth="@dimen/dp_0"
+                android:minHeight="@dimen/dp_0"
+                android:padding="@dimen/dp_0"
+                android:stateListAnimator="@null"
+                android:text="@string/string_back"
+                android:textAllCaps="false"
+                android:textColor="@color/primary_orange"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_back"
+                app:iconPadding="10dp"
+                app:iconTint="@color/primary_orange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <carbon.widget.ImageView
+                android:id="@+id/imgJobLogo"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="18dp"
+                android:background="@android:color/transparent"
+                android:src="@color/amber_200"
+                app:carbon_cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnBack"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtJobTitle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/job_job_title"
+                android:textAlignment="center"
+                android:textColor="@color/neutral_black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgJobLogo" />
+
+            <TextView
+                android:id="@+id/txtJobCompany"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/job_job_company"
+                android:textAlignment="center"
+                android:textColor="#FFB347"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/txtJobTitle"
+                app:layout_constraintStart_toStartOf="@id/txtJobTitle"
+                app:layout_constraintTop_toBottomOf="@id/txtJobTitle" />
+
+            <TextView
+                android:id="@+id/txtJobSalary"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="74dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/job_job_salary"
+                android:textAlignment="center"
+                android:textColor="@color/neutral_black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtJobCompany" />
+
+            <TextView
+                android:id="@+id/txtJobLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:drawablePadding="3dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/job_job_location"
+                android:textColor="@color/neutral_black_40"
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_location"
+                app:drawableTint="@color/neutral_black_40"
+                app:layout_constraintEnd_toStartOf="@id/txtJobType"
+                app:layout_constraintStart_toStartOf="@id/txtJobSalary"
+                app:layout_constraintTop_toBottomOf="@id/txtJobSalary" />
+
+            <TextView
+                android:id="@+id/txtJobType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/job_job_type"
+                android:textColor="#ABABAB"
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_glass_hour"
+                app:drawableTint="#ABABAB"
+                app:layout_constraintEnd_toEndOf="@id/txtJobSalary"
+                app:layout_constraintStart_toEndOf="@id/txtJobLocation"
+                app:layout_constraintTop_toBottomOf="@id/txtJobSalary" />
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutTabs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/white"
+                app:carbon_cornerRadiusTopEnd="24dp"
+                app:carbon_cornerRadiusTopStart="24dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_constraintTop_toBottomOf="@id/txtJobLocation">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="6dp"
+                    android:focusable="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tabBackground="@drawable/state_tab_indicator"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorColor="@color/primary_orange"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/neutral_black"
+                    app:tabTextAppearance="@style/CustomTabTextAppearance"
+                    app:tabTextColor="@color/neutral_black_20">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_job_description" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_job_requirement" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpTabJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tabJob" />
+
+            </carbon.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="24dp"
+        android:paddingBottom="32dp"
+        app:carbon_cornerRadiusTopEnd="24dp"
+        app:carbon_cornerRadiusTopStart="24dp"
+        app:carbon_elevation="24dp"
+        app:carbon_elevationShadowColor="#FCF2E3"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVisitJob"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/primary_orange"
+            android:fontFamily="@font/poppins_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:paddingVertical="12dp"
+            android:stateListAnimator="@null"
+            android:text="@string/string_visit_job"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnBookmark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnBookmark"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="35dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/string_set_bookmark"
+            android:src="@drawable/ic_bookmarked"
+            app:layout_constraintBottom_toBottomOf="@id/btnVisitJob"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnVisitJob" />
+
+    </carbon.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
