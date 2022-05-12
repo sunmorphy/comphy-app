@@ -27,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.asRequestBody
 import splitties.activities.start
+import splitties.dimensions.dp
 import splitties.toast.toast
 import java.io.File
 
@@ -36,9 +37,10 @@ class CreateCommunityActivity : BaseCommunityActivity() {
     private lateinit var binding: ActivityCreateCommunityBinding
     private val viewModel: CreateCommunityViewModel by viewModels()
     private val imagesPath = mutableListOf("", "")
-    private val imagesUrl = mutableListOf<String>()
     private var profilePath = ""
+    private var profileUrl = ""
     private var bannerPath = ""
+    private var bannerUrl = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,10 +146,11 @@ class CreateCommunityActivity : BaseCommunityActivity() {
 
     override fun setupObserver() {
         viewModel.uploadsUrl.observe(this) {
-            it.forEach { item -> imagesUrl.add(item.storagePath) }
             lifecycleScope.launch {
                 uploadImages(it[0].storageUrl, PROFILE)
                 uploadImages(it[1].storageUrl, BANNER)
+                profileUrl = it[0].storagePath
+                bannerUrl = it[1].storagePath
                 viewModel.createCommunity(
                     communityName = binding.edtCommunityName.text.toString(),
                     description = binding.edtCommunityDescription.text.toString(),
@@ -155,8 +158,8 @@ class CreateCommunityActivity : BaseCommunityActivity() {
                     communityType = binding.rgCommunityType
                         .findViewById<RadioButton>(binding.rgCommunityType.checkedRadioButtonId).text.toString(),
                     categoryCommunityId = 3,
-                    profilePhotoCommunityLink = imagesPath[1].ifEmpty { null },
-                    bannerPhotoCommunityLink = imagesPath[0].ifEmpty { null }
+                    profilePhotoCommunityLink = profileUrl.ifEmpty { null },
+                    bannerPhotoCommunityLink = bannerUrl.ifEmpty { null }
                 )
             }
         }

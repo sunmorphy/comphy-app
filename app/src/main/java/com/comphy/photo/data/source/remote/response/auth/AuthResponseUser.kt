@@ -2,7 +2,7 @@ package com.comphy.photo.data.source.remote.response.auth
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
+data class AuthResponseUser(
 
 	@SerializedName("deleted_date")
 	val deletedDate: String? = null,

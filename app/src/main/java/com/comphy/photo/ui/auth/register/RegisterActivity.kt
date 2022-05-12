@@ -24,7 +24,7 @@ class RegisterActivity : BaseAuthActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var name: String
     private lateinit var email: String
-    private lateinit var password: String
+    private var password: String? = null
     private var token: String? = null
     private val viewModel: RegisterViewModel by viewModels()
 
@@ -74,11 +74,11 @@ class RegisterActivity : BaseAuthActivity() {
             } else {
                 when {
                     !isEmailValid(email) -> email = ""
-                    !isPasswordValid(password.lowercase())
-                            || password.contains(" ") -> password = ""
+                    !isPasswordValid(password!!.lowercase())
+                            || password!!.contains(" ") -> password = ""
                 }
                 lifecycleScope.launch {
-                    viewModel.userRegister(name, email, password)
+                    viewModel.userRegister(name, email, password!!)
                 }
             }
         }

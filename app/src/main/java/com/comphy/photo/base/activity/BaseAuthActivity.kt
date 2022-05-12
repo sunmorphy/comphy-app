@@ -66,24 +66,26 @@ abstract class BaseAuthActivity : AppCompatActivity() {
         return false
     }
 
-    protected fun googleAuth(onSuccess: (account: GoogleSignInAccount) -> Unit): ActivityResultLauncher<Intent> {
-        return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    protected fun googleAuth(onSuccess: (account: GoogleSignInAccount) -> Unit): ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (task.isSuccessful) {
                     Timber.tag("Task Is Successful").i(account.account.toString())
+                    println(account.account.toString())
                     onSuccess(account)
                 } else {
                     Timber.tag("Task Is Failed").e(account.account.toString())
+                    println(account.account.toString())
                     setGoogleError(true)
                 }
             } catch (e: ApiException) {
                 Timber.tag("Google Api Exception").e(e)
+                println("Google Api Exception = $e")
                 setGoogleError(true)
             }
         }
-    }
 
     protected fun setButtonLoading(state: Boolean) {
         if (state) {

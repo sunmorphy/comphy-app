@@ -4,39 +4,39 @@ import com.google.gson.annotations.SerializedName
 
 data class Community(
 
-	@field:SerializedName("deleted_date")
+	@SerializedName("deleted_date")
 	val deletedDate: String? = null,
 
-	@field:SerializedName("communityType")
+	@SerializedName("communityType")
 	val communityType: String? = null,
 
-	@field:SerializedName("userJoinedCommunities")
+	@SerializedName("userJoinedCommunities")
 	val userJoinedCommunities: List<UserJoinedCommunitiesItem?>? = null,
 
-	@field:SerializedName("description")
+	@SerializedName("description")
 	val description: String? = null,
 
-	@field:SerializedName("profilePhotoCommunityLink")
+	@SerializedName("profilePhotoCommunityLink")
 	val profilePhotoCommunityLink: String? = null,
 
-	@field:SerializedName("communityName")
+	@SerializedName("communityName")
 	val communityName: String? = null,
 
-	@field:SerializedName("location")
+	@SerializedName("location")
 	val location: String? = null,
 
-	@field:SerializedName("bannerPhotoCommunityLink")
+	@SerializedName("bannerPhotoCommunityLink")
 	val bannerPhotoCommunityLink: String? = null,
 
-	@field:SerializedName("created_date")
+	@SerializedName("created_date")
 	val createdDate: String? = null,
 
-	@field:SerializedName("updated_date")
+	@SerializedName("updated_date")
 	val updatedDate: String? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: Int? = null,
 
-	@field:SerializedName("categoryCommunity")
+	@SerializedName("categoryCommunity")
 	val categoryCommunity: CategoryCommunity? = null
 )

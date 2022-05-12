@@ -3,14 +3,11 @@ package com.comphy.photo.ui.onboard
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.comphy.photo.R
-import com.comphy.photo.data.repository.AuthRepository
 import com.comphy.photo.data.model.OnboardModel
 import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
-import com.comphy.photo.data.source.remote.response.auth.User
+import com.comphy.photo.data.source.remote.response.auth.AuthResponseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +16,7 @@ class OnboardViewModel @Inject constructor(
     private val userAuth: UserAuth
 ) : ViewModel() {
 
-    val userData = MutableLiveData<User>()
+    val userData = MutableLiveData<AuthResponseUser>()
 
 //    suspend fun getUserDetails() {
 //        if (userAuth.userId != 0) {

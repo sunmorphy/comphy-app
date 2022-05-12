@@ -1,455 +1,627 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/img_primary_background"
+    android:layout_height="match_parent"
     tools:context=".ui.main.fragment.home.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageView
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:background="@android:color/transparent"
+        android:scaleType="fitStart"
+        android:src="@drawable/img_primary_background_raw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/txtLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:drawablePadding="4dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/string_current_location"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:drawableStartCompat="@drawable/ic_location"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgProfile"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="16dp"
-            android:scaleType="centerCrop"
-            android:src="@color/amber_50"
-            app:layout_constraintBottom_toBottomOf="@id/edtSearch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtSearch" />
-
-        <EditText
-            android:id="@+id/edtSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="14dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_search"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="14dp"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/string_search_hint"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingVertical="14dp"
-            android:paddingStart="14dp"
-            android:paddingEnd="19dp"
-            android:textColor="@color/neutral_black"
-            android:textColorHint="@color/neutral_3"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@id/btnNotification"
-            app:layout_constraintStart_toEndOf="@id/imgProfile"
-            app:layout_constraintTop_toBottomOf="@id/txtLocation"
-            tools:ignore="Autofill" />
-
-        <ImageButton
-            android:id="@+id/btnNotification"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/string_notification"
-            android:src="@drawable/ic_bell"
-            app:layout_constraintBottom_toBottomOf="@id/edtSearch"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/edtSearch"
-            app:tint="@color/white" />
-
-        <carbon.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:background="@color/primary_background"
-            android:paddingBottom="72dp"
-            app:carbon_cornerRadiusTopEnd="18dp"
-            app:carbon_cornerRadiusTopStart="18dp"
-            app:carbon_elevation="30dp"
-            app:carbon_elevationShadowColor="#FEE8C8"
-            app:layout_constraintTop_toBottomOf="@id/edtSearch">
+            android:layout_height="wrap_content">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpHome"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="145dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+            <TextView
+                android:id="@+id/txtLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/string_current_location"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.zhpan.indicator.IndicatorView
-                android:id="@+id/vpHomeIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="18dp"
-                app:layout_constraintEnd_toEndOf="@id/vpHome"
-                app:layout_constraintStart_toStartOf="@id/vpHome"
-                app:layout_constraintTop_toBottomOf="@id/vpHome" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="16dp"
+                android:scaleType="centerCrop"
+                android:src="@color/amber_50"
+                app:layout_constraintBottom_toBottomOf="@id/edtSearch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edtSearch" />
 
-            <carbon.widget.ConstraintLayout
-                android:id="@+id/layoutCreateCommunity"
-                android:layout_width="@dimen/dp_0"
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/bg_search"
-                app:carbon_elevation="24dp"
-                app:carbon_elevationShadowColor="#FCF2E3"
-                app:layout_constraintEnd_toEndOf="@id/vpHome"
-                app:layout_constraintStart_toStartOf="@id/vpHome"
-                app:layout_constraintTop_toBottomOf="@id/vpHomeIndicator">
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="14dp"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="@string/string_search_hint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingVertical="16dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="19dp"
+                android:textColor="@color/neutral_black"
+                android:textColorHint="@color/neutral_3"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/btnNotification"
+                app:layout_constraintStart_toEndOf="@id/imgProfile"
+                app:layout_constraintTop_toBottomOf="@id/txtLocation"
+                tools:ignore="Autofill" />
 
-                <TextView
-                    android:id="@+id/txtCreateCommunity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="14dp"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:text="@string/string_create_community"
-                    android:textColor="@color/primary_orange"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txtMaxCommunity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="@string/string_max_community"
-                    android:textColor="@color/neutral_black_40"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/txtCreateCommunity"
-                    app:layout_constraintTop_toBottomOf="@id/txtCreateCommunity" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCreateCommunity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_0"
-                    android:layout_margin="@dimen/dp_0"
-                    android:backgroundTint="@color/primary_orange"
-                    android:insetLeft="@dimen/dp_0"
-                    android:insetTop="@dimen/dp_0"
-                    android:insetRight="@dimen/dp_0"
-                    android:insetBottom="@dimen/dp_0"
-                    android:paddingHorizontal="21dp"
-                    android:stateListAnimator="@null"
-                    app:cornerRadius="18dp"
-                    app:icon="@drawable/ic_add"
-                    app:iconGravity="textStart"
-                    app:iconPadding="@dimen/dp_0"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </carbon.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/txtCommunityCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/home_community_category"
-                android:textColor="@color/neutral_black_80"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/layoutCreateCommunity"
-                app:layout_constraintTop_toBottomOf="@id/layoutCreateCommunity" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCommunityCategory"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="160dp"
-                android:layout_marginTop="18dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/txtCommunityCategory"
-                app:layout_constraintTop_toBottomOf="@id/txtCommunityCategory"
-                tools:itemCount="9"
-                tools:listitem="@layout/item_community_category" />
-
-            <TextView
-                android:id="@+id/txtYourCommunity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/home_your_community"
-                android:textColor="@color/neutral_black_80"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/rvCommunityCategory"
-                app:layout_constraintTop_toBottomOf="@id/rvCommunityCategory" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSeeAllYours"
+            <ImageButton
+                android:id="@+id/btnNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:background="@null"
-                android:drawableEnd="@drawable/ic_go"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:insetTop="@dimen/dp_0"
-                android:insetBottom="@dimen/dp_0"
-                android:stateListAnimator="@null"
-                android:text="@string/string_see_all"
-                android:textAllCaps="false"
-                android:textColor="@color/primary_orange"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/txtYourCommunity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/txtYourCommunity" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvYourCommunity"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="18dp"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtYourCommunity"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_community" />
-
-            <carbon.widget.ConstraintLayout
-                android:id="@+id/layoutCommunityLimit"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:background="@color/white"
-                android:padding="14dp"
-                app:carbon_cornerRadius="14dp"
-                app:layout_constraintEnd_toEndOf="@id/rvYourCommunity"
-                app:layout_constraintStart_toStartOf="@id/rvYourCommunity"
-                app:layout_constraintTop_toBottomOf="@id/rvYourCommunity">
-
-                <ImageView
-                    android:id="@+id/imgLock"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_lock"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/neutral_black_30"
-                    tools:ignore="ContentDescription" />
-
-                <TextView
-                    android:id="@+id/txtCommunityLimit"
-                    android:layout_width="@dimen/dp_0"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="28dp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:maxLines="1"
-                    android:text="@string/home_community_limit"
-                    android:textColor="@color/neutral_black_30"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgLock"
-                    app:layout_constraintTop_toTopOf="@id/imgLock" />
-
-                <TextView
-                    android:id="@+id/txtUpgradeAccount"
-                    android:layout_width="@dimen/dp_0"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="@string/home_community_upgrade"
-                    android:textColor="@color/neutral_orange"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imgLock"
-                    app:layout_constraintEnd_toEndOf="@id/txtCommunityLimit"
-                    app:layout_constraintStart_toStartOf="@id/txtCommunityLimit" />
-
-            </carbon.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/txtFollowedCommunity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/home_followed_community"
-                android:textColor="@color/neutral_black_80"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/layoutCommunityLimit"
-                app:layout_constraintTop_toBottomOf="@id/layoutCommunityLimit" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSeeAllFollowed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:drawableEnd="@drawable/ic_go"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:insetTop="@dimen/dp_0"
-                android:insetBottom="@dimen/dp_0"
-                android:stateListAnimator="@null"
-                android:text="@string/string_see_all"
-                android:textAllCaps="false"
-                android:textColor="@color/primary_orange"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/txtFollowedCommunity"
-                app:layout_constraintEnd_toEndOf="@id/layoutCommunityLimit"
-                app:layout_constraintTop_toTopOf="@id/txtFollowedCommunity" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvFollowedCommunity"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="@id/btnSeeAllFollowed"
-                app:layout_constraintStart_toStartOf="@id/txtFollowedCommunity"
-                app:layout_constraintTop_toBottomOf="@id/txtFollowedCommunity"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_community" />
+                android:contentDescription="@string/string_notification"
+                android:src="@drawable/ic_bell"
+                app:layout_constraintBottom_toBottomOf="@id/edtSearch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edtSearch"
+                app:tint="@color/white" />
 
             <carbon.widget.ConstraintLayout
-                android:id="@+id/layoutExploreCommunity"
-                android:layout_width="@dimen/dp_0"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="14dp"
-                app:carbon_cornerRadius="14dp"
-                app:layout_constraintEnd_toEndOf="@id/rvFollowedCommunity"
-                app:layout_constraintStart_toStartOf="@id/rvFollowedCommunity"
-                app:layout_constraintTop_toBottomOf="@id/rvFollowedCommunity">
+                android:layout_marginTop="14dp"
+                android:background="@color/primary_background"
+                android:paddingBottom="72dp"
+                app:carbon_cornerRadiusTopEnd="18dp"
+                app:carbon_cornerRadiusTopStart="18dp"
+                app:carbon_elevation="30dp"
+                app:carbon_elevationShadowColor="#FEE8C8"
+                app:layout_constraintTop_toBottomOf="@id/edtSearch">
 
-                <ImageView
-                    android:id="@+id/imgGlobe"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_globe"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpHome"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="145dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/neutral_black_30"
-                    tools:ignore="ContentDescription" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txtExplore"
+                <com.zhpan.indicator.IndicatorView
+                    android:id="@+id/vpHomeIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp"
+                    app:layout_constraintEnd_toEndOf="@id/vpHome"
+                    app:layout_constraintStart_toStartOf="@id/vpHome"
+                    app:layout_constraintTop_toBottomOf="@id/vpHome" />
+
+                <carbon.widget.ConstraintLayout
+                    android:id="@+id/layoutCreateCommunity"
                     android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="28dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/bg_search"
+                    app:carbon_elevation="24dp"
+                    app:carbon_elevationShadowColor="#FCF2E3"
+                    app:layout_constraintEnd_toEndOf="@id/vpHome"
+                    app:layout_constraintStart_toStartOf="@id/vpHome"
+                    app:layout_constraintTop_toBottomOf="@id/vpHomeIndicator">
+
+                    <TextView
+                        android:id="@+id/txtCreateCommunity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="@string/string_create_community"
+                        android:textColor="@color/primary_orange"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtMaxCommunity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/string_max_community"
+                        android:textColor="@color/neutral_black_40"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/txtCreateCommunity"
+                        app:layout_constraintTop_toBottomOf="@id/txtCreateCommunity" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCreateCommunity"
+                        android:layout_width="70dp"
+                        android:layout_height="@dimen/dp_0"
+                        android:layout_margin="@dimen/dp_0"
+                        android:backgroundTint="@color/primary_orange"
+                        android:insetLeft="@dimen/dp_0"
+                        android:insetTop="@dimen/dp_0"
+                        android:insetRight="@dimen/dp_0"
+                        android:insetBottom="@dimen/dp_0"
+                        android:paddingHorizontal="21dp"
+                        android:stateListAnimator="@null"
+                        app:cornerRadius="18dp"
+                        app:icon="@drawable/ic_add"
+                        app:iconGravity="textStart"
+                        app:iconPadding="@dimen/dp_0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </carbon.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtCommunityCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
                     android:fontFamily="@font/poppins_semi_bold"
-                    android:maxLines="1"
-                    android:text="@string/home_explore_community"
-                    android:textColor="@color/neutral_orange"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imgGlobe"
+                    android:text="@string/home_community_category"
+                    android:textColor="@color/neutral_black_80"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/layoutCreateCommunity"
+                    app:layout_constraintTop_toBottomOf="@id/layoutCreateCommunity" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCommunityCategory"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imgGlobe"
-                    app:layout_constraintTop_toTopOf="@id/imgGlobe" />
+                    app:layout_constraintStart_toStartOf="@id/txtCommunityCategory"
+                    app:layout_constraintTop_toBottomOf="@id/txtCommunityCategory"
+                    tools:itemCount="9"
+                    tools:listitem="@layout/item_community_category" />
+
+                <TextView
+                    android:id="@+id/txtYourCommunity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/home_your_community"
+                    android:textColor="@color/neutral_black_80"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/rvCommunityCategory"
+                    app:layout_constraintTop_toBottomOf="@id/rvCommunityCategory" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSeeAllYours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_more"
+                    android:drawablePadding="@dimen/dp_0"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:includeFontPadding="false"
+                    android:insetTop="@dimen/dp_0"
+                    android:insetBottom="@dimen/dp_0"
+                    android:letterSpacing="0"
+                    android:minWidth="@dimen/dp_0"
+                    android:minHeight="@dimen/dp_0"
+                    android:padding="@dimen/dp_0"
+                    android:stateListAnimator="@null"
+                    android:text="@string/string_see_all"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primary_orange"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/txtYourCommunity"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txtYourCommunity" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutYourCommunity"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="18dp"
+                    android:paddingBottom="14dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtYourCommunity">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvYourCommunity"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_community" />
+
+                    <carbon.widget.ConstraintLayout
+                        android:id="@+id/layoutCommunityLimit"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="14dp"
+                        app:carbon_cornerRadius="14dp"
+                        app:layout_constraintEnd_toEndOf="@id/rvYourCommunity"
+                        app:layout_constraintStart_toStartOf="@id/rvYourCommunity"
+                        app:layout_constraintTop_toBottomOf="@id/rvYourCommunity">
+
+                        <ImageView
+                            android:id="@+id/imgLock"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_lock"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/neutral_black_30"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/txtCommunityLimit"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="38dp"
+                            android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:maxLines="1"
+                            android:text="@string/home_community_limit"
+                            android:textColor="@color/neutral_black_30"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toTopOf="@id/txtUpgradeAccount"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/imgLock"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtUpgradeAccount"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="@string/home_community_upgrade"
+                            android:textColor="@color/neutral_orange"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/txtCommunityLimit"
+                            app:layout_constraintStart_toStartOf="@id/txtCommunityLimit"
+                            app:layout_constraintTop_toBottomOf="@id/txtCommunityLimit" />
+
+                    </carbon.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutYourCommunityEmpty"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_0"
+                    android:background="@drawable/bg_community_empty"
+                    android:paddingHorizontal="38dp"
+                    android:paddingTop="48dp"
+                    android:paddingBottom="40dp"
+                    app:layout_constraintBottom_toBottomOf="@id/layoutYourCommunity"
+                    app:layout_constraintEnd_toEndOf="@id/layoutYourCommunity"
+                    app:layout_constraintStart_toStartOf="@id/layoutYourCommunity"
+                    app:layout_constraintTop_toTopOf="@id/layoutYourCommunity">
+
+                    <ImageView
+                        android:id="@+id/imgSadYourCommunity"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_sad"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#CECECE"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtYourCommunityEmpty"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/home_your_community_empty"
+                        android:textAlignment="center"
+                        android:textColor="#CECECE"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imgSadYourCommunity" />
+
+                    <TextView
+                        android:id="@+id/txtYourCommunityCreate"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="@string/home_your_community_empty_create"
+                        android:textAlignment="center"
+                        android:textColor="@color/primary_orange"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@id/txtYourCommunityEmpty"
+                        app:layout_constraintStart_toStartOf="@id/txtYourCommunityEmpty"
+                        app:layout_constraintTop_toBottomOf="@id/txtYourCommunityEmpty" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtFollowedCommunity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/home_followed_community"
+                    android:textColor="@color/neutral_black_80"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/layoutYourCommunity"
+                    app:layout_constraintTop_toBottomOf="@id/layoutYourCommunity" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSeeAllFollowed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_more"
+                    android:drawablePadding="@dimen/dp_0"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:includeFontPadding="false"
+                    android:insetTop="@dimen/dp_0"
+                    android:insetBottom="@dimen/dp_0"
+                    android:letterSpacing="0"
+                    android:minWidth="@dimen/dp_0"
+                    android:minHeight="@dimen/dp_0"
+                    android:padding="@dimen/dp_0"
+                    android:stateListAnimator="@null"
+                    android:text="@string/string_see_all"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primary_orange"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/txtFollowedCommunity"
+                    app:layout_constraintEnd_toEndOf="@id/layoutYourCommunity"
+                    app:layout_constraintTop_toTopOf="@id/txtFollowedCommunity" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutFollowedCommunity"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="18dp"
+                    android:paddingBottom="14dp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtFollowedCommunity">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvFollowedCommunity"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_community" />
+
+
+                    <carbon.widget.ConstraintLayout
+                        android:id="@+id/layoutExploreCommunity"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:padding="24dp"
+                        app:carbon_cornerRadius="14dp"
+                        app:layout_constraintEnd_toEndOf="@id/rvFollowedCommunity"
+                        app:layout_constraintStart_toStartOf="@id/rvFollowedCommunity"
+                        app:layout_constraintTop_toBottomOf="@id/rvFollowedCommunity">
+
+                        <ImageView
+                            android:id="@+id/imgGlobe"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_globe"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/neutral_black_30"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/txtExplore"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="38dp"
+                            android:fontFamily="@font/poppins_semi_bold"
+                            android:maxLines="1"
+                            android:text="@string/home_explore_community"
+                            android:textColor="@color/neutral_orange"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/imgGlobe"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/imgGlobe"
+                            app:layout_constraintTop_toTopOf="@id/imgGlobe" />
+
+                    </carbon.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutFollowedCommunityEmpty"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_0"
+                    android:background="@drawable/bg_community_empty"
+                    android:paddingHorizontal="38dp"
+                    android:paddingTop="48dp"
+                    android:paddingBottom="40dp"
+                    app:layout_constraintBottom_toBottomOf="@id/layoutFollowedCommunity"
+                    app:layout_constraintEnd_toEndOf="@id/layoutFollowedCommunity"
+                    app:layout_constraintStart_toStartOf="@id/layoutFollowedCommunity"
+                    app:layout_constraintTop_toTopOf="@id/layoutFollowedCommunity">
+
+                    <ImageView
+                        android:id="@+id/imgSadFollowedCommunity"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_sad"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="#CECECE"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtFollowedCommunityEmpty"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/home_followed_community_empty"
+                        android:textAlignment="center"
+                        android:textColor="#CECECE"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imgSadFollowedCommunity" />
+
+                    <TextView
+                        android:id="@+id/txtFollowedCommunityCreate"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="@string/home_followed_community_empty_follow"
+                        android:textAlignment="center"
+                        android:textColor="@color/primary_orange"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="@id/txtFollowedCommunityEmpty"
+                        app:layout_constraintStart_toStartOf="@id/txtFollowedCommunityEmpty"
+                        app:layout_constraintTop_toBottomOf="@id/txtFollowedCommunityEmpty" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/txtOfferTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/home_offer_title"
+                    android:textColor="@color/neutral_orange"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="@id/layoutFollowedCommunity"
+                    app:layout_constraintTop_toBottomOf="@id/layoutFollowedCommunity" />
+
+                <TextView
+                    android:id="@+id/txtOfferDesc"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/home_offer_description"
+                    android:textColor="@color/neutral_black_50"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtOfferTitle" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvOffer"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="108dp"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/txtOfferDesc"
+                    app:layout_constraintTop_toBottomOf="@id/txtOfferDesc"
+                    tools:itemCount="9"
+                    tools:listitem="@layout/item_offer" />
+
+                <TextView
+                    android:id="@+id/txtTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/home_tips"
+                    android:textColor="@color/neutral_black_80"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/rvOffer"
+                    app:layout_constraintTop_toBottomOf="@id/rvOffer" />
+
+                <com.zhpan.indicator.IndicatorView
+                    android:id="@+id/rvTipsIndicator"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    app:layout_constraintBottom_toBottomOf="@id/txtTips"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txtTips"
+                    app:layout_constraintTop_toTopOf="@id/txtTips" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTips"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="175dp"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/txtTips"
+                    app:layout_constraintTop_toBottomOf="@id/txtTips"
+                    tools:itemCount="9"
+                    tools:listitem="@layout/item_tips" />
 
             </carbon.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/txtOfferTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/home_offer_title"
-                android:textColor="@color/neutral_orange"
-                android:textSize="22sp"
-                app:layout_constraintStart_toStartOf="@id/layoutExploreCommunity"
-                app:layout_constraintTop_toBottomOf="@id/layoutExploreCommunity" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/txtOfferDesc"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/home_offer_description"
-                android:textColor="@color/neutral_black_50"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtOfferTitle" />
+    </androidx.core.widget.NestedScrollView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvOffer"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="108dp"
-                android:layout_marginTop="18dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/txtOfferDesc"
-                app:layout_constraintTop_toBottomOf="@id/txtOfferDesc"
-                tools:itemCount="9"
-                tools:listitem="@layout/item_offer" />
-
-            <TextView
-                android:id="@+id/txtTips"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:text="@string/home_tips"
-                android:textColor="@color/neutral_black_80"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/rvOffer"
-                app:layout_constraintTop_toBottomOf="@id/rvOffer" />
-
-            <com.zhpan.indicator.IndicatorView
-                android:id="@+id/rvTipsIndicator"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                app:layout_constraintBottom_toBottomOf="@id/txtTips"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/txtTips"
-                app:layout_constraintTop_toTopOf="@id/txtTips" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTips"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="175dp"
-                android:layout_marginTop="18dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/txtTips"
-                app:layout_constraintTop_toBottomOf="@id/txtTips"
-                tools:itemCount="9"
-                tools:listitem="@layout/item_tips" />
-
-        </carbon.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

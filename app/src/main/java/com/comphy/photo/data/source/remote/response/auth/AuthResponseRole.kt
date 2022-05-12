@@ -2,7 +2,7 @@ package com.comphy.photo.data.source.remote.response.auth
 
 import com.google.gson.annotations.SerializedName
 
-data class Role(
+data class AuthResponseRole(
     @SerializedName("created_date")
     val createdDate: Long,
     @SerializedName("deleted_date")

@@ -2,14 +2,14 @@ package com.comphy.photo.data.source.remote.response.community.category
 
 import com.google.gson.annotations.SerializedName
 
-data class Sort(
+data class CommunityResponseSort(
 
-	@field:SerializedName("unsorted")
+	@SerializedName("unsorted")
 	val unsorted: Boolean,
 
-	@field:SerializedName("sorted")
+	@SerializedName("sorted")
 	val sorted: Boolean,
 
-	@field:SerializedName("empty")
+	@SerializedName("empty")
 	val empty: Boolean
 )

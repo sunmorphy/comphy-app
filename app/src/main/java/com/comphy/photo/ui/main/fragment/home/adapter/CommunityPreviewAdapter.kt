@@ -11,7 +11,7 @@ import com.comphy.photo.vo.CommunityType.FOLLOWED
 import com.comphy.photo.vo.CommunityType.OWN
 
 class CommunityPreviewAdapter(
-    private val communities: List<CommunityPreviewModel>,
+    private val communities: List<CommunityPreviewModel>?,
     private val communityType: CommunityType
 ) : RecyclerView.Adapter<CommunityPreviewAdapter.ViewHolder>() {
 
@@ -24,25 +24,27 @@ class CommunityPreviewAdapter(
     }
 
     override fun onBindViewHolder(holder: CommunityPreviewAdapter.ViewHolder, position: Int) {
-        val community = communities[position]
+        if (communities != null) {
+            val community = communities[position]
 
-        when (communityType) {
-            OWN -> {
-                holder.binding.txtCommunityTitle.text = community.communityTitle
-                holder.binding.txtCommunityCategory.text = community.communityCategory
-                Glide.with(holder.itemView).load(community.communityImage).centerCrop()
-                    .into(holder.binding.imgCommunity)
-            }
-            FOLLOWED -> {
-                holder.binding.txtCommunityTitle.text = community.communityTitle
-                holder.binding.txtCommunityCategory.text = community.communityCategory
-                Glide.with(holder.itemView).load(community.communityImage).centerCrop()
-                    .into(holder.binding.imgCommunity)
+            when (communityType) {
+                OWN -> {
+                    holder.binding.txtCommunityTitle.text = community.communityTitle
+                    holder.binding.txtCommunityCategory.text = community.communityCategory
+                    Glide.with(holder.itemView).load(community.communityImage).centerCrop()
+                        .into(holder.binding.imgCommunity)
+                }
+                FOLLOWED -> {
+                    holder.binding.txtCommunityTitle.text = community.communityTitle
+                    holder.binding.txtCommunityCategory.text = community.communityCategory
+                    Glide.with(holder.itemView).load(community.communityImage).centerCrop()
+                        .into(holder.binding.imgCommunity)
+                }
             }
         }
     }
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = 2
 
     inner class ViewHolder(var binding: ItemCommunityBinding) :
         RecyclerView.ViewHolder(binding.root)

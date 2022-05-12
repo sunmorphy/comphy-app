@@ -55,11 +55,6 @@ class HomeFragment : Fragment() {
             CommunityPreviewModel(
                 "https://placeimg.com/640/480/tech/grayscale",
                 "Second Community",
-                "yea, this is second"
-            ),
-            CommunityPreviewModel(
-                "https://placeimg.com/640/480/tech/grayscale",
-                "Third Community",
                 "alright, that's the last one"
             )
         )
@@ -67,15 +62,18 @@ class HomeFragment : Fragment() {
         val categories = listOf(
             CommunityCategoryModel(R.drawable.ic_category_1, "Human Interest Photography"),
             CommunityCategoryModel(R.drawable.ic_category_2, "Portrait Photography"),
-            CommunityCategoryModel(R.drawable.ic_category_1, "Landscape Photography"),
-            CommunityCategoryModel(R.drawable.ic_category_2, "Fashion Photography"),
-            CommunityCategoryModel(R.drawable.ic_category_1, "Journalism Photography"),
+            CommunityCategoryModel(R.drawable.ic_category_3, "Landscape Photography"),
+            CommunityCategoryModel(R.drawable.ic_category_4, "Fashion Photography"),
+            CommunityCategoryModel(R.drawable.ic_category_5, "Journalism Photography"),
         )
 
         setupViewPager(mList)
-        setupRecycler(communities, categories)
+        setupRecycler(categories)
+        setEmptyCommunity(communities)
 
         binding.btnCreateCommunity.setOnClickListener { start<CreateCommunityActivity>() }
+        binding.imgProfile.setOnClickListener { setEmptyCommunity() }
+        binding.btnNotification.setOnClickListener { setEmptyCommunity(communities) }
     }
 
     private fun setupViewPager(listImages: List<String>) {
@@ -113,22 +111,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupRecycler(
-        communities: List<CommunityPreviewModel>,
-        categories: List<CommunityCategoryModel>
-    ) {
+    private fun setupRecycler(categories: List<CommunityCategoryModel>) {
         binding.rvCommunityCategory.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = CategoryAdapter(categories)
-        }
-        binding.rvYourCommunity.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = CommunityPreviewAdapter(communities, CommunityType.OWN)
-        }
-        binding.rvFollowedCommunity.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = CommunityPreviewAdapter(communities, CommunityType.FOLLOWED)
         }
         binding.rvOffer.apply {
             layoutManager =
@@ -139,6 +126,40 @@ class HomeFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = TipsAdapter()
+        }
+    }
+
+    private fun setEmptyCommunity(communities: List<CommunityPreviewModel>? = null) {
+        if (communities != null) {
+            binding.layoutYourCommunityEmpty.visibility = View.GONE
+            binding.layoutFollowedCommunityEmpty.visibility = View.GONE
+            binding.layoutYourCommunity.visibility = View.VISIBLE
+            binding.layoutFollowedCommunity.visibility = View.VISIBLE
+            binding.rvYourCommunity.apply {
+                visibility = View.VISIBLE
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = CommunityPreviewAdapter(communities, CommunityType.OWN)
+            }
+            binding.rvFollowedCommunity.apply {
+                visibility = View.VISIBLE
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = CommunityPreviewAdapter(communities, CommunityType.FOLLOWED)
+            }
+        } else {
+            binding.layoutYourCommunityEmpty.visibility = View.VISIBLE
+            binding.layoutFollowedCommunityEmpty.visibility = View.VISIBLE
+            binding.layoutYourCommunity.visibility = View.INVISIBLE
+            binding.layoutFollowedCommunity.visibility = View.INVISIBLE
+            binding.rvYourCommunity.apply {
+                visibility = View.INVISIBLE
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = CommunityPreviewAdapter(null, CommunityType.OWN)
+            }
+            binding.rvFollowedCommunity.apply {
+                visibility = View.INVISIBLE
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = CommunityPreviewAdapter(null, CommunityType.FOLLOWED)
+            }
         }
     }
 }

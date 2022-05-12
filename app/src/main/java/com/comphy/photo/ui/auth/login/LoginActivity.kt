@@ -97,9 +97,7 @@ class LoginActivity : BaseAuthActivity() {
         }
         viewModel.exceptionResponse.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) {
-            start<BiodataActivity> {
-                putExtra("EXTRA_EMAIL", email)
-            }
+            start<BiodataActivity>()
             finish()
         }
     }
