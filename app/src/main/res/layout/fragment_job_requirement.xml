@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".ui.job.fragment.JobRequirementFragment">
+
+    <TextView
+        android:id="@+id/txtJobRequirement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/job_job_requirement"
+        android:textColor="#FFB347"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtJobRequirementContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_job_requirement_content"
+        android:textColor="@color/neutral_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobRequirement" />
+
+    <TextView
+        android:id="@+id/txtJobVacancyTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/job_detail_vacancy_time"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtJobRequirementContent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobRequirementContent" />
+
+    <TextView
+        android:id="@+id/txtJobVacancyTimeContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="9dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_detail_vacancy_time_content"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobVacancyTime" />
+
+    <TextView
+        android:id="@+id/txtJobLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/job_detail_level"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtJobVacancyTimeContent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobVacancyTimeContent" />
+
+    <TextView
+        android:id="@+id/txtJobLevelContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="9dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_detail_level_content"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobLevel" />
+
+    <TextView
+        android:id="@+id/txtJobIndustry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/job_detail_industry"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtJobLevelContent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobLevelContent" />
+
+    <TextView
+        android:id="@+id/txtJobIndustryContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="9dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_detail_industry_content"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobIndustry" />
+
+    <TextView
+        android:id="@+id/txtJobAllowances"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/job_detail_allowances"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtJobIndustryContent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobIndustryContent" />
+
+    <TextView
+        android:id="@+id/txtJobAllowancesContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="9dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_detail_allowances_content"
+        android:textColor="@color/neutral_black_70"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_check"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtJobAllowances" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

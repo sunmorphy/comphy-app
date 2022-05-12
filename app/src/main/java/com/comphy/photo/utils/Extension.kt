@@ -12,7 +12,7 @@ object Extension {
     val File.sizeInKb get() = size / 1024
     val File.sizeInMb get() = sizeInKb / 1024
 
-    fun formatLocationInput(regency: String): String = "$regency, Indonesia"
+    private fun formatLocationInput(regency: String): String = "$regency, Indonesia"
 
     fun formatRegency(regencies: List<RegencyEntity>): MutableList<String> {
         var listRegency = mutableListOf<String>()

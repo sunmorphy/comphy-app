@@ -2,18 +2,19 @@ package com.comphy.photo.data.source.remote.client
 
 import com.comphy.photo.data.source.remote.response.auth.AuthBody
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
-import com.comphy.photo.data.source.remote.response.auth.Data
+import com.comphy.photo.data.source.remote.response.auth.AuthResponseData
 import com.comphy.photo.data.source.remote.response.community.category.CommunityResponse
 import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
+import com.comphy.photo.data.source.remote.response.job.list.JobResponse
 import com.comphy.photo.data.source.remote.response.location.province.ProvinceResponse
 import com.comphy.photo.data.source.remote.response.location.regency.RegencyResponse
 import com.comphy.photo.data.source.remote.response.post.create.CreatePostBody
+import com.comphy.photo.data.source.remote.response.post.feed.FeedResponse
 import com.comphy.photo.data.source.remote.response.post.update.UpdatePostBody
 import com.comphy.photo.data.source.remote.response.upload.UploadResponse
 import com.comphy.photo.data.source.remote.response.user.UserDataBody
 import com.comphy.photo.data.source.remote.response.user.UserResponse
 import com.skydoves.sandwich.ApiResponse
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
 
@@ -25,12 +26,12 @@ interface ApiService {
     @POST("auth/login")
     suspend fun userLogin(
         @Body authBody: AuthBody
-    ): ApiResponse<Data>
+    ): ApiResponse<AuthResponseData>
 
     @POST("auth/login")
     suspend fun userLoginGoogle(
         @Body authBody: AuthBody
-    ): ApiResponse<Data>
+    ): ApiResponse<AuthResponseData>
 
     /**
      * Register
@@ -177,11 +178,20 @@ interface ApiService {
     /**
      * Job Vacancies
      */
-    @GET("comphy/jobVacancy/listpage")
-    suspend fun getJobs() //TODO RESPONSE NOT READY YET
+    @GET("comphy/jobVacancy/listPage")
+    suspend fun getJobs(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null
+    ): ApiResponse<JobResponse>
 
     @GET("comphy/jobVacancy/filter")
-    suspend fun filterJobs() //TODO RESPONSE NOT READY YET
+    suspend fun filterJobs(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null,
+        @Query("region") region: String,
+        @Query("fullTime") fullTime: Boolean = false,
+        @Query("partTime") partTime: Boolean = false,
+    ): ApiResponse<JobResponse>
 
     /**
      * Post
@@ -190,7 +200,7 @@ interface ApiService {
     suspend fun getFeedPosts(
         @Query("page") page: Int? = null,
         @Query("perPage") perPage: Int? = null
-    ) //TODO RESPONSE NOT READY YET
+    ): ApiResponse<FeedResponse>
 
     @GET("comphy/post/details")
     suspend fun getPostDetails(

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="12dp"
+    android:background="@color/white"
+    android:padding="16dp"
+    app:carbon_cornerRadius="18dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FCF2E3">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgJobLogo"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@android:color/transparent"
+        android:src="@color/amber_200"
+        app:carbon_cornerRadius="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtJobTitle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="18dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:maxLines="1"
+        android:text="@string/job_job_title"
+        android:textAlignment="textStart"
+        android:textAllCaps="true"
+        android:textColor="@color/neutral_2"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/btnBookmark"
+        app:layout_constraintStart_toEndOf="@id/imgJobLogo"
+        app:layout_constraintTop_toTopOf="@id/imgJobLogo" />
+
+    <TextView
+        android:id="@+id/txtJobCompany"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:maxLines="1"
+        android:text="@string/job_job_company"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/neutral_orange"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/txtJobTitle"
+        app:layout_constraintStart_toStartOf="@id/txtJobTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtJobTitle" />
+
+    <TextView
+        android:id="@+id/txtJobLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="3dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_job_location"
+        android:textColor="@color/neutral_black_40"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_location"
+        app:drawableTint="@color/neutral_black_40"
+        app:layout_constraintStart_toStartOf="@id/txtJobCompany"
+        app:layout_constraintTop_toBottomOf="@id/txtJobCompany" />
+
+    <TextView
+        android:id="@+id/txtJobType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_job_type"
+        android:textColor="#ABABAB"
+        android:textSize="12sp"
+        app:drawableStartCompat="@drawable/ic_glass_hour"
+        app:drawableTint="#ABABAB"
+        app:layout_constraintStart_toStartOf="@id/txtJobLocation"
+        app:layout_constraintTop_toBottomOf="@id/txtJobLocation" />
+
+    <TextView
+        android:id="@+id/txtJobTimePassed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/job_job_time_passed"
+        android:textColor="@color/neutral_black_40"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/txtJobType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtJobType" />
+
+    <ImageButton
+        android:id="@+id/btnBookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/string_set_bookmark"
+        android:src="@drawable/ic_bookmarked"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgJobLogo" />
+
+</carbon.widget.ConstraintLayout>
