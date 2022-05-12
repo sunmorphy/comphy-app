@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="24dp">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="145dp"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="22dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/string_back"
+        android:scaleType="center"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator" />
+
+    <TextView
+        android:id="@+id/txtSetPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/set_post"
+        android:textColor="@color/primary_orange"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    <TextView
+        android:id="@+id/txtSetLocation"
+        style="@style/TextTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="@string/set_post_input_location"
+        app:layout_constraintStart_toStartOf="@id/btnBack"
+        app:layout_constraintTop_toBottomOf="@id/btnBack" />
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/layoutLocation"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:carbon_cornerRadius="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFF4E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSetLocation">
+
+        <AutoCompleteTextView
+            android:id="@+id/edtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_field"
+            android:dropDownSelector="@drawable/bg_dialog"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="top"
+            android:hint="@string/profile_edit_location"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingHorizontal="29dp"
+            android:paddingVertical="18dp"
+            android:textColor="@color/neutral_black"
+            android:textColorHint="@color/neutral_black_20"
+            android:textSize="12sp" />
+
+    </carbon.widget.LinearLayout>
+
+    <TextView
+        android:id="@+id/txtSetCategory"
+        style="@style/TextTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="13dp"
+        android:text="@string/set_post_choose_category"
+        app:drawableEndCompat="@drawable/ic_required_small"
+        app:layout_constraintStart_toStartOf="@id/layoutLocation"
+        app:layout_constraintTop_toBottomOf="@id/layoutLocation" />
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCategory"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFF4E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSetCategory">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:scrollbars="none"
+            android:theme="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+            app:boxBackgroundColor="@null"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="14dp"
+            app:boxCornerRadiusBottomStart="14dp"
+            app:boxCornerRadiusTopEnd="14dp"
+            app:boxCornerRadiusTopStart="14dp"
+            app:boxStrokeWidth="0dp"
+            app:counterTextColor="@color/neutral_black"
+            app:endIconDrawable="@drawable/ic_down"
+            app:endIconMode="dropdown_menu"
+            app:endIconTint="@color/neutral_black_20"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/edtCommunityCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/state_field"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:hint="@string/cc_community_category_text"
+                android:paddingHorizontal="29dp"
+                android:paddingVertical="18dp"
+                android:scrollbars="none"
+                android:textColor="@color/neutral_black"
+                android:textColorHint="@color/neutral_black_20"
+                android:textSize="12sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </carbon.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtSetPostTo"
+        style="@style/TextTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/set_post_to"
+        app:layout_constraintStart_toStartOf="@id/layoutCategory"
+        app:layout_constraintTop_toBottomOf="@id/layoutCategory" />
+
+    <RadioGroup
+        android:id="@+id/rgSetPostTo"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSetPostTo">
+
+        <RadioButton
+            android:id="@+id/rbJobPartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@drawable/state_radio"
+            android:buttonTint="@color/primary_orange"
+            android:checked="false"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="23dp"
+            android:text="@string/set_post_to_option_1"
+            android:textColor="#1A1A1A"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rbJobFullTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@drawable/state_radio"
+            android:buttonTint="@color/primary_orange"
+            android:checked="false"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="23dp"
+            android:text="@string/set_post_to_option_2"
+            android:textColor="#1A1A1A"
+            android:textSize="14sp" />
+
+    </RadioGroup>
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutChosenCommunity"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/state_field"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rgSetPostTo">
+
+        <TextView
+            android:id="@+id/txtSetChooseCommunity"
+            style="@style/TextTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/set_post_to_choose_community"
+            app:layout_constraintBottom_toTopOf="@id/txtSetChosenCommunity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtSetChosenCommunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/set_post_to_choose_community_none"
+            android:textColor="@color/neutral_black_20"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtSetChooseCommunity"
+            app:layout_constraintTop_toBottomOf="@id/txtSetChooseCommunity" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="@id/txtSetChosenCommunity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtSetChooseCommunity"
+            app:tint="@color/neutral_black"
+            tools:ignore="ContentDescription" />
+
+    </carbon.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
+        style="@style/ActivableMaterialButtonStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:enabled="false"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:letterSpacing="0"
+        android:paddingVertical="12dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_save"
+        android:textAllCaps="false"
+        android:textColor="@color/state_button_text_activable"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@id/layoutChosenCommunity"
+        app:layout_constraintStart_toStartOf="@id/layoutChosenCommunity"
+        app:layout_constraintTop_toBottomOf="@id/layoutChosenCommunity" />
+
+    <ImageView
+        android:id="@+id/imgLoadingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:rotation="90"
+        android:src="@drawable/ic_loading_btn"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/btnSave"
+        app:layout_constraintEnd_toEndOf="@id/btnSave"
+        app:layout_constraintStart_toStartOf="@id/btnSave"
+        app:layout_constraintTop_toTopOf="@id/btnSave"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
