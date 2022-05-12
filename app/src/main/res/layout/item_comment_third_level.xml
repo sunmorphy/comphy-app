@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white"
+    android:padding="16dp"
+    app:carbon_cornerRadius="14dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFEACB">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="centerCrop"
+        android:src="@color/amber_200"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtCommentProfile"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_medium"
+        android:maxLines="1"
+        android:text="@string/comment_profile"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/txtCommentTimePassed"
+        app:layout_constraintStart_toEndOf="@id/imgProfile"
+        app:layout_constraintTop_toTopOf="@id/imgProfile" />
+
+    <TextView
+        android:id="@+id/txtCommentJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins_medium"
+        android:maxLines="1"
+        android:text="@string/comment_job"
+        android:textAlignment="textStart"
+        android:textColor="@color/neutral_black_20"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtCommentProfile"
+        app:layout_constraintTop_toBottomOf="@id/txtCommentProfile" />
+
+    <TextView
+        android:id="@+id/txtCommentTimePassed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/comment_time_passed"
+        android:textColor="@color/neutral_black_20"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtCommentProfile" />
+
+    <TextView
+        android:id="@+id/txtCommentContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/comment_content"
+        android:textColor="@color/neutral_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/txtCommentProfile"
+        app:layout_constraintStart_toStartOf="@id/txtCommentProfile"
+        app:layout_constraintTop_toBottomOf="@id/txtCommentJob" />
+
+</carbon.widget.ConstraintLayout>
