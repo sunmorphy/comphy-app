@@ -20,5 +20,5 @@ data class CommunityResponsePageable(
 	val unpaged: Boolean,
 
 	@SerializedName("sort")
-	val communityResponseSort: CommunityResponseSort
+	val sort: CommunityResponseSort
 )

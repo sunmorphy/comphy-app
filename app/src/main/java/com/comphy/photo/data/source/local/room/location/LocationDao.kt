@@ -1,6 +1,7 @@
 package com.comphy.photo.data.source.local.room.location
 
 import androidx.room.*
+import com.comphy.photo.data.source.local.entity.CityEntity
 import com.comphy.photo.data.source.local.entity.ProvinceEntity
 import com.comphy.photo.data.source.local.entity.ProvinceWithRegency
 import com.comphy.photo.data.source.local.entity.RegencyEntity
@@ -20,5 +21,14 @@ interface LocationDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRegency(provinceEntities: RegencyEntity)
+
+    @Query("SELECT * FROM city")
+    fun getCities(): List<CityEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCities(cities: List<CityEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCity(city: CityEntity)
 
 }

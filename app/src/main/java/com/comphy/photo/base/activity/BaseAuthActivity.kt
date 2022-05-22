@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Patterns
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -18,6 +17,9 @@ import androidx.core.content.ContextCompat
 import com.comphy.photo.ComphyApp
 import com.comphy.photo.R
 import com.comphy.photo.databinding.BottomSheetBinding
+import com.comphy.photo.utils.Extension.changeColor
+import com.comphy.photo.utils.Extension.changeDrawable
+import com.comphy.photo.utils.Extension.loadAnim
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -28,10 +30,21 @@ import java.util.regex.Pattern
 import kotlin.properties.Delegates
 
 abstract class BaseAuthActivity : AppCompatActivity() {
-    private lateinit var bottomSheetDialog: BottomSheetDialog
 
-    protected lateinit var bottomSheetBinding: BottomSheetBinding
-    protected lateinit var gso: GoogleSignInOptions
+    private val bottomSheetDialog by lazy(LazyThreadSafetyMode.NONE) {
+        BottomSheetDialog(this, R.style.CustomBottomSheetTheme)
+    }
+    protected val bottomSheetBinding by lazy(LazyThreadSafetyMode.NONE) {
+        BottomSheetBinding.inflate(layoutInflater)
+    }
+
+    protected val gso by lazy(LazyThreadSafetyMode.NONE) {
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken((application as ComphyApp).clientId())
+            .requestEmail()
+            .build()
+    }
+
     protected lateinit var inputWidgets: List<EditText>
     protected lateinit var actionWidgets: List<Button>
     protected lateinit var greetingWidgets: List<TextView>
@@ -44,13 +57,10 @@ abstract class BaseAuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bottomSheetBinding = BottomSheetBinding.inflate(layoutInflater)
-        bottomSheetDialog = BottomSheetDialog(this, R.style.CustomBottomSheetTheme)
-
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken((application as ComphyApp).clientId())
-            .requestEmail()
-            .build()
+//        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken((application as ComphyApp).clientId())
+//            .requestEmail()
+//            .build()
 
         isDismissed = false
 
@@ -58,11 +68,7 @@ abstract class BaseAuthActivity : AppCompatActivity() {
     }
 
     protected fun isFieldEmpty(): Boolean {
-        inputWidgets.forEach {
-            if (it.text.isEmpty()) {
-                return true
-            }
-        }
+        inputWidgets.forEach { if (it.text.isEmpty()) return true }
         return false
     }
 
@@ -73,16 +79,13 @@ abstract class BaseAuthActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 if (task.isSuccessful) {
                     Timber.tag("Task Is Successful").i(account.account.toString())
-                    println(account.account.toString())
                     onSuccess(account)
                 } else {
                     Timber.tag("Task Is Failed").e(account.account.toString())
-                    println(account.account.toString())
                     setGoogleError(true)
                 }
             } catch (e: ApiException) {
                 Timber.tag("Google Api Exception").e(e)
-                println("Google Api Exception = $e")
                 setGoogleError(true)
             }
         }
@@ -94,12 +97,7 @@ abstract class BaseAuthActivity : AppCompatActivity() {
             actionWidgets.forEach { it.isEnabled = false }
             loadingImage.apply {
                 visibility = View.VISIBLE
-                startAnimation(
-                    AnimationUtils.loadAnimation(
-                        this@BaseAuthActivity,
-                        R.anim.btn_loading_anim
-                    )
-                )
+                startAnimation(loadAnim(R.anim.btn_loading_anim))
             }
         } else {
             actionWidgets[actionWidgets.size - 1].text = resources.getString(mainButtonText)
@@ -117,7 +115,7 @@ abstract class BaseAuthActivity : AppCompatActivity() {
             if (eachField == true) {
                 inputWidgets.forEach {
                     if (it.text.isEmpty()) {
-                        it.background = ContextCompat.getDrawable(this, R.drawable.widget_error)
+                        it.background = changeDrawable(R.drawable.widget_error)
 
                         if (errorWidgets.size < 2) {
                             errorWidgets.forEach { item -> item.visibility = View.VISIBLE }
@@ -128,15 +126,13 @@ abstract class BaseAuthActivity : AppCompatActivity() {
                 }
             } else {
                 inputWidgets.forEach {
-                    it.background =
-                        ContextCompat.getDrawable(this, R.drawable.widget_error)
+                    it.background = changeDrawable(R.drawable.widget_error)
                     showError(true)
                 }
             }
         } else {
             inputWidgets.forEach {
-                it.background =
-                    ContextCompat.getDrawable(this, R.drawable.state_field)
+                it.background = changeDrawable(R.drawable.state_field)
                 showError(false)
             }
             errorWidgets.forEach { error -> error.visibility = View.GONE }
@@ -145,24 +141,16 @@ abstract class BaseAuthActivity : AppCompatActivity() {
 
     protected fun setGoogleError(state: Boolean) {
         actionWidgets[actionWidgets.size - 2].background =
-            if (state) {
-                ContextCompat.getDrawable(this@BaseAuthActivity, R.drawable.widget_error)
-            } else {
-                ContextCompat.getDrawable(this@BaseAuthActivity, R.drawable.state_button)
-            }
+            if (state) changeDrawable(R.drawable.widget_error) else changeDrawable(R.drawable.state_button)
     }
 
     protected fun showError(state: Boolean) {
         if (state) {
             errorLayout.visibility = View.VISIBLE
-            greetingWidgets.forEach {
-                it.visibility = View.INVISIBLE
-            }
+            greetingWidgets.forEach { it.visibility = View.INVISIBLE }
         } else {
             errorLayout.visibility = View.GONE
-            greetingWidgets.forEach {
-                it.visibility = View.VISIBLE
-            }
+            greetingWidgets.forEach { it.visibility = View.VISIBLE }
         }
     }
 
@@ -200,16 +188,8 @@ abstract class BaseAuthActivity : AppCompatActivity() {
         bottomSheetDialog.show()
         bottomSheetDialog.setOnDismissListener {
             if (isDismissed) {
-                inputWidgets.forEach {
-                    it.background =
-                        ContextCompat.getDrawable(this, R.drawable.widget_focused)
-                }
-                actionWidgets[actionWidgets.size - 1].setBackgroundColor(
-                    ContextCompat.getColor(
-                        this,
-                        R.color.primary_green
-                    )
-                )
+                inputWidgets.forEach { it.background = changeDrawable(R.drawable.widget_focused) }
+                actionWidgets[actionWidgets.size - 1].setBackgroundColor(changeColor(R.color.primary_green))
                 nextScreenTimer.start()
             } else {
                 onFinishTask()

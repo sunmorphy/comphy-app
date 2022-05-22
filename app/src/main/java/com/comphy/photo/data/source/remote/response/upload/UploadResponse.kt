@@ -8,7 +8,7 @@ data class UploadResponse(
 	val status: String,
 
 	@SerializedName("data")
-	val data: List<DataItem>,
+	val data: List<DataItem>? = null,
 
 	@SerializedName("message")
 	val message: String

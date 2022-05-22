@@ -2,32 +2,33 @@ package com.comphy.photo.ui.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.comphy.photo.R
 import com.comphy.photo.base.activity.BaseMainActivity
 import com.comphy.photo.databinding.ActivityMainBinding
+import com.comphy.photo.ui.custom.CustomLoading
+import com.comphy.photo.ui.main.fragment.feed.FeedViewModel
+import com.comphy.photo.ui.main.fragment.home.HomeViewModel
 import com.comphy.photo.ui.main.fragment.job.JobViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : BaseMainActivity() {
-    private lateinit var binding: ActivityMainBinding
-//    private val mainViewModel: MainViewModel by viewModels()
+
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+    private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
+
+    private val mainViewModel: MainViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
+    private val feedViewModel: FeedViewModel by viewModels()
     private val jobViewModel: JobViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        lifecycleScope.launch { jobViewModel.getRegencies() }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -45,6 +46,9 @@ class MainActivity : BaseMainActivity() {
     }
 
     override fun setupObserver() {
-        // TODO("Not yet implemented")
+        mainViewModel.isLocationFetching.observe(this) { customLoading.showLoading(it) }
+        homeViewModel.isFetching.observe(this) { customLoading.showLoading(it) }
+        feedViewModel.isLoading.observe(this) { customLoading.showLoading(it) }
+        jobViewModel.isLoading.observe(this) { customLoading.showLoading(it) }
     }
 }

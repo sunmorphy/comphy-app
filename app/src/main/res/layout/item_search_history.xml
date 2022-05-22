@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="24dp"
+    android:drawablePadding="13dp"
+    android:fontFamily="@font/poppins_medium"
+    android:gravity="center_vertical"
+    android:includeFontPadding="false"
+    android:text="@string/explore_search_history_content"
+    android:textColor="@color/neutral_black"
+    android:textSize="12sp"
+    app:drawableStartCompat="@drawable/ic_clock"
+    app:drawableTint="#CFCFCF" />

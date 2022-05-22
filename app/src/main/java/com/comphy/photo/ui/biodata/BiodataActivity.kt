@@ -8,53 +8,52 @@ import android.view.View
 import android.view.Window
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
 import com.comphy.photo.base.activity.BaseMainActivity
 import com.comphy.photo.databinding.ActivityBiodataBinding
 import com.comphy.photo.databinding.DialogBiodataConfirmBinding
+import com.comphy.photo.ui.custom.CustomLoading
 import com.comphy.photo.ui.main.MainActivity
-import com.comphy.photo.utils.Extension
 import com.comphy.photo.utils.Extension.changeDrawable
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.comphy.photo.utils.Extension.formatCity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.activities.start
+import splitties.toast.toast
 
 @AndroidEntryPoint
 class BiodataActivity : BaseMainActivity() {
 
-    private lateinit var binding: ActivityBiodataBinding
-    private lateinit var confirmDialog: Dialog
-    private lateinit var dialogBiodata: DialogBiodataConfirmBinding
-    private lateinit var sheetBiodata: BottomSheetBehavior<ConstraintLayout>
-    private var isSuccess = false
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityBiodataBinding.inflate(
+            layoutInflater
+        )
+    }
+    private val confirmDialog by lazy { Dialog(this) }
+    private val dialogBiodata by lazy { DialogBiodataConfirmBinding.inflate(layoutInflater) }
+    private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
+    //    private val sheetBiodata by lazy { BottomSheetBehavior.from(binding.layoutSheetBiodata.root) }
     private val viewModel: BiodataViewModel by viewModels()
+    private var isSuccess = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            viewModel.getUserDetails()
-            viewModel.getRegencies()
-        }
-
-        binding = ActivityBiodataBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        lifecycleScope.launch {
+            viewModel.getCities()
+            viewModel.getUserDetails()
+        }
 
         init()
         setupClickListener()
         showSuccess(false)
-
     }
 
     override fun init() {
-        confirmDialog = Dialog(this)
-        dialogBiodata = DialogBiodataConfirmBinding.inflate(layoutInflater)
-        sheetBiodata = BottomSheetBehavior.from(binding.layoutSheetBiodata.root)
-
         confirmDialog.apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -112,6 +111,8 @@ class BiodataActivity : BaseMainActivity() {
     }
 
     override fun setupObserver() {
+        viewModel.isFetching.observe(this) { setWidgetsEnable(it) }
+        viewModel.exceptionResponse.observe(this) { toast(it) }
         viewModel.updateResponse.observe(this) {
             showSuccess(true)
             lifecycleScope.launch { delay(1500) }
@@ -126,13 +127,13 @@ class BiodataActivity : BaseMainActivity() {
                 binding.layoutSheetBiodata.edtName.text = it.fullname!!
             }
         }
-        viewModel.regencies.observe(this) { regencies ->
+        viewModel.cities.observe(this) {
             val locationAdapter =
                 ArrayAdapter(
                     this@BiodataActivity,
                     R.layout.custom_dropdown_location,
                     R.id.txtLocationItem,
-                    Extension.formatRegency(regencies)
+                    formatCity(it)
                 )
 
             binding.layoutSheetBiodata.edtLocation.apply {
@@ -147,14 +148,18 @@ class BiodataActivity : BaseMainActivity() {
         if (state) {
             isSuccess = true
             binding.layoutSuccess.visibility = View.VISIBLE
-            inputWidgets.forEach { it.isEnabled = false }
-            actionWidgets.forEach { it.isEnabled = false }
+            setWidgetsEnable(false)
         } else {
             isSuccess = false
             binding.layoutSuccess.visibility = View.GONE
-            inputWidgets.forEach { it.isEnabled = true }
-            actionWidgets.forEach { it.isEnabled = true }
+            setWidgetsEnable(true)
         }
+    }
+
+    private fun setWidgetsEnable(state: Boolean) {
+        if (state) customLoading.show() else customLoading.dismiss()
+//        inputWidgets.forEach { it.isEnabled = state }
+//        actionWidgets.forEach { it.isEnabled = state }
     }
 
     override fun onBackPressed() {

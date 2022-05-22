@@ -50,8 +50,7 @@ abstract class BaseCommunityActivity : AppCompatActivity() {
     fun requestAccessForFile(grantedAction: () -> Unit) {
         if (PERMISSIONS.all {
                 ContextCompat.checkSelfPermission(
-                    this,
-                    it
+                    this, it
                 ) != PackageManager.PERMISSION_GRANTED
             }) {
             getPermissionResult.launch(PERMISSIONS)

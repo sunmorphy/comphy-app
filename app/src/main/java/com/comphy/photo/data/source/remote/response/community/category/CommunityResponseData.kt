@@ -4,36 +4,36 @@ import com.google.gson.annotations.SerializedName
 
 data class CommunityResponseData(
 
-	@SerializedName("number")
+    @SerializedName("number")
 	val number: Int,
 
-	@SerializedName("last")
+    @SerializedName("last")
 	val last: Boolean,
 
-	@SerializedName("size")
+    @SerializedName("size")
 	val size: Int,
 
-	@SerializedName("numberOfElements")
+    @SerializedName("numberOfElements")
 	val numberOfElements: Int,
 
-	@SerializedName("totalPages")
+    @SerializedName("totalPages")
 	val totalPages: Int,
 
-	@SerializedName("pageable")
-	val communityResponsePageable: CommunityResponsePageable,
+    @SerializedName("pageable")
+	val pageable: CommunityResponsePageable,
 
-	@SerializedName("sort")
-	val communityResponseSort: CommunityResponseSort,
+    @SerializedName("sort")
+	val sort: CommunityResponseSort,
 
-	@SerializedName("content")
-	val content: List<Any?>? = null,
+    @SerializedName("content")
+	val content: List<CommunityResponseContentItem>,
 
-	@SerializedName("first")
+    @SerializedName("first")
 	val first: Boolean,
 
-	@SerializedName("totalElements")
+    @SerializedName("totalElements")
 	val totalElements: Int,
 
-	@SerializedName("empty")
+    @SerializedName("empty")
 	val empty: Boolean
 )

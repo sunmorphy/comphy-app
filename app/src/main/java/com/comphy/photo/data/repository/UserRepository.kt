@@ -1,8 +1,10 @@
 package com.comphy.photo.data.repository
 
+import com.comphy.photo.data.source.local.entity.CityEntity
+import com.comphy.photo.data.source.local.room.location.LocationDao
 import com.comphy.photo.data.source.remote.client.ApiService
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
-import com.comphy.photo.data.source.remote.response.user.UserDataBody
+import com.comphy.photo.data.source.remote.response.user.detail.UserDataBody
 import com.google.gson.Gson
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
@@ -16,8 +18,30 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(
     private val apiService: ApiService,
+    private val locationDao: LocationDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) {
+
+    suspend fun getUserCities(
+        onException: () -> Unit
+    ) = flow {
+        val localCities = locationDao.getCities()
+        if (localCities.isEmpty()) {
+            val response = apiService.getUserCities()
+            response.suspendOnSuccess {
+                data.userCityResponseData.cities.forEach { city ->
+                    locationDao.insertCity(CityEntity(city = city))
+                }
+            }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException {
+                    Timber.tag("On Exception").e(message())
+                    onException()
+                }
+        }
+        emit(localCities)
+
+    }.flowOn(ioDispatcher)
 
     suspend fun getUserDetails() = flow {
         val response = apiService.getUserDetails()

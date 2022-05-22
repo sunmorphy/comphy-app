@@ -2,10 +2,7 @@ package com.comphy.photo.di
 
 import android.app.Application
 import com.comphy.photo.ComphyApp
-import com.comphy.photo.data.source.remote.client.ApiClient
-import com.comphy.photo.data.source.remote.client.ApiService
-import com.comphy.photo.data.source.remote.client.AuthInterceptor
-import com.comphy.photo.data.source.remote.client.okHttpClient
+import com.comphy.photo.data.source.remote.client.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,12 +19,11 @@ object NetworkModule {
     fun provideApiService(
         application: Application,
         okHttpClient: OkHttpClient
-    ): ApiService {
-        return ApiClient(okHttpClient).instance((application as ComphyApp).baseUrl())
-    }
+    ): ApiService = ApiClient(okHttpClient).instance((application as ComphyApp).baseUrl())
 
     @Provides
     fun provideOkHttpClient(
-        authInterceptor: AuthInterceptor
-    ): OkHttpClient = okHttpClient(authInterceptor)
+        tokenInterceptor: TokenInterceptor,
+        tokenAuthenticator: TokenAuthenticator
+    ): OkHttpClient = okHttpClient(tokenInterceptor, tokenAuthenticator)
 }

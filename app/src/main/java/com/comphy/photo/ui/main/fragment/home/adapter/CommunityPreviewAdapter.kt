@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.comphy.photo.data.model.CommunityPreviewModel
+import com.comphy.photo.R
+import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
 import com.comphy.photo.databinding.ItemCommunityBinding
 import com.comphy.photo.vo.CommunityType
 import com.comphy.photo.vo.CommunityType.FOLLOWED
 import com.comphy.photo.vo.CommunityType.OWN
 
 class CommunityPreviewAdapter(
-    private val communities: List<CommunityPreviewModel>?,
-    private val communityType: CommunityType
+    private val communities: List<CreatedCommunityResponseContent>?,
+    private val communityType: CommunityType,
+    private val onOptionClick: (Int) -> Unit
 ) : RecyclerView.Adapter<CommunityPreviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -29,22 +31,32 @@ class CommunityPreviewAdapter(
 
             when (communityType) {
                 OWN -> {
-                    holder.binding.txtCommunityTitle.text = community.communityTitle
-                    holder.binding.txtCommunityCategory.text = community.communityCategory
-                    Glide.with(holder.itemView).load(community.communityImage).centerCrop()
+                    Glide.with(holder.itemView)
+                        .load(community.profilePhotoCommunityLink)
+                        .error(R.drawable.ic_people_community)
+                        .placeholder(R.drawable.ic_people_community)
+                        .centerCrop()
                         .into(holder.binding.imgCommunity)
+                    holder.binding.txtCommunityTitle.text = community.communityName
+                    holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
+                    holder.binding.btnOption.setOnClickListener { onOptionClick(community.id) }
                 }
                 FOLLOWED -> {
-                    holder.binding.txtCommunityTitle.text = community.communityTitle
-                    holder.binding.txtCommunityCategory.text = community.communityCategory
-                    Glide.with(holder.itemView).load(community.communityImage).centerCrop()
+                    Glide.with(holder.itemView)
+                        .load(community.profilePhotoCommunityLink)
+                        .error(R.drawable.ic_people_community)
+                        .placeholder(R.drawable.ic_people_community)
+                        .centerCrop()
                         .into(holder.binding.imgCommunity)
+                    holder.binding.txtCommunityTitle.text = community.communityName
+                    holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
+                    holder.binding.btnOption.setOnClickListener { onOptionClick(community.id) }
                 }
             }
         }
     }
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = communities?.size ?: 2
 
     inner class ViewHolder(var binding: ItemCommunityBinding) :
         RecyclerView.ViewHolder(binding.root)

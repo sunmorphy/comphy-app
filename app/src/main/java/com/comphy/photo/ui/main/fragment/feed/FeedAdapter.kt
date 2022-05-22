@@ -1,81 +1,97 @@
 package com.comphy.photo.ui.main.fragment.feed
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContent
+import com.comphy.photo.databinding.ItemFeedImageLandscapeBinding
+import com.comphy.photo.databinding.ItemFeedTextBinding
 import com.comphy.photo.databinding.ItemFeedVideoBinding
-import com.comphy.photo.vo.FeedItemType
+import com.comphy.photo.ui.main.fragment.feed.viewholder.FeedImageViewHolder
+import com.comphy.photo.ui.main.fragment.feed.viewholder.FeedTextViewHolder
+import com.comphy.photo.ui.main.fragment.feed.viewholder.FeedVideoViewHolder
+import com.comphy.photo.vo.FeedType
 import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
 
 class FeedAdapter(
-//    private val context: Context
-//    private val posts: List<String>,
-//    private val itemType: FeedItemType,
-//    private val onClick: (position: Int) -> Unit
-) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
-    private var player: ExoPlayer? = null
+    private val player: ExoPlayer?,
+    private val onLikePressed: (position: Int, postId: String, isLiked: Boolean) -> Unit
+) : PagingDataAdapter<FeedResponseContent, RecyclerView.ViewHolder>(COMPARATOR) {
 
-    inner class ViewHolder(var binding: ItemFeedVideoBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedAdapter.ViewHolder {
-//        return when (viewType) {
-//            PostType.TEXT -> FeedSquareViewHolder(
-//                ItemFeedImageSquareBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//            )
-//            PostType.MEDIA_SQUARE -> FeedSquareViewHolder(
-//                ItemFeedImageSquareBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//            )
-//            PostType.MEDIA_PORTRAIT -> FeedPortraitViewHolder(
-//                ItemFeedImagePortraitBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//            )
-//            PostType.MEDIA_LANDSCAPE -> FeedLandscapeViewHolder(
-//                ItemFeedImageLandscapeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//            )
-//            else -> throw IllegalArgumentException("Missing view type exception ViewType: $viewType")
-//        }
-        val view = ItemFeedVideoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            FeedType.TEXT -> FeedTextViewHolder(
+                ItemFeedTextBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            FeedType.IMAGE -> FeedImageViewHolder(
+                ItemFeedImageLandscapeBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            FeedType.VIDEO -> FeedVideoViewHolder(
+                ItemFeedVideoBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                player
+            )
+            else -> throw IllegalArgumentException("Missing view type exception ViewType: $viewType")
+        }
     }
 
-    override fun onBindViewHolder(holder: FeedAdapter.ViewHolder, position: Int) {
-        player = ExoPlayer.Builder(holder.itemView.context)
-            .build()
-            .also { exoPlayer ->
-                holder.binding.testVideoView.player = exoPlayer
-                val mediaItem =
-                    MediaItem.fromUri("https://res.cloudinary.com/dxrmgpqzm/video/upload/v1648384424/ttv8ak9d7ss4bzvosuyp.mp4")
-                exoPlayer.setMediaItem(mediaItem)
-                exoPlayer.prepare()
-                exoPlayer.playWhenReady = true
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val feed = getItem(position)!!
+
+        when (holder.itemViewType) {
+            FeedType.TEXT -> (holder as FeedTextViewHolder).bind(holder.itemView, feed) { postId, isLiked ->
+                onLikePressed(position, postId, isLiked)
             }
-//        return when (posts[position]) {
-//            "square" -> (holder as FeedSquareViewHolder).bind(
-//                "", itemType, onClick
-//            )
-//            "portrait" -> (holder as FeedPortraitViewHolder).bind(
-//                "", itemType, onClick
-//            )
-//            "landscape" -> (holder as FeedLandscapeViewHolder).bind(
-//                "", itemType, onClick
-//            )
-//            else -> {}
-//        }
+            FeedType.IMAGE -> (holder as FeedImageViewHolder).bind(holder.itemView, feed) { postId, isLiked ->
+                onLikePressed(position, postId, isLiked)
+            }
+            FeedType.VIDEO -> (holder as FeedVideoViewHolder).bind(holder.itemView, feed) { postId, isLiked ->
+                onLikePressed(position, postId, isLiked)
+            }
+        }
     }
 
-    override fun getItemCount(): Int = 9
+    override fun getItemViewType(position: Int): Int {
+        val feed = getItem(position)
 
-    override fun onViewRecycled(holder: ViewHolder) {
-        super.onViewRecycled(holder)
-
-        player?.stop()
+        return when {
+            feed?.linkPhoto != null -> FeedType.IMAGE
+            feed?.linkVideo != null -> FeedType.VIDEO
+            else -> FeedType.TEXT
+        }
     }
 
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
+    companion object {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<FeedResponseContent>() {
+            override fun areItemsTheSame(oldItem: FeedResponseContent, newItem: FeedResponseContent): Boolean =
+                oldItem.id == newItem.id
 
-        player?.stop()
+            override fun areContentsTheSame(oldItem: FeedResponseContent, newItem: FeedResponseContent): Boolean =
+                oldItem == newItem
+        }
     }
+//    override fun onViewRecycled(holder: ViewHolder) {
+//        super.onViewRecycled(holder)
+//
+//        player?.stop()
+//    }
+//
+//    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+//        super.onViewDetachedFromWindow(holder)
+//
+//        player?.release()
+//    }
 }

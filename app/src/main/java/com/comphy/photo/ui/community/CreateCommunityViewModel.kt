@@ -3,9 +3,10 @@ package com.comphy.photo.ui.community
 import androidx.lifecycle.MutableLiveData
 import com.comphy.photo.base.viewmodel.BaseCommunityViewModel
 import com.comphy.photo.data.repository.CommunityRepository
-import com.comphy.photo.data.repository.LocationRepository
 import com.comphy.photo.data.repository.UploadRepository
-import com.comphy.photo.data.source.local.entity.RegencyEntity
+import com.comphy.photo.data.repository.UserRepository
+import com.comphy.photo.data.source.local.entity.CityEntity
+import com.comphy.photo.data.source.remote.response.community.category.CommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
 import com.comphy.photo.data.source.remote.response.upload.DataItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,20 +17,40 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateCommunityViewModel @Inject constructor(
-    private val locationRepository: LocationRepository,
+    private val userRepository: UserRepository,
     private val uploadRepository: UploadRepository,
     private val communityRepository: CommunityRepository
 ) : BaseCommunityViewModel() {
 
-    val regencies = MutableLiveData<List<RegencyEntity>>()
+    val cities = MutableLiveData<List<CityEntity>>()
+    val categories = MutableLiveData<List<CommunityResponseContentItem>>()
     val uploadsUrl = MutableLiveData<List<DataItem>>()
     val uploadResp = MutableLiveData<String>()
+    val isFetching = MutableLiveData<Boolean>()
 
-    suspend fun getRegencies() =
-        locationRepository.getRegencies()
-            .onStart { isLoading.postValue(true) }
-            .onCompletion { isLoading.postValue(false) }
-            .collect { regencies.postValue(it) }
+    suspend fun getCities() =
+        userRepository.getUserCities {
+            suspend {
+                userRepository.getUserCities {
+                    exceptionResponse.postValue("Mohon cek koneksi internet anda")
+                }
+                    .onStart { isFetching.postValue(true) }
+                    .onCompletion { isFetching.postValue(false) }
+                    .collect {
+                        isFetching.postValue(false)
+                        cities.postValue(it)
+                    }
+            }
+        }
+            .onStart { isFetching.postValue(true) }
+            .onCompletion { isFetching.postValue(false) }
+            .collect { cities.postValue(it) }
+
+    suspend fun getCommunityCategories() =
+        communityRepository.getCommunityCategories()
+            .onStart { isFetching.postValue(true) }
+            .onCompletion { isFetching.postValue(false) }
+            .collect { categories.postValue(it.data!!.content) }
 
     suspend fun getUploadLink(
         type: String,
@@ -45,15 +66,10 @@ class CreateCommunityViewModel @Inject constructor(
     suspend fun uploadImageNonPost(
         url: String,
         image: RequestBody
-    ) = uploadRepository.uploadImagesNonPost(url, image, onSuccess = {
-        uploadResp.postValue("uhh it's a success... i guess")
-        println("INI DARI ON SUCCESS")
-    })
+    ) = uploadRepository.uploadImagesNonPost(url, image)
         .onStart { isLoading.postValue(true) }
-        .collect {
-            uploadResp.postValue("uhh it's a success... i guess")
-            println("uhh it's a success... i guess")
-        }
+        .onCompletion { isLoading.postValue(false) }
+        .collect { uploadResp.postValue("uhh it's a success... i guess") }
 
     suspend fun createCommunity(
         communityName: String,

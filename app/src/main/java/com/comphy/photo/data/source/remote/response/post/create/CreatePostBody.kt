@@ -11,7 +11,7 @@ data class CreatePostBody(
 	val iso: String? = null,
 
 	@SerializedName("description")
-	val description: String,
+	val description: String? = null,
 
 	@SerializedName("linkVideo")
 	val linkVideo: String? = null,
@@ -31,8 +31,8 @@ data class CreatePostBody(
 	@SerializedName("aperture")
 	val aperture: String? = null,
 
-	@SerializedName("categoryCommunityId")
-	val categoryCommunityId: Int,
+	@SerializedName("categoryId")
+	val categoryId: Int,
 
 	@SerializedName("location")
 	val location: String? = null,

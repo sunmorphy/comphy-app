@@ -3,13 +3,10 @@ package com.comphy.photo.data.source.remote.response.post.feed
 import com.google.gson.annotations.SerializedName
 
 data class FeedResponse(
-
-    @SerializedName("Status")
-	val status: String,
-
     @SerializedName("data")
-	val feedResponseData: FeedResponseData? = null,
-
+    val `data`: FeedResponseData? = null,
     @SerializedName("message")
-	val message: String
+    val message: String,
+    @SerializedName("Status")
+    val status: String
 )

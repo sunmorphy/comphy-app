@@ -2,9 +2,7 @@ package com.comphy.photo.data.repository
 
 import com.comphy.photo.data.source.remote.response.auth.AuthBody
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
-import com.comphy.photo.data.source.remote.response.biodata.BiodataBody
 import com.comphy.photo.data.source.remote.client.ApiService
-import com.comphy.photo.data.source.remote.response.user.UserDataBody
 import com.google.gson.Gson
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError

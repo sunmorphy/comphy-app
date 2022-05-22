@@ -96,25 +96,4 @@
         tools:itemCount="9"
         tools:listitem="@layout/item_choose_community" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSave"
-        style="@style/ActivableMaterialButtonStyle"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:enabled="false"
-        android:fontFamily="@font/poppins_bold"
-        android:includeFontPadding="false"
-        android:letterSpacing="0"
-        android:paddingVertical="12dp"
-        android:stateListAnimator="@null"
-        android:text="@string/string_choose"
-        android:textAllCaps="false"
-        android:textColor="@color/state_button_text_activable"
-        android:textSize="14sp"
-        app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="@id/rvChooseCommunity"
-        app:layout_constraintStart_toStartOf="@id/rvChooseCommunity"
-        app:layout_constraintTop_toBottomOf="@id/rvChooseCommunity" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

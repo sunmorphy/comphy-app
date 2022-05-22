@@ -37,4 +37,54 @@ class CommunityRepository @Inject constructor(
                 Timber.tag("On Exception").e(message())
             }
     }.flowOn(ioDispatcher)
+
+    suspend fun leaveCommunity(
+        communityId: Int,
+        onErrorNorException: (exceptionResponse: String?) -> Unit
+    ) = flow {
+        val response = apiService.leaveCommunity(communityId)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: CommunityResponse =
+                    Gson().fromJson(this.errorBody?.string(), CommunityResponse::class.java)
+                onErrorNorException(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message)
+                Timber.tag("On Exception").e(message())
+            }
+    }
+
+    suspend fun getCommunityCategories() =
+        flow {
+            val response = apiService.getCommunityCategories()
+            response.suspendOnSuccess { emit(data) }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException { Timber.tag("On Exception").e(message()) }
+        }.flowOn(ioDispatcher)
+
+    suspend fun getCreatedCommunities(
+        onException: () -> Unit
+    ) = flow {
+        val response = apiService.getCreatedCommunities()
+        response.suspendOnSuccess { emit(data) }
+            .onError { Timber.tag("On Error").e(message()) }
+            .onException {
+                onException()
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun getJoinedCommunities(
+        onException: () -> Unit
+    ) = flow {
+        val response = apiService.getJoinedCommunities()
+        response.suspendOnSuccess { emit(data) }
+            .onError { Timber.tag("On Error").e(message()) }
+            .onException {
+                onException()
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
 }

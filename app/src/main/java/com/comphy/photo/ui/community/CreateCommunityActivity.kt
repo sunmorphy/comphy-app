@@ -13,10 +13,11 @@ import com.bumptech.glide.Glide
 import com.comphy.photo.R
 import com.comphy.photo.base.activity.BaseCommunityActivity
 import com.comphy.photo.databinding.ActivityCreateCommunityBinding
+import com.comphy.photo.ui.custom.CustomLoading
 import com.comphy.photo.ui.main.MainActivity
 import com.comphy.photo.utils.Extension.changeColor
 import com.comphy.photo.utils.Extension.changeDrawable
-import com.comphy.photo.utils.Extension.formatRegency
+import com.comphy.photo.utils.Extension.formatCity
 import com.comphy.photo.utils.Extension.sizeInMb
 import com.comphy.photo.vo.CommunityImageType
 import com.comphy.photo.vo.CommunityImageType.BANNER
@@ -27,16 +28,22 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody.Companion.asRequestBody
 import splitties.activities.start
-import splitties.dimensions.dp
+import splitties.resources.color
+import splitties.resources.drawable
 import splitties.toast.toast
 import java.io.File
 
 @AndroidEntryPoint
 class CreateCommunityActivity : BaseCommunityActivity() {
 
-    private lateinit var binding: ActivityCreateCommunityBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityCreateCommunityBinding.inflate(layoutInflater)
+    }
+    private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
     private val viewModel: CreateCommunityViewModel by viewModels()
     private val imagesPath = mutableListOf("", "")
+    private val categories = mutableListOf<String>()
+    private val categoryIds = mutableListOf<Int>()
     private var profilePath = ""
     private var profileUrl = ""
     private var bannerPath = ""
@@ -44,11 +51,12 @@ class CreateCommunityActivity : BaseCommunityActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityCreateCommunityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lifecycleScope.launch { viewModel.getRegencies() }
+        lifecycleScope.launch {
+            viewModel.getCities()
+            viewModel.getCommunityCategories()
+        }
 
         init()
         setupClickListener()
@@ -75,18 +83,6 @@ class CreateCommunityActivity : BaseCommunityActivity() {
         toolbarButtonText = R.string.string_create_community
         mainButtonText = R.string.string_save
 
-        val communityCategory = resources.getStringArray(R.array.community_category)
-        val communityCategoryAdapter = ArrayAdapter(
-            this@CreateCommunityActivity,
-            R.layout.custom_dropdown_category,
-            R.id.txtCategoryItem,
-            communityCategory
-        )
-        binding.edtCommunityCategory.apply {
-            setDropDownBackgroundDrawable(this@CreateCommunityActivity.changeDrawable(R.drawable.bg_dialog))
-            setAdapter(communityCategoryAdapter)
-        }
-
         requiredWidgets.forEach { it.doAfterTextChanged { setToolbarButtonEnable() } }
         binding.rgCommunityType.setOnCheckedChangeListener { _, _ -> setToolbarButtonEnable() }
     }
@@ -95,15 +91,14 @@ class CreateCommunityActivity : BaseCommunityActivity() {
         binding.imgBanner.setOnClickListener {
             requestAccessForFile {
                 openPicker {
-                    println(File(it.mediaPath).sizeInMb)
                     bannerPath = it.mediaPath
                     imagesPath[0] = it.mediaPath
                     Glide.with(this)
                         .load(imagesPath[0])
                         .centerCrop()
                         .into(binding.imgBanner)
-                    binding.txtBannerMax.setTextColor(changeColor(R.color.white))
-                    binding.txtBannerSize.setTextColor(changeColor(R.color.white))
+                    binding.txtBannerMax.setTextColor(color(R.color.white))
+                    binding.txtBannerSize.setTextColor(color(R.color.white))
                     binding.imgBannerOverlay.visibility = View.VISIBLE
                 }
             }
@@ -111,7 +106,6 @@ class CreateCommunityActivity : BaseCommunityActivity() {
         binding.imgProfile.setOnClickListener {
             requestAccessForFile {
                 openPicker {
-                    println(File(it.mediaPath).sizeInMb)
                     profilePath = it.mediaPath
                     imagesPath[1] = it.mediaPath
                     Glide.with(this)
@@ -145,7 +139,17 @@ class CreateCommunityActivity : BaseCommunityActivity() {
     }
 
     override fun setupObserver() {
+        viewModel.isFetching.observe(this) {
+            if (it) customLoading.show() else customLoading.dismiss()
+        }
         viewModel.uploadsUrl.observe(this) {
+            var selectedCategory = -1
+            categories.forEach {
+                if (it == binding.edtCommunityCategory.text.toString()) {
+                    val itIndex = categories.indexOf(it)
+                    selectedCategory = categoryIds[itIndex]
+                }
+            }
             lifecycleScope.launch {
                 uploadImages(it[0].storageUrl, PROFILE)
                 uploadImages(it[1].storageUrl, BANNER)
@@ -157,7 +161,7 @@ class CreateCommunityActivity : BaseCommunityActivity() {
                     location = binding.edtCommunityLocation.text.toString().split(",")[0],
                     communityType = binding.rgCommunityType
                         .findViewById<RadioButton>(binding.rgCommunityType.checkedRadioButtonId).text.toString(),
-                    categoryCommunityId = 3,
+                    categoryCommunityId = selectedCategory,
                     profilePhotoCommunityLink = profileUrl.ifEmpty { null },
                     bannerPhotoCommunityLink = bannerUrl.ifEmpty { null }
                 )
@@ -169,19 +173,35 @@ class CreateCommunityActivity : BaseCommunityActivity() {
             finishAffinity()
         }
         viewModel.isLoading.observe(this) { setButtonLoading(it) }
-        viewModel.regencies.observe(this) { regencies ->
+        viewModel.cities.observe(this) {
             val locationAdapter =
                 ArrayAdapter(
                     this@CreateCommunityActivity,
                     R.layout.custom_dropdown_location,
                     R.id.txtLocationItem,
-                    formatRegency(regencies)
+                    formatCity(it)
                 )
 
             binding.edtCommunityLocation.apply {
                 setDropDownBackgroundDrawable(this@CreateCommunityActivity.changeDrawable(R.drawable.bg_dialog))
                 threshold = 1
                 setAdapter(locationAdapter)
+            }
+        }
+        viewModel.categories.observe(this) {
+            it.forEach { category ->
+                categories.add(category.name)
+                categoryIds.add(category.id)
+            }
+            val communityCategoryAdapter = ArrayAdapter(
+                this@CreateCommunityActivity,
+                R.layout.custom_dropdown_category,
+                R.id.txtCategoryItem,
+                categories
+            )
+            binding.edtCommunityCategory.apply {
+                setDropDownBackgroundDrawable(drawable(R.drawable.bg_dialog))
+                setAdapter(communityCategoryAdapter)
             }
         }
     }
@@ -207,11 +227,11 @@ class CreateCommunityActivity : BaseCommunityActivity() {
     private suspend fun uploadImages(url: String, imageType: CommunityImageType) {
         when (imageType) {
             PROFILE -> {
-                val reqFile = File(imagesPath[0]).asRequestBody()
+                val reqFile = File(imagesPath[1]).asRequestBody()
                 viewModel.uploadImageNonPost(url, reqFile)
             }
             BANNER -> {
-                val reqFile = File(imagesPath[1]).asRequestBody()
+                val reqFile = File(imagesPath[0]).asRequestBody()
                 viewModel.uploadImageNonPost(url, reqFile)
             }
         }

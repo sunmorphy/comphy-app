@@ -2,12 +2,14 @@
 <carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_marginBottom="18dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:paddingHorizontal="16dp"
     android:paddingTop="20dp"
-    android:paddingBottom="16dp"
+    android:paddingBottom="30dp"
     app:carbon_cornerRadius="18dp"
     app:carbon_elevation="30dp"
     app:carbon_elevationShadowColor="#FFEACB">
@@ -113,15 +115,17 @@
 
     <carbon.widget.ImageView
         android:id="@+id/imgFeedContent"
-        android:layout_width="328dp"
-        android:layout_height="184dp"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
         android:layout_marginTop="14dp"
         android:scaleType="centerCrop"
         android:src="@color/red_500"
         app:carbon_cornerRadius="14dp"
+        app:layout_constraintDimensionRatio="4:5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtFeedLocation" />
+        app:layout_constraintTop_toBottomOf="@id/txtFeedLocation"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/txtFeedCommunity"
@@ -138,37 +142,46 @@
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
         app:layout_constraintTop_toBottomOf="@id/imgFeedContent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgLikesUser1"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLikesUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
-        android:src="@color/red_100"
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-        app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity" />
+        app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgLikesUser2"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="17dp"
-        android:scaleType="centerCrop"
-        android:src="@color/red_200"
-        app:layout_constraintBottom_toBottomOf="@id/imgLikesUser1"
-        app:layout_constraintStart_toStartOf="@id/imgLikesUser1"
-        app:layout_constraintTop_toTopOf="@id/imgLikesUser1" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgLikesUser1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:scaleType="centerCrop"
+            android:src="@color/red_100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgLikesUser3"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="17dp"
-        android:scaleType="centerCrop"
-        android:src="@color/red_300"
-        app:layout_constraintBottom_toBottomOf="@id/imgLikesUser2"
-        app:layout_constraintStart_toStartOf="@id/imgLikesUser2"
-        app:layout_constraintTop_toTopOf="@id/imgLikesUser2" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgLikesUser2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="17dp"
+            android:scaleType="centerCrop"
+            android:src="@color/red_200"
+            app:layout_constraintBottom_toBottomOf="@id/imgLikesUser1"
+            app:layout_constraintStart_toStartOf="@id/imgLikesUser1"
+            app:layout_constraintTop_toTopOf="@id/imgLikesUser1" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgLikesUser3"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="17dp"
+            android:scaleType="centerCrop"
+            android:src="@color/red_300"
+            app:layout_constraintBottom_toBottomOf="@id/imgLikesUser2"
+            app:layout_constraintStart_toStartOf="@id/imgLikesUser2"
+            app:layout_constraintTop_toTopOf="@id/imgLikesUser2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/txtLikesCount"
@@ -179,9 +192,9 @@
         android:text="@string/feed_likes_count"
         android:textColor="@color/neutral_black_50"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/imgLikesUser3"
-        app:layout_constraintStart_toEndOf="@id/imgLikesUser3"
-        app:layout_constraintTop_toTopOf="@id/imgLikesUser3" />
+        app:layout_constraintBottom_toBottomOf="@id/layoutLikesUser"
+        app:layout_constraintStart_toEndOf="@id/layoutLikesUser"
+        app:layout_constraintTop_toTopOf="@id/layoutLikesUser" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnComment"
@@ -208,7 +221,7 @@
         app:iconTint="@color/state_button_content_post"
         app:layout_constraintEnd_toStartOf="@id/btnLike"
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-        app:layout_constraintTop_toBottomOf="@id/imgLikesUser1"
+        app:layout_constraintTop_toBottomOf="@id/layoutLikesUser"
         app:strokeColor="@color/primary_orange"
         app:strokeWidth="1dp" />
 
@@ -225,7 +238,7 @@
         android:paddingHorizontal="26dp"
         android:paddingVertical="12dp"
         android:stateListAnimator="@null"
-        android:text="@string/feed_comment"
+        android:text="@string/feed_like"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="12sp"
@@ -368,6 +381,7 @@
         android:layout_marginStart="11dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/feed_comment_see_all"
+        android:textAlignment="textEnd"
         android:textColor="@color/primary_orange"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/txtCommentCount"
@@ -376,6 +390,7 @@
         app:layout_constraintTop_toTopOf="@id/txtCommentCount" />
 
     <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutComment"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

@@ -3,37 +3,26 @@ package com.comphy.photo.data.source.remote.response.post.feed
 import com.google.gson.annotations.SerializedName
 
 data class FeedResponseData(
-
-    @SerializedName("number")
-	val number: Int? = null,
-
-    @SerializedName("last")
-	val last: Boolean? = null,
-
-    @SerializedName("size")
-	val size: Int? = null,
-
-    @SerializedName("numberOfElements")
-	val numberOfElements: Int? = null,
-
-    @SerializedName("totalPages")
-	val totalPages: Int? = null,
-
-    @SerializedName("pageable")
-	val feedResponsePageable: FeedResponsePageable? = null,
-
-    @SerializedName("sort")
-	val feedResponseSort: FeedResponseSort? = null,
-
     @SerializedName("content")
-	val content: List<Any?>? = null,
-
-    @SerializedName("first")
-	val first: Boolean? = null,
-
-    @SerializedName("totalElements")
-	val totalElements: Int? = null,
-
+    val content: List<FeedResponseContent>,
     @SerializedName("empty")
-	val empty: Boolean? = null
+    val empty: Boolean,
+    @SerializedName("first")
+    val first: Boolean,
+    @SerializedName("last")
+    val last: Boolean,
+    @SerializedName("number")
+    val number: Int,
+    @SerializedName("numberOfElements")
+    val numberOfElements: Int,
+    @SerializedName("pageable")
+    val pageable: FeedResponsePageable,
+    @SerializedName("size")
+    val size: Int,
+    @SerializedName("sort")
+    val sort: FeedResponseSort,
+    @SerializedName("totalElements")
+    val totalElements: Int,
+    @SerializedName("totalPages")
+    val totalPages: Int
 )

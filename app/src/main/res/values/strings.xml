@@ -46,6 +46,7 @@
     <string name="string_set_bookmark">Bookmark</string>
     <string name="string_apply">Terapkan</string>
     <string name="string_visit_job">Kunjungi Lowongan</string>
+    <string name="string_register_now">Daftar Sekarang</string>
     <string name="string_job_description">Deskripsi</string>
     <string name="string_job_requirement">Persyaratan</string>
     <string name="string_send">Kirim</string>
@@ -54,9 +55,20 @@
     <string name="string_upload_image">Upload Foto</string>
     <string name="string_feed_main">Utama</string>
     <string name="string_feed_recommendation">Rekomendasi</string>
+    <string name="string_event_desc">Deskripsi</string>
+    <string name="string_event_impl">Pelaksanaan</string>
     <string name="string_post">Unggah Post</string>
     <string name="string_upload_post">Unggah Post</string>
     <string name="string_back_to_top">Kembali Ke Atas</string>
+    <string name="string_explore">Explore</string>
+    <string name="string_seeking">Pencarian</string>
+
+    <string name="placeholder_camera">Kamera : %1$s</string>
+    <string name="placeholder_lens">Lensa : %1$s</string>
+    <string name="placeholder_flash">Flash : %1$s</string>
+    <string name="placeholder_iso">ISO : %1$s</string>
+    <string name="placeholder_shutter">Shutter Speed : %1$s</string>
+    <string name="placeholder_aperture">Aperture: %1$s</string>
 
     <!-- Community Category -->
     <string-array name="community_category">
@@ -110,7 +122,7 @@
     <string name="verify_resend_2">Kirim Ulang</string>
     <string name="verify_success_title">Berhasil Verifikasi Akun</string>
     <string name="verify_success_description">Selamat Telah Berhasil melakukan Verifikasi terhadap akun Kamu</string>
-    <string name="verify_to_profile">Lengkapi Profilmu!</string>
+    <string name="verify_to_login">Masuk Sekarang</string>
     <string name="verify_to_reset">Reset Password Sekarang</string>
 
     <!-- Reset Password Strings -->
@@ -162,6 +174,7 @@
     <string name="home_community_category">Kategori Komunitas</string>
     <string name="home_your_community">Komunitasmu</string>
     <string name="home_followed_community">Komunitas yang diikuti</string>
+    <string name="home_create_community">Buat Komunitasmu Sekarang</string>
     <string name="home_community_limit">Kamu Telah Mencapai Batas.</string>
     <string name="home_community_upgrade">Upgrade Akun Sekarang!</string>
     <string name="home_explore_community">Jelajahi Komunitas Sekarang</string>
@@ -172,6 +185,8 @@
     <string name="home_your_community_empty_create">Buat Komunitas Sekarang!</string>
     <string name="home_followed_community_empty">Sorry, Kamu belum mengikuti Komunitas</string>
     <string name="home_followed_community_empty_follow">Temukan dan ikuti Sekarang!</string>
+    <string name="home_settings_community">Pengaturan Komunitas</string>
+    <string name="home_leave_community">Keluar Komunitas</string>
 
     <!-- Create Community Strings -->
     <string name="cc_create_community">Buat Komunitas</string>
@@ -241,6 +256,8 @@
     <string name="feed_data_exif_iso">ISO : 160</string>
     <string name="feed_data_exif_shutter">Shutter Speed : 1/500</string>
     <string name="feed_data_exif_aperture">Aperture : F/5.6</string>
+    <string name="feed_video_description">Cinematic Recap 2022 &amp; Team CREATIVE\nVideographer : Tony\nDOP : Maguire\nEditor : GreenWood\nScript Writer : Anisa</string>
+    <string name="feed_text_description">Siapa tau kalian atau teman dan sodara kalian minat lensa fix yougnou 50mm dan lensa tele sigma 70-300mm for nikon... Di jual aja karna sudah ganti kamera canon.. Jadi sayang gk kepake.. Kondisi no minus... Langsung aja watsapp 08323202020</string>
     <string name="feed_comment_count">24 Orang berkomentar</string>
     <string name="feed_comment_see_all">Lihat Semua Komentar ></string>
     <string name="feed_post_community">Landscaper Bekasi</string>
@@ -294,5 +311,25 @@
     <string name="set_post_to_choose_community_none">Tidak ada Komunitas yang dipilih</string>
     <string name="choose_community">Pilih Komunitas</string>
     <string name="choose_community_description">Untuk Saat Ini kamu hanya dapat memilih satu komunitas yang akan kamu tuju.</string>
+
+    <!-- Explore Strings -->
+    <string name="explore_search_hint">Cari Keyword “Seminar”</string>
+    <string name="explore_search_history">Riwayat Pencarian :</string>
+    <string name="explore_search_history_content">Komunitas Surabaya</string>
+    <string name="explore_tab_user">Pengguna</string>
+    <string name="explore_tab_community">Komunitas</string>
+    <string name="explore_tab_post">Postingan</string>
+    <string name="explore_tab_job">Lowongan</string>
+    <string name="explore_tab_event">Event</string>
+
+    <!-- Event Strings -->
+    <string name="event_for_you">Event Buat Kamu!</string>
+    <string name="event_for_you_description">Tingkatkan skill dan pengalamanmu dengan mengikuti event dan seminar terbaik untukmu</string>
+    <string name="event_newest">EVENT TERBARU</string>
+    <string name="event_title">Datascrip Berikan Pelatihan Ipsum Dolor Sit Amet</string>
+    <string name="event_description">Tutor : Sandriani Permani (Fotografer Profesional) Sandriani Permani (Fotografer Profesional)</string>
+    <string name="event_date">5 April 2022</string>
+    <string name="event_all">Semua Event</string>
+    <string name="event_detail">Detail Event</string>
 
 </resources>

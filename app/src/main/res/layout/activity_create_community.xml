@@ -331,6 +331,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/state_field"
+                        android:dropDownSelector="@drawable/bg_dialog"
                         android:fontFamily="@font/poppins_medium"
                         android:hint="@string/cc_community_location_text"
                         android:inputType="text"

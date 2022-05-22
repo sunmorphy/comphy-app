@@ -2,7 +2,6 @@ package com.comphy.photo.ui.splash
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.databinding.ActivitySplashBinding
@@ -15,20 +14,15 @@ import splitties.activities.start
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySplashBinding
-    private val viewModel: SplashViewModel by viewModels()
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivitySplashBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        viewModel.ffetchLocation()
-
         lifecycleScope.launch {
-            viewModel.fetchLocation()
-
             delay(2000)
             start<OnboardActivity>()
             finish()

@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.comphy.photo.data.source.local.entity.CityEntity
 import com.comphy.photo.data.source.local.room.location.LocationDao
 import com.comphy.photo.data.source.local.entity.ProvinceEntity
 import com.comphy.photo.data.source.local.entity.RegencyEntity
 
 @Database(
-    entities = [ProvinceEntity::class, RegencyEntity::class],
+    entities = [ProvinceEntity::class, RegencyEntity::class, CityEntity::class],
     version = 1,
     exportSchema = false
 )

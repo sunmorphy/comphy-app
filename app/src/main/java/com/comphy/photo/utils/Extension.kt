@@ -1,9 +1,15 @@
 package com.comphy.photo.utils
 
 import android.app.Activity
+import android.graphics.BitmapFactory
+import android.media.MediaMetadataRetriever
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.comphy.photo.data.source.local.entity.RegencyEntity
+import com.comphy.photo.data.source.local.entity.CityEntity
+import com.comphy.photo.vo.OrientationType
+import com.comphy.photo.vo.PostType
 import java.io.File
 
 object Extension {
@@ -12,39 +18,24 @@ object Extension {
     val File.sizeInKb get() = size / 1024
     val File.sizeInMb get() = sizeInKb / 1024
 
-    private fun formatLocationInput(regency: String): String = "$regency, Indonesia"
+    fun formatLocationInput(regency: String): String = "${regency.trim()}, Indonesia"
 
-    fun formatRegency(regencies: List<RegencyEntity>): MutableList<String> {
-        var listRegency = mutableListOf<String>()
+    fun formatCity(cities: List<CityEntity>): MutableList<String> {
+        val listCity = mutableListOf<String>()
 
-        regencies.forEach { regency ->
-            val regencyName = regency.regencyName.split(" ")
+        cities.forEach { city ->
+            val cityName = city.city.split(" ")
+            var formattedCityName = ""
 
-            if (regencyName.size > 2) {
-                listRegency.add(
-                    formatLocationInput(
-                        "${
-                            regencyName[regencyName.size - 2].lowercase()
-                                .replaceFirstChar { it.titlecase() }
-                        } ${
-                            regencyName[regencyName.size - 1].lowercase()
-                                .replaceFirstChar { it.titlecase() }
-                        }"
-                    )
-                )
-            } else {
-                listRegency.add(
-                    formatLocationInput(
-                        regencyName[regencyName.size - 1].lowercase()
-                            .replaceFirstChar { it.titlecase() }
-                    )
-                )
+            for (i in 1 until cityName.size) {
+                formattedCityName += "${
+                    cityName[i].lowercase().replaceFirstChar { it.titlecase() }
+                } "
             }
+            listCity.add(formatLocationInput(formattedCityName))
         }
 
-        listRegency = listRegency.distinct().toMutableList()
-
-        return listRegency
+        return listCity
     }
 
     fun formatErrorMessage(message: String, errorTitle: TextView, errorDesc: TextView) {
@@ -64,7 +55,41 @@ object Extension {
         }
     }
 
+    fun File.isItsWidthBiggerThanHeight(mediaType: Int): Int {
+        var mediaWidth = -1
+        var mediaHeight = -1
+        when (mediaType) {
+            PostType.IMAGE -> {
+                val options = BitmapFactory.Options()
+                options.inJustDecodeBounds = true
+                BitmapFactory.decodeFile(absolutePath, options)
+                mediaWidth = options.outWidth
+                mediaHeight = options.outHeight
+            }
+            PostType.VIDEO -> {
+                val retriever = MediaMetadataRetriever()
+                retriever.setDataSource(absolutePath)
+                mediaWidth =
+                    retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
+                        ?.toInt() ?: 0
+                mediaHeight =
+                    retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)
+                        ?.toInt() ?: 0
+                retriever.release()
+            }
+        }
+
+        return when {
+            mediaWidth == mediaHeight -> OrientationType.SQUARE
+            mediaWidth < mediaHeight -> OrientationType.PORTRAIT
+            mediaWidth > mediaHeight -> OrientationType.LANDSCAPE
+            else -> -1
+        }
+    }
+
     fun Activity.changeColor(colorId: Int) = ContextCompat.getColor(this, colorId)
 
     fun Activity.changeDrawable(drawableId: Int) = ContextCompat.getDrawable(this, drawableId)
+
+    fun Activity.loadAnim(animId: Int): Animation = AnimationUtils.loadAnimation(this, animId)
 }

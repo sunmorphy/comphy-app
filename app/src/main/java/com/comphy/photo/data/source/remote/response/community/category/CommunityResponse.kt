@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class CommunityResponse(
 
-    @SerializedName("Status")
+	@SerializedName("Status")
 	val status: String,
 
-    @SerializedName("data")
-	val communityResponseData: CommunityResponseData? = null,
+	@SerializedName("data")
+	val data: CommunityResponseData? = null,
 
-    @SerializedName("message")
+	@SerializedName("message")
 	val message: String
 )

@@ -4,6 +4,185 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_background"
     tools:context=".ui.post.CreatePostActivity">
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="19dp"
+        app:carbon_cornerRadiusBottomEnd="14dp"
+        app:carbon_cornerRadiusBottomStart="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="@dimen/dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/string_back"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_orange"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_back"
+            app:iconPadding="10dp"
+            app:iconTint="@color/primary_orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnUploadPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/string_upload_post"
+            android:textColor="@color/state_button_toolbar"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+        <ImageView
+            android:id="@+id/imgLoadingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:rotation="90"
+            android:src="@drawable/ic_loading_btn"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/btnUploadPost"
+            app:layout_constraintEnd_toEndOf="@id/btnUploadPost"
+            app:layout_constraintStart_toStartOf="@id/btnUploadPost"
+            app:layout_constraintTop_toTopOf="@id/btnUploadPost"
+            app:tint="@color/primary_orange"
+            tools:ignore="ContentDescription" />
+
+    </carbon.widget.ConstraintLayout>
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutUpload"
+        android:layout_width="328dp"
+        android:layout_height="328dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/bg_upload_post"
+        app:carbon_cornerRadius="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FEE8C8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutCustomBar">
+
+        <carbon.widget.ImageView
+            android:id="@+id/imgPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_upload_post"
+            app:carbon_cornerRadius="14dp"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:controller_layout_id="@layout/custom_player_playback_control"
+            app:use_controller="true" />
+
+        <ImageButton
+            android:id="@+id/btnHint"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_hint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/btnExpand"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_expand"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:id="@+id/layoutUploadHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgUploadIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_upload"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtUploadTitle"
+                style="@style/TextTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:text="@string/post_choose_photo"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/txtUploadDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/post_choose_photo_desc"
+                android:textAlignment="center"
+                android:textColor="#C5C5C5"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </carbon.widget.ConstraintLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            android:id="@+id/layoutSheetCreatePost"
+            layout="@layout/bottom_sheet_create_post" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

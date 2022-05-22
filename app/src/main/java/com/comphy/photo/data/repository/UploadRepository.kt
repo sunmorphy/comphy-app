@@ -32,13 +32,9 @@ class UploadRepository @Inject constructor(
     suspend fun uploadImagesNonPost(
         url: String,
         image: RequestBody,
-        onSuccess: () -> Unit
     ) = flow {
         val response = apiService.uploadImagesNonPost(url, image)
-        response.suspendOnSuccess {
-            onSuccess()
-            emit(data)
-        }
+        response.suspendOnSuccess { emit(data) }
             .onError { Timber.tag("On Error").e(message()) }
             .onException { Timber.tag("On Exception").e(message()) }
     }.flowOn(ioDispatcher)

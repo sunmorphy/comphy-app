@@ -1,14 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.fragment.training.TrainingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:src="@drawable/img"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtEventForYou"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingStart="@dimen/dp_0"
+                android:paddingEnd="50dp"
+                android:text="@string/event_for_you"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtEventForYouDesc"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingStart="@dimen/dp_0"
+                android:paddingEnd="50dp"
+                android:text="@string/event_for_you_description"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/txtEventForYou"
+                app:layout_constraintStart_toStartOf="@id/txtEventForYou"
+                app:layout_constraintTop_toBottomOf="@id/txtEventForYou" />
+
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_search"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="14dp"
+                android:focusableInTouchMode="false"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="@string/string_search_hint"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingVertical="16dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="19dp"
+                android:textColor="@color/neutral_black"
+                android:textColorHint="@color/neutral_3"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/txtEventForYouDesc"
+                app:layout_constraintStart_toStartOf="@id/txtEventForYouDesc"
+                app:layout_constraintTop_toBottomOf="@id/txtEventForYouDesc"
+                tools:ignore="Autofill" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpTraining"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="145dp"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtSearch" />
+
+            <com.zhpan.indicator.IndicatorView
+                android:id="@+id/vpTrainingIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="18dp"
+                app:layout_constraintEnd_toEndOf="@id/vpTraining"
+                app:layout_constraintStart_toStartOf="@id/vpTraining"
+                app:layout_constraintTop_toBottomOf="@id/vpTraining" />
+
+            <carbon.widget.ConstraintLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_background"
+                android:paddingBottom="38dp"
+                app:carbon_cornerRadiusTopEnd="18dp"
+                app:carbon_cornerRadiusTopStart="18dp"
+                app:carbon_elevation="30dp"
+                app:carbon_elevationShadowColor="#FEDCAD"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vpTrainingIndicator">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_newest_event"
+                    android:fontFamily="@font/poppins_bold"
+                    android:includeFontPadding="false"
+                    android:paddingVertical="2dp"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="18dp"
+                    android:text="@string/event_newest"
+                    android:textAllCaps="true"
+                    android:textColor="#404040"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgFire"
+                    app:layout_constraintStart_toStartOf="@id/imgFire"
+                    app:layout_constraintTop_toTopOf="@id/imgFire" />
+
+                <ImageView
+                    android:id="@+id/imgFire"
+                    android:layout_width="33dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_fire"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvNewestEvent"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="307dp"
+                    android:layout_marginTop="28dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/imgFire"
+                    app:layout_constraintTop_toBottomOf="@id/imgFire"
+                    tools:itemCount="9"
+                    tools:listitem="@layout/item_training_main" />
+
+                <TextView
+                    android:id="@+id/txtAllEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/event_all"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/rvNewestEvent"
+                    app:layout_constraintTop_toBottomOf="@id/rvNewestEvent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSeeAllEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_more"
+                    android:drawablePadding="@dimen/dp_0"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:includeFontPadding="false"
+                    android:insetTop="@dimen/dp_0"
+                    android:insetBottom="@dimen/dp_0"
+                    android:letterSpacing="0"
+                    android:minWidth="@dimen/dp_0"
+                    android:minHeight="@dimen/dp_0"
+                    android:padding="@dimen/dp_0"
+                    android:stateListAnimator="@null"
+                    android:text="@string/string_see_all"
+                    android:textAllCaps="false"
+                    android:textColor="@color/primary_orange"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/txtAllEvent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txtAllEvent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAllEvent"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="307dp"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/txtAllEvent"
+                    app:layout_constraintTop_toBottomOf="@id/txtAllEvent"
+                    tools:itemCount="9"
+                    tools:listitem="@layout/item_training_main" />
+
+            </carbon.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

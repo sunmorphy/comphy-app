@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.event.detail.EventDetailActivity">
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="19dp"
+        android:paddingBottom="18dp"
+        app:carbon_cornerRadiusBottomEnd="14dp"
+        app:carbon_cornerRadiusBottomStart="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="@dimen/dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/string_back"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_orange"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_back"
+            app:iconPadding="10dp"
+            app:iconTint="@color/primary_orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtDetailEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/event_detail"
+            android:textColor="@color/neutral_black_50"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    </carbon.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:background="@color/primary_background"
+        app:layout_constraintBottom_toTopOf="@id/layoutAction"
+        app:layout_constraintTop_toBottomOf="@id/layoutCustomBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <carbon.widget.ImageView
+                android:id="@+id/imgEvent"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="278dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:scaleType="centerCrop"
+                android:src="@color/red_400"
+                app:carbon_cornerRadius="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <carbon.widget.LinearLayout
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:carbon_cornerRadiusTopEnd="18dp"
+                app:carbon_cornerRadiusTopStart="18dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgEvent">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:focusable="true"
+                    app:tabBackground="@drawable/state_tab_indicator"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorColor="@color/primary_orange"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/neutral_black"
+                    app:tabTextAppearance="@style/CustomTabTextAppearance"
+                    app:tabTextColor="@color/neutral_black_20">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_event_desc" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_event_impl" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpTabFeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </carbon.widget.LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="24dp"
+        android:paddingBottom="32dp"
+        app:carbon_cornerRadiusTopEnd="24dp"
+        app:carbon_cornerRadiusTopStart="24dp"
+        app:carbon_elevation="24dp"
+        app:carbon_elevationShadowColor="#FCF2E3"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVisitJob"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/primary_orange"
+            android:fontFamily="@font/poppins_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:paddingVertical="12dp"
+            android:stateListAnimator="@null"
+            android:text="@string/string_register_now"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnBookmark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnBookmark"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="35dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/string_set_bookmark"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_bookmarked"
+            app:layout_constraintBottom_toBottomOf="@id/btnVisitJob"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnVisitJob" />
+
+    </carbon.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

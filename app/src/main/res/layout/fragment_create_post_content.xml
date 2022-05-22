@@ -79,7 +79,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:carbon_cornerRadius="14dp"
-            android:src="@drawable/img_upload_preview"
+            android:src="@drawable/bg_upload_post"
             tools:ignore="ContentDescription" />
 
         <ImageButton
@@ -105,6 +105,44 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_upload"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                style="@style/TextTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:text="@string/post_choose_photo"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/post_choose_photo_desc"
+                android:textAlignment="center"
+                android:textColor="#C5C5C5"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
     </carbon.widget.ConstraintLayout>
 

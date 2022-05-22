@@ -9,9 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF2222</color>
 
-
     <color name="normal_pager_indicator">#DBDBDB</color>
     <color name="checked_pager_indicator">#FFB347</color>
+    <color name="liked">#09A04E</color>
 
     <color name="primary_background">#FAFAFA</color>
     <color name="primary_orange">#FCAE3F</color>

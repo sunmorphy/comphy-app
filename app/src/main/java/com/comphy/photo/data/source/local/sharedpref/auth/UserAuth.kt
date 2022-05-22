@@ -8,4 +8,5 @@ class UserAuth(context: Context) : KotprefModel(context) {
     var userAccessToken by nullableStringPref(default = null)
     var userRefreshToken by nullableStringPref(default = null)
     var isLogin by booleanPref(default = false)
+    var isUserUpdated by booleanPref(default = false)
 }

@@ -5,15 +5,19 @@ import com.comphy.photo.data.source.remote.response.auth.AuthResponse
 import com.comphy.photo.data.source.remote.response.auth.AuthResponseData
 import com.comphy.photo.data.source.remote.response.community.category.CommunityResponse
 import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
+import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponse
 import com.comphy.photo.data.source.remote.response.job.list.JobResponse
 import com.comphy.photo.data.source.remote.response.location.province.ProvinceResponse
 import com.comphy.photo.data.source.remote.response.location.regency.RegencyResponse
+import com.comphy.photo.data.source.remote.response.post.comment.CommentBody
 import com.comphy.photo.data.source.remote.response.post.create.CreatePostBody
+import com.comphy.photo.data.source.remote.response.post.create.CreatePostResponse
 import com.comphy.photo.data.source.remote.response.post.feed.FeedResponse
 import com.comphy.photo.data.source.remote.response.post.update.UpdatePostBody
 import com.comphy.photo.data.source.remote.response.upload.UploadResponse
-import com.comphy.photo.data.source.remote.response.user.UserDataBody
-import com.comphy.photo.data.source.remote.response.user.UserResponse
+import com.comphy.photo.data.source.remote.response.user.detail.UserDataBody
+import com.comphy.photo.data.source.remote.response.user.detail.UserResponse
+import com.comphy.photo.data.source.remote.response.user.location.UserCityResponse
 import com.skydoves.sandwich.ApiResponse
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -97,6 +101,9 @@ interface ApiService {
     /**
      * User Details
      */
+    @GET("comphy/user/getCities")
+    suspend fun getUserCities(): ApiResponse<UserCityResponse>
+
     @GET("comphy/user/details")
     suspend fun getUserDetails(): ApiResponse<UserResponse>
 
@@ -127,13 +134,13 @@ interface ApiService {
 
     @Headers(
         "Content-Type: image/*",
-        "X-Goog-Content-Length-Range: 0,5242880"
+        "X-Goog-Content-Length-Range: 0,10485760"
     )
     @PUT
     suspend fun uploadImagesPost(
         @Url url: String,
         @Body image: RequestBody
-    ): ApiResponse<Any>
+    ): ApiResponse<String>
 
     @Headers(
         "Content-Type: video/*",
@@ -148,6 +155,18 @@ interface ApiService {
     /**
      * Community
      */
+    @GET("comphy/community/list")
+    suspend fun getCommunities(): ApiResponse<CommunityResponse>
+
+    @GET("comphy/community/category/list")
+    suspend fun getCommunityCategories(): ApiResponse<CommunityResponse>
+
+    @GET("comphy/community/created")
+    suspend fun getCreatedCommunities(): ApiResponse<CreatedCommunityResponse>
+
+    @GET("comphy/community/joined")
+    suspend fun getJoinedCommunities(): ApiResponse<CreatedCommunityResponse>
+
     @POST("comphy/community/join")
     suspend fun joinCommunity(
         @Query("communityId") communityId: Int,
@@ -160,25 +179,19 @@ interface ApiService {
     ): ApiResponse<CommunityResponse>
 
     @GET("comphy/community/details")
-    suspend fun detailCommunity(
+    suspend fun getDetailCommunity(
         @Query("id") id: Int
     ) // TODO RESPONSE NOT READY YET
 
     @DELETE("comphy/community/out")
     suspend fun leaveCommunity(
         @Query("communityId") communityId: Int
-    ) // TODO RESPONSE NOT READY YET
-
-    @GET("comphy/community/list")
-    suspend fun getCommunities(): ApiResponse<CommunityResponse>
-
-    @GET("comphy/community/category/list")
-    suspend fun getCommunityCategories(): ApiResponse<CommunityResponse>
+    ): ApiResponse<CommunityResponse>
 
     /**
      * Job Vacancies
      */
-    @GET("comphy/jobVacancy/listPage")
+    @GET("comphy/jobVacancy/list")
     suspend fun getJobs(
         @Query("page") page: Int? = null,
         @Query("perPage") perPage: Int? = null
@@ -193,6 +206,27 @@ interface ApiService {
         @Query("partTime") partTime: Boolean = false,
     ): ApiResponse<JobResponse>
 
+    @GET("comphy/jobVacancy/details")
+    suspend fun getJobDetails(
+        @Query("jobVacancyId") jobId: Int
+    ) //TODO RESPONSE NOT READY YET
+
+    @GET("comphy/jobVacancy/bookmark/list")
+    suspend fun getBookmarkedJobs(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null
+    ) //TODO RESPONSE NOT READY YET
+
+    @POST("comphy/jobVacancy/bookmark")
+    suspend fun bookmarkJob(
+        @Query("jobVacancyId") jobId: Int
+    ) //TODO RESPONSE NOT READY YET
+
+    @DELETE("comphy/jobVacancy/bookmark/delete")
+    suspend fun removeBookmarkedJob(
+        @Query("bookmarkJobId") bookmarkJobId: Int
+    ) //TODO RESPONSE NOT READY YET
+
     /**
      * Post
      */
@@ -200,6 +234,13 @@ interface ApiService {
     suspend fun getFeedPosts(
         @Query("page") page: Int? = null,
         @Query("perPage") perPage: Int? = null
+    ): FeedResponse
+
+    @GET("comphy/post/list")
+    suspend fun getFeedsByCategory(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null,
+        @Query("categoryId") categoryId: Int? = null
     ): ApiResponse<FeedResponse>
 
     @GET("comphy/post/details")
@@ -210,7 +251,7 @@ interface ApiService {
     @POST("comphy/post/create")
     suspend fun createPost(
         @Body createPostBody: CreatePostBody
-    ) //TODO RESPONSE NOT READY YET
+    ): ApiResponse<CreatePostResponse>
 
     @PUT("comphy/post/update")
     suspend fun updatePost(
@@ -220,5 +261,68 @@ interface ApiService {
     @DELETE("comphy/post/delete")
     suspend fun deletePost(
         @Query("postId") postId: String
+    ) //TODO RESPONSE NOT READY YET
+
+    @POST("comphy/post/like")
+    suspend fun likePost(
+        @Query("postId") postId: String
+    ): ApiResponse<FeedResponse>
+
+    @DELETE("comphy/post/unlike")
+    suspend fun unlikePost(
+        @Query("postId") postId: String
+    ): ApiResponse<FeedResponse>
+
+    @GET("comphy/post/comment/list")
+    suspend fun getComments(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null,
+        @Query("postId") postId: String
+    ) //TODO RESPONSE NOT READY YET
+
+    @POST("comphy/post/comment/create")
+    suspend fun commentPost(
+        @Body commentBody: CommentBody
+    ) //TODO RESPONSE NOT READY YET
+
+    @POST("comphy/post/comment/update")
+    suspend fun updateCommentPost(
+        @Body commentBody: CommentBody
+    ) //TODO RESPONSE NOT READY YET
+
+    @DELETE("comphy/post/comment/delete")
+    suspend fun removeCommentPost(
+        @Query("commentId") commentId: Int
+    ) //TODO RESPONSE NOT READY YET
+
+    /**
+     * Event
+     */
+    @GET("comphy/event/list")
+    suspend fun getEvents(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null,
+        @Query("name") name: String
+    ) //TODO RESPONSE NOT READY YET
+
+    @GET("comphy/event")
+    suspend fun getEventDetails(
+        @Header("eventId") eventId: Int
+    ) //TODO RESPONSE NOT READY YET
+
+    @GET("comphy/event/bookmark/user/list")
+    suspend fun getBookmarkedEvents(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null
+    ) //TODO RESPONSE NOT READY YET
+
+    @POST("comphy/event/bookmark")
+    suspend fun bookmarkEvent(
+        @Query("eventId") eventId: Int
+    ) //TODO RESPONSE NOT READY YET
+
+    @DELETE("comphy/event/bookmark/delete")
+    suspend fun removeBookmarkEvent(
+        @Query("bookmarkId") bookmarkId: String
     ) //TODO RESPONSE NOT READY YET
 }

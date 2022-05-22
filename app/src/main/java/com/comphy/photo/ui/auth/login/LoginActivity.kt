@@ -5,16 +5,19 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.comphy.photo.R
 import com.comphy.photo.base.activity.BaseAuthActivity
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.databinding.ActivityLoginBinding
 import com.comphy.photo.ui.auth.forgot.ForgotPasswordActivity
 import com.comphy.photo.ui.auth.register.RegisterActivity
 import com.comphy.photo.ui.biodata.BiodataActivity
+import com.comphy.photo.ui.main.MainActivity
 import com.comphy.photo.utils.Extension.formatErrorMessage
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
 import splitties.toast.toast
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseAuthActivity() {
@@ -22,9 +25,13 @@ class LoginActivity : BaseAuthActivity() {
         private const val EXTRA_EMAIL = "extra_email"
     }
 
-    private lateinit var binding: ActivityLoginBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var email: String
+
+    @Inject
+    lateinit var userAuth: UserAuth
 
     private val googleLogin =
         googleAuth { account ->
@@ -38,8 +45,6 @@ class LoginActivity : BaseAuthActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         inputWidgets = listOf(binding.edtEmail, binding.edtPassword)
@@ -60,7 +65,7 @@ class LoginActivity : BaseAuthActivity() {
     private fun setupClickListener() {
         binding.btnLogin.setOnClickListener {
             setFieldError(false)
-            email = binding.edtEmail.text.toString()
+            var email = binding.edtEmail.text.toString().trim()
             var password = binding.edtPassword.text.toString()
 
             if (isFieldEmpty()) {
@@ -97,7 +102,11 @@ class LoginActivity : BaseAuthActivity() {
         }
         viewModel.exceptionResponse.observe(this) { if (it != null) toast(it) }
         viewModel.authResponse.observe(this) {
-            start<BiodataActivity>()
+            if (userAuth.isUserUpdated) {
+                start<MainActivity>()
+            } else {
+                start<BiodataActivity>()
+            }
             finish()
         }
     }

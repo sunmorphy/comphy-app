@@ -12,12 +12,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.comphy.photo.R
 import com.comphy.photo.databinding.BottomSheetFilterJobBinding
 import com.comphy.photo.databinding.FragmentJobBinding
 import com.comphy.photo.ui.job.JobDetailActivity
+import com.comphy.photo.ui.main.MainActivity
+import com.comphy.photo.utils.Extension
 import com.comphy.photo.utils.Extension.changeDrawable
-import com.comphy.photo.utils.Extension.formatRegency
+import com.comphy.photo.utils.Extension.formatCity
+import com.comphy.photo.utils.Extension.loadAnim
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
 import splitties.fragments.start
@@ -27,10 +31,14 @@ class JobFragment : Fragment() {
     private var _binding: FragmentJobBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var bottomSheetDialog: BottomSheetDialog
-    private lateinit var bottomSheetFilterJobBinding: BottomSheetFilterJobBinding
+    private val bottomSheetDialog by lazy(LazyThreadSafetyMode.NONE) {
+        BottomSheetDialog(requireContext(), R.style.CustomBottomSheetTheme)
+    }
+    private val bottomSheetFilterJobBinding by lazy(LazyThreadSafetyMode.NONE) {
+        BottomSheetFilterJobBinding.inflate(layoutInflater)
+    }
 
-    private val jobViewModel: JobViewModel by activityViewModels()
+    private val viewModel: JobViewModel by activityViewModels()
     private var jobLocation = ""
     private var jobType = ""
     private var isCanceled = true
@@ -38,7 +46,10 @@ class JobFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch { jobViewModel.getJobs() }
+        lifecycleScope.launch {
+            viewModel.getJobs()
+            viewModel.getCities()
+        }
     }
 
     override fun onCreateView(
@@ -54,12 +65,11 @@ class JobFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.CustomBottomSheetTheme)
-        bottomSheetFilterJobBinding = BottomSheetFilterJobBinding.inflate(layoutInflater)
+        lifecycleScope.launch { viewModel.getJobs() }
 
         binding.btnFilter.setOnClickListener {
             binding.btnFilter.startAnimation(
-                AnimationUtils.loadAnimation(requireContext(), R.anim.btn_filter_anim)
+                activity?.loadAnim(R.anim.btn_filter_anim)
             )
             showBottomSheetDialog()
         }
@@ -67,8 +77,32 @@ class JobFragment : Fragment() {
         setupObserver()
     }
 
-    private fun setupRecycler(listJobs: List<Any>? = null) {
-        if (listJobs == null) {
+    private fun setupObserver() {
+//        viewModel.isLoading.observe(viewLifecycleOwner) {
+//            (activity as MainActivity).setLoading(it)
+//        }
+        viewModel.cities.observe(viewLifecycleOwner) {
+            val locationAdapter =
+                ArrayAdapter(
+                    requireContext(),
+                    R.layout.custom_dropdown_location,
+                    R.id.txtLocationItem,
+                    formatCity(it)
+                )
+
+            bottomSheetFilterJobBinding.edtLocation.apply {
+                setDropDownBackgroundDrawable(activity?.changeDrawable(R.drawable.bg_dialog))
+                threshold = 1
+                setAdapter(locationAdapter)
+            }
+        }
+        viewModel.jobResponse.observe(viewLifecycleOwner) {
+            setupRecycler(it.jobResponseData?.content!!)
+        }
+    }
+
+    private fun setupRecycler(listJobs: List<Any>) {
+        if (listJobs.isEmpty()) {
             binding.layoutEmpty.visibility = View.VISIBLE
             binding.rvJob.visibility = View.GONE
         } else {
@@ -81,27 +115,6 @@ class JobFragment : Fragment() {
         }
     }
 
-    private fun setupObserver() {
-        jobViewModel.regencies.observe(requireActivity()) { regencies ->
-            val locationAdapter =
-                ArrayAdapter(
-                    requireContext(),
-                    R.layout.custom_dropdown_location,
-                    R.id.txtLocationItem,
-                    formatRegency(regencies)
-                )
-
-            bottomSheetFilterJobBinding.edtLocation.apply {
-                setDropDownBackgroundDrawable(activity?.changeDrawable(R.drawable.bg_dialog))
-                threshold = 1
-                setAdapter(locationAdapter)
-            }
-        }
-        jobViewModel.jobResponse.observe(requireActivity()) {
-            setupRecycler(it.jobResponseData?.content)
-        }
-    }
-
     private fun showBottomSheetDialog() {
         bottomSheetDialog.setContentView(bottomSheetFilterJobBinding.root)
         bottomSheetDialog.show()
@@ -111,7 +124,8 @@ class JobFragment : Fragment() {
                 if (bottomSheetFilterJobBinding.edtLocation.text != null
                     && bottomSheetFilterJobBinding.rgFilterJobType.checkedRadioButtonId != -1
                 ) {
-                    jobLocation = bottomSheetFilterJobBinding.edtLocation.text.toString().split(" ")[0]
+                    jobLocation =
+                        bottomSheetFilterJobBinding.edtLocation.text.toString().split(",")[0]
                     jobType =
                         bottomSheetFilterJobBinding.rgFilterJobType.findViewById<RadioButton>(
                             bottomSheetFilterJobBinding.rgFilterJobType.checkedRadioButtonId
@@ -120,21 +134,19 @@ class JobFragment : Fragment() {
                     lifecycleScope.launch {
                         when {
                             jobType.lowercase().contains("full") -> {
-                                jobViewModel.getFilteredJobs(region = jobLocation, isFullTime = true)
+                                viewModel.getFilteredJobs(
+                                    region = jobLocation,
+                                    isFullTime = true
+                                )
                             }
                             jobType.lowercase().contains("part") -> {
-                                jobViewModel.getFilteredJobs(region = jobLocation, isPartTime = true)
+                                viewModel.getFilteredJobs(
+                                    region = jobLocation,
+                                    isPartTime = true
+                                )
                             }
                         }
                     }
-                }
-
-                val blbl = listOf(" ", " ")
-                val lblbl = listOf(" ", " ", " ", " ", " ")
-                when (jobType) {
-                    resources.getString(R.string.job_type_full) -> setupRecycler(blbl)
-                    resources.getString(R.string.job_type_part) -> setupRecycler(lblbl)
-                    else -> setupRecycler()
                 }
             }
             isCanceled = true

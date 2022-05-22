@@ -16,7 +16,6 @@ import com.comphy.photo.base.activity.BaseAuthActivity
 import com.comphy.photo.databinding.ActivityVerifyBinding
 import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.auth.reset.ResetPasswordActivity
-import com.comphy.photo.utils.Extension
 import com.comphy.photo.utils.Extension.formatErrorMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -100,7 +99,7 @@ class VerifyActivity : BaseAuthActivity() {
             txtSheetDesc.text = resources.getString(R.string.verify_success_description)
             when (sourceExtra) {
                 EXTRA_REGISTER -> {
-                    btnSheetAction.text = resources.getString(R.string.verify_to_profile)
+                    btnSheetAction.text = resources.getString(R.string.verify_to_login)
                 }
                 EXTRA_FORGOT -> {
                     btnSheetAction.text = resources.getString(R.string.verify_to_reset)
