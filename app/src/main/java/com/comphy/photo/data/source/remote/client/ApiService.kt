@@ -1,5 +1,6 @@
 package com.comphy.photo.data.source.remote.client
 
+import com.comphy.photo.data.source.remote.response.BaseResponse
 import com.comphy.photo.data.source.remote.response.auth.AuthBody
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
 import com.comphy.photo.data.source.remote.response.auth.AuthResponseData
@@ -105,7 +106,7 @@ interface ApiService {
     suspend fun getUserCities(): ApiResponse<UserCityResponse>
 
     @GET("comphy/user/details")
-    suspend fun getUserDetails(): ApiResponse<UserResponse>
+    suspend fun getUserDetails(): ApiResponse<BaseResponse>
 
     @PUT("comphy/user/update")
     suspend fun updateUserDetails(

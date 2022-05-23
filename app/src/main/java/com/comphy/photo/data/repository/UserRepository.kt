@@ -5,6 +5,7 @@ import com.comphy.photo.data.source.local.room.location.LocationDao
 import com.comphy.photo.data.source.remote.client.ApiService
 import com.comphy.photo.data.source.remote.response.auth.AuthResponse
 import com.comphy.photo.data.source.remote.response.user.detail.UserDataBody
+import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import com.google.gson.Gson
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
@@ -44,10 +45,17 @@ class UserRepository @Inject constructor(
     }.flowOn(ioDispatcher)
 
     suspend fun getUserDetails() = flow {
-        val response = apiService.getUserDetails()
-        response.suspendOnSuccess { emit(data) }
-            .onError { Timber.tag("On Error").e(message()) }
-            .onException { Timber.tag("On Exception").e(message()) }
+        try {
+            val response = apiService.getUserDetails()
+            response.suspendOnSuccess {
+                val temp = data.data as UserResponseData?
+                if (temp != null) emit(temp) else emit(null)
+            }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException { Timber.tag("On Exception").e(message()) }
+        } catch (e: Exception) {
+            println(e)
+        }
     }.flowOn(ioDispatcher)
 
     suspend fun updateUserDetails(

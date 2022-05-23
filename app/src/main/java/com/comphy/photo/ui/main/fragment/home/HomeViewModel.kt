@@ -29,8 +29,8 @@ class HomeViewModel @Inject constructor(
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
             .collect {
-                if (it.userResponseData != null) {
-                    userData.postValue(it.userResponseData!!)
+                if (it != null) {
+                    userData.postValue(it)
                 }
             }
     }

@@ -32,8 +32,8 @@ class FeedViewModel @Inject constructor(
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
             .collect {
-                if (it.userResponseData != null) {
-                    userData.postValue(it.userResponseData!!)
+                if (it != null) {
+                    userData.postValue(it)
                 }
             }
     }

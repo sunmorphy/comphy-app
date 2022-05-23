@@ -47,14 +47,14 @@ class BiodataViewModel @Inject constructor(
                 .onStart { isFetching.postValue(true) }
                 .onCompletion { isFetching.postValue(false) }
                 .collect {
-                    if (it.userResponseData != null) {
-                        if (it.userResponseData!!.location != null
-                            && it.userResponseData!!.job != null
-                            && it.userResponseData!!.description != null
+                    if (it != null) {
+                        if (it.location != null
+                            && it.job != null
+                            && it.description != null
                         ) {
                             userAuth.isUserUpdated = true
                         }
-                        userData.postValue(it.userResponseData!!)
+                        userData.postValue(it)
                     }
                 }
         }
