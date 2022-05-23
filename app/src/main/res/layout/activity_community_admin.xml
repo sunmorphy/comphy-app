@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutBar"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:carbon_cornerRadius="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <carbon.widget.ImageView
+                    android:id="@+id/imgBannerProfile"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="110dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_profile"
+                    app:carbon_cornerRadius="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginVertical="75dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="7dp"
+                    android:src="@drawable/bg_photo"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="3dp"
+                    app:civ_circle_background_color="#C4C4C4"
+                    app:layout_constraintStart_toStartOf="@id/imgBannerProfile"
+                    app:layout_constraintTop_toTopOf="@id/imgBannerProfile" />
+
+                <TextView
+                    android:id="@+id/txtCommunityName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/strings_title_community"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+
+                <TextView
+                    android:id="@+id/txtCommunity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/string_type_community"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtCommunityName" />
+
+                <TextView
+                    android:id="@+id/txtLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:drawablePadding="3dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/string_location"
+                    android:textColor="@color/black_40"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/txtCommunity"
+                    app:layout_constraintTop_toBottomOf="@id/txtCommunity" />
+
+                <ImageView
+                    android:id="@+id/imgPoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="8dp"
+                    android:contentDescription="@string/string_ic_point"
+                    android:layout_marginTop="7dp"
+                    android:src="@drawable/ic_point"
+                    app:layout_constraintStart_toEndOf="@id/txtLocation"
+                    app:layout_constraintTop_toTopOf="@id/txtLocation" />
+
+                <TextView
+                    android:id="@+id/txtCommunityType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/dp_0"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/string_sort_community"
+                    android:textColor="@color/black_40"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/imgPoint"
+                    app:layout_constraintTop_toBottomOf="@id/txtLocation"
+                    app:layout_constraintTop_toTopOf="@id/txtLocation" />
+
+                <TextView
+                    android:id="@+id/txtCommunityDescription"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="54dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/string_desc_community"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtLocation" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile2"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/bg_photo"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="3dp"
+                    app:civ_circle_background_color="#C4C4C4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtCommunityDescription" />
+
+                <TextView
+                    android:id="@+id/txtMembersCommunity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="9dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/string_member_community"
+                    android:textColor="@color/black_40"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@id/imgProfile2"
+                    app:layout_constraintTop_toTopOf="@id/imgProfile2" />
+            </carbon.widget.ConstraintLayout>
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/layoutBar">
+
+                <carbon.widget.ConstraintLayout
+                    android:id="@+id/layoutTabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/white"
+                    app:carbon_cornerRadiusTopEnd="24dp"
+                    app:carbon_cornerRadiusTopStart="24dp"
+                    app:carbon_elevation="24dp"
+                    app:carbon_elevationShadowColor="#FCF2E3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabPost"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="6dp"
+                        android:focusable="true"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tabBackground="@drawable/state_tab_indicator"
+                        app:tabIndicatorAnimationMode="elastic"
+                        app:tabIndicatorColor="@color/primary_orange"
+                        app:tabIndicatorFullWidth="false"
+                        app:tabIndicatorHeight="2dp"
+                        app:tabSelectedTextColor="@color/neutral_black"
+                        app:tabTextAppearance="@style/CustomTabTextAppearance"
+                        app:tabTextColor="@color/neutral_black_20">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_post_community" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/string_photo_community" />
+
+                    </com.google.android.material.tabs.TabLayout>
+                </carbon.widget.ConstraintLayout>
+            </carbon.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnBackToTop"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="54dp"
+        android:background="@color/primary_orange"
+        android:backgroundTint="@color/primary_orange"
+        android:contentDescription="@string/string_back_to_top"
+        android:elevation="@dimen/dp_0"
+        android:padding="13dp"
+        android:src="@drawable/ic_up"
+        android:stateListAnimator="@null"
+        android:tint="@color/white"
+        app:borderWidth="@dimen/dp_0"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+</androidx.constraintlayout.widget.ConstraintLayout>

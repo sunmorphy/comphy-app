@@ -294,5 +294,27 @@
     <string name="set_post_to_choose_community_none">Tidak ada Komunitas yang dipilih</string>
     <string name="choose_community">Pilih Komunitas</string>
     <string name="choose_community_description">Untuk Saat Ini kamu hanya dapat memilih satu komunitas yang akan kamu tuju.</string>
+    <string name="strings_title_community">Ayok Moto</string>
+    <string name="string_type_community">Human Interest Photography</string>
+    <string name="string_location">Yogyakarta</string>
+    <string name="string_sort_community">Komunitas Publik</string>
+    <string name="string_desc_community">Komunitas yang bertujuan untuk mengajak teman teman berkarya melalui genre fotografi Human Interest</string>
+    <string name="string_member_community">1 Anggota</string>
+    <string name="string_post_community">Postingan</string>
+    <string name="string_photo_community">Foto Komunitas</string>
+    <string name="string_ic_point">ic_point</string>
+    <string name="string_member_create_community">Thavita Herdiana Telah Membuat Komunitas Ayok Moto.</string>
+    <string name="string_maange_community">Kelola Kounitas kamu dengan Klik</string>
+    <string name="string_set_community">Atur Komunitas</string>
+    <string name="string_similiar_community">Komunitas Serupa</string>
+    <string name="string_clear_green">Clear</string>
+    <string name="string_name_community">Street 21 Photo</string>
+    <string name="string_description_community">Human Interest Photography</string>
+    <string name="string_title2_community">Gas Foto</string>
+    <string name="string_same_comment">Lihat Komentar Serupa</string>
+
+
+    <!-- Create Community Strings -->
+
 
 </resources>
