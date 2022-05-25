@@ -292,6 +292,9 @@
     <string name="set_post_to_option_2">Publik</string>
     <string name="set_post_to_choose_community">Pilih Komunitas</string>
     <string name="set_post_to_choose_community_none">Tidak ada Komunitas yang dipilih</string>
+
+
+    <!-- Create Community Strings -->
     <string name="choose_community">Pilih Komunitas</string>
     <string name="choose_community_description">Untuk Saat Ini kamu hanya dapat memilih satu komunitas yang akan kamu tuju.</string>
     <string name="strings_title_community">Ayok Moto</string>
@@ -313,8 +316,21 @@
     <string name="string_title2_community">Gas Foto</string>
     <string name="string_same_comment">Lihat Komentar Serupa</string>
 
-
-    <!-- Create Community Strings -->
+    <!-- Create Article Strings -->
+    <string name="string_article">Tips Fotografi</string>
+    <string name="string_title_article">4 Trik Fotografi Sederhana yang Bisa Kamu Lakukan di Rumah.</string>
+    <string name="string_desc_article1">Khusus bagi para fotografer pemula ataupun yang sudah mahir, agar bisa menghasilkan suatu hasil gambar yang bagus tentunya memerlukan beberapa waktu yang lama dan juga upaya cukup keras. Banyak sekali hasil gambar dari fotografer handal yang sederhana tetapi bisa terlihat begitu indah dan mengesankan. Meskipun tidak mudah, bukan berarti Anda tidak bisa membuat hasil gambar yang sama indahnya. Berikut beberapa teknik sederhana yang bisa Anda gunakan untuk menghasilkan gambar yang bagus bahkan hanya dengan menggunakan peralatan rumah saja. Dari akun YouTube seorang fotografer bernama Sheldon Evans, Anda bisa menemukan beragam trik mudah untuk membuat hasil foto se-keren hasil fotografer profesional tapi dengan cara yang sederhana dan cukup unik..</string>
+    <string name="string_article_para1">1. Memberikan efek Bokeh dengan Laptop</string>
+    <string name="string_articles_para1">Menghasilkan gambar dengan efek bokeh memang terbilang susah-susah gampang. Terlebih lagi jika Anda ingin menghasilkan efek bokeh makro. Dibutuhkan ketelatenan dan juga lensa yang cukup mumpuni untuk bisa mendapatkan gambar dengan bokeh makro. Nah, khusus untuk Anda yang masih pemula dan cenderung belum memiliki lensa yang mumpuni, Anda tetap bisa menghasilkan efek tersebut hanya dengan menggunakan laptop. Caranya cukup mudah, hal pertama yang bisa Anda lakukan adalah dengan mencari foto bokeh makro di internet beresolusi tinggi. Setelah itu, bukalah foto bokeh makro tersebut sebesar layar laptop Anda(dijadikan background layar) dan tempatkan sebuah objek di depannya. Hasilnya pun tidak jauh berbeda dengan hasil gambar fotografer handal.</string>
+    <string name="string_article_para2">2. Menggunakan Kantong Plastik untuk hasil foto close-up super halus</string>
+    <string name="string_articles_para2">Tanpa adanya penerangan maksimal ala studio foto, mustahil rasanya jika Anda ingin menghasilkan foto close-up yang sangat halus dan juga keren. Namun, Evans mematahkan pendapat tersebut. Melalui videonya, Evans hanya perlu menggunakan kantong plastik putih untuk menghasilkan self-potrait yang tidak kalah kerennya dengan foto di studio lengkap dengan lighting professional. Ketika ingin menggunakan trik ini, Anda harus mengaktifkan terlebih dahulu fitur flash yang ada di kamera Anda. Setelah mengaktifkan, tutupi sebagian flash tersebut dengan plastik yang sudah dikembangkan terlebih dahulu. Lalu, foto yang dihasilkan pun sama seperti hasil foto close-up di studio foto dengan kehalusan gambar yang sangat halus.</string>
+    <string name="string_article_para3">3. Menggunakan efek dramatis dengan kepingan CD Bekas</string>
+    <string name="string_articles_para4">Meskipun kini penggunaan CD sudah mulai ditinggalkan, tapi siapa sangka dari benda ini Anda bisa menghasilkan foto dengan efek dramatis. Jika Anda ingin menghasilkan gambar foto yang dramatis, Anda bisa memunculkan flare pada foto tersebut. Secara umum, flare merupakan refleksi atau pantulan pada elemen lensa diafragma saat memotret di kondisi yang kaya akan cahaya. Flare memang bisa menghasilkan efek yang buruk namun tetap dramatis. Nah, kalau Anda ingin mengasilkan efek flare di ruangan tertutup maka gunakanlah CD bekas ini. Caranya cukup mudah, yakni cukup meletakkan CD bekas di depan bawah lensa, lalu arahkan bagian CD yang mengkilap ke lensa dan liat apakah sudah pas dengan flare yang Anda inginkan maka segera ambil foto tersebut.</string>
+    <string name="string_article_para5">4. Efek Burn pakai Korek Api</string>
+    <string name="string_articles_para5">Meskipun kini penggunaan CD sudah mulai ditinggalkan, tapi siapa sangka dari benda ini Anda bisa menghasilkan foto dengan efek dramatis. Jika Anda ingin menghasilkan gambar foto yang dramatis, Anda bisa memunculkan flare pada foto tersebut. Secara umum, flare merupakan refleksi atau pantulan pada elemen lensa diafragma saat memotret di kondisi yang kaya akan cahaya. Flare memang bisa menghasilkan efek yang buruk namun tetap dramatis. Nah, kalau Anda ingin mengasilkan efek flare di ruangan tertutup maka gunakanlah CD bekas ini. Caranya cukup mudah, yakni cukup meletakkan CD bekas di depan bawah lensa, lalu arahkan bagian CD yang mengkilap ke lensa dan liat apakah sudah pas dengan flare yang Anda inginkan maka segera ambil foto tersebut.</string>
+    <string name="string_source">Sumber :</string>
+    <string name="string_source2">https://doss.co.id/</string>
+    <string name="string_next_materi">Materi Selanjutnya :</string>
 
 
 </resources>
