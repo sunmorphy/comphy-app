@@ -4,63 +4,63 @@ import com.google.gson.annotations.SerializedName
 
 data class UpdatePostBody(
 
-	@field:SerializedName("orientationType")
+	@SerializedName("orientationType")
 	val orientationType: Int? = null,
 
-	@field:SerializedName("iso")
+	@SerializedName("iso")
 	val iso: String? = null,
 
-	@field:SerializedName("description")
+	@SerializedName("description")
 	val description: String? = null,
 
-	@field:SerializedName("linkVideo")
+	@SerializedName("linkVideo")
 	val linkVideo: String? = null,
 
-	@field:SerializedName("title")
+	@SerializedName("title")
 	val title: String? = null,
 
-	@field:SerializedName("lens")
+	@SerializedName("lens")
 	val lens: String? = null,
 
-	@field:SerializedName("community")
+	@SerializedName("community")
 	val community: Community? = null,
 
-	@field:SerializedName("categoryCommunity")
+	@SerializedName("categoryCommunity")
 	val categoryCommunity: CategoryCommunity? = null,
 
-	@field:SerializedName("linkPhoto")
+	@SerializedName("linkPhoto")
 	val linkPhoto: String? = null,
 
-	@field:SerializedName("shutterSpeed")
+	@SerializedName("shutterSpeed")
 	val shutterSpeed: String? = null,
 
-	@field:SerializedName("deleted_date")
+	@SerializedName("deleted_date")
 	val deletedDate: String? = null,
 
-	@field:SerializedName("aperture")
+	@SerializedName("aperture")
 	val aperture: String? = null,
 
-	@field:SerializedName("public")
+	@SerializedName("public")
 	val jsonMemberPublic: Boolean? = null,
 
-	@field:SerializedName("userPost")
+	@SerializedName("userPost")
 	val userPost: UserPost? = null,
 
-	@field:SerializedName("location")
+	@SerializedName("location")
 	val location: String? = null,
 
-	@field:SerializedName("created_date")
+	@SerializedName("created_date")
 	val createdDate: String? = null,
 
-	@field:SerializedName("updated_date")
+	@SerializedName("updated_date")
 	val updatedDate: String? = null,
 
-	@field:SerializedName("id")
+	@SerializedName("id")
 	val id: String? = null,
 
-	@field:SerializedName("camera")
+	@SerializedName("camera")
 	val camera: String? = null,
 
-	@field:SerializedName("flash")
+	@SerializedName("flash")
 	val flash: String? = null
 )

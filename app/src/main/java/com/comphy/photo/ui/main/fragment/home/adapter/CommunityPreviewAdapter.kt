@@ -5,16 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.comphy.photo.R
-import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
 import com.comphy.photo.databinding.ItemCommunityBinding
-import com.comphy.photo.vo.CommunityType
-import com.comphy.photo.vo.CommunityType.FOLLOWED
-import com.comphy.photo.vo.CommunityType.OWN
 
 class CommunityPreviewAdapter(
-    private val communities: List<CreatedCommunityResponseContent>?,
-    private val communityType: CommunityType,
-    private val onOptionClick: (Int) -> Unit
+    private val communities: List<FollowCommunityResponseContentItem>?,
+    private val onOptionClick: (id: Int) -> Unit,
+    private val onItemClick: (id: Int) -> Unit
 ) : RecyclerView.Adapter<CommunityPreviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -29,30 +26,16 @@ class CommunityPreviewAdapter(
         if (communities != null) {
             val community = communities[position]
 
-            when (communityType) {
-                OWN -> {
-                    Glide.with(holder.itemView)
-                        .load(community.profilePhotoCommunityLink)
-                        .error(R.drawable.ic_people_community)
-                        .placeholder(R.drawable.ic_people_community)
-                        .centerCrop()
-                        .into(holder.binding.imgCommunity)
-                    holder.binding.txtCommunityTitle.text = community.communityName
-                    holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
-                    holder.binding.btnOption.setOnClickListener { onOptionClick(community.id) }
-                }
-                FOLLOWED -> {
-                    Glide.with(holder.itemView)
-                        .load(community.profilePhotoCommunityLink)
-                        .error(R.drawable.ic_people_community)
-                        .placeholder(R.drawable.ic_people_community)
-                        .centerCrop()
-                        .into(holder.binding.imgCommunity)
-                    holder.binding.txtCommunityTitle.text = community.communityName
-                    holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
-                    holder.binding.btnOption.setOnClickListener { onOptionClick(community.id) }
-                }
-            }
+            Glide.with(holder.itemView)
+                .load(community.profilePhotoCommunityLink)
+                .error(R.drawable.ic_people_community)
+                .placeholder(R.drawable.ic_people_community)
+                .centerCrop()
+                .into(holder.binding.imgCommunity)
+            holder.binding.txtCommunityTitle.text = community.communityName
+            holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
+            holder.binding.btnOption.setOnClickListener { onOptionClick(community.id) }
+            holder.itemView.setOnClickListener { onItemClick(community.id) }
         }
     }
 

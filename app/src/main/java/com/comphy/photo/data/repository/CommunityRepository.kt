@@ -1,9 +1,12 @@
 package com.comphy.photo.data.repository
 
 import com.comphy.photo.data.source.remote.client.ApiService
-import com.comphy.photo.data.source.remote.response.community.category.CommunityResponse
+import com.comphy.photo.data.source.remote.response.BaseMessageResponse
+import com.comphy.photo.data.source.remote.response.BaseResponseContent
+import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
-import com.google.gson.Gson
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.utils.JsonParser.parseTo
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
@@ -19,17 +22,94 @@ class CommunityRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher,
 ) {
 
+    suspend fun getAdminCommunityDetails(communityId: Int) = flow {
+        try {
+            val response = apiService.getAdminDetailCommunity(communityId)
+            response.suspendOnSuccess {
+                try {
+                    val parsedData =
+                        data.data?.parseTo(FollowCommunityResponseContentItem::class.java)
+                    emit(parsedData)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
+            }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException { Timber.tag("On Exception").e(message()) }
+        } catch (e: Exception) {
+            println(e)
+        }
+    }.flowOn(ioDispatcher)
+
+    suspend fun editPrivateCommunityCode(
+        communityId: Int,
+        onErrorNorException: (String?) -> Unit
+    ) = flow {
+        val response = apiService.editPrivateCommunityCode(communityId)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                if (responseResult != null) onErrorNorException(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message)
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun banUserCommunity(
+        userId: Int,
+        communityId: Int,
+        onErrorNorException: (String?) -> Unit
+    ) = flow {
+        val response = apiService.banUserCommunity(userId, communityId)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                if (responseResult != null) onErrorNorException(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message)
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun getCommunityDetails(communityId: Int) = flow {
+        try {
+            val response = apiService.getDetailCommunity(communityId)
+            response.suspendOnSuccess {
+                try {
+                    val parsedData =
+                        data.data?.parseTo(FollowCommunityResponseContentItem::class.java)
+                    emit(parsedData)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
+            }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException { Timber.tag("On Exception").e(message()) }
+        } catch (e: Exception) {
+            println(e)
+        }
+    }.flowOn(ioDispatcher)
+
     suspend fun createCommunity(
         createCommunityBody: CreateCommunityBody,
-        onError: (errorResponse: CommunityResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.createCommunity(createCommunityBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: CommunityResponse =
-                    Gson().fromJson(this.errorBody?.string(), CommunityResponse::class.java)
-                onError(responseResult)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                if (responseResult != null) onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
             .onException {
@@ -38,53 +118,149 @@ class CommunityRepository @Inject constructor(
             }
     }.flowOn(ioDispatcher)
 
-    suspend fun leaveCommunity(
-        communityId: Int,
-        onErrorNorException: (exceptionResponse: String?) -> Unit
+    suspend fun editCommunity(
+        editCommunityBody: CreateCommunityBody,
+        onErrorNorException: (String?) -> Unit
     ) = flow {
-        val response = apiService.leaveCommunity(communityId)
+        val response = apiService.editCommunityDetail(editCommunityBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: CommunityResponse =
-                    Gson().fromJson(this.errorBody?.string(), CommunityResponse::class.java)
-                onErrorNorException(responseResult.message)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                if (responseResult != null) onErrorNorException(responseResult.message)
                 Timber.tag("On Error").e(message())
             }
             .onException {
                 onErrorNorException(message)
                 Timber.tag("On Exception").e(message())
             }
-    }
+    }.flowOn(ioDispatcher)
 
-    suspend fun getCommunityCategories() =
-        flow {
+    suspend fun joinCommunity(
+        communityId: Int,
+        communityCode: String?,
+        onErrorNorException: (exceptionResponse: String?) -> Unit
+    ) = flow {
+        val response = apiService.joinCommunity(communityId, communityCode)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                onErrorNorException(responseResult?.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message)
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun leaveCommunity(
+        communityId: Int,
+        onErrorNorException: (String?) -> Unit
+    ) = flow {
+        val response = apiService.leaveCommunity(communityId)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                if (responseResult != null) onErrorNorException(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message)
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun deleteCommunity(
+        communityId: Int,
+        onErrorNorException: (String?) -> Unit
+    ) = flow {
+        val response = apiService.deleteCommunity(communityId)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                if (responseResult != null) onErrorNorException(responseResult.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message)
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun getCommunityCategories() = flow {
+        try {
             val response = apiService.getCommunityCategories()
-            response.suspendOnSuccess { emit(data) }
+            response.suspendOnSuccess {
+                try {
+                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+                    val parsedArray =
+                        parsedData?.content!!.parseTo(CategoryCommunityResponseContentItem::class.java)
+                    emit(parsedArray)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
+            }
                 .onError { Timber.tag("On Error").e(message()) }
                 .onException { Timber.tag("On Exception").e(message()) }
-        }.flowOn(ioDispatcher)
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }.flowOn(ioDispatcher)
 
     suspend fun getCreatedCommunities(
         onException: () -> Unit
     ) = flow {
-        val response = apiService.getCreatedCommunities()
-        response.suspendOnSuccess { emit(data) }
-            .onError { Timber.tag("On Error").e(message()) }
-            .onException {
-                onException()
-                Timber.tag("On Exception").e(message())
+        try {
+            val response = apiService.getCreatedCommunities()
+            response.suspendOnSuccess {
+                try {
+                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+                    val parsedArray =
+                        parsedData?.content!!.parseTo(FollowCommunityResponseContentItem::class.java)
+                    emit(parsedArray)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
             }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException {
+                    onException()
+                    Timber.tag("On Exception").e(message())
+                }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }.flowOn(ioDispatcher)
 
     suspend fun getJoinedCommunities(
         onException: () -> Unit
     ) = flow {
-        val response = apiService.getJoinedCommunities()
-        response.suspendOnSuccess { emit(data) }
-            .onError { Timber.tag("On Error").e(message()) }
-            .onException {
-                onException()
-                Timber.tag("On Exception").e(message())
+        try {
+            val response = apiService.getJoinedCommunities()
+            response.suspendOnSuccess {
+                try {
+                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+                    val parsedArray =
+                        parsedData?.content!!.parseTo(FollowCommunityResponseContentItem::class.java)
+                    emit(parsedArray)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
             }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException {
+                    onException()
+                    Timber.tag("On Exception").e(message())
+                }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }.flowOn(ioDispatcher)
 }

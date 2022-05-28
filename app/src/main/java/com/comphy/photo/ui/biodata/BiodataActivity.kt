@@ -120,11 +120,11 @@ class BiodataActivity : BaseMainActivity() {
             finishAffinity()
         }
         viewModel.userData.observe(this) {
-            if (it.location != null && it.job != null && it.description != null) {
+            if (it?.location != null && it.job != null && it.description != null) {
                 start<MainActivity>()
                 finishAffinity()
             } else {
-                binding.layoutSheetBiodata.edtName.text = it.fullname!!
+                binding.layoutSheetBiodata.edtName.text = it?.fullname!!
             }
         }
         viewModel.cities.observe(this) {

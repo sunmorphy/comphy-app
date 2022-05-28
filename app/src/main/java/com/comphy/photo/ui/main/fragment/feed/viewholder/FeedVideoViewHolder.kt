@@ -4,21 +4,21 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.comphy.photo.R
-import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContent
-import com.comphy.photo.databinding.ItemFeedVideoBinding
+import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContentItem
+import com.comphy.photo.databinding.ItemPostVideoBinding
 import com.comphy.photo.vo.OrientationType
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import splitties.resources.colorSL
 
 class FeedVideoViewHolder(
-    var binding: ItemFeedVideoBinding,
+    var binding: ItemPostVideoBinding,
     private var player: ExoPlayer?
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
         view: View,
-        content: FeedResponseContent,
+        content: FeedResponseContentItem,
         onLikePressed: (postId: String, isLiked: Boolean) -> Unit
     ) {
         when (content.orientationType) {

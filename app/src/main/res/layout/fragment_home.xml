@@ -647,7 +647,7 @@
             android:layout_height="44dp"
             android:layout_marginStart="16dp"
             android:scaleType="centerCrop"
-            android:src="@color/amber_50"
+            android:src="@drawable/ic_placeholder_people"
             app:layout_constraintBottom_toBottomOf="@id/edtSearch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtSearch" />

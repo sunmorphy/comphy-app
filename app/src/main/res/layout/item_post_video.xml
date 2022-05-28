@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="18dp"
     android:background="@color/white"
     android:paddingHorizontal="16dp"
     android:paddingTop="20dp"
-    android:paddingBottom="16dp"
+    android:paddingBottom="30dp"
     app:carbon_cornerRadius="18dp"
     app:carbon_elevation="30dp"
     app:carbon_elevationShadowColor="#FFEACB">
@@ -111,17 +112,27 @@
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
         app:layout_constraintTop_toBottomOf="@id/txtFeedCaption" />
 
-    <carbon.widget.ImageView
-        android:id="@+id/imgFeedContent"
-        android:layout_width="328dp"
-        android:layout_height="328dp"
+    <carbon.widget.LinearLayout
+        android:id="@+id/layoutFeedContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
         android:layout_marginTop="14dp"
-        android:scaleType="centerCrop"
-        android:src="@color/red_500"
         app:carbon_cornerRadius="14dp"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtFeedLocation" />
+        app:layout_constraintTop_toBottomOf="@id/txtFeedLocation">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/playerFeedContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:controller_layout_id="@layout/custom_player_playback_control"
+            app:resize_mode="fit"
+            app:surface_type="texture_view"
+            app:use_controller="true" />
+
+    </carbon.widget.LinearLayout>
 
     <TextView
         android:id="@+id/txtFeedCommunity"
@@ -136,52 +147,19 @@
         app:drawableStartCompat="@drawable/ic_people_community"
         app:drawableTint="#C4C4C4"
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-        app:layout_constraintTop_toBottomOf="@id/imgFeedContent" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgLikesUser1"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="16dp"
-        android:scaleType="centerCrop"
-        android:src="@color/red_100"
-        app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-        app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgLikesUser2"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="17dp"
-        android:scaleType="centerCrop"
-        android:src="@color/red_200"
-        app:layout_constraintBottom_toBottomOf="@id/imgLikesUser1"
-        app:layout_constraintStart_toStartOf="@id/imgLikesUser1"
-        app:layout_constraintTop_toTopOf="@id/imgLikesUser1" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgLikesUser3"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="17dp"
-        android:scaleType="centerCrop"
-        android:src="@color/red_300"
-        app:layout_constraintBottom_toBottomOf="@id/imgLikesUser2"
-        app:layout_constraintStart_toStartOf="@id/imgLikesUser2"
-        app:layout_constraintTop_toTopOf="@id/imgLikesUser2" />
+        app:layout_constraintTop_toBottomOf="@id/layoutFeedContent" />
 
     <TextView
         android:id="@+id/txtLikesCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/feed_likes_count"
         android:textColor="@color/neutral_black_50"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/imgLikesUser3"
-        app:layout_constraintStart_toEndOf="@id/imgLikesUser3"
-        app:layout_constraintTop_toTopOf="@id/imgLikesUser3" />
+        app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
+        app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnComment"
@@ -194,6 +172,7 @@
         android:insetTop="@dimen/dp_0"
         android:insetBottom="@dimen/dp_0"
         android:letterSpacing="0"
+        android:maxLines="1"
         android:paddingHorizontal="26dp"
         android:paddingVertical="12dp"
         android:stateListAnimator="@null"
@@ -204,11 +183,11 @@
         app:backgroundTint="@color/state_button_post"
         app:cornerRadius="12dp"
         app:icon="@drawable/ic_comment"
-        app:iconPadding="14dp"
+        app:iconPadding="10dp"
         app:iconTint="@color/state_button_content_post"
         app:layout_constraintEnd_toStartOf="@id/btnLike"
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-        app:layout_constraintTop_toBottomOf="@id/imgLikesUser1"
+        app:layout_constraintTop_toBottomOf="@id/txtLikesCount"
         app:strokeColor="@color/primary_orange"
         app:strokeWidth="1dp" />
 
@@ -222,17 +201,18 @@
         android:insetTop="@dimen/dp_0"
         android:insetBottom="@dimen/dp_0"
         android:letterSpacing="0"
+        android:maxLines="1"
         android:paddingHorizontal="26dp"
         android:paddingVertical="12dp"
         android:stateListAnimator="@null"
-        android:text="@string/feed_comment"
+        android:text="@string/feed_like"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:backgroundTint="@color/state_button_like"
         app:cornerRadius="12dp"
         app:icon="@drawable/ic_thumb_up"
-        app:iconPadding="14dp"
+        app:iconPadding="10dp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/btnComment"
         app:layout_constraintEnd_toEndOf="@id/txtFeedCaption"
@@ -242,110 +222,17 @@
         app:strokeWidth="1dp" />
 
     <TextView
-        android:id="@+id/txtDataExif"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtFeedDesc"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:fontFamily="@font/poppins_semi_bold"
-        android:maxLength="22"
-        android:maxLines="1"
-        android:text="@string/feed_data_exif"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/feed_video_description"
         android:textColor="@color/neutral_black"
-        android:textSize="14sp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/btnLike"
         app:layout_constraintStart_toStartOf="@id/btnComment"
         app:layout_constraintTop_toBottomOf="@id/btnComment" />
-
-    <TextView
-        android:id="@+id/txtDataExifCamera"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="16dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/poppins_medium"
-        android:maxLines="1"
-        android:text="@string/feed_data_exif_camera"
-        android:textColor="@color/neutral_black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@id/txtDataExifIso"
-        app:layout_constraintStart_toStartOf="@id/btnComment"
-        app:layout_constraintTop_toBottomOf="@id/txtDataExif" />
-
-    <TextView
-        android:id="@+id/txtDataExifLens"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/poppins_medium"
-        android:maxLines="1"
-        android:text="@string/feed_data_exif_lens"
-        android:textColor="@color/neutral_black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/txtDataExifCamera"
-        app:layout_constraintStart_toStartOf="@id/txtDataExifCamera"
-        app:layout_constraintTop_toBottomOf="@id/txtDataExifCamera" />
-
-    <TextView
-        android:id="@+id/txtDataExifFlash"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/poppins_medium"
-        android:maxLines="1"
-        android:text="@string/feed_data_exif_flash"
-        android:textColor="@color/neutral_black"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/txtDataExifLens"
-        app:layout_constraintStart_toStartOf="@id/txtDataExifLens"
-        app:layout_constraintTop_toBottomOf="@id/txtDataExifLens" />
-
-    <TextView
-        android:id="@+id/txtDataExifIso"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/poppins_medium"
-        android:maxLines="1"
-        android:text="@string/feed_data_exif_iso"
-        android:textColor="@color/neutral_black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/txtDataExifCamera"
-        app:layout_constraintEnd_toEndOf="@id/btnLike"
-        app:layout_constraintStart_toEndOf="@id/txtDataExifCamera"
-        app:layout_constraintTop_toTopOf="@id/txtDataExifCamera" />
-
-    <TextView
-        android:id="@+id/txtDataExifShutter"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:fontFamily="@font/poppins_medium"
-        android:maxLines="1"
-        android:text="@string/feed_data_exif_shutter"
-        android:textColor="@color/neutral_black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/txtDataExifLens"
-        app:layout_constraintEnd_toEndOf="@id/txtDataExifIso"
-        app:layout_constraintStart_toStartOf="@id/txtDataExifIso"
-        app:layout_constraintTop_toTopOf="@id/txtDataExifLens" />
-
-    <TextView
-        android:id="@+id/txtDataExifAperture"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:fontFamily="@font/poppins_medium"
-        android:maxLines="1"
-        android:text="@string/feed_data_exif_aperture"
-        android:textColor="@color/neutral_black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/txtDataExifFlash"
-        app:layout_constraintEnd_toEndOf="@id/txtDataExifShutter"
-        app:layout_constraintStart_toStartOf="@id/txtDataExifShutter"
-        app:layout_constraintTop_toTopOf="@id/txtDataExifFlash" />
 
     <TextView
         android:id="@+id/txtCommentCount"
@@ -358,8 +245,8 @@
         android:textColor="@color/neutral_black_20"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@id/btnCommentSeeAll"
-        app:layout_constraintStart_toStartOf="@id/txtDataExifFlash"
-        app:layout_constraintTop_toBottomOf="@id/txtDataExifFlash" />
+        app:layout_constraintStart_toStartOf="@id/txtFeedDesc"
+        app:layout_constraintTop_toBottomOf="@id/txtFeedDesc" />
 
     <TextView
         android:id="@+id/btnCommentSeeAll"
@@ -368,14 +255,16 @@
         android:layout_marginStart="11dp"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="@string/feed_comment_see_all"
+        android:textAlignment="textEnd"
         android:textColor="@color/primary_orange"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/txtCommentCount"
-        app:layout_constraintEnd_toEndOf="@id/txtDataExifAperture"
+        app:layout_constraintEnd_toEndOf="@id/txtFeedDesc"
         app:layout_constraintStart_toEndOf="@id/txtCommentCount"
         app:layout_constraintTop_toTopOf="@id/txtCommentCount" />
 
     <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutComment"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

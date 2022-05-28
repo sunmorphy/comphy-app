@@ -15,6 +15,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="9"
-        tools:listitem="@layout/item_feed_video" />
+        tools:listitem="@layout/item_post_video" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

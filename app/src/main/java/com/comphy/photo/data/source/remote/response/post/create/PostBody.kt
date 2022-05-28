@@ -2,7 +2,7 @@ package com.comphy.photo.data.source.remote.response.post.create
 
 import com.google.gson.annotations.SerializedName
 
-data class CreatePostBody(
+data class PostBody(
 
 	@SerializedName("orientationType")
 	val orientationType: Int? = null,

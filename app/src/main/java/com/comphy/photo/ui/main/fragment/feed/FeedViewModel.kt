@@ -7,8 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.comphy.photo.data.repository.PostRepository
 import com.comphy.photo.data.repository.UserRepository
-import com.comphy.photo.data.source.remote.response.post.feed.FeedResponse
-import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContent
+import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContentItem
 import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
@@ -23,7 +22,7 @@ class FeedViewModel @Inject constructor(
 
     val userData = MutableLiveData<UserResponseData>()
     val isLoading = MutableLiveData<Boolean>()
-    val feedResponse = MutableLiveData<PagingData<FeedResponseContent>>()
+    val feedResponse = MutableLiveData<PagingData<FeedResponseContentItem>>()
     val errorNorException = MutableLiveData<String>()
     val successResponse = MutableLiveData<String>()
 
@@ -31,11 +30,7 @@ class FeedViewModel @Inject constructor(
         userRepository.getUserDetails()
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
-            .collect {
-                if (it != null) {
-                    userData.postValue(it)
-                }
-            }
+            .collect { userData.postValue(it) }
     }
 
     suspend fun getFeedPost() =

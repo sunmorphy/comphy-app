@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class FeedResponseData(
     @SerializedName("content")
-    val content: List<FeedResponseContent>,
+    val content: List<FeedResponseContentItem>,
     @SerializedName("empty")
     val empty: Boolean,
     @SerializedName("first")

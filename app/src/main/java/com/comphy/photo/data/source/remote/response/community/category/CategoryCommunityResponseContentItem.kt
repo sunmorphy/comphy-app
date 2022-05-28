@@ -1,11 +1,14 @@
 package com.comphy.photo.data.source.remote.response.community.category
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class CommunityResponseContentItem(
+@Parcelize
+data class CategoryCommunityResponseContentItem(
 
 	@SerializedName("deleted_date")
-	val deletedDate: Any? = null,
+	val deletedDate: String? = null,
 
 	@SerializedName("name")
 	val name: String,
@@ -18,4 +21,4 @@ data class CommunityResponseContentItem(
 
 	@SerializedName("id")
 	val id: Int
-)
+) : Parcelable

@@ -71,21 +71,21 @@ class FeedMainFragment : Fragment() {
             adapter = feedAdapter
         }
         binding.rvFeed.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
 
                 player?.stop()
             }
         })
 //        viewModel.successResponse.observe(viewLifecycleOwner) {
 //            feedAdapter!!.refresh()
-////            lifecycleScope.launch { viewModel.getFeedPost() }
-////            feedAdapter.notifyDataSetChanged()
-////            feedAdapter!!.notifyItemRangeChanged(
-////                (binding.rvFeed.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition(),
-////                (binding.rvFeed.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-////            )
-////            feedAdapter!!.notifyItemChanged(feedLayoutManager.findFirstVisibleItemPosition(), feedAdapter.)
+//            lifecycleScope.launch { viewModel.getFeedPost() }
+//            feedAdapter.notifyDataSetChanged()
+//            feedAdapter!!.notifyItemRangeChanged(
+//                (binding.rvFeed.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition(),
+//                (binding.rvFeed.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+//            )
+//            feedAdapter!!.notifyItemChanged(feedLayoutManager.findFirstVisibleItemPosition(), feedAdapter.)
 //        }
     }
 }

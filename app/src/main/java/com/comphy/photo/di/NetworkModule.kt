@@ -2,6 +2,7 @@ package com.comphy.photo.di
 
 import android.app.Application
 import com.comphy.photo.ComphyApp
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.data.source.remote.client.*
 import dagger.Module
 import dagger.Provides
@@ -23,7 +24,7 @@ object NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
-        tokenInterceptor: TokenInterceptor,
-        tokenAuthenticator: TokenAuthenticator
-    ): OkHttpClient = okHttpClient(tokenInterceptor, tokenAuthenticator)
+        userAuth: UserAuth,
+        application: Application
+    ): OkHttpClient = okHttpClient(userAuth, (application as ComphyApp).baseUrl())
 }

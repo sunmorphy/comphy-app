@@ -6,7 +6,10 @@ import android.media.MediaMetadataRetriever
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.comphy.photo.data.source.local.entity.CityEntity
 import com.comphy.photo.vo.OrientationType
 import com.comphy.photo.vo.PostType
@@ -92,4 +95,17 @@ object Extension {
     fun Activity.changeDrawable(drawableId: Int) = ContextCompat.getDrawable(this, drawableId)
 
     fun Activity.loadAnim(animId: Int): Animation = AnimationUtils.loadAnimation(this, animId)
+
+    fun AppCompatActivity.pagerAdapter(fragments: List<Fragment>): FragmentStateAdapter {
+        return object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int = fragments.size
+
+            override fun createFragment(position: Int): Fragment {
+                val fragment: Fragment?
+                fragment = fragments[position]
+                return fragment
+            }
+
+        }
+    }
 }

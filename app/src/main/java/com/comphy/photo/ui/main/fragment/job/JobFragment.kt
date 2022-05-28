@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import androidx.core.widget.doAfterTextChanged
@@ -12,13 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.comphy.photo.R
 import com.comphy.photo.databinding.BottomSheetFilterJobBinding
 import com.comphy.photo.databinding.FragmentJobBinding
 import com.comphy.photo.ui.job.JobDetailActivity
-import com.comphy.photo.ui.main.MainActivity
-import com.comphy.photo.utils.Extension
 import com.comphy.photo.utils.Extension.changeDrawable
 import com.comphy.photo.utils.Extension.formatCity
 import com.comphy.photo.utils.Extension.loadAnim
@@ -96,9 +92,9 @@ class JobFragment : Fragment() {
                 setAdapter(locationAdapter)
             }
         }
-        viewModel.jobResponse.observe(viewLifecycleOwner) {
-            setupRecycler(it.jobResponseData?.content!!)
-        }
+//        viewModel.jobResponse.observe(viewLifecycleOwner) {
+//            setupRecycler(it.jobResponseData?.content!!)
+//        }
     }
 
     private fun setupRecycler(listJobs: List<Any>) {

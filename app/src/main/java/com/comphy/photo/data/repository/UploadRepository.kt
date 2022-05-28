@@ -24,7 +24,9 @@ class UploadRepository @Inject constructor(
         amount: Int
     ) = flow {
         val response = apiService.getUploadLink(type, isPost, amount)
-        response.suspendOnSuccess { emit(data) }
+        response.suspendOnSuccess {
+            emit(data)
+        }
             .onError { Timber.tag("On Error").e(message()) }
             .onException { Timber.tag("On Exception").e(message()) }
     }.flowOn(ioDispatcher)

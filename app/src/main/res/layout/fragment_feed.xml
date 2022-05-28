@@ -41,7 +41,9 @@
             android:layout_marginTop="18dp"
             android:background="@color/primary_background"
             app:carbon_cornerRadiusTopEnd="18dp"
-            app:carbon_cornerRadiusTopStart="18dp">
+            app:carbon_cornerRadiusTopStart="18dp"
+            app:carbon_elevation="30dp"
+            app:carbon_elevationShadowColor="#FEE8C8">
 
             <carbon.widget.ConstraintLayout
                 android:id="@+id/layoutPost"
@@ -274,7 +276,7 @@
             android:layout_height="44dp"
             android:layout_marginStart="16dp"
             android:scaleType="centerCrop"
-            android:src="@color/amber_50"
+            android:src="@drawable/ic_placeholder_people"
             app:layout_constraintBottom_toBottomOf="@id/edtSearch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/edtSearch" />

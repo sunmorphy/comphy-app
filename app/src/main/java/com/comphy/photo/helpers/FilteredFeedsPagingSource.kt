@@ -9,8 +9,10 @@ import com.comphy.photo.utils.JsonParser.parseTo
 
 private const val DEFAULT_PAGE_INDEX = 1
 
-class FeedsPagingSource(
-    private val apiService: ApiService
+class FilteredFeedsPagingSource(
+    private val apiService: ApiService,
+    private var categoryId: Int? = null,
+    private var titlePost: String? = null
 ) : PagingSource<Int, FeedResponseContentItem>() {
     override fun getRefreshKey(state: PagingState<Int, FeedResponseContentItem>): Int? {
         return state.anchorPosition?.let {
@@ -22,7 +24,11 @@ class FeedsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FeedResponseContentItem> {
         val pageIndex = params.key ?: DEFAULT_PAGE_INDEX
         return try {
-            val response = apiService.getFeedPosts(pageIndex)
+            val response = apiService.getFilteredFeedPosts(
+                page = pageIndex,
+                categoryId = categoryId,
+                titlePost = titlePost
+            )
             val parsedData = response.data?.parseTo(BaseResponseContent::class.java)
             val parsedArray =
                 parsedData?.content!!.parseTo(FeedResponseContentItem::class.java)

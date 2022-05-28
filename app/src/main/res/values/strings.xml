@@ -3,6 +3,8 @@
     <string name="app_name">Comphy</string>
     <string name="tagline">Show us what you see in your mind</string>
 
+    <string name="example_name">Thavita Herdiana</string>
+    <string name="example_job">Freelance Photography</string>
     <string name="example_mail"><b>Thavitaaa13@gmail.com</b></string>
 
     <string name="nav_title_home">Beranda</string>
@@ -13,7 +15,9 @@
     <string name="string_hello">Hallo,</string>
     <string name="string_welcome">Selamat Datang!</string>
     <string name="string_or">Atau</string>
+    <string name="string_ok">Oke</string>
 
+    <string name="string_empty"> </string>
     <string name="string_register">Daftar</string>
     <string name="string_login">Masuk</string>
     <string name="string_create_account">Buat Akun</string>
@@ -29,10 +33,15 @@
     <string name="string_verify">Verifikasi</string>
     <string name="string_back">Kembali</string>
     <string name="string_save">Simpan</string>
+    <string name="string_save_change">Simpan Perubahan</string>
+    <string name="string_join_community">Bergabung Sekarang</string>
+    <string name="string_leave_community">Keluar Komunitas</string>
+    <string name="string_logout">Keluar</string>
     <string name="string_choose">Pilih</string>
     <string name="string_password_error_title">Yuk Perkuat Lagi Password Kamu!</string>
     <string name="string_password_error_description">Masukkan Password diatas 5 Karakter dan Menggunakan Angka (0-9)</string>
     <string name="string_current_location">Yogyakarta,Indonesia</string>
+    <string name="string_current_location_raw">Yogyakarta</string>
     <string name="string_search_hint">Cari disini “Womenesia”</string>
     <string name="string_create_community">Buat Komunitas</string>
     <string name="string_max_community">Maksimal 2 Komunitas</string>
@@ -62,6 +71,23 @@
     <string name="string_back_to_top">Kembali Ke Atas</string>
     <string name="string_explore">Explore</string>
     <string name="string_seeking">Pencarian</string>
+    <string name="string_follow">Ikuti</string>
+    <string name="string_followed">Mengikuti</string>
+    <string name="string_post_empty">Kamu Belum Mengunggah apapun. Unggah Sekarang!</string>
+    <string name="string_delete">Hapus</string>
+    <string name="string_ban">Keluarkan</string>
+    <string name="string_cancel">Batalkan!</string>
+    <string name="string_follower">Pengikut</string>
+    <string name="string_following">Di ikuti</string>
+    <string name="string_privacy">Privacy &amp; Security</string>
+    <string name="string_change_password">Ganti Password</string>
+    <string name="string_change_password_desc">Silahkan Masukkan Password kamu saat ini sebagai verifikasi terhadap akunmu.</string>
+    <string name="string_current_password">Password Saat ini</string>
+    <string name="string_copy">Salin</string>
+    <string name="string_member">Anggota</string>
+    <string name="string_share_community">Bagikan Komunitas</string>
+    <string name="string_community_link">Tautan Komunitas</string>
+    <string name="string_success_ban">Berhasil Mengeluarkan</string>
 
     <string name="placeholder_camera">Kamera : %1$s</string>
     <string name="placeholder_lens">Lensa : %1$s</string>
@@ -69,6 +95,8 @@
     <string name="placeholder_iso">ISO : %1$s</string>
     <string name="placeholder_shutter">Shutter Speed : %1$s</string>
     <string name="placeholder_aperture">Aperture: %1$s</string>
+    <string name="placeholder_community_type">Komunitas %1$s</string>
+    <string name="placeholder_community_members_count">%1$s Anggota</string>
 
     <!-- Community Category -->
     <string-array name="community_category">
@@ -81,6 +109,7 @@
 
     <string name="error_email">*Masukkan Email Kamu dengan Benar</string>
     <string name="error_password">*Masukkan Password min.6 Karakter &amp; Angka (0-9)</string>
+    <string name="error_current_password">*Masukkan Password kamu saat ini.</string>
     <string name="error_name">*Silahkan Masukkan Nama Panjang Kamu.</string>
     <string name="error_mail">*Silahkan Masukkan Email Kamu</string>
     <string name="error_otp">*Masukkan OTP 4 digit.</string>
@@ -242,6 +271,8 @@
     <!-- Feed Post Strings -->
     <string name="feed_write_here">Tulis Sesuatu disini....</string>
     <string name="feed_user_name">Ana Marie ayy</string>
+    <string name="feed_filter">Filter Post</string>
+    <string name="feed_filter_category">Berdasarkan Kategori :</string>
     <string name="feed_bookmark">Bookmark This Post</string>
     <string name="feed_add_user">Add User</string>
     <string name="feed_time_passed">1 hari yang lalu</string>
@@ -249,6 +280,7 @@
     <string name="feed_likes_count">247 Orang Menyukai Postingan ini</string>
     <string name="feed_comment">Komentari</string>
     <string name="feed_like">Suka</string>
+    <string name="feed_liked">Disukai</string>
     <string name="feed_data_exif">Data EXIF Foto : </string>
     <string name="feed_data_exif_camera">Kamera : Sony A7 Mark IIIIIIIIIIIIIII</string>
     <string name="feed_data_exif_lens">Lensa : Youngno Fix Youngno Fix Youngno Fix</string>
@@ -311,6 +343,8 @@
     <string name="set_post_to_choose_community_none">Tidak ada Komunitas yang dipilih</string>
     <string name="choose_community">Pilih Komunitas</string>
     <string name="choose_community_description">Untuk Saat Ini kamu hanya dapat memilih satu komunitas yang akan kamu tuju.</string>
+    <string name="post_delete">Hapus Postingan?</string>
+    <string name="post_delete_desc">Kamu akan menghapus postingan yang telah diunggah.</string>
 
     <!-- Explore Strings -->
     <string name="explore_search_hint">Cari Keyword “Seminar”</string>
@@ -331,5 +365,72 @@
     <string name="event_date">5 April 2022</string>
     <string name="event_all">Semua Event</string>
     <string name="event_detail">Detail Event</string>
+
+    <!-- Course Strings -->
+    <string name="course">Pilih dan Pelajari Course mu</string>
+    <string name="course_sub">Tingkatkan skill dan pengalamanmu dengan mengikuti event dan seminar terbaik untukmu</string>
+    <string name="course_chapter">Bab I</string>
+    <string name="course_chapter_desc">Fotografi dan Instrumennya</string>
+    <string name="course_chapter_title">Sejarah Kamera</string>
+
+    <!-- Profile Strings -->
+    <string name="profile_post_count">5</string>
+    <string name="profile_post">Postingan</string>
+    <string name="profile_follower_count">752</string>
+    <string name="profile_follower">Pengikut</string>
+    <string name="profile_following_count">571</string>
+    <string name="profile_following">Diikuti</string>
+    <string name="profile_tab_post">Postingan</string>
+    <string name="profile_tab_about">Tentang Saya</string>
+    <string name="profile_about">Tentang</string>
+    <string name="profile_about_content">Saya Seorang Freelance fotografi wisuda, wedding dan juga fashion product.</string>
+    <string name="profile_experience">Pengalaman</string>
+    <string name="profile_experience_input">Masukkan pengalaman kamu disini.</string>
+    <string name="profile_experience_empty">Belum mempunyai pengalaman, masukkan pengalaman kamu sekarang!</string>
+    <string name="profile_experience_title">Fotografer</string>
+    <string name="profile_experience_description">National Geography</string>
+    <string name="profile_experience_date">2020-2021</string>
+    <string name="profile_socmed">Social Media</string>
+    <string name="profile_experience_position">Apa Posisi Kamu?</string>
+    <string name="profile_experience_position_hint">Masukkan Posisi Kamu</string>
+    <string name="profile_experience_instance">Nama Instansi</string>
+    <string name="profile_experience_instance_hint">Masukkan instansi kamu bekerja</string>
+    <string name="profile_experience_year">Tahun</string>
+    <string name="profile_experience_year_hint">Masukkan lama Tahun anda bekerja</string>
+    <string name="profile_experience_year_ex">cth : 2020, 2020-2022</string>
+    <string name="profile_experience_delete">Hapus Pengalaman</string>
+
+    <!-- Community Details Strings -->
+    <string name="community_tab_post">Postingan</string>
+    <string name="community_tab_photo">Foto Komunitas</string>
+    <string name="community_user_create">Thavita Herdiana Telah Membuat Komunitas Ayok Moto.</string>
+    <string name="community_setting">Atur Komunitas</string>
+    <string name="community_setting_desc">Kelola Komunitas kamu dengan Klik</string>
+    <string name="community_similar">Komunitas Serupa</string>
+    <string name="community_see_similar">Lihat Komunitas Serupa</string>
+    <string name="community_photo_empty">Foto Komunitas Kamu Masih Kosong! Upload Sekarang</string>
+    <string name="community_delete">Hapus Komunitas</string>
+    <string name="community_code_error_title">Maaf Kode Tidak Cocok!Coba lagi</string>
+    <string name="community_code_error_desc">Pastikan Kamu mendapat Kode yang valid dari admin Komunitas</string>
+    <string name="community_code_input">Masukkan Kode</string>
+    <string name="community_code_input_desc">Masukkan Kode uintuk bergabung dengan komunitas Privat ini.</string>
+
+    <!-- Edit Community Strings -->
+    <string name="ec_tab_profile">Profil Komunitas</string>
+    <string name="ec_tab_member">Kelola Anggota</string>
+    <string name="ec_community_code">Kode Komunitas</string>
+    <string name="ec_community_code_empty">----</string>
+    <string name="ec_community_delete_sure">Apakah Kamu Yakin?</string>
+    <string name="ec_community_delete_desc">Kamu akan menghapus Komunitasmu secara permanen.</string>
+    <string name="ec_community_ban_desc">Kamu akan mengeluarkan anggotamu dari komunitas</string>
+    <string name="ec_community_ban_success_desc">Kamu berhasil mengeluarkan anggota bernama %1$s</string>
+
+    <!-- Join Community Strings -->
+    <string name="jc_join_community">Daftar Komunitas</string>
+    <string name="jc_tab_category_human_interest">Human Interest</string>
+    <string name="jc_tab_category_portrait">Portrait</string>
+    <string name="jc_tab_category_landscape">Landscape</string>
+    <string name="jc_tab_category_fashion">Fashion</string>
+    <string name="jc_tab_category_journalism">Journalism</string>
 
 </resources>

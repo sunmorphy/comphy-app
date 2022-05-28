@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
-    android:layout_marginBottom="18dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="18dp"
     android:background="@color/white"
     android:paddingHorizontal="16dp"
     android:paddingTop="20dp"
@@ -142,59 +142,17 @@
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
         app:layout_constraintTop_toBottomOf="@id/imgFeedContent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutLikesUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-        app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgLikesUser1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:scaleType="centerCrop"
-            android:src="@color/red_100"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgLikesUser2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="17dp"
-            android:scaleType="centerCrop"
-            android:src="@color/red_200"
-            app:layout_constraintBottom_toBottomOf="@id/imgLikesUser1"
-            app:layout_constraintStart_toStartOf="@id/imgLikesUser1"
-            app:layout_constraintTop_toTopOf="@id/imgLikesUser1" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgLikesUser3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="17dp"
-            android:scaleType="centerCrop"
-            android:src="@color/red_300"
-            app:layout_constraintBottom_toBottomOf="@id/imgLikesUser2"
-            app:layout_constraintStart_toStartOf="@id/imgLikesUser2"
-            app:layout_constraintTop_toTopOf="@id/imgLikesUser2" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
         android:id="@+id/txtLikesCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/feed_likes_count"
         android:textColor="@color/neutral_black_50"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/layoutLikesUser"
-        app:layout_constraintStart_toEndOf="@id/layoutLikesUser"
-        app:layout_constraintTop_toTopOf="@id/layoutLikesUser" />
+        app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
+        app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnComment"
@@ -207,6 +165,7 @@
         android:insetTop="@dimen/dp_0"
         android:insetBottom="@dimen/dp_0"
         android:letterSpacing="0"
+        android:maxLines="1"
         android:paddingHorizontal="26dp"
         android:paddingVertical="12dp"
         android:stateListAnimator="@null"
@@ -217,11 +176,11 @@
         app:backgroundTint="@color/state_button_post"
         app:cornerRadius="12dp"
         app:icon="@drawable/ic_comment"
-        app:iconPadding="14dp"
+        app:iconPadding="10dp"
         app:iconTint="@color/state_button_content_post"
         app:layout_constraintEnd_toStartOf="@id/btnLike"
         app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-        app:layout_constraintTop_toBottomOf="@id/layoutLikesUser"
+        app:layout_constraintTop_toBottomOf="@id/txtLikesCount"
         app:strokeColor="@color/primary_orange"
         app:strokeWidth="1dp" />
 
@@ -235,6 +194,7 @@
         android:insetTop="@dimen/dp_0"
         android:insetBottom="@dimen/dp_0"
         android:letterSpacing="0"
+        android:maxLines="1"
         android:paddingHorizontal="26dp"
         android:paddingVertical="12dp"
         android:stateListAnimator="@null"
@@ -245,7 +205,7 @@
         app:backgroundTint="@color/state_button_like"
         app:cornerRadius="12dp"
         app:icon="@drawable/ic_thumb_up"
-        app:iconPadding="14dp"
+        app:iconPadding="10dp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/btnComment"
         app:layout_constraintEnd_toEndOf="@id/txtFeedCaption"

@@ -1,41 +1,41 @@
-package com.comphy.photo.data.source.remote.response.post.feed
+package com.comphy.photo.data.source.remote.response.user.following
 
 
 import com.google.gson.annotations.SerializedName
 
-data class FeedResponseUserPost(
+data class UserFollowed(
     @SerializedName("created_date")
-    val createdDate: Long? = null,
+    val createdDate: Long = 0,
     @SerializedName("deleted_date")
-    val deletedDate: String? = null,
+    val deletedDate: Any? = null,
     @SerializedName("description")
-    val description: String,
+    val description: Any? = null,
     @SerializedName("experiences")
     val experiences: List<Any> = listOf(),
     @SerializedName("fullname")
-    val fullname: String,
+    val fullname: String = "",
     @SerializedName("id")
-    val id: Int,
+    val id: Int = 0,
     @SerializedName("job")
-    val job: String,
+    val job: Any? = null,
     @SerializedName("lengthFollowers")
-    val lengthFollowers: Int,
+    val lengthFollowers: Int = 0,
     @SerializedName("lengthFollowing")
-    val lengthFollowing: Int,
+    val lengthFollowing: Int = 0,
     @SerializedName("location")
-    val location: String,
+    val location: Any? = null,
     @SerializedName("numberPhone")
-    val numberPhone: String? = null,
+    val numberPhone: Any? = null,
     @SerializedName("profileBannerLink")
-    val profileBannerLink: String? = null,
+    val profileBannerLink: Any? = null,
     @SerializedName("profilePhotoLink")
-    val profilePhotoLink: String? = null,
+    val profilePhotoLink: Any? = null,
     @SerializedName("socialMedia")
-    val socialMedia: String? = null,
+    val socialMedia: Any? = null,
     @SerializedName("subscription")
-    val subscription: FeedResponseSubscription,
+    val subscription: Subscription,
     @SerializedName("updated_date")
-    val updatedDate: String? = null,
+    val updatedDate: String = "",
     @SerializedName("username")
-    val username: String
+    val username: String = ""
 )

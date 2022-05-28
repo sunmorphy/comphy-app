@@ -1,5 +1,6 @@
 package com.comphy.photo.data.source.remote.client
 
+import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,12 +26,12 @@ class ApiClient @Inject constructor(
 }
 
 fun okHttpClient(
-    tokenInterceptor: TokenInterceptor,
-    tokenAuthenticator: TokenAuthenticator
+    userAuth: UserAuth,
+    baseUrl: String
 ): OkHttpClient =
     OkHttpClient.Builder()
-        .authenticator(tokenAuthenticator)
-        .addInterceptor(tokenInterceptor)
+//        .authenticator(TokenAuthenticator(userAuth, baseUrl))
+        .addInterceptor(TokenInterceptor(userAuth, baseUrl))
         .addInterceptor(logging)
         .readTimeout(1, TimeUnit.MINUTES)
         .connectTimeout(1, TimeUnit.MINUTES)

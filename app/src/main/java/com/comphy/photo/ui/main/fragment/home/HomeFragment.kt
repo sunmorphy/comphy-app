@@ -12,17 +12,17 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.comphy.photo.R
 import com.comphy.photo.data.model.CommunityCategoryModel
-import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
 import com.comphy.photo.databinding.BottomSheetCommunitySetBinding
 import com.comphy.photo.databinding.FragmentHomeBinding
-import com.comphy.photo.ui.community.CreateCommunityActivity
+import com.comphy.photo.ui.community.create.CreateCommunityActivity
 import com.comphy.photo.ui.community.all.AllCommunityActivity
+import com.comphy.photo.ui.community.detail.CommunityDetailActivity
 import com.comphy.photo.ui.main.fragment.home.adapter.*
 import com.comphy.photo.ui.search.explore.main.ExploreActivity
 import com.comphy.photo.utils.Extension.changeColor
 import com.comphy.photo.utils.Extension.changeDrawable
 import com.comphy.photo.utils.Extension.formatLocationInput
-import com.comphy.photo.vo.CommunityType
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import com.zhpan.indicator.enums.IndicatorStyle
@@ -173,7 +173,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setCommunitiesEmpty(
-        communities: List<CreatedCommunityResponseContent>,
+        communities: List<FollowCommunityResponseContentItem>,
         isCreated: Boolean
     ) {
         if (communities.isEmpty()) {
@@ -183,7 +183,7 @@ class HomeFragment : Fragment() {
                 binding.rvYourCommunity.apply {
                     visibility = View.INVISIBLE
                     layoutManager = LinearLayoutManager(requireContext())
-                    adapter = CommunityPreviewAdapter(null, CommunityType.OWN) {}
+                    adapter = CommunityPreviewAdapter(null, {}, {})
                 }
             } else {
                 binding.layoutFollowedCommunityEmpty.visibility = View.VISIBLE
@@ -191,7 +191,7 @@ class HomeFragment : Fragment() {
                 binding.rvFollowedCommunity.apply {
                     visibility = View.INVISIBLE
                     layoutManager = LinearLayoutManager(requireContext())
-                    adapter = CommunityPreviewAdapter(null, CommunityType.FOLLOWED) {}
+                    adapter = CommunityPreviewAdapter(null, {}, {})
                 }
             }
         } else {
@@ -211,8 +211,9 @@ class HomeFragment : Fragment() {
                 binding.rvYourCommunity.apply {
                     visibility = View.VISIBLE
                     layoutManager = LinearLayoutManager(requireContext())
-                    adapter =
-                        CommunityPreviewAdapter(communities, CommunityType.OWN) { communityId ->
+                    adapter = CommunityPreviewAdapter(
+                        communities,
+                        { communityId ->
                             bottomSheetOptionBinding.apply {
                                 txtCommunitySettings.apply {
                                     visibility = View.VISIBLE
@@ -225,7 +226,13 @@ class HomeFragment : Fragment() {
                             }
                             bottomSheetDialog.setContentView(bottomSheetOptionBinding.root)
                             bottomSheetDialog.show()
+                        },
+                        {
+                            start<CommunityDetailActivity> {
+                                putExtra("extra_id", it)
+                            }
                         }
+                    )
                 }
             } else {
                 binding.layoutFollowedCommunityEmpty.visibility = View.GONE
@@ -235,18 +242,23 @@ class HomeFragment : Fragment() {
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = CommunityPreviewAdapter(
                         communities,
-                        CommunityType.FOLLOWED
-                    ) { communityId ->
-                        bottomSheetOptionBinding.apply {
-                            txtCommunitySettings.visibility = View.GONE
-                            divider.visibility = View.GONE
-                            txtCommunityLeave.setOnClickListener {
-                                lifecycleScope.launch { viewModel.leaveCommunity(communityId) }
+                        { communityId ->
+                            bottomSheetOptionBinding.apply {
+                                txtCommunitySettings.visibility = View.GONE
+                                divider.visibility = View.GONE
+                                txtCommunityLeave.setOnClickListener {
+                                    lifecycleScope.launch { viewModel.leaveCommunity(communityId) }
+                                }
+                            }
+                            bottomSheetDialog.setContentView(bottomSheetOptionBinding.root)
+                            bottomSheetDialog.show()
+                        },
+                        {
+                            start<CommunityDetailActivity> {
+                                putExtra("extra_id", it)
                             }
                         }
-                        bottomSheetDialog.setContentView(bottomSheetOptionBinding.root)
-                        bottomSheetDialog.show()
-                    }
+                    )
                 }
             }
         }

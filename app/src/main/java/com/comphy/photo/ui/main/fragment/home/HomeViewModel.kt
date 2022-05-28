@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.comphy.photo.data.repository.CommunityRepository
 import com.comphy.photo.data.repository.UserRepository
-import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
@@ -18,8 +18,8 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val userData = MutableLiveData<UserResponseData>()
-    val userCreatedCommunity = MutableLiveData<List<CreatedCommunityResponseContent>>()
-    val userJoinedCommunity = MutableLiveData<List<CreatedCommunityResponseContent>>()
+    val userCreatedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
+    val userJoinedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
     val isFetching = MutableLiveData<Boolean>()
     val exceptionResponse = MutableLiveData<String>()
     val leaveResponse = MutableLiveData<String>()
@@ -28,11 +28,7 @@ class HomeViewModel @Inject constructor(
         userRepository.getUserDetails()
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect {
-                if (it != null) {
-                    userData.postValue(it)
-                }
-            }
+            .collect { userData.postValue(it) }
     }
 
     suspend fun leaveCommunity(communityId: Int) =
@@ -52,12 +48,12 @@ class HomeViewModel @Inject constructor(
                 }
                     .onStart { isFetching.postValue(true) }
                     .onCompletion { isFetching.postValue(false) }
-                    .collect { userCreatedCommunity.postValue(it.data?.content!!) }
+                    .collect { userCreatedCommunity.postValue(it) }
             }
         }
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { userCreatedCommunity.postValue(it.data?.content!!) }
+            .collect { userCreatedCommunity.postValue(it) }
 
     suspend fun getJoinedCommunities() =
         communityRepository.getJoinedCommunities {
@@ -67,11 +63,11 @@ class HomeViewModel @Inject constructor(
                 }
                     .onStart { isFetching.postValue(true) }
                     .onCompletion { isFetching.postValue(false) }
-                    .collect { userJoinedCommunity.postValue(it.data?.content!!) }
+                    .collect { userJoinedCommunity.postValue(it) }
             }
         }
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { userJoinedCommunity.postValue(it.data?.content!!) }
+            .collect { userJoinedCommunity.postValue(it) }
 
 }

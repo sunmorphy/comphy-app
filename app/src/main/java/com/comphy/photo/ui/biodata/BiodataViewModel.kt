@@ -4,9 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.entity.CityEntity
-import com.comphy.photo.data.source.local.entity.RegencyEntity
 import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
-import com.comphy.photo.data.source.remote.response.auth.AuthResponse
+import com.comphy.photo.data.source.remote.response.BaseResponse
 import com.comphy.photo.data.source.remote.response.user.detail.UserDataBody
 import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +23,7 @@ class BiodataViewModel @Inject constructor(
     val isFetching = MutableLiveData<Boolean>()
     val exceptionResponse = MutableLiveData<String>()
     val cities = MutableLiveData<List<CityEntity>>()
-    val updateResponse = MutableLiveData<AuthResponse>()
+    val updateResponse = MutableLiveData<BaseResponse>()
 
     suspend fun getCities() =
         userRepository.getUserCities {
@@ -47,15 +46,13 @@ class BiodataViewModel @Inject constructor(
                 .onStart { isFetching.postValue(true) }
                 .onCompletion { isFetching.postValue(false) }
                 .collect {
-                    if (it != null) {
-                        if (it.location != null
-                            && it.job != null
-                            && it.description != null
-                        ) {
-                            userAuth.isUserUpdated = true
-                        }
-                        userData.postValue(it)
+                    if (it!!.location != null
+                        && it.job != null
+                        && it.description != null
+                    ) {
+                        userAuth.isUserUpdated = true
                     }
+                    userData.postValue(it)
                 }
         }
     }
