@@ -102,8 +102,7 @@
                     app:carbon_cornerRadius="18dp"
                     app:carbon_elevation="30dp"
                     app:carbon_elevationShadowColor="#FFEACB"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="-65dp">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <carbon.widget.ImageView
                         android:id="@+id/imgBanner"
