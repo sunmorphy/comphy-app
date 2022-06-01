@@ -13,12 +13,16 @@ import com.bumptech.glide.Glide
 import com.comphy.photo.R
 import com.comphy.photo.data.model.CommunityCategoryModel
 import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.event.EventResponseContentItem
 import com.comphy.photo.databinding.BottomSheetCommunitySetBinding
 import com.comphy.photo.databinding.FragmentHomeBinding
-import com.comphy.photo.ui.community.create.CreateCommunityActivity
 import com.comphy.photo.ui.community.all.AllCommunityActivity
+import com.comphy.photo.ui.community.create.CreateCommunityActivity
 import com.comphy.photo.ui.community.detail.CommunityDetailActivity
+import com.comphy.photo.ui.main.MainActivity
+import com.comphy.photo.ui.main.MainViewModel
 import com.comphy.photo.ui.main.fragment.home.adapter.*
+import com.comphy.photo.ui.profile.ProfileActivity
 import com.comphy.photo.ui.search.explore.main.ExploreActivity
 import com.comphy.photo.utils.Extension.changeColor
 import com.comphy.photo.utils.Extension.changeDrawable
@@ -37,6 +41,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: HomeViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val bottomSheetOptionBinding by lazy(LazyThreadSafetyMode.NONE) {
         BottomSheetCommunitySetBinding.inflate(layoutInflater)
     }
@@ -58,24 +63,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            viewModel.getUserDetails()
+            viewModel.getEvents()
             viewModel.getCreatedCommunities()
             viewModel.getJoinedCommunities()
         }
 
-        viewModel.userData.observe(viewLifecycleOwner) {
-            binding.txtLocation.text = formatLocationInput(it.location!!)
-            Glide.with(this)
-                .load(it.profileUrl)
-                .placeholder(activity?.changeDrawable(R.drawable.ic_placeholder_people))
-                .error(activity?.changeDrawable(R.drawable.ic_placeholder_people))
-                .centerCrop()
-                .into(binding.imgProfile)
-        }
-        viewModel.userCreatedCommunity.observe(viewLifecycleOwner) { setCommunitiesEmpty(it, true) }
-        viewModel.userJoinedCommunity.observe(viewLifecycleOwner) { setCommunitiesEmpty(it, false) }
-        viewModel.leaveResponse.observe(viewLifecycleOwner) { bottomSheetDialog.dismiss() }
-        viewModel.exceptionResponse.observe(viewLifecycleOwner) { toast(it) }
+        setupObserver()
 
         val mList = listOf(
             "https://placeimg.com/640/480/people/grayscale",
@@ -91,9 +84,14 @@ class HomeFragment : Fragment() {
             CommunityCategoryModel(R.drawable.ic_category_5, "Journalism Photography"),
         )
 
-        setupViewPager(mList)
         setupRecycler(categories)
 
+        binding.imgProfile.setOnClickListener {
+            start<ProfileActivity> {
+                putExtra("extra_id", (activity as MainActivity).userAuth.userId)
+            }
+        }
+        binding.edtSearch.setOnClickListener { start<ExploreActivity>() }
         binding.btnCreateCommunity.setOnClickListener { start<CreateCommunityActivity>() }
         binding.btnSeeAllYours.setOnClickListener {
             start<AllCommunityActivity> {
@@ -113,11 +111,26 @@ class HomeFragment : Fragment() {
         }
 
         binding.edtSearch.setOnClickListener { start<ExploreActivity>() }
-//        binding.imgProfile.setOnClickListener { setEmptyCommunity() }
-//        binding.btnNotification.setOnClickListener { setEmptyCommunity(communities) }
     }
 
-    private fun setupViewPager(listImages: List<String>) {
+    private fun setupObserver() {
+        mainViewModel.userData.observe(viewLifecycleOwner) {
+            binding.txtLocation.text = formatLocationInput(it.location!!)
+            Glide.with(this)
+                .load(it.profileUrl)
+                .placeholder(activity?.changeDrawable(R.drawable.ic_placeholder_people))
+                .error(activity?.changeDrawable(R.drawable.ic_placeholder_people))
+                .centerCrop()
+                .into(binding.imgProfile)
+        }
+        viewModel.events.observe(viewLifecycleOwner) { setupViewPager(it) }
+        viewModel.userCreatedCommunity.observe(viewLifecycleOwner) { setCommunitiesEmpty(it, true) }
+        viewModel.userJoinedCommunity.observe(viewLifecycleOwner) { setCommunitiesEmpty(it, false) }
+        viewModel.leaveResponse.observe(viewLifecycleOwner) { bottomSheetDialog.dismiss() }
+        viewModel.exceptionResponse.observe(viewLifecycleOwner) { toast(it) }
+    }
+
+    private fun setupViewPager(listImages: List<EventResponseContentItem>) {
         val pagerAdapter = HomePagerAdapter(listImages)
         binding.vpHome.apply {
             adapter = pagerAdapter
@@ -136,7 +149,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                     if (job.isActive) job.cancel()
-                    job.start()
+                    else job.start()
                 }
             })
         }
@@ -229,7 +242,7 @@ class HomeFragment : Fragment() {
                         },
                         {
                             start<CommunityDetailActivity> {
-                                putExtra("extra_id", it)
+                                putExtra("extra_detail", it)
                             }
                         }
                     )

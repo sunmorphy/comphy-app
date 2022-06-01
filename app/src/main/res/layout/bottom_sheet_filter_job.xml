@@ -110,7 +110,7 @@
             android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="23dp"
             android:text="@string/job_type_part"
-            android:textColor="#1A1A1A"
+            android:textColor="@color/radio_text"
             android:textSize="14sp" />
 
         <RadioButton
@@ -125,7 +125,7 @@
             android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="23dp"
             android:text="@string/job_type_full"
-            android:textColor="#1A1A1A"
+            android:textColor="@color/radio_text"
             android:textSize="14sp" />
 
     </RadioGroup>

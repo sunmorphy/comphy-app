@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="39dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFE0B0">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="144dp"
+        android:layout_marginTop="24dp"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/string_member"
+        android:textColor="@color/primary_orange"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCommunityMembers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/txtMember"
+        tools:itemCount="9"
+        tools:listitem="@layout/item_community_member" />
+
+</carbon.widget.ConstraintLayout>

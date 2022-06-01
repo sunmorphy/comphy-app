@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFE0B0">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp">
+
+            <carbon.widget.ImageView
+                android:id="@+id/imgIndicator"
+                android:layout_width="0dp"
+                android:layout_height="7dp"
+                android:layout_marginHorizontal="144dp"
+                android:layout_marginTop="24dp"
+                android:background="#EFEFEF"
+                app:carbon_cornerRadius="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/profile_experience"
+                android:textColor="@color/primary_orange"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgIndicator" />
+
+            <TextView
+                android:id="@+id/txtExperienceDesc"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/profile_experience_input"
+                android:textColor="@color/neutral_black_50"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtExperience" />
+
+            <TextView
+                android:id="@+id/txtExperiencePosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/profile_experience_position"
+                android:textColor="@color/neutral_black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/txtExperienceDesc"
+                app:layout_constraintTop_toBottomOf="@id/txtExperienceDesc" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtExperiencePosition"
+                style="@style/EditTextCustomStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:hint="@string/profile_experience_position_hint"
+                android:inputType="text"
+                android:paddingHorizontal="29dp"
+                android:paddingVertical="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtExperiencePosition" />
+
+            <TextView
+                android:id="@+id/txtExperienceInstance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/profile_experience_instance"
+                android:textColor="@color/neutral_black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/edtExperiencePosition"
+                app:layout_constraintTop_toBottomOf="@id/edtExperiencePosition" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtExperienceInstance"
+                style="@style/EditTextCustomStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/profile_experience_instance_hint"
+                android:inputType="text"
+                android:paddingHorizontal="29dp"
+                android:paddingVertical="18dp"
+                app:layout_constraintEnd_toEndOf="@id/edtExperiencePosition"
+                app:layout_constraintStart_toStartOf="@id/edtExperiencePosition"
+                app:layout_constraintTop_toBottomOf="@id/txtExperienceInstance" />
+
+            <TextView
+                android:id="@+id/txtExperienceYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/profile_experience_year"
+                android:textColor="@color/neutral_black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/edtExperienceInstance"
+                app:layout_constraintTop_toBottomOf="@id/edtExperienceInstance" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtExperienceYear"
+                style="@style/EditTextCustomStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/profile_experience_year_hint"
+                android:inputType="number"
+                android:paddingHorizontal="29dp"
+                android:paddingVertical="18dp"
+                app:layout_constraintEnd_toEndOf="@id/edtExperienceInstance"
+                app:layout_constraintStart_toStartOf="@id/edtExperienceInstance"
+                app:layout_constraintTop_toBottomOf="@id/txtExperienceYear" />
+
+            <TextView
+                android:id="@+id/txtExperienceYearExample"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/profile_experience_year_ex"
+                android:textColor="#BBBCBF"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/edtExperienceYear"
+                app:layout_constraintTop_toBottomOf="@id/edtExperienceYear" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="44dp"
+                android:backgroundTint="@color/primary_orange"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:paddingVertical="12dp"
+                android:stateListAnimator="@null"
+                android:text="@string/string_save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="@id/edtExperienceYear"
+                app:layout_constraintStart_toStartOf="@id/edtExperienceYear"
+                app:layout_constraintTop_toBottomOf="@id/txtExperienceYearExample" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUploadVideo"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:insetTop="@dimen/dp_0"
+                android:insetBottom="@dimen/dp_0"
+                android:letterSpacing="0"
+                android:paddingHorizontal="25dp"
+                android:paddingVertical="12dp"
+                android:stateListAnimator="@null"
+                android:text="@string/profile_experience_delete"
+                android:textAllCaps="false"
+                android:textColor="@color/state_button_content_post"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:backgroundTint="@color/state_button_post"
+                app:cornerRadius="12dp"
+                app:iconPadding="8dp"
+                app:layout_constraintEnd_toEndOf="@id/btnSave"
+                app:layout_constraintStart_toStartOf="@id/btnSave"
+                app:layout_constraintTop_toBottomOf="@id/btnSave"
+                app:strokeColor="@color/primary_orange"
+                app:strokeWidth="1dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</carbon.widget.ConstraintLayout>

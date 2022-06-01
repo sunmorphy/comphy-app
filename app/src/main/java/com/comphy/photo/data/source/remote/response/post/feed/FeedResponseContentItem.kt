@@ -1,8 +1,11 @@
 package com.comphy.photo.data.source.remote.response.post.feed
 
+import android.os.Parcelable
 import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class FeedResponseContentItem(
     @SerializedName("aperture")
     val aperture: String? = null,
@@ -32,7 +35,7 @@ data class FeedResponseContentItem(
     val id: String,
 
     @SerializedName("isFollowed")
-    val isFollowed: Int,
+    var isFollowed: Int,
 
     @SerializedName("iso")
     val iso: String? = null,
@@ -41,7 +44,7 @@ data class FeedResponseContentItem(
     val lens: String? = null,
 
     @SerializedName("liked")
-    val liked: Boolean = false,
+    var liked: Boolean,
 
     @SerializedName("linkPhoto")
     val linkPhoto: String? = null,
@@ -56,7 +59,7 @@ data class FeedResponseContentItem(
     val orientationType: Int,
 
     @SerializedName("postSaved")
-    val postSaved: Boolean,
+    var postSaved: Boolean,
 
     @SerializedName("public")
     val `public`: Boolean,
@@ -78,4 +81,4 @@ data class FeedResponseContentItem(
 
     @SerializedName("userPost")
     val userPost: UserPost
-)
+) : Parcelable
