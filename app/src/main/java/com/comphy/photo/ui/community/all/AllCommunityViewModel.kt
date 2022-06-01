@@ -3,7 +3,7 @@ package com.comphy.photo.ui.community.all
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.comphy.photo.data.repository.CommunityRepository
-import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
@@ -14,8 +14,8 @@ class AllCommunityViewModel @Inject constructor(
     private val communityRepository: CommunityRepository
 ) : ViewModel() {
 
-    val userCreatedCommunity = MutableLiveData<List<CreatedCommunityResponseContent>>()
-    val userJoinedCommunity = MutableLiveData<List<CreatedCommunityResponseContent>>()
+    val userCreatedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
+    val userJoinedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
     val isFetching = MutableLiveData<Boolean>()
     val exceptionResponse = MutableLiveData<String>()
     val leaveResponse = MutableLiveData<String>()
@@ -37,12 +37,12 @@ class AllCommunityViewModel @Inject constructor(
                 }
                     .onStart { isFetching.postValue(true) }
                     .onCompletion { isFetching.postValue(false) }
-                    .collect { userCreatedCommunity.postValue(it.data?.content!!) }
+                    .collect { userCreatedCommunity.postValue(it) }
             }
         }
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { userCreatedCommunity.postValue(it.data?.content!!) }
+            .collect { userCreatedCommunity.postValue(it) }
 
     suspend fun getJoinedCommunities() =
         communityRepository.getJoinedCommunities {
@@ -52,11 +52,11 @@ class AllCommunityViewModel @Inject constructor(
                 }
                     .onStart { isFetching.postValue(true) }
                     .onCompletion { isFetching.postValue(false) }
-                    .collect { userJoinedCommunity.postValue(it.data?.content!!) }
+                    .collect { userJoinedCommunity.postValue(it) }
             }
         }
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { userJoinedCommunity.postValue(it.data?.content!!) }
+            .collect { userJoinedCommunity.postValue(it) }
 
 }

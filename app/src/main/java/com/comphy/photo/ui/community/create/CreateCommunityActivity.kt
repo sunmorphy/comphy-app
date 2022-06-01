@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.community
+package com.comphy.photo.ui.community.create
 
 import android.os.Bundle
 import android.view.View
@@ -15,7 +15,6 @@ import com.comphy.photo.base.activity.BaseCommunityActivity
 import com.comphy.photo.databinding.ActivityCreateCommunityBinding
 import com.comphy.photo.ui.custom.CustomLoading
 import com.comphy.photo.ui.main.MainActivity
-import com.comphy.photo.utils.Extension.changeColor
 import com.comphy.photo.utils.Extension.changeDrawable
 import com.comphy.photo.utils.Extension.formatCity
 import com.comphy.photo.utils.Extension.sizeInMb
@@ -41,12 +40,10 @@ class CreateCommunityActivity : BaseCommunityActivity() {
     }
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
     private val viewModel: CreateCommunityViewModel by viewModels()
-    private val imagesPath = mutableListOf("", "")
     private val categories = mutableListOf<String>()
     private val categoryIds = mutableListOf<Int>()
-    private var profilePath = ""
+    private val imagesPath = mutableListOf("", "")
     private var profileUrl = ""
-    private var bannerPath = ""
     private var bannerUrl = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +88,6 @@ class CreateCommunityActivity : BaseCommunityActivity() {
         binding.imgBanner.setOnClickListener {
             requestAccessForFile {
                 openPicker {
-                    bannerPath = it.mediaPath
                     imagesPath[0] = it.mediaPath
                     Glide.with(this)
                         .load(imagesPath[0])
@@ -106,7 +102,6 @@ class CreateCommunityActivity : BaseCommunityActivity() {
         binding.imgProfile.setOnClickListener {
             requestAccessForFile {
                 openPicker {
-                    profilePath = it.mediaPath
                     imagesPath[1] = it.mediaPath
                     Glide.with(this)
                         .load(imagesPath[1])
@@ -134,7 +129,10 @@ class CreateCommunityActivity : BaseCommunityActivity() {
             isMainButton = false
             val listPath = mutableListOf<String>()
             imagesPath.forEach { path -> if (path.isNotEmpty()) listPath.add(path) }
-            lifecycleScope.launch { viewModel.getUploadLink(UploadType.IMAGE, listPath.size) }
+            lifecycleScope.launch {
+                if (listPath.isEmpty()) createCommunity()
+                else viewModel.getUploadLink(UploadType.IMAGE, listPath.size)
+            }
         }
     }
 
@@ -143,28 +141,12 @@ class CreateCommunityActivity : BaseCommunityActivity() {
             if (it) customLoading.show() else customLoading.dismiss()
         }
         viewModel.uploadsUrl.observe(this) {
-            var selectedCategory = -1
-            categories.forEach {
-                if (it == binding.edtCommunityCategory.text.toString()) {
-                    val itIndex = categories.indexOf(it)
-                    selectedCategory = categoryIds[itIndex]
-                }
-            }
             lifecycleScope.launch {
                 uploadImages(it[0].storageUrl, PROFILE)
                 uploadImages(it[1].storageUrl, BANNER)
                 profileUrl = it[0].storagePath
                 bannerUrl = it[1].storagePath
-                viewModel.createCommunity(
-                    communityName = binding.edtCommunityName.text.toString(),
-                    description = binding.edtCommunityDescription.text.toString(),
-                    location = binding.edtCommunityLocation.text.toString().split(",")[0],
-                    communityType = binding.rgCommunityType
-                        .findViewById<RadioButton>(binding.rgCommunityType.checkedRadioButtonId).text.toString(),
-                    categoryCommunityId = selectedCategory,
-                    profilePhotoCommunityLink = profileUrl.ifEmpty { null },
-                    bannerPhotoCommunityLink = bannerUrl.ifEmpty { null }
-                )
+                createCommunity()
             }
         }
         viewModel.exceptionResponse.observe(this) { if (it != null) toast(it) }
@@ -218,7 +200,7 @@ class CreateCommunityActivity : BaseCommunityActivity() {
                     if (file.sizeInMb <= MediaSize.IMAGE_NON_POST) {
                         selectedMedia(item)
                     } else {
-                        toast("File size must be smaller than 3mb")
+                        toast("File harus lebih kecil dari 3MB")
                     }
                 }
             }
@@ -235,6 +217,30 @@ class CreateCommunityActivity : BaseCommunityActivity() {
                 viewModel.uploadImageNonPost(url, reqFile)
             }
         }
+    }
+
+    private fun setSelectedCategory(): Int {
+        var selectedCategory = -1
+        categories.forEach {
+            if (it == binding.edtCommunityCategory.text.toString()) {
+                val itIndex = categories.indexOf(it)
+                selectedCategory = categoryIds[itIndex]
+            }
+        }
+        return selectedCategory
+    }
+
+    private suspend fun createCommunity() {
+        viewModel.createCommunity(
+            communityName = binding.edtCommunityName.text.toString(),
+            description = binding.edtCommunityDescription.text.toString(),
+            location = binding.edtCommunityLocation.text.toString().split(",")[0],
+            communityType = binding.rgCommunityType
+                .findViewById<RadioButton>(binding.rgCommunityType.checkedRadioButtonId).text.toString(),
+            categoryCommunityId = setSelectedCategory().takeIf { v -> v != -1 } ?: 5,
+            profilePhotoCommunityLink = profileUrl.ifEmpty { null },
+            bannerPhotoCommunityLink = bannerUrl.ifEmpty { null }
+        )
     }
 
     private fun setToolbarButtonEnable() {
