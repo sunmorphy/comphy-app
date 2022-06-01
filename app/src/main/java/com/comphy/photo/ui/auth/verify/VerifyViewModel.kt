@@ -19,7 +19,7 @@ class VerifyViewModel @Inject constructor(
         authRepository.userRegisterVerify(
             otp,
             email,
-            onError = { message.postValue(it.message) },
+            onError = { message.postValue(it?.message) },
             onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
@@ -45,7 +45,7 @@ class VerifyViewModel @Inject constructor(
             name,
             email,
             token,
-            onError = { message.postValue(it.message) },
+            onError = { message.postValue(it?.message) },
             onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
@@ -57,7 +57,7 @@ class VerifyViewModel @Inject constructor(
         authRepository.userForgotVerify(
             otp,
             email,
-            onError = { message.postValue(it.message) },
+            onError = { message.postValue(it?.message) },
             onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }

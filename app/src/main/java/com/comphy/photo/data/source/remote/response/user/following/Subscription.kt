@@ -1,15 +1,17 @@
 package com.comphy.photo.data.source.remote.response.user.following
 
-
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Subscription(
     @SerializedName("id")
-    val id: Int,
+    val id: Int? = null,
 
     @SerializedName("limitCreateCommunity")
-    val limitCreateCommunity: Int,
+    val limitCreateCommunity: Int? = null,
 
     @SerializedName("limitJoinCommunity")
-    val limitJoinCommunity: Int
-)
+    val limitJoinCommunity: Int? = null
+) : Parcelable

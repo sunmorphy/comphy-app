@@ -17,7 +17,7 @@ class ResetPasswordViewModel @Inject constructor(
             otp,
             newPassword,
             email,
-            onError = { message.postValue(it.message) },
+            onError = { message.postValue(it?.message) },
             onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }

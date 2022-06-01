@@ -23,19 +23,19 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:scaleType="centerCrop"
-            android:src="@color/amber_200"
+            android:src="@drawable/ic_placeholder_people"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtCommentProfile"
+            android:id="@+id/txtCommentName"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="14dp"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1"
-            android:text="@string/comment_profile"
+            android:text="@string/string_empty"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textSize="14sp"
@@ -50,23 +50,23 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1"
-            android:text="@string/comment_job"
+            android:text="@string/string_empty"
             android:textAlignment="textStart"
             android:textColor="@color/neutral_black_20"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/txtCommentProfile"
-            app:layout_constraintTop_toBottomOf="@id/txtCommentProfile" />
+            app:layout_constraintStart_toStartOf="@id/txtCommentName"
+            app:layout_constraintTop_toBottomOf="@id/txtCommentName" />
 
         <TextView
             android:id="@+id/txtCommentTimePassed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/comment_time_passed"
+            android:text="@string/placeholder_time_passed"
             android:textColor="@color/neutral_black_20"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtCommentProfile" />
+            app:layout_constraintTop_toTopOf="@id/txtCommentName" />
 
         <TextView
             android:id="@+id/txtCommentContent"
@@ -74,11 +74,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="@string/comment_content"
+            android:text="@string/string_empty"
             android:textColor="@color/neutral_black"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@id/txtCommentProfile"
-            app:layout_constraintStart_toStartOf="@id/txtCommentProfile"
+            app:layout_constraintEnd_toEndOf="@id/txtCommentName"
+            app:layout_constraintStart_toStartOf="@id/txtCommentName"
             app:layout_constraintTop_toBottomOf="@id/txtCommentJob" />
 
         <LinearLayout
@@ -94,18 +94,29 @@
                 android:id="@+id/txtReplyCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="4dp"
+                android:layout_gravity="center_vertical"
                 android:fontFamily="@font/poppins_medium"
                 android:includeFontPadding="false"
-                android:text="@string/comment_reply_count"
+                android:text="@string/placeholder_comment_reply_count"
                 android:textColor="@color/primary_orange"
-                android:textSize="12sp"
-                app:drawableEndCompat="@drawable/ic_up_small" />
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imgShowReplyIndicator"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="2dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_up_med"
+                app:tint="@color/primary_orange"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/txtReplyComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="12dp"
                 android:fontFamily="@font/poppins_medium"
                 android:includeFontPadding="false"
@@ -124,6 +135,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
+        android:overScrollMode="never"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"

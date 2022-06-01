@@ -34,7 +34,9 @@ class VerifyActivity : BaseAuthActivity() {
         private const val EXTRA_TOKEN = "extra_token"
     }
 
-    private lateinit var binding: ActivityVerifyBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityVerifyBinding.inflate(layoutInflater)
+    }
     private lateinit var resendCodeTimer: CountDownTimer
     private lateinit var sourceExtra: String
     private lateinit var emailExtra: String
@@ -46,8 +48,6 @@ class VerifyActivity : BaseAuthActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityVerifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         sourceExtra = intent.getStringExtra(EXTRA_SOURCE)!!

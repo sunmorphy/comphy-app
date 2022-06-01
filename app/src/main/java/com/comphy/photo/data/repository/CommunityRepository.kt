@@ -5,7 +5,9 @@ import com.comphy.photo.data.source.remote.response.BaseMessageResponse
 import com.comphy.photo.data.source.remote.response.BaseResponseContent
 import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
+import com.comphy.photo.data.source.remote.response.community.edit.EditCommunityBody
 import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.member.MemberCommunityResponseContentItem
 import com.comphy.photo.utils.JsonParser.parseTo
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
@@ -21,6 +23,72 @@ class CommunityRepository @Inject constructor(
     private val apiService: ApiService,
     private val ioDispatcher: CoroutineDispatcher,
 ) {
+
+    suspend fun getFilteredCommunities(
+        communityName: String? = null,
+        categoryId: Int? = null,
+        location: String? = null,
+        onErrorNorException: (exceptionResponse: String?) -> Unit
+    ) = flow {
+        try {
+            val response = apiService.getFilteredCommunities(communityName, categoryId, location)
+            response.suspendOnSuccess {
+                try {
+                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+                    val parsedArray =
+                        parsedData?.content!!.parseTo(FollowCommunityResponseContentItem::class.java)
+                    emit(parsedArray)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
+            }
+                .onError {
+                    val responseResult: BaseMessageResponse? =
+                        errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                    onErrorNorException(responseResult?.message)
+                    Timber.tag("On Error").e(message())
+                }
+                .onException {
+                    onErrorNorException(message)
+                    Timber.tag("On Exception").e(message())
+                }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }.flowOn(ioDispatcher)
+
+    suspend fun getCommunityMembers(
+        communityId: Int,
+        onErrorNorException: (exceptionResponse: String?) -> Unit
+    ) = flow {
+        try {
+            val response = apiService.getCommunityMembers(communityId = communityId)
+            response.suspendOnSuccess {
+                try {
+                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+                    val parsedArray =
+                        parsedData?.content!!.parseTo(MemberCommunityResponseContentItem::class.java)
+                    emit(parsedArray)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
+            }
+                .onError {
+                    val responseResult: BaseMessageResponse? =
+                        errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                    onErrorNorException(responseResult?.message)
+                    Timber.tag("On Error").e(message())
+                }
+                .onException {
+                    onErrorNorException(message)
+                    Timber.tag("On Exception").e(message())
+                }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }.flowOn(ioDispatcher)
 
     suspend fun getAdminCommunityDetails(communityId: Int) = flow {
         try {
@@ -119,7 +187,7 @@ class CommunityRepository @Inject constructor(
     }.flowOn(ioDispatcher)
 
     suspend fun editCommunity(
-        editCommunityBody: CreateCommunityBody,
+        editCommunityBody: EditCommunityBody,
         onErrorNorException: (String?) -> Unit
     ) = flow {
         val response = apiService.editCommunityDetail(editCommunityBody)
@@ -213,7 +281,7 @@ class CommunityRepository @Inject constructor(
     }.flowOn(ioDispatcher)
 
     suspend fun getCreatedCommunities(
-        onException: () -> Unit
+        onException: (String?) -> Unit
     ) = flow {
         try {
             val response = apiService.getCreatedCommunities()
@@ -230,7 +298,7 @@ class CommunityRepository @Inject constructor(
             }
                 .onError { Timber.tag("On Error").e(message()) }
                 .onException {
-                    onException()
+                    onException(message)
                     Timber.tag("On Exception").e(message())
                 }
         } catch (e: Exception) {

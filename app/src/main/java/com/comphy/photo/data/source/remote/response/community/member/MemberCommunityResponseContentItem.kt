@@ -1,17 +1,11 @@
-package com.comphy.photo.data.source.remote.response.post.comment
+package com.comphy.photo.data.source.remote.response.community.member
 
-import android.os.Parcelable
 import com.comphy.photo.data.source.remote.response.post.feed.UserPost
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class SecondChildComment(
-    @SerializedName("childrenComment")
-    val thirdChildComment: List<ThirdChildComment>,
-
-    @SerializedName("comment")
-    val comment: String,
+data class MemberCommunityResponseContentItem(
+    @SerializedName("banned")
+    val banned: Boolean = false,
 
     @SerializedName("created_date")
     val createdDate: Long? = null,
@@ -20,11 +14,11 @@ data class SecondChildComment(
     val deletedDate: String? = null,
 
     @SerializedName("id")
-    val id: Int,
+    val id: Int = 0,
 
     @SerializedName("updated_date")
     val updatedDate: String? = null,
 
     @SerializedName("user")
     val user: UserPost
-) : Parcelable
+)

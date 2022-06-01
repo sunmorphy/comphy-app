@@ -11,7 +11,7 @@ import com.comphy.photo.databinding.ItemCommunityBinding
 class CommunityPreviewAdapter(
     private val communities: List<FollowCommunityResponseContentItem>?,
     private val onOptionClick: (id: Int) -> Unit,
-    private val onItemClick: (id: Int) -> Unit
+    private val onItemClick: (item: FollowCommunityResponseContentItem) -> Unit
 ) : RecyclerView.Adapter<CommunityPreviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -35,7 +35,7 @@ class CommunityPreviewAdapter(
             holder.binding.txtCommunityTitle.text = community.communityName
             holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
             holder.binding.btnOption.setOnClickListener { onOptionClick(community.id) }
-            holder.itemView.setOnClickListener { onItemClick(community.id) }
+            holder.itemView.setOnClickListener { onItemClick(community) }
         }
     }
 

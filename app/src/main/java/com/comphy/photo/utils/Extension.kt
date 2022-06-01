@@ -14,12 +14,26 @@ import com.comphy.photo.data.source.local.entity.CityEntity
 import com.comphy.photo.vo.OrientationType
 import com.comphy.photo.vo.PostType
 import java.io.File
+import java.util.*
 
 object Extension {
 
     val File.size get() = if (!exists()) 0.0 else length().toDouble()
-    val File.sizeInKb get() = size / 1024
+    private val File.sizeInKb get() = size / 1024
     val File.sizeInMb get() = sizeInKb / 1024
+
+    fun Long.parseTimestamp(placeholder: String): String {
+        val minute = (Date().time - this) / 60000
+        val hour = minute / 60
+        val day = hour / 24
+
+        return when {
+            minute < 1 -> "now"
+            minute < 60 -> String.format(placeholder, "${minute}m")
+            hour < 24 -> String.format(placeholder, "${hour}j")
+            else -> String.format(placeholder, "${day}h")
+        }
+    }
 
     fun formatLocationInput(regency: String): String = "${regency.trim()}, Indonesia"
 
@@ -97,6 +111,19 @@ object Extension {
     fun Activity.loadAnim(animId: Int): Animation = AnimationUtils.loadAnimation(this, animId)
 
     fun AppCompatActivity.pagerAdapter(fragments: List<Fragment>): FragmentStateAdapter {
+        return object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int = fragments.size
+
+            override fun createFragment(position: Int): Fragment {
+                val fragment: Fragment?
+                fragment = fragments[position]
+                return fragment
+            }
+
+        }
+    }
+
+    fun Fragment.pagerAdapter(fragments: List<Fragment>): FragmentStateAdapter {
         return object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = fragments.size
 

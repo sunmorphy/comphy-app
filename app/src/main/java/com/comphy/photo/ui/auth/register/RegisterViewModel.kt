@@ -17,7 +17,7 @@ class RegisterViewModel @Inject constructor(
             name,
             email,
             password,
-            onError = { message.postValue(it.message) },
+            onError = { message.postValue(it?.message) },
             onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
@@ -30,7 +30,7 @@ class RegisterViewModel @Inject constructor(
             name,
             email,
             token,
-            onError = { message.postValue(it.message) },
+            onError = { message.postValue(it?.message) },
             onException = { exceptionResponse.postValue(it) }
         )
             .onStart { isLoading.postValue(true) }
