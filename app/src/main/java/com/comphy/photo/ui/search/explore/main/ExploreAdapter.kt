@@ -2,8 +2,10 @@ package com.comphy.photo.ui.search.explore.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.comphy.photo.data.model.ExploreTestModel
+import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContentItem
 import com.comphy.photo.databinding.ItemExploreLandscapeBinding
 import com.comphy.photo.databinding.ItemExplorePortraitBinding
 import com.comphy.photo.databinding.ItemExploreSquareBinding
@@ -13,8 +15,8 @@ import com.comphy.photo.ui.search.explore.main.viewholder.ExploreSquareViewHolde
 import com.comphy.photo.vo.OrientationType
 
 class ExploreAdapter(
-    private val listMedia: List<ExploreTestModel>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val onClick: (contentItem: FeedResponseContentItem) -> Unit
+) : PagingDataAdapter<FeedResponseContentItem, RecyclerView.ViewHolder>(COMPARATOR) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             OrientationType.SQUARE -> ExploreSquareViewHolder(
@@ -42,30 +44,46 @@ class ExploreAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val media = listMedia[position]
+        val media = getItem(position)!!
 
-        when (media.orientation) {
+        when (media.orientationType) {
             OrientationType.SQUARE -> {
-                (holder as ExploreSquareViewHolder).bind(holder.itemView, media.imageUrl)
+                (holder as ExploreSquareViewHolder).bind(holder.itemView, media.linkPhoto ?: "")
             }
             OrientationType.PORTRAIT -> {
-                (holder as ExplorePortraitViewHolder).bind(holder.itemView, media.imageUrl)
+                (holder as ExplorePortraitViewHolder).bind(holder.itemView, media.linkPhoto ?: "")
             }
             else -> {
-                (holder as ExploreLandscapeViewHolder).bind(holder.itemView, media.imageUrl)
+                (holder as ExploreLandscapeViewHolder).bind(holder.itemView, media.linkPhoto ?: "")
             }
         }
+
+        holder.itemView.setOnClickListener { onClick(media) }
     }
 
-    override fun getItemCount(): Int = listMedia.size
-
     override fun getItemViewType(position: Int): Int {
-        val media = listMedia[position]
+        val media = getItem(position)!!
 
-        return when (media.orientation) {
+        return when (media.orientationType) {
             OrientationType.SQUARE -> OrientationType.SQUARE
             OrientationType.PORTRAIT -> OrientationType.PORTRAIT
             else -> OrientationType.LANDSCAPE
+        }
+    }
+
+    companion object {
+        private val COMPARATOR = object : DiffUtil.ItemCallback<FeedResponseContentItem>() {
+            override fun areItemsTheSame(
+                oldItem: FeedResponseContentItem,
+                newItem: FeedResponseContentItem
+            ): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(
+                oldItem: FeedResponseContentItem,
+                newItem: FeedResponseContentItem
+            ): Boolean =
+                oldItem.id == newItem.id
         }
     }
 }
