@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    tools:context=".ui.profile.fragment.ProfileAboutFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="28dp">
+
+            <carbon.widget.LinearLayout
+                android:id="@+id/layoutAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                app:carbon_cornerRadius="18dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/profile_about"
+                    android:textColor="@color/primary_orange"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtAboutContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/profile_about_content"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="12sp" />
+
+            </carbon.widget.LinearLayout>
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutExperience"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:paddingBottom="20dp"
+                app:carbon_cornerRadius="18dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_constraintEnd_toEndOf="@id/layoutAbout"
+                app:layout_constraintStart_toStartOf="@id/layoutAbout"
+                app:layout_constraintTop_toBottomOf="@id/layoutAbout">
+
+                <TextView
+                    android:id="@+id/txtExperience"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/profile_experience"
+                    android:textColor="@color/primary_orange"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnAddExperience"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_add_filled"
+                    app:layout_constraintBottom_toBottomOf="@id/txtExperience"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txtExperience"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txtExperienceEmpty"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/profile_experience_empty"
+                    android:textColor="#BBBCBF"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/btnAddExperience"
+                    app:layout_constraintStart_toStartOf="@id/txtExperience"
+                    app:layout_constraintTop_toBottomOf="@id/txtExperience" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvExperience"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginTop="14dp"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@id/btnAddExperience"
+                    app:layout_constraintStart_toStartOf="@id/txtExperience"
+                    app:layout_constraintTop_toBottomOf="@id/txtExperience"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_experience" />
+
+            </carbon.widget.ConstraintLayout>
+
+            <carbon.widget.LinearLayout
+                android:id="@+id/layoutSocialMedia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                app:carbon_cornerRadius="18dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_constraintTop_toBottomOf="@id/layoutExperience">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/profile_socmed"
+                    android:textColor="@color/primary_orange"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtSocmedContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:drawablePadding="30dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:text="@string/example_name"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:drawableStartCompat="@drawable/ic_socmed" />
+
+            </carbon.widget.LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
