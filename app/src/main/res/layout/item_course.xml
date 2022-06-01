@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    android:background="@color/white"
+    android:elevation="24dp"
+    app:carbon_cornerRadius="18dp"
+    app:carbon_elevationShadowColor="#FCF2E3">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
+
+        <ImageView
+            android:id="@+id/imgCourseIcon"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_clock_big"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtCourseChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/course_chapter"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/imgCourseIcon"
+            app:layout_constraintTop_toBottomOf="@id/imgCourseIcon" />
+
+        <TextView
+            android:id="@+id/txtCourseChapterDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/course_chapter_desc"
+            android:textColor="#8B8B8B"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/txtCourseChapter"
+            app:layout_constraintTop_toBottomOf="@id/txtCourseChapter" />
+
+        <ImageView
+            android:id="@+id/imgMore"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="24dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_more"
+            app:layout_constraintBottom_toBottomOf="@id/txtCourseChapterDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtCourseChapterDesc"
+            app:tint="#C6C6C6"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLockCourseOverlay"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:background="#80606060"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/layoutCourse"
+        app:layout_constraintEnd_toEndOf="@id/layoutCourse"
+        app:layout_constraintStart_toStartOf="@id/layoutCourse"
+        app:layout_constraintTop_toTopOf="@id/layoutCourse">
+
+        <ImageView
+            android:id="@+id/imgLock"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_lock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txtUpgradeAccount"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/txtUpgradeAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/home_community_upgrade"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgLock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgLock"
+            app:layout_constraintTop_toTopOf="@id/imgLock" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</carbon.widget.ConstraintLayout>

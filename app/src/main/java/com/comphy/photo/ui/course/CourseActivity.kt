@@ -1,14 +1,14 @@
-package com.comphy.photo.ui.event.detail
+package com.comphy.photo.ui.course
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.comphy.photo.databinding.ActivityEventDetailBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.comphy.photo.databinding.ActivityCourseBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EventDetailActivity : AppCompatActivity() {
+class CourseActivity : AppCompatActivity() {
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityEventDetailBinding.inflate(layoutInflater)
+        ActivityCourseBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
