@@ -433,4 +433,24 @@
     <string name="jc_tab_category_fashion">Fashion</string>
     <string name="jc_tab_category_journalism">Journalism</string>
 
+
+    <!-- Payment Strings -->
+    <string name="string_upgrade_account">Upgrade Akun</string>
+    <string name="strings_method_of_payment">Cara Pembayaran :</string>
+    <string name="strings_methods_of_payment">1.Pilih jenis paket upgrade yang tersedia. 2.Checkout dan bayar melalui midtrans. 3.Pilih Metode Pembayaran. 4.Pembayaran akan segera diproses 5.Selamat Upgrade akun telah berhasil</string>
+    <string name="strings_checkout">Checkout</string>
+    <string name="string_check_your_order">Cek Ordermu!</string>
+    <string name="strings_premium_account">Premium Account</string>
+    <string name="strings_desc_payment">Buat 5 Komunitas dan bergabung dalam 15 komunitas lainnya.</string>
+    <string name="strings_price">Harga</string>
+    <string name="strings_price2">Rp.50.000</string>
+    <string name="strings_change_package">Ganti Paket</string>
+    <string name="strings_buy_now">Bayar Sekarang</string>
+    <string name="strings_best_offer">Best Offer</string>
+    <string name="strings_nominal">500K</string>
+    <string name="string_txt_money">Rp</string>
+    <string name="strings_limit_account">Unlimited Full Access to the features we provide</string>
+    <string name="string_upgrade_accounts">Upgrade Akun Sekarang!</string>
+
+
 </resources>

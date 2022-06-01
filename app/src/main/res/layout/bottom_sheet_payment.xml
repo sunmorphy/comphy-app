@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="58dp">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="145dp"
+        android:layout_marginTop="24dp"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/imgLogoView"
+        android:layout_width="187dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_midtrans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/txtSheetDesc"
+        android:layout_width="283dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="38dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Kamu akan menyelesaikan pembayaran melalui midtrans."
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgLogoView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnYes"
+        android:layout_width="156dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/neutral_blue_10"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="66dp"
+        android:stateListAnimator="@null"
+        android:text="Iya"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtSheetDesc" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNo"
+        android:layout_width="156dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="@dimen/dp_0"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@android:color/transparent"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="50dp"
+        android:stateListAnimator="@null"
+        android:text="Tidak"
+        android:textAllCaps="false"
+        android:textColor="@color/neutral_blue_10"
+        android:textSize="12sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintStart_toEndOf="@id/btnYes"
+        app:layout_constraintTop_toTopOf="@id/btnYes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

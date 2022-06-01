@@ -32,6 +32,59 @@
         <entry key="..\:/Users/ATK Store/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_pager.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ATK Store/AndroidStudioProjects/comphy-app/app/src/main/res/layout/splash.xml" value="0.2" />
         <entry key="..\:/Users/ATK Store/AndroidStudioProjects/comphy-app/app/src/main/res/layout/splash_activity.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_all_community.xml" value="0.2" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_all_event.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_biodata.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_comment.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_create_community.xml" value="0.12" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_create_post.xml" value="0.176" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_event_detail.xml" value="0.136" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_explore_detail.xml" value="0.176" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_job_detail.xml" value="0.16" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_onboard.xml" value="0.10400000000000001" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_payment.xml" value="0.264" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_reset_password.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_search_result.xml" value="0.25263157894736843" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/activity_verify.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/bottom_sheet.xml" value="0.18432971014492755" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/bottom_sheet_biodata.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/bottom_sheet_choose_community.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/bottom_sheet_create_post.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/bottom_sheet_filter_job.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/bottom_sheet_payment.xml" value="0.2" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/bottom_sheet_set_post.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/custom_dropdown_category.xml" value="0.176" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_checkout_payment.xml" value="0.2" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_comment_detail.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_feed.xml" value="0.2" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_feed_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_job.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_job_description.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_search_community.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_search_event.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_search_job.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_search_post.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_search_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/fragment_training.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_choose_community.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_comment_first_level.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_community.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_community_category.xml" value="0.136" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_explore_square.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_home_pager.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_job.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_payment.xml" value="0.264" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_post_image.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_post_text.xml" value="0.20516304347826086" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_post_video.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_search_history.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_tips.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_training_all.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/LENOVO 2/AndroidStudioProjects/comphy-app/app/src/main/res/layout/item_training_main.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

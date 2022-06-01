@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background">
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/LayoutTypeOfAccount"
+        android:layout_width="328dp"
+        android:layout_height="287dp"
+        android:layout_marginStart="@dimen/dp_0"
+        android:layout_marginTop="@dimen/dp_0"
+        android:layout_marginEnd="@dimen/dp_0"
+        android:background="@drawable/bg_search"
+        app:carbon_cornerRadius="18dp"
+        app:carbon_elevation="24dp"
+        app:carbon_elevationShadowColor="#FCF2E3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <carbon.widget.ConstraintLayout
+            android:id="@+id/LayoutTypesOfAccount"
+            android:layout_width="328dp"
+            android:layout_height="120dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/primary_orange"
+            app:carbon_cornerRadius="18dp"
+            app:carbon_elevation="24dp"
+            app:carbon_elevationShadowColor="#FCF2E3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/LayoutTypeOfAccount">
+
+            <TextView
+                android:id="@+id/txtPremiumAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/strings_best_offer"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtRupiah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="102dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/string_txt_money"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtPremiumAccount" />
+
+            <TextView
+                android:id="@+id/txtNominal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="135dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/strings_nominal"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtPremiumAccount" />
+
+
+        </carbon.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txtdescPremium"
+            android:layout_width="273dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="28dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/strings_limit_account"
+            android:textAlignment="center"
+            android:textColor="@color/neutral_black_40"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LayoutTypesOfAccount" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBuyNow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="44dp"
+            android:layout_marginBottom="29dp"
+            android:backgroundTint="@color/primary_orange"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingVertical="0dp"
+            android:stateListAnimator="@null"
+            android:text="@string/string_upgrade_accounts"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </carbon.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
