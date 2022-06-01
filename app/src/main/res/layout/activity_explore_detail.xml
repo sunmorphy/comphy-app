@@ -73,7 +73,7 @@
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:scaleType="centerCrop"
-                android:src="@color/red_600"
+                android:src="@drawable/ic_placeholder_people"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +84,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/feed_user_name"
+                android:text="@string/string_empty"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@id/btnAddUser"
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/feed_user_name"
+                android:text="@string/string_empty"
                 android:textColor="@color/neutral_black_20"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/txtUserName"
@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/feed_time_passed"
+                android:text="@string/placeholder_time_passed"
                 android:textColor="@color/neutral_black_20"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txtUserJob"
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/feed_caption"
+                android:text="@string/string_empty"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/txtFeedTimePassed"
@@ -159,7 +159,7 @@
                 android:layout_marginTop="8dp"
                 android:drawablePadding="2dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/string_current_location"
+                android:text="@string/placeholder_post_location"
                 android:textColor="#D1D1D1"
                 android:textSize="12sp"
                 app:drawableStartCompat="@drawable/ic_location"
@@ -173,12 +173,13 @@
                 android:layout_height="@dimen/dp_0"
                 android:layout_marginTop="14dp"
                 android:scaleType="centerCrop"
-                android:src="@color/red_500"
+                android:src="@drawable/img_banner_placeholder"
                 app:carbon_cornerRadius="14dp"
                 app:layout_constraintDimensionRatio="4:5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtFeedLocation" />
+                app:layout_constraintTop_toBottomOf="@id/txtFeedLocation"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/txtFeedCommunity"
@@ -187,7 +188,7 @@
                 android:layout_marginTop="16dp"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/feed_post_community"
+                android:text="@string/string_empty"
                 android:textColor="#C4C4C4"
                 android:textSize="12sp"
                 app:drawableStartCompat="@drawable/ic_people_community"
@@ -195,50 +196,17 @@
                 app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
                 app:layout_constraintTop_toBottomOf="@id/imgFeedContent" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgLikesUser1"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                android:src="@color/red_100"
-                app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-                app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgLikesUser2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="17dp"
-                android:scaleType="centerCrop"
-                android:src="@color/red_200"
-                app:layout_constraintBottom_toBottomOf="@id/imgLikesUser1"
-                app:layout_constraintStart_toStartOf="@id/imgLikesUser1"
-                app:layout_constraintTop_toTopOf="@id/imgLikesUser1" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgLikesUser3"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="17dp"
-                android:scaleType="centerCrop"
-                android:src="@color/red_300"
-                app:layout_constraintBottom_toBottomOf="@id/imgLikesUser2"
-                app:layout_constraintStart_toStartOf="@id/imgLikesUser2"
-                app:layout_constraintTop_toTopOf="@id/imgLikesUser2" />
-
             <TextView
                 android:id="@+id/txtLikesCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/feed_likes_count"
+                android:text="@string/placeholder_likes_count"
                 android:textColor="@color/neutral_black_50"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/imgLikesUser3"
-                app:layout_constraintStart_toEndOf="@id/imgLikesUser3"
-                app:layout_constraintTop_toTopOf="@id/imgLikesUser3" />
+                app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
+                app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnComment"
@@ -246,7 +214,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="8dp"
-                android:ellipsize="end"
                 android:fontFamily="@font/poppins_medium"
                 android:includeFontPadding="false"
                 android:insetTop="@dimen/dp_0"
@@ -263,11 +230,11 @@
                 app:backgroundTint="@color/state_button_post"
                 app:cornerRadius="12dp"
                 app:icon="@drawable/ic_comment"
-                app:iconPadding="14dp"
+                app:iconPadding="10dp"
                 app:iconTint="@color/state_button_content_post"
                 app:layout_constraintEnd_toStartOf="@id/btnLike"
                 app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
-                app:layout_constraintTop_toBottomOf="@id/imgLikesUser1"
+                app:layout_constraintTop_toBottomOf="@id/txtLikesCount"
                 app:strokeColor="@color/primary_orange"
                 app:strokeWidth="1dp" />
 
@@ -276,7 +243,6 @@
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:ellipsize="end"
                 android:fontFamily="@font/poppins_medium"
                 android:includeFontPadding="false"
                 android:insetTop="@dimen/dp_0"
@@ -293,7 +259,7 @@
                 app:backgroundTint="@color/state_button_like"
                 app:cornerRadius="12dp"
                 app:icon="@drawable/ic_thumb_up"
-                app:iconPadding="14dp"
+                app:iconPadding="10dp"
                 app:iconTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/btnComment"
                 app:layout_constraintEnd_toEndOf="@id/txtFeedCaption"
@@ -415,7 +381,7 @@
                 android:layout_marginTop="21dp"
                 android:layout_marginEnd="11dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="@string/feed_comment_count"
+                android:text="@string/placeholder_comments_count"
                 android:textColor="@color/neutral_black_20"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@id/btnCommentSeeAll"
@@ -429,6 +395,7 @@
                 android:layout_marginStart="11dp"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:text="@string/feed_comment_see_all"
+                android:textAlignment="textEnd"
                 android:textColor="@color/primary_orange"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/txtCommentCount"
@@ -437,10 +404,13 @@
                 app:layout_constraintTop_toTopOf="@id/txtCommentCount" />
 
             <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutComment"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="#F5F5F5"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="@dimen/dp_10"
                 app:carbon_cornerRadius="14dp"
@@ -463,11 +433,13 @@
                     android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="34dp"
+                    android:focusable="false"
                     android:layout_marginEnd="@dimen/dp_10"
                     android:background="@android:color/transparent"
+                    android:focusableInTouchMode="false"
                     android:fontFamily="@font/poppins_medium"
                     android:hint="@string/comment_write"
-                    android:inputType="textMultiLine"
+                    android:inputType="none"
                     android:textColor="@color/neutral_black"
                     android:textColorHint="#BABABA"
                     android:textSize="12sp"
