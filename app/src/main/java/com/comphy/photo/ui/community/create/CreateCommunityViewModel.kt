@@ -1,4 +1,4 @@
-package com.comphy.photo.ui.community
+package com.comphy.photo.ui.community.create
 
 import androidx.lifecycle.MutableLiveData
 import com.comphy.photo.base.viewmodel.BaseCommunityViewModel
@@ -6,7 +6,7 @@ import com.comphy.photo.data.repository.CommunityRepository
 import com.comphy.photo.data.repository.UploadRepository
 import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.entity.CityEntity
-import com.comphy.photo.data.source.remote.response.community.category.CommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
 import com.comphy.photo.data.source.remote.response.upload.DataItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +23,7 @@ class CreateCommunityViewModel @Inject constructor(
 ) : BaseCommunityViewModel() {
 
     val cities = MutableLiveData<List<CityEntity>>()
-    val categories = MutableLiveData<List<CommunityResponseContentItem>>()
+    val categories = MutableLiveData<List<CategoryCommunityResponseContentItem>>()
     val uploadsUrl = MutableLiveData<List<DataItem>>()
     val uploadResp = MutableLiveData<String>()
     val isFetching = MutableLiveData<Boolean>()
@@ -50,7 +50,7 @@ class CreateCommunityViewModel @Inject constructor(
         communityRepository.getCommunityCategories()
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { categories.postValue(it.data!!.content) }
+            .collect { categories.postValue(it) }
 
     suspend fun getUploadLink(
         type: String,
@@ -61,7 +61,7 @@ class CreateCommunityViewModel @Inject constructor(
     )
         .onStart { isLoading.postValue(true) }
         .onCompletion { isLoading.postValue(false) }
-        .collect { uploadsUrl.postValue(it.data) }
+        .collect { uploadsUrl.postValue(it.data!!) }
 
     suspend fun uploadImageNonPost(
         url: String,
@@ -69,7 +69,7 @@ class CreateCommunityViewModel @Inject constructor(
     ) = uploadRepository.uploadImagesNonPost(url, image)
         .onStart { isLoading.postValue(true) }
         .onCompletion { isLoading.postValue(false) }
-        .collect { uploadResp.postValue("uhh it's a success... i guess") }
+        .collect { uploadResp.postValue("Sukses mengunggah foto") }
 
     suspend fun createCommunity(
         communityName: String,

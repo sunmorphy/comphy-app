@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.community.edit.EditCommunityActivity">
+
+    <ImageView
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginBottom="-36dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/mainView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:background="@color/primary_background"
+        app:layout_constraintTop_toBottomOf="@id/layoutCustomBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpTabEditCommunity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutTab" />
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@color/white"
+                android:paddingVertical="12dp"
+                app:carbon_cornerRadius="14dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_constraintTop_toBottomOf="@id/layoutUpload">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabEditCommunity"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutUserInfo"
+                    app:tabBackground="@drawable/state_tab_indicator"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorColor="@color/primary_orange"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/neutral_black"
+                    app:tabTextAppearance="@style/CustomTabTextAppearance"
+                    app:tabTextColor="@color/neutral_black_20">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ec_tab_profile" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ec_tab_member" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </carbon.widget.ConstraintLayout>
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingHorizontal="16dp"
+                android:paddingBottom="18dp"
+                app:carbon_cornerRadiusBottomEnd="14dp"
+                app:carbon_cornerRadiusBottomStart="14dp"
+                app:carbon_elevation="30dp"
+                app:carbon_elevationShadowColor="#FFEACB"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <carbon.widget.ImageView
+                    android:id="@+id/imgBanner"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="22dp"
+                    android:contentDescription="@string/string_upload_banner"
+                    android:src="@drawable/bg_upload"
+                    app:carbon_cornerRadius="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <carbon.widget.ImageView
+                    android:id="@+id/imgBannerOverlay"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_0"
+                    android:background="@color/neutral_black_20"
+                    android:visibility="gone"
+                    app:carbon_cornerRadius="14dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgBanner"
+                    app:layout_constraintEnd_toEndOf="@id/imgBanner"
+                    app:layout_constraintStart_toStartOf="@id/imgBanner"
+                    app:layout_constraintTop_toTopOf="@id/imgBanner"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txtBannerSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/cc_upload_banner_size"
+                    android:textColor="@color/neutral_black_60"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgBanner" />
+
+                <TextView
+                    android:id="@+id/txtBannerMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/cc_upload_banner_max"
+                    android:textColor="@color/neutral_black_50"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txtBannerSize"
+                    app:layout_constraintStart_toStartOf="@id/txtBannerSize"
+                    app:layout_constraintTop_toBottomOf="@id/txtBannerSize" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="7dp"
+                    android:src="@drawable/ic_placeholder_people"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="3dp"
+                    app:civ_circle_background_color="#C4C4C4"
+                    app:layout_constraintEnd_toEndOf="@id/imgBanner"
+                    app:layout_constraintStart_toStartOf="@id/imgBanner"
+                    app:layout_constraintTop_toBottomOf="@id/txtBannerMax" />
+
+            </carbon.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="19dp"
+        app:carbon_cornerRadiusBottomEnd="14dp"
+        app:carbon_cornerRadiusBottomStart="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="@dimen/dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/string_back"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_orange"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_back"
+            app:iconPadding="10dp"
+            app:iconTint="@color/primary_orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnDeleteCommunity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/community_delete"
+            android:textColor="@color/primary_orange"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    </carbon.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
