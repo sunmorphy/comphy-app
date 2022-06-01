@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.comphy.photo.R
-import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
 import com.comphy.photo.databinding.ItemCommunityBinding
 import splitties.resources.color
 
 class CreatePostAdapter(
-    private val communities: List<CreatedCommunityResponseContent>?,
+    private val communities: List<FollowCommunityResponseContentItem>?,
     private val onClick: (communityName: String, communityId: Int, categoryId: Int) -> Unit
 ) : RecyclerView.Adapter<CreatePostAdapter.ViewHolder>() {
 

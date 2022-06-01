@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@color/white"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="13dp"
+    app:carbon_cornerRadius="18dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFDAA3">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgCommunity"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_people_community"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtCommunityTitle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="28dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:maxLines="1"
+        android:text="@string/string_empty"
+        android:textColor="@color/neutral_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/txtCommunityCategory"
+        app:layout_constraintEnd_toStartOf="@id/btnOption"
+        app:layout_constraintStart_toEndOf="@id/imgCommunity"
+        app:layout_constraintTop_toTopOf="@id/imgCommunity"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/txtCommunityCategory"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/string_empty"
+        android:textColor="@color/neutral_4"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@id/imgCommunity"
+        app:layout_constraintEnd_toEndOf="@id/txtCommunityTitle"
+        app:layout_constraintStart_toStartOf="@id/txtCommunityTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtCommunityTitle" />
+
+    <ImageView
+        android:id="@+id/imgCommunityType"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="14dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_globe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/neutral_black_20"
+        tools:ignore="ContentDescription" />
+
+</carbon.widget.ConstraintLayout>

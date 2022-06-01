@@ -11,7 +11,7 @@ data class JobResponseContentItem(
     val createdDate: Long? = null,
 
     @SerializedName("deleted_date")
-    val deletedDate: Any? = null,
+    val deletedDate: String? = null,
 
     @SerializedName("fulltime")
     val fulltime: Boolean,

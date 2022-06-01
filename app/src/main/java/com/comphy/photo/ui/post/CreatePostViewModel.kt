@@ -7,9 +7,9 @@ import com.comphy.photo.data.repository.PostRepository
 import com.comphy.photo.data.repository.UploadRepository
 import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.entity.CityEntity
-import com.comphy.photo.data.source.remote.response.community.category.CommunityResponseContentItem
-import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
-import com.comphy.photo.data.source.remote.response.post.create.CreatePostBody
+import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.post.create.PostBody
 import com.comphy.photo.data.source.remote.response.upload.DataItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
@@ -26,14 +26,14 @@ class CreatePostViewModel @Inject constructor(
 ) : ViewModel() {
 
     val cities = MutableLiveData<List<CityEntity>>()
-    val categories = MutableLiveData<List<CommunityResponseContentItem>>()
+    val categories = MutableLiveData<List<CategoryCommunityResponseContentItem>>()
     val uploadsUrl = MutableLiveData<List<DataItem>>()
     val isFetching = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
     val exceptionResponse = MutableLiveData<String?>()
     val successResponse = MutableLiveData<String>()
-    val userCreatedCommunity = MutableLiveData<List<CreatedCommunityResponseContent>>()
-    val userJoinedCommunity = MutableLiveData<List<CreatedCommunityResponseContent>>()
+    val userCreatedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
+    val userJoinedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
 
     suspend fun getCities() =
         userRepository.getUserCities {
@@ -54,7 +54,7 @@ class CreatePostViewModel @Inject constructor(
         communityRepository.getCommunityCategories()
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { categories.postValue(it.data!!.content) }
+            .collect { categories.postValue(it) }
 
     suspend fun getCreatedCommunities() =
         communityRepository.getCreatedCommunities {
@@ -64,12 +64,12 @@ class CreatePostViewModel @Inject constructor(
                 }
                     .onStart { isFetching.postValue(true) }
                     .onCompletion { isFetching.postValue(false) }
-                    .collect { userCreatedCommunity.postValue(it.data?.content!!) }
+                    .collect { userCreatedCommunity.postValue(it) }
             }
         }
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { userCreatedCommunity.postValue(it.data?.content!!) }
+            .collect { userCreatedCommunity.postValue(it) }
 
     suspend fun getJoinedCommunities() =
         communityRepository.getJoinedCommunities {
@@ -79,12 +79,12 @@ class CreatePostViewModel @Inject constructor(
                 }
                     .onStart { isFetching.postValue(true) }
                     .onCompletion { isFetching.postValue(false) }
-                    .collect { userJoinedCommunity.postValue(it.data?.content!!) }
+                    .collect { userJoinedCommunity.postValue(it) }
             }
         }
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
-            .collect { userJoinedCommunity.postValue(it.data?.content!!) }
+            .collect { userJoinedCommunity.postValue(it) }
 
     suspend fun getUploadLink(
         type: String,
@@ -130,7 +130,7 @@ class CreatePostViewModel @Inject constructor(
         linkPhoto: String? = null,
         linkVideo: String? = null
     ) {
-        val createPostBody = CreatePostBody(
+        val createPostBody = PostBody(
             title = title,
             description = description,
             camera = camera,
@@ -152,5 +152,4 @@ class CreatePostViewModel @Inject constructor(
             .onCompletion { isLoading.postValue(false) }
             .collect { successResponse.postValue(it.message) }
     }
-
 }

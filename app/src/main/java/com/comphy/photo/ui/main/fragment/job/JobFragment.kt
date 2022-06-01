@@ -12,15 +12,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comphy.photo.R
+import com.comphy.photo.data.source.remote.response.job.list.JobResponseContentItem
 import com.comphy.photo.databinding.BottomSheetFilterJobBinding
 import com.comphy.photo.databinding.FragmentJobBinding
 import com.comphy.photo.ui.job.JobDetailActivity
-import com.comphy.photo.utils.Extension.changeDrawable
 import com.comphy.photo.utils.Extension.formatCity
 import com.comphy.photo.utils.Extension.loadAnim
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.launch
 import splitties.fragments.start
+import splitties.resources.drawable
 
 class JobFragment : Fragment() {
 
@@ -39,15 +40,6 @@ class JobFragment : Fragment() {
     private var jobType = ""
     private var isCanceled = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch {
-            viewModel.getJobs()
-            viewModel.getCities()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,7 +53,10 @@ class JobFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch { viewModel.getJobs() }
+        lifecycleScope.launch {
+            viewModel.getCities()
+            viewModel.getJobs()
+        }
 
         binding.btnFilter.setOnClickListener {
             binding.btnFilter.startAnimation(
@@ -74,9 +69,6 @@ class JobFragment : Fragment() {
     }
 
     private fun setupObserver() {
-//        viewModel.isLoading.observe(viewLifecycleOwner) {
-//            (activity as MainActivity).setLoading(it)
-//        }
         viewModel.cities.observe(viewLifecycleOwner) {
             val locationAdapter =
                 ArrayAdapter(
@@ -87,17 +79,17 @@ class JobFragment : Fragment() {
                 )
 
             bottomSheetFilterJobBinding.edtLocation.apply {
-                setDropDownBackgroundDrawable(activity?.changeDrawable(R.drawable.bg_dialog))
+                setDropDownBackgroundDrawable(drawable(R.drawable.bg_dialog))
                 threshold = 1
                 setAdapter(locationAdapter)
             }
         }
-//        viewModel.jobResponse.observe(viewLifecycleOwner) {
-//            setupRecycler(it.jobResponseData?.content!!)
-//        }
+        viewModel.jobResponse.observe(viewLifecycleOwner) {
+            setupRecycler(it)
+        }
     }
 
-    private fun setupRecycler(listJobs: List<Any>) {
+    private fun setupRecycler(listJobs: List<JobResponseContentItem>) {
         if (listJobs.isEmpty()) {
             binding.layoutEmpty.visibility = View.VISIBLE
             binding.rvJob.visibility = View.GONE
@@ -106,7 +98,9 @@ class JobFragment : Fragment() {
             binding.rvJob.apply {
                 visibility = View.VISIBLE
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = JobAdapter(listJobs) { start<JobDetailActivity>() }
+                adapter = JobAdapter(listJobs) { start<JobDetailActivity> {
+                    putExtra("extra_id", it)
+                } }
             }
         }
     }

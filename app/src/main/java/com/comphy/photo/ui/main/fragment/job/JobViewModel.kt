@@ -5,9 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.comphy.photo.data.repository.JobRepository
 import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.entity.CityEntity
-import com.comphy.photo.data.source.remote.response.job.list.JobResponse
+import com.comphy.photo.data.source.remote.response.job.detail.JobDetailResponseData
 import com.comphy.photo.data.source.remote.response.job.list.JobResponseContentItem
-import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
@@ -20,7 +19,7 @@ class JobViewModel @Inject constructor(
 ) : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
-//    val jobResponse = MutableLiveData<List<JobResponseContentItem>>()
+    val jobResponse = MutableLiveData<List<JobResponseContentItem>>()
     val cities = MutableLiveData<List<CityEntity>>()
     val exceptionResponse = MutableLiveData<String>()
 
@@ -43,7 +42,7 @@ class JobViewModel @Inject constructor(
         jobRepository.getJobs(page, perPage)
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
-//            .collect { jobResponse.postValue(it) }
+            .collect { jobResponse.postValue(it) }
 
     suspend fun getFilteredJobs(
         page: Int? = null,

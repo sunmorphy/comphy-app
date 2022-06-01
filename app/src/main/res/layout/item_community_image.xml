@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="18dp"
+    android:background="@color/white"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="30dp"
+    app:carbon_cornerRadius="18dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFEACB">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="centerCrop"
+        android:src="@color/red_600"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtUserName"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/feed_user_name"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@id/btnAddUser"
+        app:layout_constraintStart_toEndOf="@id/imgProfile" />
+
+    <TextView
+        android:id="@+id/txtUserJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/feed_user_name"
+        android:textColor="@color/neutral_black_20"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtUserName"
+        app:layout_constraintTop_toBottomOf="@id/txtUserName" />
+
+    <ImageButton
+        android:id="@+id/btnAddUser"
+        android:layout_width="25dp"
+        android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/feed_bookmark"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_add_user"
+        app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtUserName" />
+
+    <TextView
+        android:id="@+id/txtTimePassed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/feed_time_passed"
+        android:textColor="@color/neutral_black_20"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/txtUserJob"
+        app:layout_constraintEnd_toEndOf="@id/btnAddUser"
+        app:layout_constraintTop_toTopOf="@id/txtUserJob" />
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginTop="14dp"
+        android:scaleType="centerCrop"
+        android:src="@color/red_500"
+        app:carbon_cornerRadius="14dp"
+        app:layout_constraintDimensionRatio="4:5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtUserJob"
+        tools:ignore="ContentDescription" />
+
+</carbon.widget.ConstraintLayout>

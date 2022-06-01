@@ -39,9 +39,7 @@ class JobRepository @Inject constructor(
                 }
             }
                 .onError { Timber.tag("On Error").e(message()) }
-                .onException {
-                    Timber.tag("On Exception").e(message())
-                }
+                .onException { Timber.tag("On Exception").e(message()) }
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -60,7 +58,7 @@ class JobRepository @Inject constructor(
             .onException { Timber.tag("On Exception").e(message()) }
     }.flowOn(ioDispatcher)
 
-    suspend fun getJobDetail(
+    suspend fun getJobDetails(
         jobId: Int
     ) = flow {
         try {
@@ -71,14 +69,13 @@ class JobRepository @Inject constructor(
                     emit(parsedData)
                     return@suspendOnSuccess
                 } catch (e: Exception) {
-                    println("Cast object fail")
                     Timber.e(e)
                 }
             }
                 .onError { Timber.tag("On Error").e(message()) }
                 .onException { Timber.tag("On Exception").e(message()) }
         } catch (e: Exception) {
-            println(e)
+            Timber.e(e)
         }
     }
 

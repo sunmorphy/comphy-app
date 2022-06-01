@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white"
+    android:padding="16dp"
+    app:carbon_cornerRadius="18dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFE0B0">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgMemberProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_placeholder_people"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMemberName"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12sp"
+        android:layout_marginEnd="156dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/example_name"
+        android:textColor="@color/neutral_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/txtMemberJob"
+        app:layout_constraintEnd_toStartOf="@id/layoutActionMember"
+        app:layout_constraintStart_toEndOf="@id/imgMemberProfile"
+        app:layout_constraintTop_toTopOf="@id/imgMemberProfile" />
+
+    <TextView
+        android:id="@+id/txtMemberJob"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12sp"
+        android:layout_marginEnd="156dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/example_name"
+        android:textColor="@color/neutral_black_20"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/imgMemberProfile"
+        app:layout_constraintEnd_toStartOf="@id/layoutActionMember"
+        app:layout_constraintStart_toEndOf="@id/imgMemberProfile"
+        app:layout_constraintTop_toBottomOf="@id/txtMemberName" />
+
+    <TextView
+        android:id="@+id/txtMemberRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/string_member"
+        android:textColor="@color/neutral_black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/txtMemberJob"
+        app:layout_constraintStart_toEndOf="@id/txtMemberName"
+        app:layout_constraintTop_toTopOf="@id/txtMemberName" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutActionMember"
+        android:layout_width="25dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/imgMemberProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgMemberProfile">
+
+        <ImageButton
+            android:id="@+id/btnAdminAction"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_dots"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/btnBanMember"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_out"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</carbon.widget.ConstraintLayout>

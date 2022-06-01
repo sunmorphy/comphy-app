@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.community.edit.fragment.EditCommunityProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtCommunityCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:enabled="false"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/ec_community_code"
+            android:textColor="@color/state_community_code"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <carbon.widget.LinearLayout
+            android:id="@+id/layoutCommunityCode"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:carbon_cornerRadius="14dp"
+            app:carbon_elevation="30dp"
+            app:carbon_elevationShadowColor="#FFD9A3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtCommunityCode">
+
+            <TextView
+                android:id="@+id/txtPrivateCommunityCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="30dp"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="1"
+                android:text="@string/ec_community_code_empty"
+                android:textColor="@color/state_community_code"
+                android:textSize="18sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCopyPrivateCommunityCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/state_button_activable"
+                android:enabled="false"
+                android:fontFamily="@font/poppins_medium"
+                android:insetTop="@dimen/dp_0"
+                android:insetBottom="@dimen/dp_0"
+                android:paddingHorizontal="19dp"
+                android:paddingVertical="16dp"
+                android:stateListAnimator="@null"
+                android:text="@string/string_copy"
+                android:textAllCaps="false"
+                android:textColor="@color/state_button_text_activable"
+                android:textSize="14sp"
+                app:cornerRadius="14dp" />
+
+        </carbon.widget.LinearLayout>
+
+        <TextView
+            android:id="@+id/txtCommunityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="13dp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/cc_community_name"
+            android:textColor="@color/neutral_black"
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_required_small"
+            app:layout_constraintStart_toStartOf="@id/layoutCommunityCode"
+            app:layout_constraintTop_toBottomOf="@id/layoutCommunityCode" />
+
+        <carbon.widget.EditText
+            android:id="@+id/edtCommunityName"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/state_field"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="@string/cc_community_name_text"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingHorizontal="29dp"
+            android:paddingVertical="18dp"
+            android:textColor="@color/neutral_black"
+            android:textColorHint="@color/neutral_black_20"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/layoutCommunityCode"
+            app:layout_constraintStart_toStartOf="@id/layoutCommunityCode"
+            app:layout_constraintTop_toBottomOf="@id/txtCommunityName" />
+
+        <TextView
+            android:id="@+id/txtErrorCommunityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/cc_community_name_error"
+            android:textAlignment="textStart"
+            android:textColor="@color/primary_red"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/edtCommunityName"
+            app:layout_constraintTop_toBottomOf="@id/edtCommunityName" />
+
+        <TextView
+            android:id="@+id/txtCommunityLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="13dp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/cc_community_location"
+            android:textColor="@color/neutral_black"
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_required_small"
+            app:layout_constraintStart_toStartOf="@id/txtErrorCommunityName"
+            app:layout_constraintTop_toBottomOf="@id/txtErrorCommunityName" />
+
+        <carbon.widget.LinearLayout
+            android:id="@+id/layoutInputLocation"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            app:carbon_elevation="30dp"
+            app:carbon_elevationShadowColor="#FFF4E5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtCommunityLocation">
+
+            <AutoCompleteTextView
+                android:id="@+id/edtCommunityLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/state_field"
+                android:dropDownSelector="@drawable/bg_dialog"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="@string/cc_community_location_text"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingHorizontal="29dp"
+                android:paddingVertical="18dp"
+                android:scrollbars="none"
+                android:textColor="@color/neutral_black"
+                android:textColorHint="@color/neutral_black_20"
+                android:textSize="12sp" />
+
+        </carbon.widget.LinearLayout>
+
+        <TextView
+            android:id="@+id/txtErrorCommunityLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/cc_community_location_error"
+            android:textAlignment="textStart"
+            android:textColor="@color/primary_red"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/layoutInputLocation"
+            app:layout_constraintTop_toBottomOf="@id/layoutInputLocation" />
+
+        <TextView
+            android:id="@+id/txtCommunityDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="13dp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/cc_community_description"
+            android:textColor="@color/neutral_black"
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_required_small"
+            app:layout_constraintStart_toStartOf="@id/txtErrorCommunityLocation"
+            app:layout_constraintTop_toBottomOf="@id/txtErrorCommunityLocation" />
+
+        <carbon.widget.EditText
+            android:id="@+id/edtCommunityDescription"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="120dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/state_field"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="top|start"
+            android:hint="@string/cc_community_description_text"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:paddingHorizontal="29dp"
+            android:paddingVertical="18dp"
+            android:textColor="@color/neutral_black"
+            android:textColorHint="@color/neutral_black_20"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/layoutInputLocation"
+            app:layout_constraintStart_toStartOf="@id/layoutInputLocation"
+            app:layout_constraintTop_toBottomOf="@id/txtCommunityDescription" />
+
+        <TextView
+            android:id="@+id/txtErrorCommunityDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/cc_community_description_error"
+            android:textAlignment="textStart"
+            android:textColor="@color/primary_red"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/edtCommunityDescription"
+            app:layout_constraintTop_toBottomOf="@id/edtCommunityDescription" />
+
+        <TextView
+            android:id="@+id/txtCommunityType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawablePadding="13dp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/cc_community_type"
+            android:textColor="@color/neutral_black"
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_required_small"
+            app:layout_constraintStart_toStartOf="@id/txtErrorCommunityDescription"
+            app:layout_constraintTop_toBottomOf="@id/txtErrorCommunityDescription" />
+
+        <RadioGroup
+            android:id="@+id/rgCommunityType"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintEnd_toEndOf="@id/edtCommunityDescription"
+            app:layout_constraintStart_toStartOf="@id/edtCommunityDescription"
+            app:layout_constraintTop_toBottomOf="@id/txtCommunityType">
+
+            <RadioButton
+                android:id="@+id/rbCommunityPrivate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:button="@drawable/state_radio"
+                android:buttonTint="@color/primary_orange"
+                android:checked="false"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="23dp"
+                android:text="@string/string_community_type_private"
+                android:textColor="#1A1A1A"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/rbCommunityPublic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:button="@drawable/state_radio"
+                android:buttonTint="@color/primary_orange"
+                android:checked="false"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="23dp"
+                android:text="@string/string_community_type_public"
+                android:textColor="#1A1A1A"
+                android:textSize="14sp" />
+
+        </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveChange"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="@color/primary_orange"
+            android:fontFamily="@font/poppins_bold"
+            android:includeFontPadding="false"
+            android:paddingVertical="12dp"
+            android:stateListAnimator="@null"
+            android:text="@string/string_save_change"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="@id/rgCommunityType"
+            app:layout_constraintStart_toStartOf="@id/rgCommunityType"
+            app:layout_constraintTop_toBottomOf="@id/rgCommunityType" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

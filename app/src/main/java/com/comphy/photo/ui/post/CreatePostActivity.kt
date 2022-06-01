@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
@@ -19,8 +20,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.comphy.photo.R
 import com.comphy.photo.base.activity.BasePostActivity
-import com.comphy.photo.data.source.remote.response.community.created.CreatedCommunityResponseContent
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
 import com.comphy.photo.databinding.ActivityCreatePostBinding
+import com.comphy.photo.databinding.BottomSheetBinding
 import com.comphy.photo.databinding.BottomSheetChooseCommunityBinding
 import com.comphy.photo.ui.custom.CustomLoading
 import com.comphy.photo.utils.Extension
@@ -66,6 +68,9 @@ class CreatePostActivity : BasePostActivity() {
     private val bottomSheetChooseCommunityBinding by lazy(LazyThreadSafetyMode.NONE) {
         BottomSheetChooseCommunityBinding.inflate(layoutInflater)
     }
+    private val bottomSheetBinding by lazy(LazyThreadSafetyMode.NONE) {
+        BottomSheetBinding.inflate(layoutInflater)
+    }
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
     private val viewModel: CreatePostViewModel by viewModels()
     private var extraText: String? = null
@@ -73,7 +78,7 @@ class CreatePostActivity : BasePostActivity() {
     private var extraVideo: String? = null
     private var player: ExoPlayer? = null
 
-    private val availableCommunity = mutableListOf<CreatedCommunityResponseContent>()
+    private val availableCommunity = mutableListOf<FollowCommunityResponseContentItem>()
     private val categories = mutableListOf<String>()
     private val categoryIds = mutableListOf<Int>()
 
@@ -123,6 +128,11 @@ class CreatePostActivity : BasePostActivity() {
         )
         loadingImage = binding.imgLoadingBtn
         buttonText = R.string.string_upload_post
+        bottomSheetBinding.apply {
+            animView.setAnimation(R.raw.anim_success)
+            txtSheetTitle.text = getString(R.string.post_success_title)
+            txtSheetDesc.text = getString(R.string.post_success_description)
+        }
         binding.btnBack.setOnClickListener { onBackPressed() }
     }
 
@@ -184,6 +194,7 @@ class CreatePostActivity : BasePostActivity() {
                             aperture = binding.layoutSheetCreatePost.edtPostAperture.text.toString()
                                 .ifEmpty { null },
                             location = binding.layoutSheetCreatePost.edtLocation.text.toString()
+                                .split(",")[0]
                                 .ifEmpty { null },
                             categoryCommunityId = selectedCategory,
                             communityId = selectedCommunityId.takeIf { value -> value != -1 },
@@ -198,6 +209,7 @@ class CreatePostActivity : BasePostActivity() {
                             title = binding.layoutSheetCreatePost.edtPostTitle.text.toString(),
                             description = binding.layoutSheetCreatePost.edtPostCaption.text.toString(),
                             location = binding.layoutSheetCreatePost.edtLocation.text.toString()
+                                .split(",")[0]
                                 .ifEmpty { null },
                             categoryCommunityId = selectedCategory,
                             communityId = selectedCommunityId.takeIf { value -> value != -1 },
@@ -210,7 +222,29 @@ class CreatePostActivity : BasePostActivity() {
                 }
             }
         }
-        viewModel.successResponse.observe(this) { finish() }
+        viewModel.successResponse.observe(this) {
+            toast(it)
+            val nextScreenTimer = object : CountDownTimer(10000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val nextScreen = "Feed Post (${millisUntilFinished / 1000}s)"
+                    bottomSheetBinding.btnSheetAction.apply {
+                        setBackgroundColor(color(R.color.primary_green))
+                        text = nextScreen
+                        setOnClickListener {
+                            cancel()
+                            onFinish()
+                        }
+                    }
+                }
+
+                override fun onFinish() = finish()
+            }
+
+            bottomSheetDialog.setContentView(bottomSheetBinding.root)
+            bottomSheetDialog.show()
+            nextScreenTimer.start()
+            bottomSheetDialog.setOnDismissListener { nextScreenTimer.onFinish() }
+        }
     }
 
     private fun setCreatePostType() {
@@ -240,38 +274,40 @@ class CreatePostActivity : BasePostActivity() {
                     getString(R.string.post_choose_photo),
                     getString(R.string.post_choose_photo_desc)
                 ) {
-                    openPicker(
-                        UwMediaPicker.GalleryMode.ImageGallery,
-                        MediaSize.IMAGE_POST
-                    ) { media, file ->
-                        selectedMediaPath = media.mediaPath
-                        observableMediaPath.value = selectedMediaPath
-                        observeMediaOrientation(file.isItsWidthBiggerThanHeight(PostType.IMAGE))
-
-                        Glide.with(this@CreatePostActivity)
-                            .load(media.mediaPath)
-                            .apply(RequestOptions())
-                            .centerCrop()
-                            .into(binding.imgPreview)
-
-                        binding.btnExpand.setOnClickListener {
-                            if (isFit) {
-                                Glide.with(this@CreatePostActivity)
-                                    .load(media.mediaPath)
-                                    .apply(RequestOptions())
-                                    .centerCrop()
-                                    .into(binding.imgPreview)
-                            } else {
-                                Glide.with(this@CreatePostActivity)
-                                    .load(media.mediaPath)
-                                    .apply(RequestOptions())
-                                    .fitCenter()
-                                    .into(binding.imgPreview)
-                            }
-                            isFit = !isFit
+                    requestAccessForFile {
+                        openPicker(
+                            UwMediaPicker.GalleryMode.ImageGallery,
+                            MediaSize.IMAGE_POST
+                        ) { media, file ->
+                            selectedMediaPath = media.mediaPath
+                            observableMediaPath.value = selectedMediaPath
                             observeMediaOrientation(file.isItsWidthBiggerThanHeight(PostType.IMAGE))
-                        }
 
+                            Glide.with(this@CreatePostActivity)
+                                .load(media.mediaPath)
+                                .apply(RequestOptions())
+                                .centerCrop()
+                                .into(binding.imgPreview)
+
+                            binding.btnExpand.setOnClickListener {
+                                if (isFit) {
+                                    Glide.with(this@CreatePostActivity)
+                                        .load(media.mediaPath)
+                                        .apply(RequestOptions())
+                                        .centerCrop()
+                                        .into(binding.imgPreview)
+                                } else {
+                                    Glide.with(this@CreatePostActivity)
+                                        .load(media.mediaPath)
+                                        .apply(RequestOptions())
+                                        .fitCenter()
+                                        .into(binding.imgPreview)
+                                }
+                                isFit = !isFit
+                                observeMediaOrientation(file.isItsWidthBiggerThanHeight(PostType.IMAGE))
+                            }
+
+                        }
                     }
                 }
             }
@@ -290,48 +326,54 @@ class CreatePostActivity : BasePostActivity() {
                     getString(R.string.post_choose_video),
                     getString(R.string.post_choose_video_desc)
                 ) {
-                    openPicker(
-                        UwMediaPicker.GalleryMode.VideoGallery,
-                        MediaSize.VIDEO
-                    ) { media, file ->
-                        selectedMediaPath = media.mediaPath
-                        observableMediaPath.value = selectedMediaPath
-                        observeMediaOrientation(file.isItsWidthBiggerThanHeight(PostType.VIDEO))
+                    requestAccessForFile {
+                        openPicker(
+                            UwMediaPicker.GalleryMode.VideoGallery,
+                            MediaSize.VIDEO
+                        ) { media, file ->
+                            selectedMediaPath = media.mediaPath
+                            observableMediaPath.value = selectedMediaPath
+                            observeMediaOrientation(file.isItsWidthBiggerThanHeight(PostType.VIDEO))
 
-                        player = ExoPlayer.Builder(this@CreatePostActivity)
-                            .build()
-                            .also { exoPlayer ->
-                                binding.playerPreview.apply {
-                                    visibility = View.VISIBLE
-                                    player = exoPlayer
-                                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-                                }
-                                val mediaItem = MediaItem.fromUri(Uri.parse(media.mediaPath))
-                                exoPlayer.setMediaItem(mediaItem)
-                                exoPlayer.prepare()
-
-                                binding.btnExpand.setOnClickListener {
-                                    if (isFit) {
-                                        binding.playerPreview.apply {
-                                            visibility = View.VISIBLE
-                                            player = exoPlayer
-                                            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-                                        }
-                                        exoPlayer.setMediaItem(mediaItem)
-                                        exoPlayer.prepare()
-                                    } else {
-                                        binding.playerPreview.apply {
-                                            visibility = View.VISIBLE
-                                            player = exoPlayer
-                                            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
-                                        }
-                                        exoPlayer.setMediaItem(mediaItem)
-                                        exoPlayer.prepare()
+                            player = ExoPlayer.Builder(this@CreatePostActivity)
+                                .build()
+                                .also { exoPlayer ->
+                                    binding.playerPreview.apply {
+                                        visibility = View.VISIBLE
+                                        player = exoPlayer
+                                        resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
                                     }
-                                    isFit = !isFit
-                                    observeMediaOrientation(file.isItsWidthBiggerThanHeight(PostType.VIDEO))
+                                    val mediaItem = MediaItem.fromUri(Uri.parse(media.mediaPath))
+                                    exoPlayer.setMediaItem(mediaItem)
+                                    exoPlayer.prepare()
+
+                                    binding.btnExpand.setOnClickListener {
+                                        if (isFit) {
+                                            binding.playerPreview.apply {
+                                                visibility = View.VISIBLE
+                                                player = exoPlayer
+                                                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+                                            }
+                                            exoPlayer.setMediaItem(mediaItem)
+                                            exoPlayer.prepare()
+                                        } else {
+                                            binding.playerPreview.apply {
+                                                visibility = View.VISIBLE
+                                                player = exoPlayer
+                                                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+                                            }
+                                            exoPlayer.setMediaItem(mediaItem)
+                                            exoPlayer.prepare()
+                                        }
+                                        isFit = !isFit
+                                        observeMediaOrientation(
+                                            file.isItsWidthBiggerThanHeight(
+                                                PostType.VIDEO
+                                            )
+                                        )
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
             }
@@ -531,6 +573,29 @@ class CreatePostActivity : BasePostActivity() {
         } else {
             binding.layoutUpload.isEnabled = false
         }
+    }
+
+    private fun showBottomSheetDialog() {
+        val nextScreenTimer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val nextScreen = "Feed Post (${millisUntilFinished / 1000}s)"
+                bottomSheetBinding.btnSheetAction.apply {
+                    setBackgroundColor(color(R.color.primary_green))
+                    text = nextScreen
+                    setOnClickListener {
+                        cancel()
+                        onFinish()
+                    }
+                }
+            }
+
+            override fun onFinish() = finish()
+        }
+
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.show()
+        nextScreenTimer.start()
+        bottomSheetDialog.setOnDismissListener { nextScreenTimer.onFinish() }
     }
 
     private fun observeMediaOrientation(fitOrientation: Int) {
