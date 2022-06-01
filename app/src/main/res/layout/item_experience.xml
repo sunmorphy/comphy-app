@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp">
+
+    <TextView
+        android:id="@+id/txtExperienceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:maxLines="1"
+        android:text="@string/profile_experience_title"
+        android:textColor="@color/neutral_black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtExperienceDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/profile_experience_date"
+        android:textColor="#BBBCBF"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/txtExperienceTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtExperienceTitle" />
+
+    <TextView
+        android:id="@+id/txtExperienceDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/profile_experience_description"
+        android:textColor="#BBBCBF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/txtExperienceTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtExperienceTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.profile.ProfileActivity">
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="19dp"
+        android:paddingBottom="18dp"
+        app:carbon_cornerRadiusBottomEnd="14dp"
+        app:carbon_cornerRadiusBottomStart="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="@dimen/dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/string_back"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_orange"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_back"
+            app:iconPadding="10dp"
+            app:iconTint="@color/primary_orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/string_logout"
+            android:textColor="@color/primary_orange"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+        <TextView
+            android:id="@+id/btnAddUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="14dp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/string_follow"
+            android:textColor="@color/neutral_black"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_add_user"
+            app:drawableTint="@color/neutral_black"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    </carbon.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutCustomBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="24dp"
+                app:carbon_cornerRadiusBottomEnd="18dp"
+                app:carbon_cornerRadiusBottomStart="18dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <carbon.widget.ImageView
+                    android:id="@+id/imgBanner"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="110dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:contentDescription="@string/string_upload_banner"
+                    android:src="@drawable/bg_upload"
+                    app:carbon_cornerRadius="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <carbon.widget.ImageView
+                    android:id="@+id/imgBannerOverlay"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_0"
+                    android:background="@color/neutral_black_20"
+                    android:visibility="gone"
+                    app:carbon_cornerRadius="14dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgBanner"
+                    app:layout_constraintEnd_toEndOf="@id/imgBanner"
+                    app:layout_constraintStart_toStartOf="@id/imgBanner"
+                    app:layout_constraintTop_toTopOf="@id/imgBanner"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txtBannerSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:text="@string/cc_upload_banner_size"
+                    android:textColor="@color/neutral_black_60"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtBannerMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/cc_upload_banner_max"
+                    android:textColor="@color/neutral_black_50"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txtBannerSize"
+                    app:layout_constraintStart_toStartOf="@id/txtBannerSize"
+                    app:layout_constraintTop_toBottomOf="@id/txtBannerSize" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="7dp"
+                    android:src="@drawable/ic_placeholder_people"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="3dp"
+                    app:civ_circle_background_color="#C4C4C4"
+                    app:layout_constraintEnd_toEndOf="@id/imgBanner"
+                    app:layout_constraintStart_toStartOf="@id/imgBanner"
+                    app:layout_constraintTop_toBottomOf="@id/txtBannerMax" />
+
+                <ImageButton
+                    android:id="@+id/btnSettings"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_settings"
+                    app:layout_constraintStart_toStartOf="@id/imgBanner"
+                    app:layout_constraintTop_toBottomOf="@id/imgBanner"
+                    tools:ignore="ContentDescription" />
+
+                <ImageButton
+                    android:id="@+id/btnEdit"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_edit"
+                    app:layout_constraintEnd_toEndOf="@id/imgBanner"
+                    app:layout_constraintTop_toBottomOf="@id/imgBanner"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/txtUserName"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="46dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0"
+                    android:text="@string/example_name"
+                    android:textAlignment="center"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@id/btnEdit"
+                    app:layout_constraintStart_toEndOf="@id/btnSettings"
+                    app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+
+                <TextView
+                    android:id="@+id/txtUserJob"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/example_job"
+                    android:textAlignment="center"
+                    android:textColor="@color/neutral_black_30"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/txtUserName"
+                    app:layout_constraintStart_toStartOf="@id/txtUserName"
+                    app:layout_constraintTop_toBottomOf="@id/txtUserName" />
+
+                <TextView
+                    android:id="@+id/txtUserLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:drawablePadding="2dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/string_current_location_raw"
+                    android:textColor="@color/neutral_black_30"
+                    android:textSize="12sp"
+                    app:drawableStartCompat="@drawable/ic_location"
+                    app:drawableTint="@color/neutral_black_30"
+                    app:layout_constraintEnd_toEndOf="@id/txtUserJob"
+                    app:layout_constraintStart_toStartOf="@id/txtUserJob"
+                    app:layout_constraintTop_toBottomOf="@id/txtUserJob" />
+
+                <LinearLayout
+                    android:id="@+id/layoutUserInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@id/btnEdit"
+                    app:layout_constraintStart_toEndOf="@id/btnSettings"
+                    app:layout_constraintTop_toBottomOf="@id/txtUserLocation">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtPostCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/poppins_semi_bold"
+                            android:maxLines="1"
+                            android:text="@string/profile_post_count"
+                            android:textColor="@color/neutral_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtPost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:maxLines="1"
+                            android:text="@string/profile_post"
+                            android:textColor="#BBBCBF"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtFollowerCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/poppins_semi_bold"
+                            android:maxLines="1"
+                            android:text="@string/profile_follower_count"
+                            android:textColor="@color/neutral_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtFollower"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:maxLines="1"
+                            android:text="@string/profile_follower"
+                            android:textColor="#BBBCBF"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtFollowingCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/poppins_semi_bold"
+                            android:maxLines="1"
+                            android:text="@string/profile_following_count"
+                            android:textColor="@color/neutral_black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtFollowing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:maxLines="1"
+                            android:text="@string/profile_following"
+                            android:textColor="#BBBCBF"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutUserInfo"
+                    app:tabBackground="@drawable/state_tab_indicator"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorColor="@color/primary_orange"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/neutral_black"
+                    app:tabTextAppearance="@style/CustomTabTextAppearance"
+                    app:tabTextColor="@color/neutral_black_20">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_tab_post" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_tab_about" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </carbon.widget.ConstraintLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpTabProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutProfile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnToBookmark"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="54dp"
+        android:background="@color/primary_orange"
+        android:backgroundTint="@color/primary_orange"
+        android:elevation="@dimen/dp_0"
+        android:padding="13dp"
+        android:src="@drawable/ic_bookmarked"
+        android:stateListAnimator="@null"
+        android:tint="@color/white"
+        app:borderWidth="@dimen/dp_0"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
