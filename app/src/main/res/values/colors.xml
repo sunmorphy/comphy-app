@@ -14,6 +14,8 @@
     <color name="liked">#09A04E</color>
     <color name="button_disabled">#E8EDF1</color>
     <color name="text_disabled">#888888</color>
+    <color name="radio_text">#1A1A1A</color>
+    <color name="shimmer_placeholder">#dddddd</color>
 
     <color name="primary_background">#FAFAFA</color>
     <color name="primary_orange">#FCAE3F</color>

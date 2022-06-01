@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comphy.photo.databinding.FragmentCommentDetailBinding
-import com.comphy.photo.ui.comment.CommentSecondLevelAdapter
+import com.comphy.photo.ui.comment.detail.CommentSecondLevelAdapter
 import splitties.toast.toast
 
 class CommentDetailFragment : Fragment() {
@@ -29,11 +29,11 @@ class CommentDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvCommentSecondLevel.apply {
-            layoutManager = LinearLayoutManager(view.context)
-            adapter = CommentSecondLevelAdapter({ toast("THIS IS SECOND LEVEL") },
-                { toast("THIS IS THIRD LEVEL") })
-        }
+//        binding.rvCommentSecondLevel.apply {
+//            layoutManager = LinearLayoutManager(view.context)
+//            adapter = CommentSecondLevelAdapter({ toast("THIS IS SECOND LEVEL") },
+//                { toast("THIS IS THIRD LEVEL") })
+//        }
         binding.btnBack.setOnClickListener { activity?.onBackPressed() }
         binding.layoutReply.setOnClickListener {
             if (isReplyVisible) {

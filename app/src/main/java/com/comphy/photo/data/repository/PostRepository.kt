@@ -2,19 +2,25 @@ package com.comphy.photo.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.comphy.photo.data.source.remote.client.ApiService
-import com.comphy.photo.data.source.remote.response.BaseResponse
+import com.comphy.photo.data.source.remote.paging.CommentPagingSource
+import com.comphy.photo.data.source.remote.paging.CommentSecondChildPagingSource
+import com.comphy.photo.data.source.remote.paging.FeedsPagingSource
+import com.comphy.photo.data.source.remote.paging.FilteredFeedsPagingSource
+import com.comphy.photo.data.source.remote.response.BaseMessageResponse
+import com.comphy.photo.data.source.remote.response.BaseResponseContent
 import com.comphy.photo.data.source.remote.response.post.comment.CommentBody
+import com.comphy.photo.data.source.remote.response.post.comment.ThirdChildComment
 import com.comphy.photo.data.source.remote.response.post.create.PostBody
 import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContentItem
-import com.comphy.photo.helpers.FeedsPagingSource
-import com.comphy.photo.helpers.FilteredFeedsPagingSource
 import com.comphy.photo.utils.JsonParser.parseTo
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
 import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import timber.log.Timber
@@ -32,16 +38,30 @@ class PostRepository @Inject constructor(
 //            .onException { Timber.tag("On Exception").e(message()) }
 //    }.flowOn(ioDispatcher)
 
-    suspend fun getFeedPosts() = Pager(
+    fun getFeedPosts() = Pager(
         pagingSourceFactory = { FeedsPagingSource(apiService) },
-        config = PagingConfig(pageSize = 10)
+        config = PagingConfig(pageSize = 20)
     ).flow
 
-    suspend fun getFilteredFeedPosts(
+    fun getFilteredPosts(
         categoryId: Int? = null,
-        titlePost: String? = null
-    ) = Pager(
-        pagingSourceFactory = { FilteredFeedsPagingSource(apiService, categoryId, titlePost) },
+        titlePost: String? = null,
+        userId: Int? = null,
+        communityId: Int? = null,
+        showPhotos: Boolean = false,
+        location: String? = null
+    ): Flow<PagingData<FeedResponseContentItem>> = Pager(
+        pagingSourceFactory = {
+            FilteredFeedsPagingSource(
+                apiService,
+                categoryId,
+                titlePost,
+                userId,
+                communityId,
+                showPhotos,
+                location
+            )
+        },
         config = PagingConfig(10)
     ).flow
 
@@ -56,22 +76,138 @@ class PostRepository @Inject constructor(
                     emit(parsedData)
                     return@suspendOnSuccess
                 } catch (e: Exception) {
-                    println("Cast object fail")
                     Timber.e(e)
                 }
             }
                 .onError { Timber.tag("On Error").e(message()) }
                 .onException { Timber.tag("On Exception").e(message()) }
         } catch (e: Exception) {
-            println(e)
+            Timber.e(e)
         }
     }
+
+//    suspend fun getCommentPost(
+//        postId: String
+//    ) = flow {
+//        try {
+//            val response = apiService.getCommentPost(postId = postId)
+//            response.suspendOnSuccess {
+//                try {
+//                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+//                    val parsedArray =
+//                        parsedData?.content!!.parseTo(CommentResponseContentItem::class.java)
+//                    emit(parsedArray)
+//                    return@suspendOnSuccess
+//                } catch (e: Exception) {
+//                    Timber.e(e)
+//                }
+//            }
+//                .onError { Timber.tag("On Error").e(message()) }
+//                .onException { Timber.tag("On Exception").e(message()) }
+//        } catch (e: Exception) {
+//            Timber.e(e)
+//        }
+//    }.flowOn(ioDispatcher)
+
+    fun getCommentPost(postId: String) = Pager(
+        pagingSourceFactory = { CommentPagingSource(apiService, postId) },
+        config = PagingConfig(pageSize = 20)
+    ).flow
+
+    fun getSecondLevelCommentPost(postId: String, parentId: Int) = Pager(
+        pagingSourceFactory = { CommentSecondChildPagingSource(apiService, postId, parentId) },
+        config = PagingConfig(pageSize = 20)
+    ).flow
+
+//    suspend fun getSecondLevelCommentPost(
+//        postId: String,
+//        parentId: Int
+//    ) = flow {
+//        try {
+//            val response = apiService.getSecondLevelCommentPost(postId = postId, parentId = parentId)
+//            response.suspendOnSuccess {
+//                try {
+//                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+//                    val parsedArray =
+//                        parsedData?.content!!.parseTo(SecondChildComment::class.java)
+//                    emit(parsedArray)
+//                    return@suspendOnSuccess
+//                } catch (e: Exception) {
+//                    Timber.e(e)
+//                }
+//            }
+//                .onError { Timber.tag("On Error").e(message()) }
+//                .onException { Timber.tag("On Exception").e(message()) }
+//        } catch (e: Exception) {
+//            Timber.e(e)
+//        }
+//    }.flowOn(ioDispatcher)
+
+    suspend fun getThirdLevelCommentPost(
+        postId: String,
+        parentId: Int
+    ) = flow {
+        try {
+            val response = apiService.getThirdLevelCommentPost(postId = postId, parentId = parentId)
+            response.suspendOnSuccess {
+                try {
+                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+                    val parsedArray =
+                        parsedData?.content!!.parseTo(ThirdChildComment::class.java)
+                    emit(parsedArray)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
+            }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException { Timber.tag("On Exception").e(message()) }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }.flowOn(ioDispatcher)
 
     suspend fun createPost(postBody: PostBody) = flow {
         val response = apiService.createPost(postBody)
         response.suspendOnSuccess { emit(data) }
             .onError { Timber.tag("On Error").e(message()) }
             .onException { Timber.tag("On Exception").e(message()) }
+    }.flowOn(ioDispatcher)
+
+    suspend fun bookmarkPost(
+        postId: String,
+        onErrorNorException: (String?) -> Unit
+    ) = flow {
+        val response = apiService.bookmarkPost(postId)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val errorResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                onErrorNorException(errorResult?.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message())
+                Timber.tag("On Exception").e(message())
+            }
+    }.flowOn(ioDispatcher)
+
+    suspend fun unbookmarkPost(
+        savedPostId: String,
+        onErrorNorException: (String?) -> Unit
+    ) = flow {
+        val response = apiService.unbookmarkPost(savedPostId)
+        response.suspendOnSuccess { emit(data) }
+            .onError {
+                val errorResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                onErrorNorException(errorResult?.message)
+                Timber.tag("On Error").e(message())
+            }
+            .onException {
+                onErrorNorException(message())
+                Timber.tag("On Exception").e(message())
+            }
     }.flowOn(ioDispatcher)
 
     suspend fun likePost(
@@ -81,8 +217,8 @@ class PostRepository @Inject constructor(
         val response = apiService.likePost(postId)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val errorResult: BaseResponse? =
-                    errorBody?.string()?.parseTo(BaseResponse::class.java)
+                val errorResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onErrorNorException(errorResult?.message)
                 Timber.tag("On Error").e(message())
             }
@@ -99,8 +235,8 @@ class PostRepository @Inject constructor(
         val response = apiService.unlikePost(postId)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val errorResult: BaseResponse? =
-                    errorBody?.string()?.parseTo(BaseResponse::class.java)
+                val errorResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onErrorNorException(errorResult?.message)
                 Timber.tag("On Error").e(message())
             }

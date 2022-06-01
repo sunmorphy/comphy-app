@@ -2,6 +2,7 @@ package com.comphy.photo.helpers
 
 import android.content.Context
 import android.view.View
+import android.view.ViewTreeObserver
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -30,8 +31,10 @@ class ViewPagerSetupHelper(
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                val myFragment = fragmentManager.findFragmentByTag("f$position")
-                myFragment?.view?.let { updatePagerHeightForChild(it, viewPager2) }
+                if (fragmentManager.fragments.size > position) {
+                    val myFragment = fragmentManager.fragments[position]
+                    myFragment?.view?.let { updatePagerHeightForChild(it, viewPager2) }
+                }
             }
 
             private fun updatePagerHeightForChild(view: View, pager: ViewPager2) {
@@ -44,13 +47,56 @@ class ViewPagerSetupHelper(
 
                     if (pager.layoutParams.height != view.measuredHeight) {
                         pager.layoutParams = (pager.layoutParams)
-                            .also { lp ->
-                                lp.height = view.measuredHeight
-                            }
+                            .also { lp -> lp.height = view.measuredHeight }
                     }
                 }
             }
         })
     }
 
+    fun setupFeed(
+        tabLayout: TabLayout,
+        viewPager2: ViewPager2,
+        otherViews: List<View>,
+        fragmentManager: FragmentManager,
+        pagerAdapter: FragmentStateAdapter,
+        tabTitles: IntArray
+    ) {
+        viewPager2.adapter = pagerAdapter
+
+        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+            tab.text = context.resources.getString(tabTitles[position])
+        }.attach()
+
+        viewPager2.offscreenPageLimit = 2
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            private fun listener(view: View?) = ViewTreeObserver.OnGlobalLayoutListener {
+                view?.let { updatePagerHeightForChild(it) }
+            }
+
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val myFragment = fragmentManager.fragments[position]
+                otherViews.forEach {
+                    it.viewTreeObserver.removeOnGlobalLayoutListener(listener(myFragment.view))
+                }
+                myFragment.view?.viewTreeObserver?.addOnGlobalLayoutListener(listener(myFragment.view))
+            }
+
+            private fun updatePagerHeightForChild(view: View) {
+                view.post {
+                    val wMeasureSpec =
+                        View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
+                    val hMeasureSpec =
+                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                    view.measure(wMeasureSpec, hMeasureSpec)
+
+                    if (viewPager2.layoutParams.height != view.measuredHeight) {
+                        viewPager2.layoutParams = (viewPager2.layoutParams)
+                            .also { lp -> lp.height = view.measuredHeight }
+                    }
+                }
+            }
+        })
+    }
 }

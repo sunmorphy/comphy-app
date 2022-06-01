@@ -88,13 +88,21 @@
     <string name="string_share_community">Bagikan Komunitas</string>
     <string name="string_community_link">Tautan Komunitas</string>
     <string name="string_success_ban">Berhasil Mengeluarkan</string>
+    <string name="string_comment">Komentar</string>
+    <string name="string_retry">Coba Lagi</string>
 
+    <string name="placeholder_time_passed">%1$s yang lalu</string>
     <string name="placeholder_camera">Kamera : %1$s</string>
     <string name="placeholder_lens">Lensa : %1$s</string>
     <string name="placeholder_flash">Flash : %1$s</string>
     <string name="placeholder_iso">ISO : %1$s</string>
     <string name="placeholder_shutter">Shutter Speed : %1$s</string>
     <string name="placeholder_aperture">Aperture: %1$s</string>
+    <string name="placeholder_post_location">%1$s,Indonesia</string>
+    <string name="placeholder_likes_count">%1$s Orang Menyukai Postingan ini</string>
+    <string name="placeholder_comments_count">%1$s Orang berkomentar</string>
+    <string name="placeholder_comment_reply_count">%1$s Balasan</string>
+    <string name="placeholder_comment_reply_parent">Balas Komentar : @%1$s</string>
     <string name="placeholder_community_type">Komunitas %1$s</string>
     <string name="placeholder_community_members_count">%1$s Anggota</string>
 
@@ -345,6 +353,8 @@
     <string name="choose_community_description">Untuk Saat Ini kamu hanya dapat memilih satu komunitas yang akan kamu tuju.</string>
     <string name="post_delete">Hapus Postingan?</string>
     <string name="post_delete_desc">Kamu akan menghapus postingan yang telah diunggah.</string>
+    <string name="post_success_title">Berhasil Memposting</string>
+    <string name="post_success_description">Kamu baru saja berhasil memposting, Cek siapa yang menyukai!</string>
 
     <!-- Explore Strings -->
     <string name="explore_search_hint">Cari Keyword “Seminar”</string>

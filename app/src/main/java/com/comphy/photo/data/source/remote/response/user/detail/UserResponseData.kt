@@ -1,7 +1,10 @@
 package com.comphy.photo.data.source.remote.response.user.detail
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class UserResponseData(
 
     @SerializedName("numberPhone")
@@ -23,19 +26,19 @@ data class UserResponseData(
     var socialMedia: String? = null,
 
     @SerializedName("experiences")
-    var experiences: List<Any?>? = null,
+    var experiences: List<String?>? = null,
 
-//	@SerializedName("deleted_date")
-//	var deletedDate: Any? = null,
+    @SerializedName("deleted_date")
+    var deletedDate: String? = null,
 
     @SerializedName("location")
     var location: String? = null,
 
-//	@SerializedName("created_date")
-//	var createdDate: String? = null,
-//
-//	@SerializedName("updated_date")
-//	var updatedDate: String? = null,
+    @SerializedName("created_date")
+    var createdDate: Long? = null,
+
+    @SerializedName("updated_date")
+    var updatedDate: String? = null,
 
     @SerializedName("profilePhotoLink")
     var profileUrl: String? = null,
@@ -54,4 +57,4 @@ data class UserResponseData(
 
     @SerializedName("username")
     var username: String? = null
-)
+) : Parcelable

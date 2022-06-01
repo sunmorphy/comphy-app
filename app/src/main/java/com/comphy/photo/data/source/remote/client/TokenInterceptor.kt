@@ -1,49 +1,73 @@
 package com.comphy.photo.data.source.remote.client
 
 import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
-import com.comphy.photo.data.source.remote.response.BaseResponse
+import com.comphy.photo.data.source.remote.response.BaseMessageResponse
 import com.comphy.photo.data.source.remote.response.auth.AuthResponseData
 import com.comphy.photo.utils.JsonParser.parseTo
+import com.skydoves.sandwich.message
+import com.skydoves.sandwich.onError
+import com.skydoves.sandwich.suspendOnSuccess
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import timber.log.Timber
 import java.io.IOException
-import java.net.HttpURLConnection
 
 class TokenInterceptor(
     private val userAuth: UserAuth,
     private val baseUrl: String
 ) : Interceptor {
 
-    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val accessToken: String? = userAuth.userAccessToken
         var request: Request = chain.request().newBuilder().build()
 
         if (accessToken != null) {
             request = newRequestWithAccessToken(chain.request(), accessToken)
-            val response: Response = chain.proceed(request)
-            if (response.code === HttpURLConnection.HTTP_FORBIDDEN && response.body?.string()
-                    ?.parseTo(BaseResponse::class.java)?.message?.lowercase()?.trim()
-                    ?.contains("expired")!!
-            ) {
-                synchronized(this) {
-                    val apiService = ApiClient(okHttpClient(userAuth, baseUrl)).instance(baseUrl)
-                    val newAccessToken: String =
-                        apiService.userRefresh(userAuth.userRefreshToken!!).data?.parseTo(
-                            AuthResponseData::class.java
-                        )?.accessToken!!
-                    // Access token is refreshed in another thread.
-                    if (accessToken != newAccessToken) {
-                        return chain.proceed(newRequestWithAccessToken(request, newAccessToken))
-                    }
+//            val response: Response = chain.proceed(request)
+//            if (response.code === HttpURLConnection.HTTP_FORBIDDEN && response.body?.string()
+//                    ?.parseTo(BaseResponse::class.java)?.message?.lowercase()?.trim()
+//                    ?.contains("expired")!!
+//            ) {
+//                synchronized(this) {
+            val apiService = ApiClient(okHttpClient(userAuth, baseUrl)).instance(baseUrl)
+//            try {
 
-                    // Need to refresh an access token
-                    val updatedAccessToken: String = userAuth.userRefreshToken!!
-                    // Retry the request
-                    return chain.proceed(newRequestWithAccessToken(request, updatedAccessToken))
+            suspend {
+//                    apiService.userRefresh(userAuth.userRefreshToken!!).data?.parseTo(
+//                        AuthResponseData::class.java
+//                    )?.accessToken!!
+                apiService.userRefresh(userAuth.userRefreshToken!!).suspendOnSuccess {
+                    val parsedData = data.data?.parseTo(AuthResponseData::class.java)
+                    userAuth.userAccessToken = parsedData?.accessToken
+                    userAuth.userRefreshToken = parsedData?.refreshToken
                 }
+                    .onError {
+                        val errorResult: BaseMessageResponse? =
+                            errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
+                        if (errorResult?.message?.lowercase()?.contains("expired")!!) {
+                            userAuth.clear()
+                        }
+                    }
             }
+            val newAccessToken = userAuth.userAccessToken!!
+            // Access token is refreshed in another thread.
+            if (accessToken != newAccessToken && newAccessToken != "") {
+                request = newRequestWithAccessToken(chain.request(), newAccessToken)
+//                return chain.proceed(newRequestWithAccessToken(request, newAccessToken))
+            }
+
+            // Need to refresh an access token
+//            val updatedAccessToken: String = userAuth.userRefreshToken!!
+//            // Retry the request
+//            return chain.proceed(newRequestWithAccessToken(request, updatedAccessToken))
+//            } catch (e: Exception) {
+//                println(e)
+//                println("toll $e")
+//            }
+//                }
+//            }
         }
         return chain.proceed(request)
     }
