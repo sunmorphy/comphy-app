@@ -13,18 +13,17 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.comphy.photo.ComphyApp
 import com.comphy.photo.R
 import com.comphy.photo.databinding.BottomSheetBinding
-import com.comphy.photo.utils.Extension.changeColor
-import com.comphy.photo.utils.Extension.changeDrawable
 import com.comphy.photo.utils.Extension.loadAnim
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import splitties.resources.color
+import splitties.resources.drawable
 import timber.log.Timber
 import java.util.regex.Pattern
 import kotlin.properties.Delegates
@@ -57,13 +56,7 @@ abstract class BaseAuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken((application as ComphyApp).clientId())
-//            .requestEmail()
-//            .build()
-
         isDismissed = false
-
         setupObserver()
     }
 
@@ -115,7 +108,7 @@ abstract class BaseAuthActivity : AppCompatActivity() {
             if (eachField == true) {
                 inputWidgets.forEach {
                     if (it.text.isEmpty()) {
-                        it.background = changeDrawable(R.drawable.widget_error)
+                        it.background = drawable(R.drawable.widget_error)
 
                         if (errorWidgets.size < 2) {
                             errorWidgets.forEach { item -> item.visibility = View.VISIBLE }
@@ -126,13 +119,13 @@ abstract class BaseAuthActivity : AppCompatActivity() {
                 }
             } else {
                 inputWidgets.forEach {
-                    it.background = changeDrawable(R.drawable.widget_error)
+                    it.background = drawable(R.drawable.widget_error)
                     showError(true)
                 }
             }
         } else {
             inputWidgets.forEach {
-                it.background = changeDrawable(R.drawable.state_field)
+                it.background = drawable(R.drawable.state_field)
                 showError(false)
             }
             errorWidgets.forEach { error -> error.visibility = View.GONE }
@@ -141,7 +134,7 @@ abstract class BaseAuthActivity : AppCompatActivity() {
 
     protected fun setGoogleError(state: Boolean) {
         actionWidgets[actionWidgets.size - 2].background =
-            if (state) changeDrawable(R.drawable.widget_error) else changeDrawable(R.drawable.state_button)
+            if (state) drawable(R.drawable.widget_error) else drawable(R.drawable.state_button)
     }
 
     protected fun showError(state: Boolean) {
@@ -172,13 +165,8 @@ abstract class BaseAuthActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 actionWidgets[actionWidgets.size - 1].apply {
-                    text = resources.getString(mainButtonText)
-                    setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@BaseAuthActivity,
-                            R.color.primary_orange
-                        )
-                    )
+                    text = getString(mainButtonText)
+                    setBackgroundColor(color(R.color.primary_orange))
                 }
                 onFinishTask()
             }
@@ -188,8 +176,8 @@ abstract class BaseAuthActivity : AppCompatActivity() {
         bottomSheetDialog.show()
         bottomSheetDialog.setOnDismissListener {
             if (isDismissed) {
-                inputWidgets.forEach { it.background = changeDrawable(R.drawable.widget_focused) }
-                actionWidgets[actionWidgets.size - 1].setBackgroundColor(changeColor(R.color.primary_green))
+                inputWidgets.forEach { it.background = drawable(R.drawable.widget_focused) }
+                actionWidgets[actionWidgets.size - 1].setBackgroundColor(color(R.color.primary_green))
                 nextScreenTimer.start()
             } else {
                 onFinishTask()

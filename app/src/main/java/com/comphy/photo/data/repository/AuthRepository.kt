@@ -1,9 +1,9 @@
 package com.comphy.photo.data.repository
 
-import com.comphy.photo.data.source.remote.response.auth.AuthBody
-import com.comphy.photo.data.source.remote.response.auth.AuthResponse
 import com.comphy.photo.data.source.remote.client.ApiService
-import com.google.gson.Gson
+import com.comphy.photo.data.source.remote.response.BaseMessageResponse
+import com.comphy.photo.data.source.remote.response.auth.AuthBody
+import com.comphy.photo.utils.JsonParser.parseTo
 import com.skydoves.sandwich.message
 import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onException
@@ -22,15 +22,15 @@ class AuthRepository @Inject constructor(
     suspend fun userLogin(
         email: String,
         password: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val authBody = AuthBody(username = email, password = password)
         val response = apiService.userLogin(authBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
@@ -43,15 +43,15 @@ class AuthRepository @Inject constructor(
     suspend fun userLoginGoogle(
         email: String,
         token: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val authBody = AuthBody(username = email, token = token)
         val response = apiService.userLoginGoogle(authBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
@@ -65,15 +65,15 @@ class AuthRepository @Inject constructor(
         name: String,
         email: String,
         password: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val authBody = AuthBody(name = name, username = email, password = password)
         val response = apiService.userRegister(authBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
@@ -87,15 +87,15 @@ class AuthRepository @Inject constructor(
         name: String,
         email: String,
         token: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val authBody = AuthBody(name = name, username = email, token = token)
         val response = apiService.userRegisterGoogle(authBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
@@ -108,14 +108,14 @@ class AuthRepository @Inject constructor(
     suspend fun userRegisterVerify(
         otp: String,
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userRegisterVerify(otp, email)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
@@ -127,14 +127,14 @@ class AuthRepository @Inject constructor(
 
     suspend fun userForgot(
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userForgot(email)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
@@ -147,14 +147,14 @@ class AuthRepository @Inject constructor(
     suspend fun userForgotVerify(
         otp: String,
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userForgotVerify(otp, email)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }
@@ -168,14 +168,14 @@ class AuthRepository @Inject constructor(
         otp: String,
         newPassword: String,
         email: String,
-        onError: (errorResponse: AuthResponse) -> Unit,
+        onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
         val response = apiService.userForgotReset(otp, newPassword, email)
         response.suspendOnSuccess { emit(data) }
             .onError {
-                val responseResult: AuthResponse =
-                    Gson().fromJson(this.errorBody?.string(), AuthResponse::class.java)
+                val responseResult: BaseMessageResponse? =
+                    errorBody?.string()?.parseTo(BaseMessageResponse::class.java)
                 onError(responseResult)
                 Timber.tag("On Error").e(message())
             }

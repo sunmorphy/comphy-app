@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.comphy.photo.R
+import splitties.resources.drawable
 
 abstract class BaseMainActivity : AppCompatActivity() {
 
@@ -24,6 +24,7 @@ abstract class BaseMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        init()
         setupObserver()
     }
 
@@ -42,7 +43,7 @@ abstract class BaseMainActivity : AppCompatActivity() {
             if (eachField == true) {
                 requiredWidgets.forEach {
                     if (it.text.isEmpty()) {
-                        it.background = ContextCompat.getDrawable(this, R.drawable.widget_error)
+                        it.background = drawable(R.drawable.widget_error)
 
                         if (errorWidgets.size < 2) {
                             errorWidgets.forEach { item -> item.visibility = View.VISIBLE }
@@ -53,14 +54,12 @@ abstract class BaseMainActivity : AppCompatActivity() {
                 }
             } else {
                 requiredWidgets.forEach {
-                    it.background =
-                        ContextCompat.getDrawable(this, R.drawable.widget_error)
+                    it.background = drawable(R.drawable.widget_error)
                 }
             }
         } else {
             inputWidgets.forEach {
-                it.background =
-                    ContextCompat.getDrawable(this, R.drawable.state_field)
+                it.background = drawable(R.drawable.state_field)
             }
             errorWidgets.forEach { error -> error.visibility = View.GONE }
         }
@@ -92,9 +91,8 @@ abstract class BaseMainActivity : AppCompatActivity() {
     }
 
     protected fun showError(state: Boolean) =
-        if (state) responseLayout.visibility = View.VISIBLE else responseLayout.visibility = View.GONE
-
-//    protected fun formatLocationInput(regency: String): String = "$regency, Indonesia"
+        if (state) responseLayout.visibility = View.VISIBLE else responseLayout.visibility =
+            View.GONE
 
     protected abstract fun init()
 

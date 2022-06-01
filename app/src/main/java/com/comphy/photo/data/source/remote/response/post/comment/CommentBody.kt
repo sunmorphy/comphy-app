@@ -1,6 +1,5 @@
 package com.comphy.photo.data.source.remote.response.post.comment
 
-
 import com.google.gson.annotations.SerializedName
 
 data class CommentBody(

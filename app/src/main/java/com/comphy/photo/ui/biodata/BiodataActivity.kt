@@ -15,12 +15,12 @@ import com.comphy.photo.databinding.ActivityBiodataBinding
 import com.comphy.photo.databinding.DialogBiodataConfirmBinding
 import com.comphy.photo.ui.custom.CustomLoading
 import com.comphy.photo.ui.main.MainActivity
-import com.comphy.photo.utils.Extension.changeDrawable
 import com.comphy.photo.utils.Extension.formatCity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.activities.start
+import splitties.resources.drawable
 import splitties.toast.toast
 
 @AndroidEntryPoint
@@ -34,13 +34,11 @@ class BiodataActivity : BaseMainActivity() {
     private val confirmDialog by lazy { Dialog(this) }
     private val dialogBiodata by lazy { DialogBiodataConfirmBinding.inflate(layoutInflater) }
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
-    //    private val sheetBiodata by lazy { BottomSheetBehavior.from(binding.layoutSheetBiodata.root) }
     private val viewModel: BiodataViewModel by viewModels()
     private var isSuccess = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(binding.root)
 
         lifecycleScope.launch {
@@ -48,7 +46,6 @@ class BiodataActivity : BaseMainActivity() {
             viewModel.getUserDetails()
         }
 
-        init()
         setupClickListener()
         showSuccess(false)
     }
@@ -115,7 +112,7 @@ class BiodataActivity : BaseMainActivity() {
         viewModel.exceptionResponse.observe(this) { toast(it) }
         viewModel.updateResponse.observe(this) {
             showSuccess(true)
-            lifecycleScope.launch { delay(1500) }
+            lifecycleScope.launch { delay(1000) }
             start<MainActivity>()
             finishAffinity()
         }
@@ -130,14 +127,14 @@ class BiodataActivity : BaseMainActivity() {
         viewModel.cities.observe(this) {
             val locationAdapter =
                 ArrayAdapter(
-                    this@BiodataActivity,
+                    this,
                     R.layout.custom_dropdown_location,
                     R.id.txtLocationItem,
                     formatCity(it)
                 )
 
             binding.layoutSheetBiodata.edtLocation.apply {
-                setDropDownBackgroundDrawable(this@BiodataActivity.changeDrawable(R.drawable.bg_dialog))
+                setDropDownBackgroundDrawable(drawable(R.drawable.bg_dialog))
                 threshold = 1
                 setAdapter(locationAdapter)
             }
@@ -157,9 +154,9 @@ class BiodataActivity : BaseMainActivity() {
     }
 
     private fun setWidgetsEnable(state: Boolean) {
-        if (state) customLoading.show() else customLoading.dismiss()
-//        inputWidgets.forEach { it.isEnabled = state }
-//        actionWidgets.forEach { it.isEnabled = state }
+        customLoading.showLoading(state)
+        inputWidgets.forEach { it.isEnabled = !state }
+        actionWidgets.forEach { it.isEnabled = !state }
     }
 
     override fun onBackPressed() {

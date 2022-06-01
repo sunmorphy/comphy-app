@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.community.detail.CommunityDetailActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_background"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_background"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@android:color/transparent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <carbon.widget.ConstraintLayout
+                    android:id="@+id/layoutCommunityProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="20dp"
+                    app:carbon_cornerRadius="18dp"
+                    app:carbon_elevation="24dp"
+                    app:carbon_elevationShadowColor="#FCF2E3"
+                    app:layout_collapseMode="parallax">
+
+                    <carbon.widget.ImageView
+                        android:id="@+id/imgBanner"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="110dp"
+                        android:contentDescription="@string/string_upload_banner"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_banner_placeholder"
+                        app:carbon_cornerRadius="14dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtBannerSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="29dp"
+                        android:fontFamily="@font/poppins_semi_bold"
+                        android:text="@string/cc_upload_banner_size"
+                        android:textColor="@color/neutral_black_60"
+                        android:textSize="12sp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtBannerMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/cc_upload_banner_max"
+                        android:textColor="@color/neutral_black_50"
+                        android:textSize="12sp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="@id/txtBannerSize"
+                        app:layout_constraintStart_toStartOf="@id/txtBannerSize"
+                        app:layout_constraintTop_toBottomOf="@id/txtBannerSize" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="7dp"
+                        android:src="@drawable/ic_placeholder_people"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="3dp"
+                        app:civ_circle_background_color="#C4C4C4"
+                        app:layout_constraintStart_toStartOf="@id/imgBanner"
+                        app:layout_constraintTop_toBottomOf="@id/txtBannerMax" />
+
+                    <ImageButton
+                        android:id="@+id/btnSettings"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_settings"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@id/btnShare"
+                        app:layout_constraintEnd_toStartOf="@id/btnShare"
+                        app:layout_constraintTop_toTopOf="@id/btnShare"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageButton
+                        android:id="@+id/btnShare"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_share"
+                        app:layout_constraintEnd_toEndOf="@id/imgBanner"
+                        app:layout_constraintTop_toBottomOf="@id/imgBanner"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txtCommunityName"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="64dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/poppins_medium"
+                        android:maxLines="1"
+                        android:text="@string/string_empty"
+                        android:textColor="@color/neutral_black"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toStartOf="@id/btnSettings"
+                        app:layout_constraintStart_toStartOf="@id/imgBanner"
+                        app:layout_constraintTop_toBottomOf="@id/imgProfile" />
+
+                    <TextView
+                        android:id="@+id/txtCommunityCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/string_empty"
+                        android:textColor="@color/neutral_black_30"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@id/txtCommunityName"
+                        app:layout_constraintTop_toBottomOf="@id/txtCommunityName" />
+
+                    <TextView
+                        android:id="@+id/txtCommunityLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:drawablePadding="2dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:includeFontPadding="false"
+                        android:text="@string/string_empty"
+                        android:textColor="@color/neutral_black_30"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_location"
+                        app:drawableTint="@color/neutral_black_30"
+                        app:layout_constraintStart_toStartOf="@id/txtCommunityCategory"
+                        app:layout_constraintTop_toBottomOf="@id/txtCommunityCategory" />
+
+                    <TextView
+                        android:id="@+id/txtCommunityType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:includeFontPadding="false"
+                        android:text="@string/string_empty"
+                        android:textColor="@color/neutral_black_30"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_ellipse"
+                        app:drawableTint="@color/neutral_black_30"
+                        app:layout_constraintBottom_toBottomOf="@id/txtCommunityLocation"
+                        app:layout_constraintStart_toEndOf="@id/txtCommunityLocation"
+                        app:layout_constraintTop_toTopOf="@id/txtCommunityLocation" />
+
+                    <TextView
+                        android:id="@+id/txtCommunityDescription"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/string_empty"
+                        android:textColor="@color/neutral_black"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtCommunityLocation" />
+
+                    <TextView
+                        android:id="@+id/txtCommunityMembersCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="29dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="@string/placeholder_community_members_count"
+                        android:textColor="@color/neutral_black_30"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@id/txtCommunityDescription"
+                        app:layout_constraintTop_toBottomOf="@id/txtCommunityDescription" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnJoinCommunity"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:backgroundTint="@color/primary_orange"
+                        android:fontFamily="@font/poppins_bold"
+                        android:includeFontPadding="false"
+                        android:paddingVertical="12dp"
+                        android:stateListAnimator="@null"
+                        android:text="@string/string_join_community"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:visibility="gone"
+                        app:cornerRadius="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txtCommunityMembersCount" />
+
+                </carbon.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                android:paddingVertical="12dp"
+                app:carbon_cornerRadius="14dp"
+                app:carbon_elevation="24dp"
+                app:carbon_elevationShadowColor="#FCF2E3"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabCommunity"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginHorizontal="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/layoutUserInfo"
+                    app:tabBackground="@drawable/state_tab_indicator"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabIndicatorColor="@color/primary_orange"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/neutral_black"
+                    app:tabTextAppearance="@style/CustomTabTextAppearance"
+                    app:tabTextColor="@color/neutral_black_20">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/community_tab_post" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/community_tab_photo" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </carbon.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+            <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content">-->
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpTabCommunity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp" />
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/layoutTab" />-->
+
+            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnBackToTop"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="54dp"
+        android:background="@color/primary_orange"
+        android:backgroundTint="@color/primary_orange"
+        android:contentDescription="@string/string_back_to_top"
+        android:elevation="@dimen/dp_0"
+        android:padding="13dp"
+        android:src="@drawable/ic_up"
+        android:stateListAnimator="@null"
+        android:tint="@color/white"
+        app:borderWidth="@dimen/dp_0"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

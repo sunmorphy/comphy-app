@@ -18,6 +18,20 @@
         android:theme="@style/Theme.Comphy"
         android:usesCleartextTraffic="true" >
         <activity
+            android:name=".ui.comment.detail.CommentDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.comment.main.CommentActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.community.join.JoinCommunityActivity"
             android:exported="false"
             android:screenOrientation="portrait"
@@ -103,13 +117,6 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.post.CreatePostActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.White.Comphy"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.comment.CommentActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.White.Comphy"

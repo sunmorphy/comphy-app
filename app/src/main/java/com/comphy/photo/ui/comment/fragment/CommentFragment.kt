@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comphy.photo.R
 import com.comphy.photo.databinding.FragmentCommentBinding
-import com.comphy.photo.ui.comment.CommentAdapter
-import splitties.toast.toast
+import com.comphy.photo.ui.comment.main.CommentAdapter
 
 class CommentFragment : Fragment() {
 
@@ -28,21 +27,21 @@ class CommentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvComment.apply {
-            layoutManager = LinearLayoutManager(view.context)
-            adapter = CommentAdapter{ navigateToDetail() }
-        }
-    }
-
-    private fun navigateToDetail() {
-        parentFragmentManager.beginTransaction().apply {
-            replace(
-                R.id.frameComment,
-                CommentDetailFragment(),
-                CommentDetailFragment::class.java.simpleName
-            )
-            addToBackStack(null)
-            commit()
-        }
+//        binding.rvComment.apply {
+//            layoutManager = LinearLayoutManager(view.context)
+//            adapter = CommentAdapter{ navigateToDetail() }
+//        }
+//    }
+//
+//    private fun navigateToDetail() {
+//        parentFragmentManager.beginTransaction().apply {
+//            replace(
+//                R.id.frameComment,
+//                CommentDetailFragment(),
+//                CommentDetailFragment::class.java.simpleName
+//            )
+//            addToBackStack(null)
+//            commit()
+//        }
     }
 }
