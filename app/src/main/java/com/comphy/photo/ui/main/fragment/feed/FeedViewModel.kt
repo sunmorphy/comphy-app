@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.comphy.photo.data.repository.CommunityRepository
 import com.comphy.photo.data.repository.PostRepository
 import com.comphy.photo.data.repository.UserRepository
+import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContentItem
 import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
@@ -17,41 +20,74 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val postRepository: PostRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val communityRepository: CommunityRepository
 ) : ViewModel() {
 
     val userData = MutableLiveData<UserResponseData>()
     val isLoading = MutableLiveData<Boolean>()
-    val feedResponse = MutableLiveData<PagingData<FeedResponseContentItem>>()
+    val isFetching = MutableLiveData<Boolean>()
+    val categories = MutableLiveData<List<CategoryCommunityResponseContentItem>>()
+    val filterResponse = MutableLiveData<PagingData<FeedResponseContentItem>>()
     val errorNorException = MutableLiveData<String>()
-    val successResponse = MutableLiveData<String>()
+    val successResponse = MutableLiveData<Int>()
+    val followResponse = MutableLiveData<String>()
 
-    suspend fun getUserDetails() {
-        userRepository.getUserDetails()
-            .onStart { isLoading.postValue(true) }
-            .onCompletion { isLoading.postValue(false) }
-            .collect { userData.postValue(it) }
-    }
+//    suspend fun getUserDetails() {
+//        userRepository.getUserDetails()
+//            .onStart { isLoading.postValue(true) }
+//            .onCompletion { isLoading.postValue(false) }
+//            .collect { userData.postValue(it) }
+//    }
 
-    suspend fun getFeedPost() =
+    fun getFeedPost() =
         postRepository.getFeedPosts()
             .cachedIn(viewModelScope)
+
+    suspend fun getFilteredPost(categoryId: Int? = null) =
+        postRepository.getFilteredPosts(categoryId = categoryId)
+            .cachedIn(viewModelScope)
+            .collectLatest { filterResponse.postValue(it) }
+
+    suspend fun getCommunityCategories() =
+        communityRepository.getCommunityCategories()
+            .onStart { isFetching.postValue(true) }
+            .onCompletion { isFetching.postValue(false) }
+            .collect { categories.postValue(it) }
+
+    suspend fun followUser(userIdFollowed: Int) =
+        userRepository.followUser(userIdFollowed) { errorNorException.postValue(it) }
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
-            .collect {
-                feedResponse.postValue(it)
-                isLoading.postValue(false)
-            }
-    
-    suspend fun likePost(postId: String) =
+            .collect { followResponse.postValue(it.message) }
+
+    suspend fun unfollowUser(userIdFollowed: Int) =
+        userRepository.unfollowUser(userIdFollowed) { errorNorException.postValue(it) }
+            .onStart { isLoading.postValue(true) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { followResponse.postValue(it.message) }
+
+    suspend fun bookmarkUser(postId: String, position: Int) =
+        postRepository.bookmarkPost(postId) { errorNorException.postValue(it) }
+            .onStart { isLoading.postValue(true) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { successResponse.postValue(position) }
+
+    suspend fun unbookmarkUser(savedPostId: String, position: Int) =
+        postRepository.unbookmarkPost(savedPostId) { errorNorException.postValue(it) }
+            .onStart { isLoading.postValue(true) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { successResponse.postValue(position) }
+
+    suspend fun likePost(postId: String, position: Int) =
         postRepository.likePost(postId) { errorNorException.postValue(it) }
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
-            .collect { successResponse.postValue(it.message) }
+            .collect { successResponse.postValue(position) }
 
-    suspend fun unlikePost(postId: String) =
+    suspend fun unlikePost(postId: String, position: Int) =
         postRepository.unlikePost(postId) { errorNorException.postValue(it) }
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
-            .collect { successResponse.postValue(it.message) }
+            .collect { successResponse.postValue(position) }
 }

@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
     android:background="@color/primary_background"
+    app:carbon_cornerRadiusTopEnd="18dp"
+    app:carbon_cornerRadiusTopStart="18dp"
     app:carbon_elevation="30dp"
     app:carbon_elevationShadowColor="#FFE0B0"
     tools:context=".ui.main.fragment.feed.fragment.FeedMainFragment">
@@ -16,6 +18,7 @@
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
         android:orientation="vertical"
+        android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
         tools:itemCount="9"

@@ -164,25 +164,27 @@
             </carbon.widget.ConstraintLayout>
 
             <carbon.widget.LinearLayout
+                android:id="@+id/layoutTabsParent"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/white"
                 android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp"
-                app:carbon_cornerRadius="18dp"
-                app:carbon_elevation="24dp"
-                app:carbon_elevationShadowColor="#FCF2E3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutPost">
 
-                <LinearLayout
+                <carbon.widget.LinearLayout
+                    android:id="@+id/layoutTabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    app:carbon_cornerRadius="18dp"
+                    app:carbon_elevation="24dp"
+                    app:carbon_elevationShadowColor="#FCF2E3">
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabFeed"
@@ -220,12 +222,16 @@
                         android:contentDescription="@string/string_set_filter"
                         android:src="@drawable/ic_filter"
                         app:tint="@color/primary_orange" />
-                </LinearLayout>
+
+                </carbon.widget.LinearLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vpTabFeed"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    android:nestedScrollingEnabled="false" />
 
             </carbon.widget.LinearLayout>
 
@@ -289,8 +295,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="14dp"
             android:background="@drawable/bg_search"
+            android:clickable="true"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="14dp"
+            android:focusable="false"
             android:focusableInTouchMode="false"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/string_search_hint"
@@ -306,7 +314,7 @@
             app:layout_constraintEnd_toStartOf="@id/btnNotification"
             app:layout_constraintStart_toEndOf="@id/imgProfile"
             app:layout_constraintTop_toBottomOf="@id/txtLocation"
-            tools:ignore="Autofill" />
+            tools:ignore="Autofill,KeyboardInaccessibleWidget" />
 
         <ImageButton
             android:id="@+id/btnNotification"

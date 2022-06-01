@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="39dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFE0B0">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="144dp"
+        android:layout_marginTop="24dp"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtShareCommunity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/string_share_community"
+        android:textColor="@color/primary_orange"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator" />
+
+    <TextView
+        android:id="@+id/txtCommunityLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/string_community_link"
+        android:textColor="@color/neutral_black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/txtShareCommunity"
+        app:layout_constraintTop_toBottomOf="@id/txtShareCommunity" />
+
+    <carbon.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="14dp"
+        android:background="#F7F7F7"
+        app:carbon_cornerRadius="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFD9A3"
+        app:layout_constraintTop_toBottomOf="@id/txtCommunityLink">
+
+        <TextView
+            android:id="@+id/txtCommunityUrl"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:maxLines="1"
+            android:text="@string/string_empty"
+            android:textColor="@color/neutral_black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCopyUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_0"
+            android:backgroundTint="@color/primary_orange"
+            android:fontFamily="@font/poppins_medium"
+            android:insetTop="@dimen/dp_0"
+            android:insetBottom="@dimen/dp_0"
+            android:letterSpacing="0"
+            android:stateListAnimator="@null"
+            android:text="@string/string_copy"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:cornerRadius="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </carbon.widget.ConstraintLayout>
+
+</carbon.widget.ConstraintLayout>

@@ -1,11 +1,15 @@
-package com.comphy.photo.data.source.remote.response.community.created
+package com.comphy.photo.data.source.remote.response.community.follow
 
+import android.os.Parcelable
+import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class CreatedCommunityResponseContent(
+@Parcelize
+data class FollowCommunityResponseContentItem(
 
     @SerializedName("deleted_date")
-    val deletedDate: Any? = null,
+    val deletedDate: String? = null,
 
     @SerializedName("communityType")
     val communityType: String,
@@ -17,7 +21,7 @@ data class CreatedCommunityResponseContent(
     val description: String,
 
     @SerializedName("profilePhotoCommunityLink")
-    val profilePhotoCommunityLink: Any? = null,
+    val profilePhotoCommunityLink: String? = null,
 
     @SerializedName("communityName")
     val communityName: String,
@@ -26,7 +30,7 @@ data class CreatedCommunityResponseContent(
     val location: String,
 
     @SerializedName("bannerPhotoCommunityLink")
-    val bannerPhotoCommunityLink: Any? = null,
+    val bannerPhotoCommunityLink: String? = null,
 
     @SerializedName("created_date")
     val createdDate: Long? = null,
@@ -38,5 +42,14 @@ data class CreatedCommunityResponseContent(
     val id: Int,
 
     @SerializedName("categoryCommunity")
-    val categoryCommunity: CreatedCommunityResponseCategory
-)
+    val categoryCommunity: CategoryCommunityResponseContentItem,
+
+    @SerializedName("theAdmin")
+    val theAdmin: Boolean,
+
+    @SerializedName("joined")
+    val joined: Boolean,
+
+    @SerializedName("communityCode")
+    val communityCode: Int? = null
+) : Parcelable

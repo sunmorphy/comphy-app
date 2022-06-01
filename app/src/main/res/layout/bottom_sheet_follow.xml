@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="725dp"
+    android:background="@drawable/bg_bottom_sheet"
+    android:backgroundTint="@color/primary_background"
+    android:paddingBottom="42dp"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFE0B0">
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="17dp"
+        app:carbon_cornerRadius="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFE0B0"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <carbon.widget.ImageView
+            android:id="@+id/imgIndicator"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_marginHorizontal="144dp"
+            android:layout_marginTop="24dp"
+            android:background="#EFEFEF"
+            app:carbon_cornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabFollow"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintTop_toBottomOf="@id/imgIndicator"
+            app:tabBackground="@drawable/state_tab_indicator"
+            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorColor="@color/primary_orange"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/neutral_black"
+            app:tabTextAppearance="@style/CustomTabTextAppearance"
+            app:tabTextColor="@color/neutral_black_20">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_follower" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_following" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </carbon.widget.ConstraintLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTabFollow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutTab" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

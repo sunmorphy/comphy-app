@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="18dp"
+    android:background="@color/white"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="30dp">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgFeedProfile"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="centerCrop"
+                android:src="@color/shimmer_placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtUserName"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="24dp"
+                android:background="@color/shimmer_placeholder"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/feed_user_name"
+                android:textColor="@color/shimmer_placeholder"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/btnAddUser"
+                app:layout_constraintStart_toEndOf="@id/imgFeedProfile"
+                app:layout_constraintTop_toTopOf="@id/imgFeedProfile" />
+
+            <TextView
+                android:id="@+id/txtUserJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/shimmer_placeholder"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/feed_user_name"
+                android:textColor="@color/shimmer_placeholder"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/txtUserName"
+                app:layout_constraintTop_toBottomOf="@id/txtUserName" />
+
+            <ImageButton
+                android:id="@+id/btnAddUser"
+                android:layout_width="25dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="14dp"
+                android:background="@color/shimmer_placeholder"
+                app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+                app:layout_constraintEnd_toStartOf="@id/btnBookmark"
+                app:layout_constraintTop_toTopOf="@id/txtUserName"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/btnBookmark"
+                android:layout_width="25dp"
+                android:layout_height="24dp"
+                android:background="@color/shimmer_placeholder"
+                app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txtUserName"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtFeedTimePassed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/shimmer_placeholder"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/feed_time_passed"
+                android:textColor="@color/shimmer_placeholder"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/txtUserJob"
+                app:layout_constraintEnd_toEndOf="@id/btnBookmark"
+                app:layout_constraintTop_toTopOf="@id/txtUserJob" />
+
+            <TextView
+                android:id="@+id/txtFeedCaption"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/shimmer_placeholder"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/feed_caption"
+                android:textColor="@color/shimmer_placeholder"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/txtFeedTimePassed"
+                app:layout_constraintStart_toStartOf="@id/imgFeedProfile"
+                app:layout_constraintTop_toBottomOf="@id/txtUserJob" />
+
+            <TextView
+                android:id="@+id/txtFeedLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/shimmer_placeholder"
+                android:drawablePadding="2dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/string_current_location"
+                android:textColor="@color/shimmer_placeholder"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
+                app:layout_constraintTop_toBottomOf="@id/txtFeedCaption" />
+
+            <carbon.widget.ImageView
+                android:id="@+id/imgFeedContent"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_0"
+                android:layout_marginTop="14dp"
+                android:scaleType="centerCrop"
+                android:src="@color/shimmer_placeholder"
+                app:carbon_cornerRadius="14dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtFeedLocation"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/txtFeedCommunity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/shimmer_placeholder"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/feed_post_community"
+                android:textColor="@color/shimmer_placeholder"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
+                app:layout_constraintTop_toBottomOf="@id/imgFeedContent" />
+
+            <TextView
+                android:id="@+id/txtLikesCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/shimmer_placeholder"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/feed_likes_count"
+                android:textColor="@color/shimmer_placeholder"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
+                app:layout_constraintTop_toBottomOf="@id/txtFeedCommunity" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnComment"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="8dp"
+                android:insetTop="@dimen/dp_0"
+                android:insetBottom="@dimen/dp_0"
+                android:letterSpacing="0"
+                android:maxLines="1"
+                android:paddingHorizontal="26dp"
+                android:paddingVertical="12dp"
+                android:stateListAnimator="@null"
+                app:backgroundTint="@color/shimmer_placeholder"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toStartOf="@id/btnLike"
+                app:layout_constraintStart_toStartOf="@id/txtFeedCaption"
+                app:layout_constraintTop_toBottomOf="@id/txtLikesCount" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLike"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:insetTop="@dimen/dp_0"
+                android:insetBottom="@dimen/dp_0"
+                android:letterSpacing="0"
+                android:maxLines="1"
+                android:paddingHorizontal="26dp"
+                android:paddingVertical="12dp"
+                android:stateListAnimator="@null"
+                app:backgroundTint="@color/shimmer_placeholder"
+                app:cornerRadius="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/btnComment"
+                app:layout_constraintEnd_toEndOf="@id/txtFeedCaption"
+                app:layout_constraintStart_toEndOf="@id/btnComment"
+                app:layout_constraintTop_toTopOf="@id/btnComment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    .<TextView
+        android:id="@+id/txtErrorMessage"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:textAlignment="center"
+        android:textColor="@color/neutral_black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/btnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/string_retry"
+        android:textColor="@color/neutral_blue"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/txtErrorMessage"
+        app:layout_constraintStart_toStartOf="@id/txtErrorMessage"
+        app:layout_constraintTop_toBottomOf="@id/txtErrorMessage" />
+
+</carbon.widget.ConstraintLayout>
