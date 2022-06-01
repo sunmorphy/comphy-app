@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@color/white"
+    android:padding="24dp"
+    app:carbon_cornerRadius="18dp"
+    app:carbon_elevation="24dp"
+    app:carbon_elevationShadowColor="#FCF2E3">
+
+    <TextView
+        android:id="@+id/txtCourseChapterTitle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/course_chapter_title"
+        android:textAlignment="textStart"
+        android:textColor="#8B8B8B"
+        android:textSize="14sp"
+        app:drawableEndCompat="@drawable/ic_more"
+        app:drawableTint="#C6C6C6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</carbon.widget.ConstraintLayout>
