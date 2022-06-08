@@ -9,6 +9,7 @@ import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.entity.CityEntity
 import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.join.JoinedCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.post.create.PostBody
 import com.comphy.photo.data.source.remote.response.upload.DataItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,7 @@ class CreatePostViewModel @Inject constructor(
     val exceptionResponse = MutableLiveData<String?>()
     val successResponse = MutableLiveData<String>()
     val userCreatedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
-    val userJoinedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
+    val userJoinedCommunity = MutableLiveData<List<JoinedCommunityResponseContentItem>>()
 
     suspend fun getCities() =
         userRepository.getUserCities {

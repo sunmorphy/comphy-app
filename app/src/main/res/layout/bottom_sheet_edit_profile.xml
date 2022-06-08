@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="640dp"
+    android:layout_height="592dp"
     android:background="@drawable/bg_bottom_sheet"
     android:backgroundTint="@color/primary_background"
     app:carbon_elevation="22dp"
@@ -21,9 +22,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="400dp"
         android:layout_marginTop="24dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/layoutCustomBar"
         app:layout_constraintTop_toBottomOf="@id/imgIndicator">
 
@@ -72,21 +76,6 @@
                 app:layout_constraintTop_toBottomOf="@id/txtName" />
 
             <TextView
-                android:id="@+id/txtErrorName"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="16dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_erorr_desc"
-                android:textColor="@color/primary_red"
-                android:textSize="12sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtName" />
-
-            <TextView
                 android:id="@+id/txtLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +88,7 @@
                 android:textSize="14sp"
                 app:drawableEndCompat="@drawable/ic_required_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorName" />
+                app:layout_constraintTop_toBottomOf="@id/edtName" />
 
             <carbon.widget.LinearLayout
                 android:id="@+id/layoutLocation"
@@ -134,21 +123,6 @@
             </carbon.widget.LinearLayout>
 
             <TextView
-                android:id="@+id/txtErrorLocation"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="16dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_erorr_desc2"
-                android:textColor="@color/primary_red"
-                android:textSize="12sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutLocation" />
-
-            <TextView
                 android:id="@+id/txtNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,7 +133,7 @@
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorLocation" />
+                app:layout_constraintTop_toBottomOf="@id/layoutLocation" />
 
             <carbon.widget.EditText
                 android:id="@+id/edtNumber"
@@ -223,21 +197,6 @@
                 app:layout_constraintTop_toBottomOf="@id/txtJob" />
 
             <TextView
-                android:id="@+id/txtErrorJob"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="16dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_erorr_desc3"
-                android:textColor="@color/primary_red"
-                android:textSize="12sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtJob" />
-
-            <TextView
                 android:id="@+id/txtDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -250,7 +209,7 @@
                 android:textSize="14sp"
                 app:drawableEndCompat="@drawable/ic_required_small"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorJob" />
+                app:layout_constraintTop_toBottomOf="@id/edtJob" />
 
             <carbon.widget.EditText
                 android:id="@+id/edtDescription"
@@ -277,21 +236,6 @@
                 app:layout_constraintTop_toBottomOf="@id/txtDescription" />
 
             <TextView
-                android:id="@+id/txtErrorDescription"
-                android:layout_width="@dimen/dp_0"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="16dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/profile_erorr_desc4"
-                android:textColor="@color/primary_red"
-                android:textSize="12sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edtDescription" />
-
-            <TextView
                 android:id="@+id/txtMediaSocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -302,7 +246,7 @@
                 android:textColor="@color/neutral_black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtErrorDescription" />
+                app:layout_constraintTop_toBottomOf="@id/edtDescription" />
 
             <carbon.widget.EditText
                 android:id="@+id/edtMediaSocial"
@@ -344,14 +288,15 @@
         app:carbon_cornerRadiusTopStart="24dp"
         app:carbon_elevation="24dp"
         app:carbon_elevationShadowColor="#FCF2E3"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/mainView">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveChange"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:backgroundTint="@color/primary_orange"
+            android:backgroundTint="@color/state_button_activable"
+            android:enabled="false"
             android:fontFamily="@font/poppins_bold"
             android:includeFontPadding="false"
             android:letterSpacing="0"
@@ -359,13 +304,27 @@
             android:stateListAnimator="@null"
             android:text="@string/string_save_change"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/state_button_text_activable"
             android:textSize="14sp"
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgLoadingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:rotation="90"
+            android:src="@drawable/ic_loading_btn"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/btnSaveChange"
+            app:layout_constraintEnd_toEndOf="@id/btnSaveChange"
+            app:layout_constraintStart_toStartOf="@id/btnSaveChange"
+            app:layout_constraintTop_toTopOf="@id/btnSaveChange"
+            tools:ignore="ContentDescription" />
 
     </carbon.widget.ConstraintLayout>
 

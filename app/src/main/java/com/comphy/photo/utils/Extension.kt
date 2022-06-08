@@ -1,6 +1,9 @@
 package com.comphy.photo.utils
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.view.animation.Animation
@@ -134,5 +137,11 @@ object Extension {
             }
 
         }
+    }
+
+    fun Context.copyString(copyLabel: String, copyText: String) {
+        val mClipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val mClip: ClipData = ClipData.newPlainText(copyLabel, copyText)
+        mClipboard.setPrimaryClip(mClip)
     }
 }

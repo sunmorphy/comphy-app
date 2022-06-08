@@ -16,6 +16,7 @@ import com.comphy.photo.data.source.remote.response.job.list.JobResponseContentI
 import com.comphy.photo.databinding.BottomSheetFilterJobBinding
 import com.comphy.photo.databinding.FragmentJobBinding
 import com.comphy.photo.ui.job.JobDetailActivity
+import com.comphy.photo.ui.search.explore.main.ExploreActivity
 import com.comphy.photo.utils.Extension.formatCity
 import com.comphy.photo.utils.Extension.loadAnim
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -36,6 +37,7 @@ class JobFragment : Fragment() {
     }
 
     private val viewModel: JobViewModel by activityViewModels()
+    private var jobAdapter: JobAdapter? = null
     private var jobLocation = ""
     private var jobType = ""
     private var isCanceled = true
@@ -64,6 +66,7 @@ class JobFragment : Fragment() {
             )
             showBottomSheetDialog()
         }
+        binding.edtSearch.setOnClickListener { start<ExploreActivity>() }
 
         setupObserver()
     }
@@ -86,10 +89,38 @@ class JobFragment : Fragment() {
         }
         viewModel.jobResponse.observe(viewLifecycleOwner) {
             setupRecycler(it)
+            viewModel.bookmarkSuccessResponse.observe(viewLifecycleOwner) { pos ->
+                jobAdapter!!.notifyItemChanged(pos)
+            }
+        }
+        viewModel.filteredJobResponse.observe(viewLifecycleOwner) {
+            jobAdapter = null
+            setupRecycler(it)
+        }
+        viewModel.bookmarkedJobResponse.observe(viewLifecycleOwner) { jobs ->
+            viewModel.bookmarkedJobIdResponse.observe(viewLifecycleOwner) { jobId ->
+                viewModel.bookmarkedJobPositionResponse.observe(viewLifecycleOwner) { pos ->
+                    jobs.forEach { job ->
+                        if (job.jobVacancy.id == jobId) {
+                            lifecycleScope.launch { viewModel.unbookmarkJob(job.id, pos) }
+                        }
+                    }
+                }
+            }
         }
     }
 
     private fun setupRecycler(listJobs: List<JobResponseContentItem>) {
+        jobAdapter = JobAdapter(listJobs,
+            onBookmarkClick = { pos, jobId, isBookmarked ->
+                lifecycleScope.launch {
+                    if (isBookmarked) viewModel.getBookmarkedJobs(jobId = jobId, position = pos)
+                    else viewModel.bookmarkJob(jobId, pos)
+                }
+            }, onClick = {
+                start<JobDetailActivity> { putExtra("extra_id", it) }
+            })
+
         if (listJobs.isEmpty()) {
             binding.layoutEmpty.visibility = View.VISIBLE
             binding.rvJob.visibility = View.GONE
@@ -98,9 +129,7 @@ class JobFragment : Fragment() {
             binding.rvJob.apply {
                 visibility = View.VISIBLE
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = JobAdapter(listJobs) { start<JobDetailActivity> {
-                    putExtra("extra_id", it)
-                } }
+                adapter = jobAdapter
             }
         }
     }
@@ -125,14 +154,14 @@ class JobFragment : Fragment() {
                         when {
                             jobType.lowercase().contains("full") -> {
                                 viewModel.getFilteredJobs(
-                                    region = jobLocation,
-                                    isFullTime = true
+                                    location = jobLocation,
+//                                    isFullTime = true
                                 )
                             }
                             jobType.lowercase().contains("part") -> {
                                 viewModel.getFilteredJobs(
-                                    region = jobLocation,
-                                    isPartTime = true
+                                    location = jobLocation,
+//                                    isPartTime = true
                                 )
                             }
                         }

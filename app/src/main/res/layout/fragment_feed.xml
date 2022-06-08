@@ -31,15 +31,15 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/viewDivider">
 
-        <carbon.widget.ConstraintLayout
+        <carbon.widget.LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_0"
             android:layout_marginTop="18dp"
             android:background="@color/primary_background"
+            android:orientation="vertical"
             app:carbon_cornerRadiusTopEnd="18dp"
             app:carbon_cornerRadiusTopStart="18dp"
             app:carbon_elevation="30dp"
@@ -53,8 +53,7 @@
                 android:paddingVertical="16dp"
                 app:carbon_cornerRadius="18dp"
                 app:carbon_elevation="24dp"
-                app:carbon_elevationShadowColor="#FCF2E3"
-                app:layout_constraintTop_toTopOf="parent">
+                app:carbon_elevationShadowColor="#FCF2E3">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/inputLayoutWritePost"
@@ -63,7 +62,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:background="@null"
-                    android:focusable="true"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
                     app:boxBackgroundColor="#F5F5F5"
                     app:boxCornerRadiusBottomEnd="14dp"
@@ -81,13 +81,15 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:suffixText="@string/string_send"
                     app:suffixTextAppearance="@style/CustomSuffixAppearance"
-                    app:suffixTextColor="#C0C0C0">
+                    app:suffixTextColor="#C0C0C0"
+                    tools:ignore="KeyboardInaccessibleWidget">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtWritePost"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:cursorVisible="false"
+                        android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:fontFamily="@font/poppins_medium"
                         android:hint="@string/feed_write_here"
@@ -163,79 +165,89 @@
 
             </carbon.widget.ConstraintLayout>
 
-            <carbon.widget.LinearLayout
-                android:id="@+id/layoutTabsParent"
-                android:layout_width="@dimen/dp_0"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFeeds"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutPost">
+                android:overScrollMode="never"
+                tools:itemCount="9" />
 
-                <carbon.widget.LinearLayout
-                    android:id="@+id/layoutTabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
-                    app:carbon_cornerRadius="18dp"
-                    app:carbon_elevation="24dp"
-                    app:carbon_elevationShadowColor="#FCF2E3">
+            <!--            <carbon.widget.LinearLayout-->
+            <!--                android:id="@+id/layoutTabsParent"-->
+            <!--                android:layout_width="@dimen/dp_0"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:orientation="vertical"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/layoutPost">-->
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabFeed"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_weight="1"
-                        android:focusable="true"
-                        app:tabBackground="@drawable/state_tab_indicator"
-                        app:tabIndicatorAnimationMode="elastic"
-                        app:tabIndicatorColor="@color/primary_orange"
-                        app:tabIndicatorFullWidth="false"
-                        app:tabIndicatorHeight="2dp"
-                        app:tabSelectedTextColor="@color/neutral_black"
-                        app:tabTextAppearance="@style/CustomTabTextAppearance"
-                        app:tabTextColor="@color/neutral_black_20">
+            <!--                <carbon.widget.LinearLayout-->
+            <!--                    android:id="@+id/layoutTabs"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:background="@color/white"-->
+            <!--                    android:gravity="center_vertical"-->
+            <!--                    android:orientation="horizontal"-->
+            <!--                    android:paddingHorizontal="16dp"-->
+            <!--                    android:paddingVertical="12dp"-->
+            <!--                    app:carbon_cornerRadius="18dp"-->
+            <!--                    app:carbon_elevation="24dp"-->
+            <!--                    app:carbon_elevationShadowColor="#FCF2E3">-->
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/string_feed_main" />
+            <!--                    <com.google.android.material.tabs.TabLayout-->
+            <!--                        android:id="@+id/tabFeed"-->
+            <!--                        android:layout_width="0dp"-->
+            <!--                        android:layout_height="64dp"-->
+            <!--                        android:layout_weight="1"-->
+            <!--                        android:focusable="true"-->
+            <!--                        app:tabBackground="@drawable/state_tab_indicator"-->
+            <!--                        app:tabIndicatorAnimationMode="elastic"-->
+            <!--                        app:tabIndicatorColor="@color/primary_orange"-->
+            <!--                        app:tabIndicatorFullWidth="false"-->
+            <!--                        app:tabIndicatorHeight="2dp"-->
+            <!--                        app:tabSelectedTextColor="@color/neutral_black"-->
+            <!--                        app:tabTextAppearance="@style/CustomTabTextAppearance"-->
+            <!--                        app:tabTextColor="@color/neutral_black_20">-->
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/string_feed_recommendation" />
+            <!--                        <com.google.android.material.tabs.TabItem-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="@string/string_feed_main" />-->
 
-                    </com.google.android.material.tabs.TabLayout>
+            <!--                        <com.google.android.material.tabs.TabItem-->
+            <!--                            android:layout_width="wrap_content"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="@string/string_feed_recommendation" />-->
 
-                    <ImageButton
-                        android:id="@+id/btnFilter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="@string/string_set_filter"
-                        android:src="@drawable/ic_filter"
-                        app:tint="@color/primary_orange" />
+            <!--                    </com.google.android.material.tabs.TabLayout>-->
 
-                </carbon.widget.LinearLayout>
+            <!--                    <ImageButton-->
+            <!--                        android:id="@+id/btnFilter"-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_marginHorizontal="16dp"-->
+            <!--                        android:background="@android:color/transparent"-->
+            <!--                        android:contentDescription="@string/string_set_filter"-->
+            <!--                        android:src="@drawable/ic_filter"-->
+            <!--                        app:tint="@color/primary_orange" />-->
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vpTabFeed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@android:color/transparent"
-                    android:nestedScrollingEnabled="false" />
+            <!--                </carbon.widget.LinearLayout>-->
 
-            </carbon.widget.LinearLayout>
+            <!--                <androidx.viewpager2.widget.ViewPager2-->
+            <!--                    android:id="@+id/vpTabFeed"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_marginTop="8dp"-->
+            <!--                    android:background="@android:color/transparent"-->
+            <!--                    android:nestedScrollingEnabled="false" />-->
 
-        </carbon.widget.ConstraintLayout>
+            <!--            </carbon.widget.LinearLayout>-->
+
+        </carbon.widget.LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
@@ -332,7 +344,7 @@
     </carbon.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnBackToTop"
+        android:id="@+id/btnFeedOption"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginEnd="16dp"
@@ -342,10 +354,11 @@
         android:contentDescription="@string/string_back_to_top"
         android:elevation="@dimen/dp_0"
         android:padding="13dp"
-        android:src="@drawable/ic_up"
+        android:src="@drawable/ic_option"
         android:stateListAnimator="@null"
         android:tint="@color/white"
-        app:borderWidth="@dimen/dp_0"
+        app:backgroundTint="@color/white"
+        app:borderWidth="3dp"
         app:elevation="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

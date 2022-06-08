@@ -12,7 +12,6 @@ class CourseAdapter : RecyclerView.Adapter<CourseAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CourseAdapter.ViewHolder, position: Int) {
-        // TODO("Not yet implemented")
     }
 
     override fun getItemCount(): Int = 9

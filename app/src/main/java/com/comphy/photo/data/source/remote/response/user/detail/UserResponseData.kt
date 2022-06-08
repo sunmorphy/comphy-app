@@ -26,7 +26,7 @@ data class UserResponseData(
     var socialMedia: String? = null,
 
     @SerializedName("experiences")
-    var experiences: List<String?>? = null,
+    var experiences: List<Experience>? = null,
 
     @SerializedName("deleted_date")
     var deletedDate: String? = null,
@@ -41,10 +41,10 @@ data class UserResponseData(
     var updatedDate: String? = null,
 
     @SerializedName("profilePhotoLink")
-    var profileUrl: String? = null,
+    var profilePhotoLink: String? = null,
 
     @SerializedName("profileBannerLink")
-    var bannerUrl: String? = null,
+    var profileBannerLink: String? = null,
 
     @SerializedName("fullname")
     var fullname: String,
@@ -55,6 +55,13 @@ data class UserResponseData(
     @SerializedName("job")
     var job: String? = null,
 
+    @SerializedName("isFollowed")
+    var isFollowed: Int,
+
+    @SerializedName("amountOfPost")
+    var amountOfPost: Int,
+
     @SerializedName("username")
     var username: String? = null
+
 ) : Parcelable

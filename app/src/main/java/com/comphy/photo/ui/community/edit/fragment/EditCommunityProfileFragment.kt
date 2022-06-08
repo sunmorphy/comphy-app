@@ -16,6 +16,7 @@ import com.comphy.photo.databinding.FragmentEditCommunityProfileBinding
 import com.comphy.photo.ui.community.edit.EditCommunityActivity
 import com.comphy.photo.ui.community.edit.EditCommunityViewModel
 import com.comphy.photo.utils.Extension
+import com.comphy.photo.utils.Extension.copyString
 import com.comphy.photo.utils.Extension.formatLocationInput
 import com.comphy.photo.vo.CommunityImageType
 import com.comphy.photo.vo.UploadType
@@ -25,6 +26,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import splitties.resources.drawable
 import splitties.toast.toast
 import java.io.File
+
 
 class EditCommunityProfileFragment : Fragment() {
 
@@ -104,33 +106,38 @@ class EditCommunityProfileFragment : Fragment() {
                 }
                 binding.btnCopyPrivateCommunityCode.isEnabled = false
             } else {
+                showBottomSheetCommunityCode()
                 binding.txtCommunityCode.isEnabled = true
                 binding.txtPrivateCommunityCode.apply {
                     isEnabled = true
                     text = it.communityCode.toString()
                     setOnClickListener { bottomSheetCommunityCodeBinding }
                 }
-                binding.btnCopyPrivateCommunityCode.isEnabled = true
+                binding.btnCopyPrivateCommunityCode.apply {
+                    isEnabled = true
+                    setOnClickListener { _ ->
+                        requireContext().copyString("Community Code", it.communityCode.toString())
+                        toast("Tersalin Ke Clipboard")
+                    }
+                }
             }
             binding.edtCommunityName.setText(it.communityName)
             binding.edtCommunityLocation.setText(formatLocationInput(it.location))
             binding.edtCommunityDescription.setText(it.description)
 
-            if (it.communityType.lowercase().contains("pub")) binding.rbCommunityPublic.isChecked = true
+            if (it.communityType.lowercase().contains("pub")) binding.rbCommunityPublic.isChecked =
+                true
             else binding.rbCommunityPrivate.isChecked = true
 
             binding.btnSaveChange.setOnClickListener { _ ->
                 val listPath = mutableListOf<String>()
                 newImagesPath.forEach { path -> if (path.isNotEmpty()) listPath.add(path) }
 
-                toast(listPath.size)
-                toast((newProfilePhotoUrl == contentItem!!.profilePhotoCommunityLink).toString())
-                toast((newBannerPhotoUrl == contentItem!!.bannerPhotoCommunityLink).toString())
-
-//                lifecycleScope.launch {
-//                    if (listPath.isEmpty()) editCommunity()
-//                    else viewModel.getUploadLink(UploadType.IMAGE, listPath.size)
-//                }
+                lifecycleScope.launch {
+                    if (listPath.isEmpty()) editCommunity()
+                    else viewModel.getUploadLink(UploadType.IMAGE, listPath.size)
+                    (activity as EditCommunityActivity).isEdit = true
+                }
             }
         }
     }
@@ -145,11 +152,13 @@ class EditCommunityProfileFragment : Fragment() {
                 val reqFile = File(newImagesPath[0]).asRequestBody()
                 viewModel.uploadImageNonPost(url, reqFile)
             }
+            else -> {}
         }
     }
 
     private suspend fun editCommunity() {
         viewModel.editCommunity(
+            communityId = contentItem!!.id,
             communityName = binding.edtCommunityName.text.toString()
                 .ifEmpty { contentItem!!.communityName },
             description = binding.edtCommunityDescription.text.toString()
@@ -159,18 +168,31 @@ class EditCommunityProfileFragment : Fragment() {
             communityType = binding.rgCommunityType
                 .findViewById<RadioButton>(binding.rgCommunityType.checkedRadioButtonId).text.toString(),
             profilePhotoCommunityLink = newProfilePhotoUrl,
-            bannerPhotoCommunityLink = newBannerPhotoUrl
+            bannerPhotoCommunityLink = newBannerPhotoUrl,
+            categoryCommunityId = contentItem!!.categoryCommunity.id
         )
     }
 
-//    private fun setupBottomSheetChangeCommunityCode() {
-//        val codeResult =
-//            bottomSheetCommunityCodeBinding.edtCode1.text.toString() + bottomSheetCommunityCodeBinding.edtCode2.text.toString() + bottomSheetCommunityCodeBinding.edtCode3.text.toString() + bottomSheetCommunityCodeBinding.edtCode4.text.toString()
-//        bottomSheetCommunityCodeBinding.
-//
-//        bottomSheetDialog.setContentView(bottomSheetCommunityCodeBinding.root)
-//        bottomSheetDialog.show()
-//    }
+    private fun showBottomSheetCommunityCode() {
+        with(bottomSheetCommunityCodeBinding) {
+            edtCode1.text = contentItem!!.communityCode.toString()[0].toString()
+            edtCode2.text = contentItem!!.communityCode.toString()[1].toString()
+            edtCode3.text = contentItem!!.communityCode.toString()[2].toString()
+            edtCode4.text = contentItem!!.communityCode.toString()[3].toString()
+            btnSaveChange.apply {
+                isEnabled = true
+                setOnClickListener { bottomSheetDialog.dismiss() }
+            }
+        }
+
+        bottomSheetDialog.setContentView(bottomSheetCommunityCodeBinding.root)
+        bottomSheetDialog.show()
+    }
 
     private fun isPrivateCommunity(): Boolean = contentItem!!.communityCode != null
+
+    override fun onResume() {
+        super.onResume()
+        (activity as EditCommunityActivity).viewPagerSetupHelper.setProperHeightOfView(binding.root)
+    }
 }

@@ -153,11 +153,11 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnVisitJob"
+            android:id="@+id/btnVisitEvent"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="35dp"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/primary_orange"
             android:fontFamily="@font/poppins_bold"
             android:includeFontPadding="false"
@@ -174,18 +174,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBookmark"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="35dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/string_set_bookmark"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_bookmarked"
-            app:layout_constraintBottom_toBottomOf="@id/btnVisitJob"
+            android:layout_width="70dp"
+            android:layout_height="@dimen/dp_0"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#F5F5F5"
+            android:insetLeft="@dimen/dp_0"
+            android:insetRight="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_bookmarked"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/dp_0"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/btnVisitEvent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnVisitJob" />
+            app:layout_constraintStart_toEndOf="@id/btnVisitEvent"
+            app:layout_constraintTop_toTopOf="@id/btnVisitEvent" />
 
     </carbon.widget.ConstraintLayout>
 

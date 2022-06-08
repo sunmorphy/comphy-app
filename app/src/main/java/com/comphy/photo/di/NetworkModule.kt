@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
@@ -25,6 +26,7 @@ object NetworkModule {
     @Provides
     fun provideOkHttpClient(
         userAuth: UserAuth,
-        application: Application
-    ): OkHttpClient = okHttpClient(userAuth, (application as ComphyApp).baseUrl())
+        application: Application,
+        ioDispatcher: CoroutineDispatcher
+    ): OkHttpClient = okHttpClient(userAuth, (application as ComphyApp).baseUrl(), ioDispatcher)
 }

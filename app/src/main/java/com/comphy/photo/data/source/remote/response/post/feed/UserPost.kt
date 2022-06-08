@@ -1,6 +1,7 @@
 package com.comphy.photo.data.source.remote.response.post.feed
 
 import android.os.Parcelable
+import com.comphy.photo.data.source.remote.response.user.detail.Experience
 import com.comphy.photo.data.source.remote.response.user.following.Subscription
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -17,7 +18,7 @@ data class UserPost(
     val description: String,
 
     @SerializedName("experiences")
-    val experiences: List<String>,
+    val experiences: List<Experience>,
 
     @SerializedName("fullname")
     val fullname: String,

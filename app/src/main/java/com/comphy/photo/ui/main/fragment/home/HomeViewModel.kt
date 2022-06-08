@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.comphy.photo.data.repository.CommunityRepository
 import com.comphy.photo.data.repository.EventRepository
 import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.join.JoinedCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.event.EventResponseContentItem
 import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +21,7 @@ class HomeViewModel @Inject constructor(
 
     val userData = MutableLiveData<UserResponseData>()
     val userCreatedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
-    val userJoinedCommunity = MutableLiveData<List<FollowCommunityResponseContentItem>>()
+    val userJoinedCommunity = MutableLiveData<List<JoinedCommunityResponseContentItem>>()
     val events = MutableLiveData<List<EventResponseContentItem>>()
     val isLoading = MutableLiveData<Boolean>()
     val isFetching = MutableLiveData<Boolean>()
@@ -32,6 +33,14 @@ class HomeViewModel @Inject constructor(
             communityId = communityId,
             onErrorNorException = { exceptionResponse.postValue(it) }
         )
+            .onStart { isLoading.postValue(true) }
+            .onCompletion { isLoading.postValue(false) }
+            .collect { leaveResponse.postValue(it.message) }
+
+    suspend fun deleteCommunity(communityId: Int) =
+        communityRepository.deleteCommunity(communityId) {
+            exceptionResponse.postValue(it)
+        }
             .onStart { isLoading.postValue(true) }
             .onCompletion { isLoading.postValue(false) }
             .collect { leaveResponse.postValue(it.message) }

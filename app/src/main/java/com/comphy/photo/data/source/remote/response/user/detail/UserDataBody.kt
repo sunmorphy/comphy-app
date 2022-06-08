@@ -8,10 +8,10 @@ data class UserDataBody(
 	val numberPhone: String? = null,
 
 	@SerializedName("description")
-	val description: String,
+	val description: String?,
 
 	@SerializedName("location")
-	val location: String,
+	val location: String?,
 
 	@SerializedName("fullname")
 	val fullname: String,
@@ -20,8 +20,14 @@ data class UserDataBody(
 	val id: Int,
 
 	@SerializedName("job")
-	val job: String,
+	val job: String?,
 
 	@SerializedName("socialMedia")
-	val socialMedia: String? = null
+	val socialMedia: String? = null,
+
+	@SerializedName("profilePhotoLink")
+	val profilePhotoLink: String? = null,
+
+	@SerializedName("profileBannerLink")
+	val profileBannerLink: String? = null,
 )

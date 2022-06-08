@@ -48,14 +48,27 @@ class JobRepository @Inject constructor(
     suspend fun getFilteredJobs(
         page: Int?,
         perPage: Int?,
-        region: String,
-        isFullTime: Boolean = false,
-        isPartTime: Boolean = false
+        title: String? = null,
+        location: String? = null
     ) = flow {
-        val response = apiService.filterJobs(page, perPage, region, isFullTime, isPartTime)
-        response.suspendOnSuccess { emit(data) }
-            .onError { Timber.tag("On Error").e(message()) }
-            .onException { Timber.tag("On Exception").e(message()) }
+        try {
+            val response = apiService.getFilteredJobs(page, perPage, title, location)
+            response.suspendOnSuccess {
+                try {
+                    val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
+                    val parsedArray =
+                        parsedData?.content!!.parseTo(JobResponseContentItem::class.java)
+                    emit(parsedArray)
+                    return@suspendOnSuccess
+                } catch (e: Exception) {
+                    Timber.e(e)
+                }
+            }
+                .onError { Timber.tag("On Error").e(message()) }
+                .onException { Timber.tag("On Exception").e(message()) }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
     }.flowOn(ioDispatcher)
 
     suspend fun getJobDetails(
@@ -80,11 +93,11 @@ class JobRepository @Inject constructor(
     }
 
     suspend fun getBookmarkedJobs(
-        page: Int?,
-        perPage: Int?
+        page: Int? = null,
+        perPage: Int? = null
     ) = flow {
         try {
-            val response = apiService.getJobs(page, perPage)
+            val response = apiService.getBookmarkedJobs(page, perPage)
             response.suspendOnSuccess {
                 try {
                     val parsedData = data.data?.parseTo(BaseResponseContent::class.java)

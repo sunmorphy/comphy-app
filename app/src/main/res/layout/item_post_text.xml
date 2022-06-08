@@ -55,7 +55,22 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/feed_add_user"
         android:scaleType="centerInside"
+        android:visibility="invisible"
         android:src="@drawable/ic_add_user"
+        app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+        app:layout_constraintEnd_toStartOf="@id/btnBookmark"
+        app:layout_constraintTop_toTopOf="@id/txtUserName" />
+
+    <ImageButton
+        android:id="@+id/btnEditPost"
+        android:layout_width="25dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="14dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/feed_edit_post"
+        android:scaleType="centerInside"
+        android:visibility="invisible"
+        android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@id/txtUserName"
         app:layout_constraintEnd_toStartOf="@id/btnBookmark"
         app:layout_constraintTop_toTopOf="@id/txtUserName" />
@@ -67,7 +82,21 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/feed_bookmark"
         android:scaleType="centerInside"
+        android:visibility="invisible"
         android:src="@drawable/ic_bookmarked"
+        app:layout_constraintBottom_toBottomOf="@id/txtUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtUserName" />
+
+    <ImageButton
+        android:id="@+id/btnDeletePost"
+        android:layout_width="25dp"
+        android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/feed_delete_post"
+        android:scaleType="centerInside"
+        android:visibility="invisible"
+        android:src="@drawable/ic_trash"
         app:layout_constraintBottom_toBottomOf="@id/txtUserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/txtUserName" />

@@ -4,9 +4,9 @@ import com.comphy.photo.data.source.remote.client.ApiService
 import com.comphy.photo.data.source.remote.response.BaseMessageResponse
 import com.comphy.photo.data.source.remote.response.BaseResponseContent
 import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
-import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
-import com.comphy.photo.data.source.remote.response.community.edit.EditCommunityBody
+import com.comphy.photo.data.source.remote.response.community.create.CommunityBody
 import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.join.JoinedCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.community.member.MemberCommunityResponseContentItem
 import com.comphy.photo.utils.JsonParser.parseTo
 import com.skydoves.sandwich.message
@@ -168,11 +168,11 @@ class CommunityRepository @Inject constructor(
     }.flowOn(ioDispatcher)
 
     suspend fun createCommunity(
-        createCommunityBody: CreateCommunityBody,
+        communityBody: CommunityBody,
         onError: (errorResponse: BaseMessageResponse) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
-        val response = apiService.createCommunity(createCommunityBody)
+        val response = apiService.createCommunity(communityBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: BaseMessageResponse? =
@@ -187,10 +187,10 @@ class CommunityRepository @Inject constructor(
     }.flowOn(ioDispatcher)
 
     suspend fun editCommunity(
-        editCommunityBody: EditCommunityBody,
+        communityBody: CommunityBody,
         onErrorNorException: (String?) -> Unit
     ) = flow {
-        val response = apiService.editCommunityDetail(editCommunityBody)
+        val response = apiService.editCommunityDetail(communityBody)
         response.suspendOnSuccess { emit(data) }
             .onError {
                 val responseResult: BaseMessageResponse? =
@@ -315,7 +315,7 @@ class CommunityRepository @Inject constructor(
                 try {
                     val parsedData = data.data?.parseTo(BaseResponseContent::class.java)
                     val parsedArray =
-                        parsedData?.content!!.parseTo(FollowCommunityResponseContentItem::class.java)
+                        parsedData?.content!!.parseTo(JoinedCommunityResponseContentItem::class.java)
                     emit(parsedArray)
                     return@suspendOnSuccess
                 } catch (e: Exception) {

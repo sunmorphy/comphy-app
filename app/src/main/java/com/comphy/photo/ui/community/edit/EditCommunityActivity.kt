@@ -48,13 +48,13 @@ class EditCommunityActivity : BasePermissionActivity() {
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) {
         CustomLoading(this)
     }
-    private val viewPagerSetupHelper by lazy(LazyThreadSafetyMode.NONE) {
+    val viewPagerSetupHelper by lazy(LazyThreadSafetyMode.NONE) {
         ViewPagerSetupHelper(this)
     }
-    private val bottomSheetDialog by lazy(LazyThreadSafetyMode.NONE) {
+    val bottomSheetDialog by lazy(LazyThreadSafetyMode.NONE) {
         BottomSheetDialog(this, R.style.CustomBottomSheetTheme)
     }
-    private val bottomSheetBinding by lazy(LazyThreadSafetyMode.NONE) {
+    val bottomSheetBinding by lazy(LazyThreadSafetyMode.NONE) {
         BottomSheetBinding.inflate(layoutInflater)
     }
     private val bottomSheetDeleteCommunityBinding by lazy(LazyThreadSafetyMode.NONE) {
@@ -65,6 +65,7 @@ class EditCommunityActivity : BasePermissionActivity() {
     val imagesPath = mutableListOf("", "")
     var profileUrl : String? = ""
     var bannerUrl : String? = ""
+    var isEdit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,47 +108,12 @@ class EditCommunityActivity : BasePermissionActivity() {
         viewModel.errorNorExceptionResponse.observe(this) { toast(it) }
         viewModel.successResponse.observe(this) {
             if (bottomSheetDialog.isShowing) bottomSheetDialog.dismiss()
-            finish()
+            if (isEdit) lifecycleScope.launch { viewModel.getAdminCommunityDetails(contentItem!!.id) }
+            else finish()
         }
-        viewModel.banResponse.observe(this) {
-            val spannedDesc = SpannableString(
-                String.format(getString(R.string.ec_community_ban_success_desc), it)
-            )
-            spannedDesc.apply {
-                setSpan(
-                    ForegroundColorSpan(
-                        ContextCompat.getColor(
-                            this@EditCommunityActivity,
-                            R.color.neutral_black_30
-                        )
-                    ),
-                    0,
-                    (getString(R.string.ec_community_ban_success_desc).length - it.length),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                setSpan(
-                    ForegroundColorSpan(
-                        ContextCompat.getColor(
-                            this@EditCommunityActivity,
-                            R.color.neutral_black
-                        )
-                    ),
-                    (getString(R.string.ec_community_ban_success_desc).length - it.length),
-                    String.format(getString(R.string.ec_community_ban_success_desc), it).length,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-            }
-            bottomSheetBinding.apply {
-                animView.setAnimation(R.raw.anim_success)
-                txtSheetTitle.text = getString(R.string.string_success_ban)
-                txtSheetDesc.text = spannedDesc
-                btnSheetAction.apply {
-                    text = getString(R.string.string_ok)
-                    setOnClickListener { bottomSheetDialog.dismiss() }
-                }
-            }
-            bottomSheetDialog.setContentView(bottomSheetBinding.root)
-            bottomSheetDialog.show()
+        viewModel.detailCommunity.observe(this) {
+            contentItem = it
+            setupWidgets()
         }
     }
 
@@ -202,10 +168,9 @@ class EditCommunityActivity : BasePermissionActivity() {
             binding.imgBannerOverlay.visibility = View.VISIBLE
         }
 
-        viewPagerSetupHelper.setup(
+        viewPagerSetupHelper.setupNormal(
             binding.tabEditCommunity,
             binding.vpTabEditCommunity,
-            supportFragmentManager,
             pagerAdapter(listOf(EditCommunityProfileFragment(), EditCommunityMemberFragment())),
             TAB_TITLES
         )
@@ -215,6 +180,7 @@ class EditCommunityActivity : BasePermissionActivity() {
         bottomSheetDeleteCommunityBinding.btnCancel.setOnClickListener { bottomSheetDialog.dismiss() }
         bottomSheetDeleteCommunityBinding.btnDelete.setOnClickListener {
             lifecycleScope.launch { viewModel.deleteCommunity(contentItem!!.id) }
+            isEdit = false
         }
 
         bottomSheetDialog.setContentView(bottomSheetDeleteCommunityBinding.root)

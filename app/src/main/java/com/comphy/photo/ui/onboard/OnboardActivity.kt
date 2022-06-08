@@ -1,9 +1,9 @@
 package com.comphy.photo.ui.onboard
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.comphy.photo.R
@@ -24,17 +24,23 @@ class OnboardActivity : AppCompatActivity() {
     @Inject
     lateinit var userAuth: UserAuth
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityOnboardBinding.inflate(layoutInflater) }
-    private val viewModel by viewModels<OnboardViewModel>()
+    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+        ActivityOnboardBinding.inflate(layoutInflater)
+    }
+    private val viewModel by lazy { ViewModelProvider(this)[OnboardViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (userAuth.isLogin) {
-            if (userAuth.isUserUpdated) {
-                start<MainActivity>()
+            if (userAuth.userAccessToken != null) {
+                if (userAuth.isUserUpdated) {
+                    start<MainActivity>()
+                } else {
+                    start<BiodataActivity>()
+                }
             } else {
-                start<BiodataActivity>()
+                start<LoginActivity>()
             }
             finish()
         }

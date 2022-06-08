@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.article.ArticleDetailActivity">
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="19dp"
+        android:paddingBottom="18dp"
+        app:carbon_cornerRadiusBottomEnd="18dp"
+        app:carbon_cornerRadiusBottomStart="18dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="@dimen/dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/string_back"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_orange"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_back"
+            app:iconPadding="10dp"
+            app:iconTint="@color/primary_orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/string_tips"
+            android:textColor="@color/neutral_black_50"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    </carbon.widget.ConstraintLayout>
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutArticleTitle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="18dp"
+        app:carbon_cornerRadius="18dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutCustomBar">
+
+        <TextView
+            android:id="@+id/txtArticleTitle"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/string_empty"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </carbon.widget.ConstraintLayout>
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgArticle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="18dp"
+        app:carbon_cornerRadius="18dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFE0B0"
+        app:layout_constraintTop_toBottomOf="@id/layoutArticleTitle" />
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutArticleContent"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="24dp"
+        app:carbon_cornerRadius="18dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgArticle">
+
+        <TextView
+            android:id="@+id/txtArticleContent"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/string_empty"
+            android:textColor="@color/neutral_black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtArticleSource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:text="@string/string_source"
+            android:textColor="@color/neutral_black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtArticleContent" />
+
+        <TextView
+            android:id="@+id/txtArticleSourceContent"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:linksClickable="true"
+            android:text="@string/string_empty"
+            android:textColor="@color/neutral_black_70"
+            android:textColorLink="@color/neutral_black_70"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtArticleSource"
+            app:layout_constraintTop_toTopOf="@id/txtArticleSource" />
+
+    </carbon.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtNextArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/string_next_subject"
+        android:textColor="@color/primary_orange"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/imgArticle"
+        app:layout_constraintTop_toBottomOf="@id/layoutArticleContent" />
+
+    <carbon.widget.Button
+        android:id="@+id/btnNextArticle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/state_button"
+        android:drawableEnd="@drawable/ic_more_med"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_medium"
+        android:padding="24dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_empty"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/primary_gray"
+        android:textSize="14sp"
+        app:carbon_cornerRadius="18dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtNextArticle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

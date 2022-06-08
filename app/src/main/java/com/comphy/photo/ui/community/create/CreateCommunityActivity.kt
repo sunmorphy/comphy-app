@@ -85,6 +85,7 @@ class CreateCommunityActivity : BaseCommunityActivity() {
     }
 
     override fun setupClickListener() {
+        binding.btnBack.setOnClickListener { onBackPressed() }
         binding.imgBanner.setOnClickListener {
             requestAccessForFile {
                 openPicker {
@@ -122,7 +123,10 @@ class CreateCommunityActivity : BaseCommunityActivity() {
                 setRequiredFieldError(true, eachField = true)
 
             } else {
-                lifecycleScope.launch { viewModel.getUploadLink(UploadType.IMAGE, listPath.size) }
+                lifecycleScope.launch {
+                    if (listPath.isEmpty()) createCommunity()
+                    else viewModel.getUploadLink(UploadType.IMAGE, listPath.size)
+                }
             }
         }
         binding.btnCreateCommunity.setOnClickListener {
@@ -200,7 +204,7 @@ class CreateCommunityActivity : BaseCommunityActivity() {
                     if (file.sizeInMb <= MediaSize.IMAGE_NON_POST) {
                         selectedMedia(item)
                     } else {
-                        toast("File harus lebih kecil dari 3MB")
+                        toast("File harus lebih kecil dari ${MediaSize.IMAGE_NON_POST.toInt()}MB")
                     }
                 }
             }

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.comphy.photo.data.repository.PostRepository
 import com.comphy.photo.data.repository.UserRepository
+import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
@@ -15,9 +16,18 @@ class ExploreDetailViewModel @Inject constructor(
     private val postRepository: PostRepository
 ) : ViewModel(){
 
+    val isFetching = MutableLiveData<Boolean>()
     val isLoading = MutableLiveData<Boolean>()
     val errorNorException = MutableLiveData<String>()
+    val userData = MutableLiveData<UserResponseData>()
     val successResponse = MutableLiveData<String>()
+
+    suspend fun getUserDetails() {
+        userRepository.getUserDetails()
+            .onStart { isFetching.postValue(true) }
+            .onCompletion { isFetching.postValue(false) }
+            .collect { userData.postValue(it) }
+    }
 
     suspend fun followUser(userIdFollowed: Int) =
         userRepository.followUser(userIdFollowed) { errorNorException.postValue(it) }

@@ -49,7 +49,7 @@ data class EventResponseContentItem(
     val time: String? = null,
 
     @SerializedName("typeEvent")
-    val typeEvent: Int? = null,
+    val typeEvent: Int,
 
     @SerializedName("updated_date")
     val updatedDate: String? = null

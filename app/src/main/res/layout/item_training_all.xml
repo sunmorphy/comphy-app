@@ -53,14 +53,16 @@
 
     <TextView
         android:id="@+id/txtEventDate"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
+        android:layout_marginEnd="36dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/event_date"
         android:textColor="#8B8B8B"
         android:textSize="12sp"
         android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@id/btnBookmark"
         app:layout_constraintStart_toStartOf="@id/txtEventDescription"
         app:layout_constraintTop_toBottomOf="@id/txtEventDescription" />
 

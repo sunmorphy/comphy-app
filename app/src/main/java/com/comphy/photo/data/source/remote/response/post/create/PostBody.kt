@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class PostBody(
 
+	@SerializedName("postId")
+	val postId: String? = null,
+
 	@SerializedName("orientationType")
 	val orientationType: Int? = null,
 

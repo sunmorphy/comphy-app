@@ -2,15 +2,15 @@ package com.comphy.photo.data.source.remote.client
 
 import com.comphy.photo.data.source.remote.response.BaseMessageResponse
 import com.comphy.photo.data.source.remote.response.BaseResponse
+import com.comphy.photo.data.source.remote.response.PasswordVerifyResponse
 import com.comphy.photo.data.source.remote.response.auth.AuthBody
 import com.comphy.photo.data.source.remote.response.auth.AuthResponseData
-import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
-import com.comphy.photo.data.source.remote.response.community.edit.EditCommunityBody
-import com.comphy.photo.data.source.remote.response.job.list.JobResponse
+import com.comphy.photo.data.source.remote.response.community.create.CommunityBody
 import com.comphy.photo.data.source.remote.response.post.comment.CommentBody
 import com.comphy.photo.data.source.remote.response.post.create.PostBody
 import com.comphy.photo.data.source.remote.response.upload.UploadResponse
 import com.comphy.photo.data.source.remote.response.user.detail.UserDataBody
+import com.comphy.photo.data.source.remote.response.user.experience.ExperienceBody
 import com.skydoves.sandwich.ApiResponse
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -36,18 +36,18 @@ interface ApiService {
     @POST("auth/register")
     suspend fun userRegister(
         @Body authBody: AuthBody
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @POST("auth/register")
     suspend fun userRegisterGoogle(
         @Body authBody: AuthBody
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @PUT("auth/register/verify-otp")
     suspend fun userRegisterVerify(
         @Query("otp") otp: String,
         @Query("email") email: String
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     /**
      * Forgot Password
@@ -55,20 +55,20 @@ interface ApiService {
     @POST("auth/forgot-password")
     suspend fun userForgot(
         @Query("email") email: String
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @POST("auth/forgot-password/verify")
     suspend fun userForgotVerify(
         @Query("otp") otp: String,
         @Query("email") email: String
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @POST("auth/forgot-password/reset")
     suspend fun userForgotReset(
         @Query("otp") otp: String,
         @Query("newPassword") newPassword: String,
         @Query("email") email: String
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     /**
      * Refresh Token
@@ -84,25 +84,37 @@ interface ApiService {
     @GET("comphy/user/getCities")
     suspend fun getUserCities(): ApiResponse<BaseResponse>
 
+    @GET("comphy/user/list")
+    suspend fun getFilteredUsers(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = 20,
+        @Query("name") name: String? = null,
+        @Query("location") location: String? = null
+    ): ApiResponse<BaseResponse>
+
     @GET("comphy/user/details")
-    suspend fun getUserDetails(): ApiResponse<BaseResponse>
+    suspend fun getUserDetails(
+        @Query("userId") userId: Int? = null
+    ): ApiResponse<BaseResponse>
 
     @GET("comphy/user/getFollowing")
     suspend fun getUserFollowing(
         @Query("page") page: Int? = null,
-        @Query("perPage") perPage: Int? = null
+        @Query("perPage") perPage: Int? = null,
+        @Query("userId") userId: Int? = null
     ): ApiResponse<BaseResponse>
 
     @GET("comphy/user/getFollowers")
     suspend fun getUserFollowers(
         @Query("page") page: Int? = null,
-        @Query("perPage") perPage: Int? = null
+        @Query("perPage") perPage: Int? = null,
+        @Query("userId") userId: Int? = null
     ): ApiResponse<BaseResponse>
 
     @PUT("comphy/user/update")
     suspend fun updateUserDetails(
         @Body userDataBody: UserDataBody
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @POST("comphy/user/follow")
     suspend fun followUser(
@@ -112,6 +124,31 @@ interface ApiService {
     @DELETE("comphy/user/unfollow")
     suspend fun unfollowUser(
         @Query("userIdFollowed") userIdFollowed: Int
+    ): ApiResponse<BaseMessageResponse>
+
+    @POST("comphy/user/experience/create")
+    suspend fun createExperience(
+        @Body experienceBody: ExperienceBody
+    ): ApiResponse<BaseMessageResponse>
+
+    @PUT("comphy/user/experience/update")
+    suspend fun updateExperience(
+        @Body experienceBody: ExperienceBody
+    ): ApiResponse<BaseMessageResponse>
+
+    @DELETE("comphy/user/experience/delete")
+    suspend fun deleteExperience(
+        @Query("experienceId") experienceId: Int
+    ): ApiResponse<BaseMessageResponse>
+
+    @PATCH("comphy/user/verify-password")
+    suspend fun verifyPassword(
+        @Query("password") password: String
+    ): ApiResponse<PasswordVerifyResponse>
+
+    @PUT("comphy/user/change-password")
+    suspend fun changePassword(
+        @Query("newPassword") newPassword: String
     ): ApiResponse<BaseMessageResponse>
 
     /**
@@ -168,7 +205,7 @@ interface ApiService {
     suspend fun getCommunityMembers(
         @Query("page") page: Int? = null,
         @Query("perPage") perPage: Int? = null,
-        @Query("communityId") communityId : Int
+        @Query("communityId") communityId: Int
     ): ApiResponse<BaseResponse>
 
     @GET("comphy/community/category/list")
@@ -189,17 +226,17 @@ interface ApiService {
     suspend fun joinCommunity(
         @Query("communityId") communityId: Int,
         @Query("communityCode") communityCode: String? = null
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @POST("comphy/community/create")
     suspend fun createCommunity(
-        @Body createCommunityBody: CreateCommunityBody
-    ): ApiResponse<BaseResponse>
+        @Body communityBody: CommunityBody
+    ): ApiResponse<BaseMessageResponse>
 
     @DELETE("comphy/community/out")
     suspend fun leaveCommunity(
         @Query("communityId") communityId: Int
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     /**
      * Community Admin
@@ -211,24 +248,24 @@ interface ApiService {
 
     @PUT("comphy/community/admin/edit")
     suspend fun editCommunityDetail(
-        @Body editCommunityBody: EditCommunityBody
-    ): ApiResponse<BaseResponse>
+        @Body communityBody: CommunityBody
+    ): ApiResponse<BaseMessageResponse>
 
     @PUT("comphy/community/admin/communitycode")
     suspend fun editPrivateCommunityCode(
         @Query("communityId") communityId: Int
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @PUT("comphy/community/admin/ban-user")
     suspend fun banUserCommunity(
         @Query("userId") userId: Int,
         @Query("communityId") communityId: Int
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @DELETE("comphy/community/admin/delete")
     suspend fun deleteCommunity(
         @Query("communityId") communityId: Int
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     /**
      * Job Vacancies
@@ -239,14 +276,13 @@ interface ApiService {
         @Query("perPage") perPage: Int? = null
     ): ApiResponse<BaseResponse>
 
-    @GET("comphy/jobVacancy/filter") // TODO FILTER NOT READY YET SIGH
-    suspend fun filterJobs(
+    @GET("comphy/jobVacancy/list")
+    suspend fun getFilteredJobs(
         @Query("page") page: Int? = null,
         @Query("perPage") perPage: Int? = null,
-        @Query("region") region: String,
-        @Query("fullTime") fullTime: Boolean = false,
-        @Query("partTime") partTime: Boolean = false,
-    ): ApiResponse<JobResponse>
+        @Query("title") title: String? = null,
+        @Query("location") location: String? = null
+    ): ApiResponse<BaseResponse>
 
     @GET("comphy/jobVacancy/details")
     suspend fun getJobDetails(
@@ -262,18 +298,30 @@ interface ApiService {
     @POST("comphy/jobVacancy/bookmark")
     suspend fun bookmarkJob(
         @Query("jobVacancyId") jobId: Int
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @DELETE("comphy/jobVacancy/bookmark/delete")
     suspend fun unBookmarkJob(
         @Query("bookmarkJobId") bookmarkedJobId: Int
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     /**
      * Post
      */
     @GET("comphy/post/feedpost")
     suspend fun getFeedPosts(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int? = null
+    ): BaseResponse
+
+    @GET("comphy/post/feedpost")
+    suspend fun getFeeds(
+        @Query("page") page: Int? = null,
+        @Query("perPage") perPage: Int = 15
+    ): ApiResponse<BaseResponse>
+
+    @GET("comphy/post/user/list/created")
+    suspend fun getCreatedPosts(
         @Query("page") page: Int? = null,
         @Query("perPage") perPage: Int? = null
     ): BaseResponse
@@ -298,17 +346,17 @@ interface ApiService {
     @POST("comphy/post/create")
     suspend fun createPost(
         @Body postBody: PostBody
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @PUT("comphy/post/update")
     suspend fun updatePost(
         @Body postBody: PostBody
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @DELETE("comphy/post/delete")
     suspend fun deletePost(
         @Query("postId") postId: String
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @POST("comphy/post/saved")
     suspend fun bookmarkPost(
@@ -393,10 +441,10 @@ interface ApiService {
     @POST("comphy/event/bookmark")
     suspend fun bookmarkEvent(
         @Query("eventId") eventId: Int
-    ): ApiResponse<BaseResponse>
+    ): ApiResponse<BaseMessageResponse>
 
     @DELETE("comphy/event/bookmark/delete")
     suspend fun removeBookmarkEvent(
-        @Query("bookmarkId") bookmarkId: String
-    ): ApiResponse<BaseResponse>
+        @Query("bookmarkId") bookmarkId: Int
+    ): ApiResponse<BaseMessageResponse>
 }

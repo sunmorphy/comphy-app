@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
@@ -49,12 +50,14 @@
     </carbon.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/mainViewParent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutCustomBar">
 
         <carbon.widget.ConstraintLayout
+            android:id="@+id/mainView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -175,7 +178,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_banner_placeholder"
                 app:carbon_cornerRadius="14dp"
-                app:layout_constraintDimensionRatio="4:5"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtFeedLocation"
@@ -433,9 +436,9 @@
                     android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="34dp"
-                    android:focusable="false"
                     android:layout_marginEnd="@dimen/dp_10"
                     android:background="@android:color/transparent"
+                    android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:fontFamily="@font/poppins_medium"
                     android:hint="@string/comment_write"

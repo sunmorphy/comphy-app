@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <carbon.widget.ConstraintLayout
         android:id="@+id/errorLayout"
@@ -79,6 +81,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_bottom_sheet"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:paddingBottom="42dp"
         app:carbon_elevation="30dp"
         app:carbon_elevationShadowColor="#FFE0B0"
@@ -130,6 +134,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/state_field"
+            android:clickable="false"
+            android:focusable="false"
             android:fontFamily="@font/poppins_semi_bold"
             android:includeFontPadding="false"
             android:inputType="number"
@@ -152,6 +158,8 @@
             android:layout_height="@dimen/dp_0"
             android:layout_marginStart="16dp"
             android:background="@drawable/state_field"
+            android:clickable="false"
+            android:focusable="false"
             android:fontFamily="@font/poppins_semi_bold"
             android:includeFontPadding="false"
             android:inputType="number"
@@ -174,6 +182,8 @@
             android:layout_height="@dimen/dp_0"
             android:layout_marginStart="16dp"
             android:background="@drawable/state_field"
+            android:clickable="false"
+            android:focusable="false"
             android:fontFamily="@font/poppins_semi_bold"
             android:includeFontPadding="false"
             android:inputType="number"
@@ -196,6 +206,8 @@
             android:layout_height="@dimen/dp_0"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/state_field"
+            android:clickable="false"
+            android:focusable="false"
             android:fontFamily="@font/poppins_semi_bold"
             android:includeFontPadding="false"
             android:inputType="number"
@@ -213,7 +225,7 @@
             app:layout_constraintTop_toTopOf="@id/edtCode3" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnJoin"
+            android:id="@+id/btnSaveChange"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -225,7 +237,7 @@
             android:letterSpacing="0"
             android:paddingVertical="12dp"
             android:stateListAnimator="@null"
-            android:text="@string/string_join_community"
+            android:text="@string/string_understand"
             android:textAllCaps="false"
             android:textColor="@color/state_button_text_activable"
             android:textSize="14sp"
@@ -233,21 +245,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edtCode1" />
-
-        <ImageView
-            android:id="@+id/imgLoadingBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:rotation="90"
-            android:src="@drawable/ic_loading_btn"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/btnJoin"
-            app:layout_constraintEnd_toEndOf="@id/btnJoin"
-            app:layout_constraintStart_toStartOf="@id/btnJoin"
-            app:layout_constraintTop_toTopOf="@id/btnJoin"
-            app:tint="@color/primary_orange"
-            tools:ignore="ContentDescription" />
 
     </carbon.widget.ConstraintLayout>
 

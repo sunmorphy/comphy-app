@@ -7,10 +7,12 @@ import com.bumptech.glide.Glide
 import com.comphy.photo.R
 import com.comphy.photo.data.source.remote.response.job.list.JobResponseContentItem
 import com.comphy.photo.databinding.ItemJobBinding
+import splitties.resources.colorSL
 import splitties.resources.str
 
 class JobAdapter(
     private val jobs: List<JobResponseContentItem>,
+    private val onBookmarkClick: (position: Int, jobId: Int, isBookmarked: Boolean) -> Unit,
     private val onClick: (jobId: Int) -> Unit
 ) : RecyclerView.Adapter<JobAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobAdapter.ViewHolder {
@@ -23,7 +25,7 @@ class JobAdapter(
 
         with(holder.binding) {
             Glide.with(holder.itemView)
-                .load("")
+                .load(job.linkPhotoCompany)
                 .placeholder(R.drawable.ic_placeholder_people)
                 .error(R.drawable.ic_placeholder_people)
                 .centerCrop()
@@ -35,6 +37,14 @@ class JobAdapter(
             txtJobType.text =
                 if (job.isFulltime) holder.itemView.str(R.string.job_type_full)
                 else holder.itemView.str(R.string.job_type_part)
+            btnBookmark.apply {
+                imageTintList = if (job.isBookmarked) colorSL(R.color.primary_orange)
+                else colorSL(R.color.neutral_black)
+                setOnClickListener {
+                    onBookmarkClick(position, job.id, job.isBookmarked)
+                    job.isBookmarked = !job.isBookmarked
+                }
+            }
         }
         holder.itemView.setOnClickListener { onClick(job.id) }
     }

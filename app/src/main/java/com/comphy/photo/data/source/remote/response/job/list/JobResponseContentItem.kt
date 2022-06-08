@@ -1,6 +1,5 @@
 package com.comphy.photo.data.source.remote.response.job.list
 
-
 import com.google.gson.annotations.SerializedName
 
 data class JobResponseContentItem(
@@ -22,8 +21,17 @@ data class JobResponseContentItem(
     @SerializedName("isFulltime")
     val isFulltime: Boolean,
 
+    @SerializedName("isBookmarked")
+    var isBookmarked: Boolean,
+
+    @SerializedName("bookmarked")
+    val bookmarked: Boolean,
+
     @SerializedName("location")
     val location: String? = null,
+
+    @SerializedName("linkPhotoCompany")
+    val linkPhotoCompany: String? = null,
 
     @SerializedName("rangeSalary")
     val rangeSalary: String? = null,

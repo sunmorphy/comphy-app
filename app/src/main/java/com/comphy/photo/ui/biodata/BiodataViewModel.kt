@@ -23,7 +23,7 @@ class BiodataViewModel @Inject constructor(
     val isFetching = MutableLiveData<Boolean>()
     val exceptionResponse = MutableLiveData<String>()
     val cities = MutableLiveData<List<CityEntity>>()
-    val updateResponse = MutableLiveData<BaseResponse>()
+    val updateResponse = MutableLiveData<String>()
 
     suspend fun getCities() =
         userRepository.getUserCities {
@@ -74,16 +74,14 @@ class BiodataViewModel @Inject constructor(
             socialMedia = socialMedia,
             id = userAuth.userId
         )
-        userRepository.updateUserDetails(
-            userDataBody,
-            onError = { },
-            onException = { }
-        )
+        userRepository.updateUserDetails(userDataBody) {
+            exceptionResponse.postValue(it)
+        }
             .onStart { isFetching.postValue(true) }
             .onCompletion { isFetching.postValue(false) }
             .collect {
                 userAuth.isUserUpdated = true
-                updateResponse.postValue(it)
+                updateResponse.postValue(it.message)
             }
     }
 

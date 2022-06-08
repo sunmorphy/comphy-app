@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comphy.photo.databinding.FragmentFollowerBinding
-import com.comphy.photo.ui.profile.FollowAdapter
+import com.comphy.photo.ui.profile.FollowersAdapter
+import com.comphy.photo.ui.profile.ProfileActivity
 import com.comphy.photo.ui.profile.ProfileViewModel
+import kotlinx.coroutines.launch
 
 class FollowerFragment : Fragment() {
 
     private var _binding: FragmentFollowerBinding? = null
     private val binding get() = _binding!!
 
-    private val profileViewModel: ProfileViewModel by activityViewModels()
+    private val viewModel: ProfileViewModel by activityViewModels()
+    private var followersAdapter: FollowersAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +34,29 @@ class FollowerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileViewModel.userFollowers.observe(viewLifecycleOwner) {
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        viewModel.userFollowers.observe(viewLifecycleOwner) {
+            followersAdapter = FollowersAdapter(it) { pos, userId, isFollowed ->
+                lifecycleScope.launch {
+                    if (isFollowed) viewModel.unfollowUser(userId, pos)
+                    else viewModel.followUser(userId, pos)
+                }
+            }
             binding.rvFollowerUsers.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = FollowAdapter(it)
+                adapter = followersAdapter
             }
         }
+        viewModel.followPositionResponse.observe(viewLifecycleOwner) {
+            followersAdapter!!.notifyItemChanged(it)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as ProfileActivity).viewPagerSetupHelper.setProperHeightOfView(binding.root)
     }
 }

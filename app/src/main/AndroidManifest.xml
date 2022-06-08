@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.comphy.photo" >
+    package="com.comphy.photo">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -10,13 +10,30 @@
         android:name=".ComphyApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/img_logo_orange"
+        android:icon="@drawable/img_logo_primary"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/img_logo_orange"
+        android:roundIcon="@drawable/img_logo_primary_rounded"
         android:supportsRtl="true"
         android:theme="@style/Theme.Comphy"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.payment.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.bookmark.BookmarkActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.article.ArticleDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.comment.detail.CommentDetailActivity"
             android:exported="false"
@@ -77,7 +94,7 @@
             android:name=".ui.course.CourseActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.White.Comphy"
+            android:theme="@style/Theme.Orange.Comphy"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
@@ -89,6 +106,13 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.event.detail.EventDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.White.Comphy"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.search.result.SearchResultActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.White.Comphy"
@@ -196,7 +220,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Orange.Comphy"
-            tools:ignore="LockedOrientationActivity" >
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

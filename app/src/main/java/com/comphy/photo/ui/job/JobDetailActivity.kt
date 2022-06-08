@@ -33,7 +33,7 @@ class JobDetailActivity : AppCompatActivity() {
         ActivityJobDetailBinding.inflate(layoutInflater)
     }
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
-    private val viewPagerSetupHelper by lazy(LazyThreadSafetyMode.NONE) { ViewPagerSetupHelper(this) }
+    val viewPagerSetupHelper by lazy(LazyThreadSafetyMode.NONE) { ViewPagerSetupHelper(this) }
     private val viewModel: JobDetailViewModel by viewModels()
     private var extraId = -1
 
@@ -58,7 +58,7 @@ class JobDetailActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) { customLoading.showLoading(it) }
         viewModel.jobDetailResponse.observe(this) { jobData ->
             Glide.with(this)
-                .load("")
+                .load(jobData.linkPhotoCompany)
                 .placeholder(R.drawable.ic_placeholder_people)
                 .error(R.drawable.ic_placeholder_people)
                 .centerCrop()
@@ -75,10 +75,9 @@ class JobDetailActivity : AppCompatActivity() {
     }
 
     private fun setupWidgets() {
-        viewPagerSetupHelper.setup(
+        viewPagerSetupHelper.setupNormal(
             binding.tabJob,
             binding.vpTabJob,
-            supportFragmentManager,
             pagerAdapter(listOf(JobDescriptionFragment(), JobRequirementFragment())),
             TAB_TITLES
         )

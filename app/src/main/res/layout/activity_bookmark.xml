@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background"
+    tools:context=".ui.bookmark.BookmarkActivity">
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="19dp"
+        android:paddingBottom="18dp"
+        app:carbon_cornerRadiusBottomEnd="14dp"
+        app:carbon_cornerRadiusBottomStart="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFEACB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawablePadding="@dimen/dp_0"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:minWidth="@dimen/dp_0"
+            android:minHeight="@dimen/dp_0"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/string_back"
+            android:textAllCaps="false"
+            android:textColor="@color/primary_orange"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_back"
+            app:iconPadding="10dp"
+            app:iconTint="@color/primary_orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtExplore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/string_saved"
+            android:textColor="@color/neutral_black_50"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabBookmark"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="38dp"
+            android:layout_marginTop="18dp"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="@id/txtExplore"
+            app:layout_constraintStart_toStartOf="@id/btnBack"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            app:tabBackground="@drawable/state_tab_search"
+            app:tabIndicatorHeight="@dimen/dp_0"
+            app:tabPaddingEnd="20dp"
+            app:tabPaddingStart="20dp"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/CustomTabTextAppearance"
+            app:tabTextColor="@color/neutral_black_20">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/explore_tab_event" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/explore_tab_job" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/explore_tab_post" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </carbon.widget.ConstraintLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTabBookmark"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutCustomBar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

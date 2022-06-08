@@ -10,9 +10,15 @@ import com.comphy.photo.data.source.remote.response.community.follow.FollowCommu
 import com.comphy.photo.databinding.ItemCommunityBinding
 
 class CommunitySimilarAdapter(
-    private val communities: List<FollowCommunityResponseContentItem>?,
     private val onItemClick: (FollowCommunityResponseContentItem) -> Unit
 ) : RecyclerView.Adapter<CommunitySimilarAdapter.ViewHolder>() {
+
+    private val communities = mutableListOf<FollowCommunityResponseContentItem>()
+
+    fun setData(communities: List<FollowCommunityResponseContentItem>) {
+        this.communities.clear()
+        this.communities.addAll(communities)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,23 +29,21 @@ class CommunitySimilarAdapter(
     }
 
     override fun onBindViewHolder(holder: CommunitySimilarAdapter.ViewHolder, position: Int) {
-        holder.binding.btnOption.visibility = View.INVISIBLE
-        if (communities != null) {
-            val community = communities[position]
+        val community = communities[position]
 
-            Glide.with(holder.itemView)
-                .load(community.profilePhotoCommunityLink)
-                .error(R.drawable.ic_people_community)
-                .placeholder(R.drawable.ic_people_community)
-                .centerCrop()
-                .into(holder.binding.imgCommunity)
-            holder.binding.txtCommunityTitle.text = community.communityName
-            holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
-            holder.itemView.setOnClickListener { onItemClick(community) }
-        }
+        holder.binding.btnOption.visibility = View.INVISIBLE
+        Glide.with(holder.itemView)
+            .load(community.profilePhotoCommunityLink)
+            .error(R.drawable.ic_people_community)
+            .placeholder(R.drawable.ic_people_community)
+            .centerCrop()
+            .into(holder.binding.imgCommunity)
+        holder.binding.txtCommunityTitle.text = community.communityName
+        holder.binding.txtCommunityCategory.text = community.categoryCommunity.name
+        holder.itemView.setOnClickListener { onItemClick(community) }
     }
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = if (communities.size > 2) 2 else communities.size
 
     inner class ViewHolder(var binding: ItemCommunityBinding) :
         RecyclerView.ViewHolder(binding.root)

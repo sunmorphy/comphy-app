@@ -51,7 +51,7 @@ class AllCommunityActivity : AppCompatActivity() {
                     viewModel.userCreatedCommunity.observe(this@AllCommunityActivity) {
                         binding.rvCommunity.apply {
                             layoutManager = LinearLayoutManager(this@AllCommunityActivity)
-                            adapter = AllCommunityAdapter(it) { communityId ->
+                            adapter = AllCommunityAdapter(createdCommunities = it, joinedCommunities = null) { communityId ->
                                 bottomSheetOptionBinding.apply {
                                     txtCommunitySettings.apply {
                                         visibility = View.VISIBLE
@@ -73,7 +73,7 @@ class AllCommunityActivity : AppCompatActivity() {
                     viewModel.userJoinedCommunity.observe(this@AllCommunityActivity) {
                         binding.rvCommunity.apply {
                             layoutManager = LinearLayoutManager(this@AllCommunityActivity)
-                            adapter = AllCommunityAdapter(it) { communityId ->
+                            adapter = AllCommunityAdapter(createdCommunities = null, joinedCommunities = it) { communityId ->
                                 bottomSheetOptionBinding.apply {
                                     txtCommunitySettings.visibility = View.GONE
                                     divider.visibility = View.GONE

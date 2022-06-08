@@ -14,8 +14,7 @@ import com.comphy.photo.vo.FollowType.OWNED
 import splitties.resources.colorSL
 import splitties.resources.drawable
 import splitties.resources.str
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 class FeedTextViewHolder(
     var binding: ItemPostTextBinding
@@ -28,6 +27,8 @@ class FeedTextViewHolder(
         onProfileClick: (userId: Int) -> Unit,
         onFollowClick: (userId: Int, isFollowed: Int) -> Unit,
         onBookmarkClick: (postId: String, isSaved: Boolean) -> Unit,
+        onEditClick: (content: FeedResponseContentItem) -> Unit,
+        onDeleteClick: (postId: String) -> Unit,
         onLikeClick: (postId: String, isLiked: Boolean) -> Unit,
         onCommentClick: (postId: String, commentCount: Int) -> Unit
     ) {
@@ -35,24 +36,50 @@ class FeedTextViewHolder(
         binding.btnAddUser.apply {
             when (content.isFollowed) {
                 NOT_FOLLOWED -> {
+                    visibility = View.VISIBLE
                     setImageDrawable(drawable(R.drawable.ic_add_user))
                     setOnClickListener { onFollowClick(content.userPost.id, content.isFollowed) }
                 }
                 FOLLOWED -> {
+                    visibility = View.VISIBLE
                     setImageDrawable(drawable(R.drawable.ic_remove_user))
                     setOnClickListener { onFollowClick(content.userPost.id, content.isFollowed) }
                 }
                 OWNED -> visibility = View.INVISIBLE
             }
         }
+        binding.btnEditPost.apply {
+            when (content.isFollowed) {
+                OWNED -> {
+                    visibility = View.VISIBLE
+                    setOnClickListener { onEditClick(content) }
+                }
+                else -> visibility = View.INVISIBLE
+            }
+        }
         binding.btnBookmark.apply {
-            imageTintList =
-                if (content.postSaved) colorSL(R.color.primary_orange)
-                else colorSL(R.color.black)
+            when (content.isFollowed) {
+                OWNED -> visibility = View.INVISIBLE
+                else -> {
+                    visibility = View.VISIBLE
+                    imageTintList =
+                        if (content.postSaved) colorSL(R.color.primary_orange)
+                        else colorSL(R.color.black)
 
-            setOnClickListener {
-                onBookmarkClick(content.id, content.postSaved)
-                content.postSaved = !content.postSaved
+                    setOnClickListener {
+                        onBookmarkClick(content.id, content.postSaved)
+                        content.postSaved = !content.postSaved
+                    }
+                }
+            }
+        }
+        binding.btnDeletePost.apply {
+            when (content.isFollowed) {
+                OWNED -> {
+                    visibility = View.VISIBLE
+                    setOnClickListener { onDeleteClick(content.id) }
+                }
+                else -> visibility = View.INVISIBLE
             }
         }
         binding.txtFeedTimePassed.text =
@@ -71,7 +98,7 @@ class FeedTextViewHolder(
         binding.txtFeedCommunity.apply {
             if (content.community != null) {
                 visibility = View.VISIBLE
-                text = content.community
+                text = content.community.communityName
             } else {
                 visibility = View.GONE
             }
@@ -84,7 +111,7 @@ class FeedTextViewHolder(
             .into(binding.imgFeedProfile)
 
         Glide.with(view)
-            .load(userData.profileUrl)
+            .load(userData.profilePhotoLink)
             .centerCrop()
             .placeholder(view.drawable(R.drawable.ic_placeholder_people))
             .error(view.drawable(R.drawable.ic_placeholder_people))
@@ -114,6 +141,8 @@ class FeedTextViewHolder(
             }
             setOnClickListener {
                 onLikeClick(content.id, content.liked)
+                content.totalLikes = if (content.liked) content.totalLikes - 1
+                else content.totalLikes + 1
                 content.liked = !content.liked
             }
         }

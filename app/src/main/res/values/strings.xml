@@ -16,6 +16,7 @@
     <string name="string_welcome">Selamat Datang!</string>
     <string name="string_or">Atau</string>
     <string name="string_ok">Oke</string>
+    <string name="string_understand">Mengerti</string>
 
     <string name="string_empty"> </string>
     <string name="string_register">Daftar</string>
@@ -33,6 +34,7 @@
     <string name="string_verify">Verifikasi</string>
     <string name="string_back">Kembali</string>
     <string name="string_save">Simpan</string>
+    <string name="string_next">Selanjutnya</string>
     <string name="string_save_change">Simpan Perubahan</string>
     <string name="string_join_community">Bergabung Sekarang</string>
     <string name="string_leave_community">Keluar Komunitas</string>
@@ -51,6 +53,9 @@
     <string name="string_required">*</string>
     <string name="string_community_type_private">Privat</string>
     <string name="string_community_type_public">Publik</string>
+    <string name="string_community_type_filter_all">Semua</string>
+    <string name="string_community_type_filter_private">Privat Komunitas</string>
+    <string name="string_community_type_filter_public">Publik Komunitas</string>
     <string name="string_set_filter">Filter</string>
     <string name="string_set_bookmark">Bookmark</string>
     <string name="string_apply">Terapkan</string>
@@ -70,6 +75,8 @@
     <string name="string_upload_post">Unggah Post</string>
     <string name="string_back_to_top">Kembali Ke Atas</string>
     <string name="string_explore">Explore</string>
+    <string name="string_search">Pencarian</string>
+    <string name="string_search_result">Hasil Pencarian</string>
     <string name="string_seeking">Pencarian</string>
     <string name="string_follow">Ikuti</string>
     <string name="string_followed">Mengikuti</string>
@@ -81,8 +88,10 @@
     <string name="string_following">Di ikuti</string>
     <string name="string_privacy">Privacy &amp; Security</string>
     <string name="string_change_password">Ganti Password</string>
-    <string name="string_change_password_desc">Silahkan Masukkan Password kamu saat ini sebagai verifikasi terhadap akunmu.</string>
+    <string name="string_verify_password_desc">Silahkan Masukkan Password kamu saat ini sebagai verifikasi terhadap akunmu.</string>
+    <string name="string_change_password_desc">Silahkan Masukkan Password baru kamu dan bedakan dengan password sebelumnya.</string>
     <string name="string_current_password">Password Saat ini</string>
+    <string name="string_new_password">Password Baru</string>
     <string name="string_copy">Salin</string>
     <string name="string_member">Anggota</string>
     <string name="string_share_community">Bagikan Komunitas</string>
@@ -90,7 +99,20 @@
     <string name="string_success_ban">Berhasil Mengeluarkan</string>
     <string name="string_comment">Komentar</string>
     <string name="string_retry">Coba Lagi</string>
+    <string name="string_next_subject">Materi Selanjutnya : </string>
+    <string name="string_tips">Tips Fotografi</string>
+    <string name="string_source">Sumber : </string>
+    <string name="string_saved">Tersimpan</string>
+    <string name="string_saved_empty">Kamu belum menyimpan apapun</string>
+    <string name="string_success_delete">Berhasil Menghapus</string>
+    <string name="string_success_delete_desc">Kamu telah menghapus postingan yang telah kamu unggah</string>
+    <string name="string_success_change_password">Berhasil Mengganti</string>
+    <string name="string_success_change_password_desc">Kamu baru saja berhasil merubah Password.</string>
+    <string name="string_filter_by">Filter Berdasarkan : </string>
+    <string name="string_feature_blocked">Fitur Belum Tersedia</string>
+    <string name="string_feature_blocked_desc">Fitur yang Kamu Pilih Masih Dalam Proses Tahap Penyelesaian</string>
 
+    <string name="placeholder_post_title_count">%1$s/40 karakter</string>
     <string name="placeholder_time_passed">%1$s yang lalu</string>
     <string name="placeholder_camera">Kamera : %1$s</string>
     <string name="placeholder_lens">Lensa : %1$s</string>
@@ -280,9 +302,12 @@
     <string name="feed_write_here">Tulis Sesuatu disini....</string>
     <string name="feed_user_name">Ana Marie ayy</string>
     <string name="feed_filter">Filter Post</string>
+    <string name="feed_to_top">Ke atas</string>
     <string name="feed_filter_category">Berdasarkan Kategori :</string>
-    <string name="feed_bookmark">Bookmark This Post</string>
-    <string name="feed_add_user">Add User</string>
+    <string name="feed_bookmark">Simpan Postingan</string>
+    <string name="feed_add_user">Ikuti Pengguna</string>
+    <string name="feed_edit_post">Edit Postingan</string>
+    <string name="feed_delete_post">Hapus Postingan</string>
     <string name="feed_time_passed">1 hari yang lalu</string>
     <string name="feed_caption">GrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaaGrandpaa</string>
     <string name="feed_likes_count">247 Orang Menyukai Postingan ini</string>
@@ -365,6 +390,7 @@
     <string name="explore_tab_post">Postingan</string>
     <string name="explore_tab_job">Lowongan</string>
     <string name="explore_tab_event">Event</string>
+    <string name="explore_search_filter">Filter Lokasi</string>
 
     <!-- Event Strings -->
     <string name="event_for_you">Event Buat Kamu!</string>
@@ -375,6 +401,12 @@
     <string name="event_date">5 April 2022</string>
     <string name="event_all">Semua Event</string>
     <string name="event_detail">Detail Event</string>
+    <string name="event_detail_description">Deskripsi Event :</string>
+    <string name="event_detail_suitable">Cocok buat kamu yang : </string>
+    <string name="event_detail_date">Tanggal : </string>
+    <string name="event_detail_time">Waktu : </string>
+    <string name="event_detail_location">Lokasi : </string>
+    <string name="event_detail_price">Biaya Pendaftaran : </string>
 
     <!-- Course Strings -->
     <string name="course">Pilih dan Pelajari Course mu</string>
@@ -397,6 +429,7 @@
     <string name="profile_experience">Pengalaman</string>
     <string name="profile_experience_input">Masukkan pengalaman kamu disini.</string>
     <string name="profile_experience_empty">Belum mempunyai pengalaman, masukkan pengalaman kamu sekarang!</string>
+    <string name="profile_other_experience_empty">Pengguna ini belum memasukkan Pengalamannya.</string>
     <string name="profile_experience_title">Fotografer</string>
     <string name="profile_experience_description">National Geography</string>
     <string name="profile_experience_date">2020-2021</string>
@@ -409,6 +442,7 @@
     <string name="profile_experience_year_hint">Masukkan lama Tahun anda bekerja</string>
     <string name="profile_experience_year_ex">cth : 2020, 2020-2022</string>
     <string name="profile_experience_delete">Hapus Pengalaman</string>
+    <string name="profile_logout_desc">Kamu akan keluar dari akun kamu sekarang.</string>
 
     <!-- Community Details Strings -->
     <string name="community_tab_post">Postingan</string>

@@ -6,7 +6,9 @@ import com.comphy.photo.data.repository.CommunityRepository
 import com.comphy.photo.data.repository.UploadRepository
 import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.entity.CityEntity
-import com.comphy.photo.data.source.remote.response.community.edit.EditCommunityBody
+import com.comphy.photo.data.source.remote.response.community.create.CommunityBody
+import com.comphy.photo.data.source.remote.response.community.follow.FollowCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.member.MemberCommunityResponseContentItem
 import com.comphy.photo.data.source.remote.response.upload.DataItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
@@ -25,6 +27,8 @@ class EditCommunityViewModel @Inject constructor(
     val isLoading = MutableLiveData<Boolean>()
     val isDeleteLoading = MutableLiveData<Boolean>()
     val isBanLoading = MutableLiveData<Boolean>()
+    val communityMembers = MutableLiveData<List<MemberCommunityResponseContentItem>>()
+    val detailCommunity = MutableLiveData<FollowCommunityResponseContentItem>()
     val cities = MutableLiveData<List<CityEntity>>()
     val uploadsUrl = MutableLiveData<List<DataItem>>()
     val uploadResp = MutableLiveData<String>()
@@ -50,6 +54,12 @@ class EditCommunityViewModel @Inject constructor(
             .onCompletion { isFetching.postValue(false) }
             .collect { cities.postValue(it) }
 
+    suspend fun getAdminCommunityDetails(communityId: Int) =
+        communityRepository.getAdminCommunityDetails(communityId)
+            .onStart { isFetching.postValue(true) }
+            .onCompletion { isFetching.postValue(false) }
+            .collect { detailCommunity.postValue(it) }
+
     suspend fun getUploadLink(
         type: String,
         amount: Int
@@ -70,22 +80,26 @@ class EditCommunityViewModel @Inject constructor(
         .collect { uploadResp.postValue("Sukses mengunggah foto") }
 
     suspend fun editCommunity(
+        communityId: Int,
         communityName: String,
         location: String,
         description: String,
         communityType: String,
         profilePhotoCommunityLink: String? = null,
-        bannerPhotoCommunityLink: String? = null
+        bannerPhotoCommunityLink: String? = null,
+        categoryCommunityId: Int
     ) {
-        val editCommunityBody = EditCommunityBody(
+        val communityBody = CommunityBody(
+            id = communityId,
             communityName = communityName,
             location = location,
             description = description,
             communityType = communityType,
             profilePhotoCommunityLink = profilePhotoCommunityLink,
-            bannerPhotoCommunityLink = bannerPhotoCommunityLink
+            bannerPhotoCommunityLink = bannerPhotoCommunityLink,
+            categoryCommunityId = categoryCommunityId
         )
-        communityRepository.editCommunity(editCommunityBody) {
+        communityRepository.editCommunity(communityBody) {
             errorNorExceptionResponse.postValue(it)
         }
             .onStart { isLoading.postValue(true) }
@@ -109,10 +123,18 @@ class EditCommunityViewModel @Inject constructor(
             .onCompletion { isLoading.postValue(false) }
             .collect { successResponse.postValue(it.message) }
 
+    suspend fun getCommunityMembers(communityId: Int) =
+        communityRepository.getCommunityMembers(communityId) {
+            errorNorExceptionResponse.postValue(it)
+        }
+            .onStart { isFetching.postValue(true) }
+            .onCompletion { isFetching.postValue(false) }
+            .collect { communityMembers.postValue(it) }
+
     suspend fun banUserCommunity(
         userId: Int,
-        userName: String,
-        communityId: Int
+        communityId: Int,
+        userName: String
     ) = communityRepository.banUserCommunity(userId, communityId) {
         errorNorExceptionResponse.postValue(it)
     }

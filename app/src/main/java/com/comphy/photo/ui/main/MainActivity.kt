@@ -9,12 +9,16 @@ import com.comphy.photo.R
 import com.comphy.photo.base.activity.BaseMainActivity
 import com.comphy.photo.data.source.local.sharedpref.auth.UserAuth
 import com.comphy.photo.databinding.ActivityMainBinding
+import com.comphy.photo.ui.auth.login.LoginActivity
 import com.comphy.photo.ui.custom.CustomLoading
 import com.comphy.photo.ui.main.fragment.feed.FeedViewModel
 import com.comphy.photo.ui.main.fragment.home.HomeViewModel
 import com.comphy.photo.ui.main.fragment.job.JobViewModel
+import com.comphy.photo.ui.main.fragment.training.TrainingViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import splitties.activities.start
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,6 +26,9 @@ class MainActivity : BaseMainActivity() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityMainBinding.inflate(layoutInflater)
+    }
+    val bottomSheetDialog by lazy(LazyThreadSafetyMode.NONE) {
+        BottomSheetDialog(this, R.style.CustomBottomSheetTheme)
     }
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
 
@@ -32,6 +39,7 @@ class MainActivity : BaseMainActivity() {
     private val homeViewModel: HomeViewModel by viewModels()
     private val feedViewModel: FeedViewModel by viewModels()
     private val jobViewModel: JobViewModel by viewModels()
+    private val trainingViewModel: TrainingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +48,10 @@ class MainActivity : BaseMainActivity() {
         lifecycleScope.launch {
             viewModel.getUserDetails()
             viewModel.getCities()
+            if (userAuth.userAccessToken == null) {
+                start<LoginActivity>()
+                finishAffinity()
+            }
         }
 
         val navHostFragment =
@@ -49,19 +61,17 @@ class MainActivity : BaseMainActivity() {
         binding.navView.setupWithNavController(navController)
     }
 
-    override fun init() {
-        // TODO("Not yet implemented")
-    }
+    override fun init() {}
 
-    override fun setupClickListener() {
-        // TODO("Not yet implemented")
-    }
+    override fun setupClickListener() {}
 
     override fun setupObserver() {
         viewModel.isFetching.observe(this) { customLoading.showLoading(it) }
+        trainingViewModel.isFetching.observe(this) { customLoading.showLoading(it) }
         homeViewModel.isLoading.observe(this) { customLoading.showLoading(it) }
         homeViewModel.isFetching.observe(this) { customLoading.showLoading(it) }
         feedViewModel.isLoading.observe(this) { customLoading.showLoading(it) }
         jobViewModel.isLoading.observe(this) { customLoading.showLoading(it) }
+        trainingViewModel.isLoading.observe(this) { customLoading.showLoading(it) }
     }
 }

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_background"
     tools:context=".ui.profile.fragment.ProfilePostFragment">
 
     <carbon.widget.ConstraintLayout
@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:background="@null"
-            android:focusable="true"
+            android:clickable="true"
+            android:focusable="false"
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             app:boxBackgroundColor="#F5F5F5"
             app:boxCornerRadiusBottomEnd="14dp"
@@ -43,13 +44,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:suffixText="@string/string_send"
             app:suffixTextAppearance="@style/CustomSuffixAppearance"
-            app:suffixTextColor="#C0C0C0">
+            app:suffixTextColor="#C0C0C0"
+            tools:ignore="KeyboardInaccessibleWidget">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtWritePost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
+                android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:fontFamily="@font/poppins_medium"
                 android:hint="@string/feed_write_here"
@@ -131,6 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
         android:orientation="vertical"
+        android:paddingBottom="53dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutPost">
@@ -162,7 +166,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
-        android:paddingHorizontal="16dp"
         android:paddingTop="12dp"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/layoutPost"

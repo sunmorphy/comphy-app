@@ -17,8 +17,10 @@ import com.comphy.photo.vo.FollowType.OWNED
 import com.comphy.photo.vo.OrientationType
 import splitties.resources.drawable
 
-class CommunityDetailPhotoAdapter :
-    PagingDataAdapter<FeedResponseContentItem, CommunityDetailPhotoAdapter.ViewHolder>(COMPARATOR) {
+class CommunityDetailPhotoAdapter(
+    private val onProfileClick: (userId: Int) -> Unit,
+    private val onFollowClick: (userId: Int, isFollowed: Int) -> Unit
+) : PagingDataAdapter<FeedResponseContentItem, CommunityDetailPhotoAdapter.ViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
@@ -33,11 +35,11 @@ class CommunityDetailPhotoAdapter :
                 when (post.isFollowed) {
                     NOT_FOLLOWED -> {
                         setImageDrawable(drawable(R.drawable.ic_add_user))
-//                    setOnClickListener { onFollowClick(content.id, content.isFollowed) }
+                        setOnClickListener { onFollowClick(post.userPost.id, post.isFollowed) }
                     }
                     FOLLOWED -> {
                         setImageDrawable(drawable(R.drawable.ic_remove_user))
-//                    setOnClickListener { onFollowClick(content.id, content.isFollowed) }
+                        setOnClickListener { onFollowClick(post.userPost.id, post.isFollowed) }
                     }
                     OWNED -> visibility = View.INVISIBLE
                 }
@@ -76,6 +78,7 @@ class CommunityDetailPhotoAdapter :
 
             txtUserName.text = post.userPost.fullname
             txtUserJob.text = post.userPost.job
+            imgProfile.setOnClickListener { onProfileClick(post.userPost.id) }
         }
     }
 

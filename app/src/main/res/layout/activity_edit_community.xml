@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui.community.edit.EditCommunityActivity">
 
     <ImageView
@@ -23,11 +25,15 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0"
         android:background="@color/primary_background"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@id/layoutCustomBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vpTabEditCommunity"
@@ -54,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginHorizontal="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/layoutUserInfo"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:tabBackground="@drawable/state_tab_indicator"
                     app:tabIndicatorAnimationMode="elastic"
                     app:tabIndicatorColor="@color/primary_orange"

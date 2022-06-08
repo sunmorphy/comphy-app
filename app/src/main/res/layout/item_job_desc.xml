@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:id="@+id/txtJobDescriptionContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/poppins_medium"
+    android:text="@string/string_empty"
+    android:textColor="@color/neutral_black"
+    android:textSize="12sp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

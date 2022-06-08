@@ -20,12 +20,10 @@ class AuthRepository @Inject constructor(
 ) {
 
     suspend fun userLogin(
-        email: String,
-        password: String,
+        authBody: AuthBody,
         onError: (errorResponse: BaseMessageResponse?) -> Unit,
         onException: (exceptionResponse: String?) -> Unit
     ) = flow {
-        val authBody = AuthBody(username = email, password = password)
         val response = apiService.userLogin(authBody)
         response.suspendOnSuccess { emit(data) }
             .onError {

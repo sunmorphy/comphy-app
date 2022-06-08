@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="24dp">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="145dp"
+        android:layout_marginTop="24dp"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txtFilterCommunity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/string_filter_by"
+        android:textColor="@color/primary_orange"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator" />
+
+    <RadioGroup
+        android:id="@+id/rgFilterCommunity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:weightSum="3"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/txtFilterCommunity">
+
+        <RadioButton
+            android:id="@+id/rbCommunityAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@drawable/state_radio"
+            android:buttonTint="@color/primary_orange"
+            android:checked="true"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="23dp"
+            android:text="@string/string_community_type_filter_all"
+            android:textColor="#1A1A1A"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rbCommunityPublic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@drawable/state_radio"
+            android:buttonTint="@color/primary_orange"
+            android:checked="false"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="23dp"
+            android:text="@string/string_community_type_filter_public"
+            android:textColor="#1A1A1A"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/rbCommunityPrivate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:button="@drawable/state_radio"
+            android:buttonTint="@color/primary_orange"
+            android:checked="false"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="23dp"
+            android:text="@string/string_community_type_filter_private"
+            android:textColor="#1A1A1A"
+            android:textSize="14sp" />
+
+    </RadioGroup>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnApply"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:backgroundTint="@color/primary_orange"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:letterSpacing="0"
+        android:paddingVertical="12dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_apply"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@id/rgFilterCommunity"
+        app:layout_constraintStart_toStartOf="@id/rgFilterCommunity"
+        app:layout_constraintTop_toBottomOf="@id/rgFilterCommunity" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

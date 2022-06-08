@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
+    android:background="@color/primary_background"
     tools:context=".ui.profile.fragment.ProfileAboutFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -107,14 +108,28 @@
                     app:layout_constraintStart_toStartOf="@id/txtExperience"
                     app:layout_constraintTop_toBottomOf="@id/txtExperience" />
 
+                <TextView
+                    android:id="@+id/txtOtherExperienceEmpty"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/profile_other_experience_empty"
+                    android:textColor="#BBBCBF"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/btnAddExperience"
+                    app:layout_constraintStart_toStartOf="@id/txtExperience"
+                    app:layout_constraintTop_toBottomOf="@id/txtExperience" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvExperience"
                     android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_marginTop="14dp"
                     android:nestedScrollingEnabled="false"
                     android:orientation="vertical"
+                    android:overScrollMode="never"
+                    android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@id/btnAddExperience"
                     app:layout_constraintStart_toStartOf="@id/txtExperience"

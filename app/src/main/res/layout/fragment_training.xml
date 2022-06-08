@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_orange"
     tools:context=".ui.main.fragment.training.TrainingFragment">
 
     <ImageView
@@ -61,8 +62,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:background="@drawable/bg_search"
+                android:clickable="true"
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="14dp"
+                android:focusable="true"
                 android:focusableInTouchMode="false"
                 android:fontFamily="@font/poppins_medium"
                 android:hint="@string/string_search_hint"
@@ -102,6 +105,7 @@
             <carbon.widget.ConstraintLayout
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
                 android:background="@color/primary_background"
                 android:paddingBottom="38dp"
                 app:carbon_cornerRadiusTopEnd="18dp"
@@ -211,5 +215,25 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnCourse"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="54dp"
+        android:background="@color/primary_orange"
+        android:backgroundTint="@color/primary_orange"
+        android:contentDescription="@string/string_back_to_top"
+        android:elevation="@dimen/dp_0"
+        android:padding="13dp"
+        android:src="@drawable/ic_book"
+        android:stateListAnimator="@null"
+        android:tint="@color/white"
+        app:borderWidth="@dimen/dp_0"
+        app:elevation="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

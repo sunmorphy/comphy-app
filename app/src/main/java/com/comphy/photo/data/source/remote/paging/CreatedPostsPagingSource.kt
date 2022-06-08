@@ -1,0 +1,45 @@
+package com.comphy.photo.data.source.remote.paging
+
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import com.comphy.photo.data.source.remote.client.ApiService
+import com.comphy.photo.data.source.remote.response.BaseResponseContent
+import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContentItem
+import com.comphy.photo.utils.Constants
+import com.comphy.photo.utils.JsonParser.parseTo
+import retrofit2.HttpException
+import java.io.IOException
+
+class CreatedPostsPagingSource(
+    private val apiService: ApiService
+) : PagingSource<Int, FeedResponseContentItem>() {
+    override fun getRefreshKey(state: PagingState<Int, FeedResponseContentItem>): Int? {
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
+    }
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FeedResponseContentItem> {
+        val pageIndex = params.key ?: Constants.DEFAULT_PAGE_INDEX
+        return try {
+            val response = apiService.getCreatedPosts(
+                page = pageIndex,
+                perPage = 10
+            ).data?.parseTo(
+                BaseResponseContent::class.java
+            )?.content!!.parseTo(
+                FeedResponseContentItem::class.java
+            )
+            LoadResult.Page(
+                data = response,
+                prevKey = if (pageIndex == Constants.DEFAULT_PAGE_INDEX) null else pageIndex - 1,
+                nextKey = if (response.isEmpty()) null else pageIndex + 1
+            )
+        } catch (e: IOException) {
+            return LoadResult.Error(e)
+        } catch (e: HttpException) {
+            return LoadResult.Error(e)
+        }
+    }
+}

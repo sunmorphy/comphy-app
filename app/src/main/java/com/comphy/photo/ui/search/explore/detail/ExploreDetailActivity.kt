@@ -10,19 +10,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.comphy.photo.R
 import com.comphy.photo.data.source.remote.response.post.feed.FeedResponseContentItem
+import com.comphy.photo.data.source.remote.response.user.detail.UserResponseData
 import com.comphy.photo.databinding.ActivityExploreDetailBinding
 import com.comphy.photo.ui.comment.main.CommentActivity
-import com.comphy.photo.ui.main.fragment.feed.fragment.FeedMainFragment
+import com.comphy.photo.ui.custom.CustomLoading
 import com.comphy.photo.utils.Extension.parseTimestamp
 import com.comphy.photo.vo.FollowType
 import com.comphy.photo.vo.OrientationType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import splitties.activities.start
-import splitties.fragments.start
 import splitties.resources.colorSL
 import splitties.resources.drawable
 import splitties.resources.str
+import splitties.toast.toast
 
 @AndroidEntryPoint
 class ExploreDetailActivity : AppCompatActivity() {
@@ -37,6 +38,7 @@ class ExploreDetailActivity : AppCompatActivity() {
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityExploreDetailBinding.inflate(layoutInflater)
     }
+    private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
     private val viewModel: ExploreDetailViewModel by viewModels()
     private var contentItem: FeedResponseContentItem? = null
 
@@ -45,15 +47,151 @@ class ExploreDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         contentItem = intent.getParcelableExtra(EXTRA_CONTENT_ITEM)
+
         if (contentItem == null) finish()
-        else setupWidgets(contentItem!!)
+        else {
+            lifecycleScope.launch { viewModel.getUserDetails() }
+            setupObserver(contentItem!!)
+        }
     }
 
-    private fun setupWidgets(contentItem: FeedResponseContentItem) {
+    private fun setupObserver(contentItem: FeedResponseContentItem) {
+        viewModel.isFetching.observe(this) { customLoading.showLoading(it) }
+        viewModel.isLoading.observe(this) { customLoading.showLoading(it) }
+        viewModel.errorNorException.observe(this) { toast(it) }
+        viewModel.userData.observe(this) { setupWidgets(contentItem, it) }
+        viewModel.successResponse.observe(this) { observerButtonAct(contentItem) }
+    }
+
+    private fun setupWidgets(contentItem: FeedResponseContentItem, userData: UserResponseData) {
+        observerButtonAct(contentItem)
+
         with(binding) {
-            imgFeedProfile.setOnClickListener {
-                // TODO: INTENT TO USER PROFILE DETAIL
+            btnBack.setOnClickListener { onBackPressed() }
+            imgFeedProfile.setOnClickListener {}
+            txtFeedTimePassed.text =
+                contentItem.createdDate!!.parseTimestamp(getString(R.string.placeholder_time_passed))
+            txtFeedLocation.apply {
+                if (contentItem.location != null) {
+                    visibility = View.VISIBLE
+                    text = contentItem.location
+                } else {
+                    visibility = View.GONE
+                }
             }
+            txtFeedCommunity.apply {
+                if (contentItem.community != null) {
+                    visibility = View.VISIBLE
+                    text = String.format(
+                        getString(R.string.placeholder_post_location),
+                        contentItem.community
+                    )
+                } else {
+                    visibility = View.GONE
+                }
+            }
+            val set = ConstraintSet()
+            set.clone(root)
+            when (contentItem.orientationType) {
+                OrientationType.SQUARE -> {
+                    set.setDimensionRatio(imgFeedContent.id, "1:1")
+                    set.applyTo(root)
+                }
+                OrientationType.LANDSCAPE -> {
+                    set.setDimensionRatio(imgFeedContent.id, "16:9")
+                    set.applyTo(root)
+                }
+                OrientationType.PORTRAIT -> {
+                    set.setDimensionRatio(imgFeedContent.id, "4:5")
+                    set.applyTo(root)
+                }
+            }
+            Glide.with(this@ExploreDetailActivity)
+                .load(contentItem.userPost.profilePhotoLink)
+                .centerCrop()
+                .placeholder(drawable(R.drawable.ic_placeholder_people))
+                .error(drawable(R.drawable.ic_placeholder_people))
+                .into(imgFeedProfile)
+
+            Glide.with(this@ExploreDetailActivity)
+                .load(userData.profilePhotoLink)
+                .centerCrop()
+                .placeholder(drawable(R.drawable.ic_placeholder_people))
+                .error(drawable(R.drawable.ic_placeholder_people))
+                .into(imgProfile)
+
+            Glide.with(this@ExploreDetailActivity)
+                .load(contentItem.linkPhoto)
+                .placeholder(drawable(R.drawable.img_banner_placeholder))
+                .error(drawable(R.drawable.img_banner_placeholder))
+                .format(DecodeFormat.PREFER_RGB_565)
+                .centerCrop()
+                .into(imgFeedContent)
+
+            txtUserName.text = contentItem.userPost.fullname
+            txtUserJob.text = contentItem.userPost.job
+            txtFeedCaption.text = contentItem.title
+            txtDataExifCamera.text = String.format(
+                getString(R.string.placeholder_camera),
+                contentItem.camera ?: "-"
+            )
+            txtDataExifLens.text =
+                String.format(getString(R.string.placeholder_lens), contentItem.lens ?: "-")
+            binding.txtDataExifFlash.text = String.format(
+                getString(R.string.placeholder_flash),
+                contentItem.flash ?: "-"
+            )
+            txtDataExifIso.text =
+                String.format(getString(R.string.placeholder_iso), contentItem.iso ?: "-")
+            txtDataExifShutter.text = String.format(
+                getString(R.string.placeholder_shutter),
+                contentItem.shutterSpeed ?: "-"
+            )
+            binding.txtDataExifAperture.text = String.format(
+                getString(R.string.placeholder_aperture),
+                contentItem.aperture ?: "-"
+            )
+            txtLikesCount.text = String.format(
+                getString(R.string.placeholder_likes_count),
+                contentItem.totalLikes.toString()
+            )
+            txtCommentCount.text = String.format(
+                getString(R.string.placeholder_comments_count),
+                contentItem.totalComments.toString()
+            )
+            btnComment.setOnClickListener {
+                start<CommentActivity> {
+                    putExtra(EXTRA_POST_ID, contentItem.id)
+                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
+                    putExtra(EXTRA_USER_DATA, userData)
+                }
+            }
+            txtCommentCount.setOnClickListener {
+                start<CommentActivity> {
+                    putExtra(EXTRA_POST_ID, contentItem.id)
+                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
+                    putExtra(EXTRA_USER_DATA, userData)
+                }
+            }
+            btnCommentSeeAll.setOnClickListener {
+                start<CommentActivity> {
+                    putExtra(EXTRA_POST_ID, contentItem.id)
+                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
+                    putExtra(EXTRA_USER_DATA, userData)
+                }
+            }
+            layoutComment.setOnClickListener {
+                start<CommentActivity> {
+                    putExtra(EXTRA_POST_ID, contentItem.id)
+                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
+                    putExtra(EXTRA_USER_DATA, userData)
+                }
+            }
+        }
+    }
+
+    private fun observerButtonAct(contentItem: FeedResponseContentItem) {
+        with(binding) {
             btnAddUser.apply {
                 when (contentItem.isFollowed) {
                     FollowType.NOT_FOLLOWED -> {
@@ -95,98 +233,6 @@ class ExploreDetailActivity : AppCompatActivity() {
                     contentItem.postSaved = !contentItem.postSaved
                 }
             }
-            txtFeedTimePassed.text =
-                contentItem.createdDate!!.parseTimestamp(getString(R.string.placeholder_time_passed))
-            txtFeedLocation.apply {
-                if (contentItem.location != null) {
-                    visibility = View.VISIBLE
-                    text = contentItem.location
-                } else {
-                    visibility = View.GONE
-                }
-            }
-            txtFeedCommunity.apply {
-                if (contentItem.community != null) {
-                    visibility = View.VISIBLE
-                    text = String.format(
-                        getString(R.string.placeholder_post_location),
-                        contentItem.community
-                    )
-                } else {
-                    visibility = View.GONE
-                }
-            }
-            when (contentItem.orientationType) {
-                OrientationType.SQUARE -> {
-                    val set = ConstraintSet()
-                    set.clone(root)
-                    set.setDimensionRatio(imgFeedContent.id, "1:1")
-                    set.applyTo(root)
-                }
-                OrientationType.LANDSCAPE -> {
-                    val set = ConstraintSet()
-                    set.clone(root)
-                    set.setDimensionRatio(imgFeedContent.id, "16:9")
-                    set.applyTo(root)
-                }
-                OrientationType.PORTRAIT -> {
-                    val set = ConstraintSet()
-                    set.clone(root)
-                    set.setDimensionRatio(imgFeedContent.id, "4:5")
-                    set.applyTo(root)
-                }
-            }
-            Glide.with(this@ExploreDetailActivity)
-                .load(contentItem.userPost.profilePhotoLink)
-                .centerCrop()
-                .placeholder(drawable(R.drawable.ic_placeholder_people))
-                .error(drawable(R.drawable.ic_placeholder_people))
-                .into(imgFeedProfile)
-
-//            Glide.with(this@ExploreDetailActivity)
-//                .load(userData.profileUrl)
-//                .centerCrop()
-//                .placeholder(drawable(R.drawable.ic_placeholder_people))
-//                .error(drawable(R.drawable.ic_placeholder_people))
-//                .into(imgProfile)
-
-            Glide.with(this@ExploreDetailActivity)
-                .load(contentItem.linkPhoto)
-                .format(DecodeFormat.PREFER_RGB_565)
-                .centerCrop()
-                .into(imgFeedContent)
-
-            txtUserName.text = contentItem.userPost.fullname
-            txtUserJob.text = contentItem.userPost.job
-            txtFeedCaption.text = contentItem.title
-            txtDataExifCamera.text = String.format(
-                getString(R.string.placeholder_camera),
-                contentItem.camera ?: "-"
-            )
-            txtDataExifLens.text =
-                String.format(getString(R.string.placeholder_lens), contentItem.lens ?: "-")
-            binding.txtDataExifFlash.text = String.format(
-                getString(R.string.placeholder_flash),
-                contentItem.flash ?: "-"
-            )
-            txtDataExifIso.text =
-                String.format(getString(R.string.placeholder_iso), contentItem.iso ?: "-")
-            txtDataExifShutter.text = String.format(
-                getString(R.string.placeholder_shutter),
-                contentItem.shutterSpeed ?: "-"
-            )
-            binding.txtDataExifAperture.text = String.format(
-                getString(R.string.placeholder_aperture),
-                contentItem.aperture ?: "-"
-            )
-            txtLikesCount.text = String.format(
-                getString(R.string.placeholder_likes_count),
-                contentItem.totalLikes.toString()
-            )
-            txtCommentCount.text = String.format(
-                getString(R.string.placeholder_comments_count),
-                contentItem.totalComments.toString()
-            )
             btnLike.apply {
                 if (contentItem.liked) {
                     backgroundTintList = colorSL(R.color.state_button_like_reverse)
@@ -206,34 +252,6 @@ class ExploreDetailActivity : AppCompatActivity() {
                         }
                     }
                     contentItem.liked = !contentItem.liked
-                }
-            }
-            btnComment.setOnClickListener {
-                start<CommentActivity> {
-                    putExtra(EXTRA_POST_ID, contentItem.id)
-                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
-//                    putExtra(EXTRA_USER_DATA, userData)
-                }
-            }
-            txtCommentCount.setOnClickListener {
-                start<CommentActivity> {
-                    putExtra(EXTRA_POST_ID, contentItem.id)
-                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
-//                    putExtra(EXTRA_USER_DATA, userData)
-                }
-            }
-            btnCommentSeeAll.setOnClickListener {
-                start<CommentActivity> {
-                    putExtra(EXTRA_POST_ID, contentItem.id)
-                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
-//                    putExtra(EXTRA_USER_DATA, userData)
-                }
-            }
-            layoutComment.setOnClickListener {
-                start<CommentActivity> {
-                    putExtra(EXTRA_POST_ID, contentItem.id)
-                    putExtra(EXTRA_COMMENT_COUNT, contentItem.totalComments)
-//                    putExtra(EXTRA_USER_DATA, userData)
                 }
             }
         }

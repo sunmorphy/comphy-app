@@ -25,14 +25,13 @@ import com.comphy.photo.databinding.ActivityCreatePostBinding
 import com.comphy.photo.databinding.BottomSheetBinding
 import com.comphy.photo.databinding.BottomSheetChooseCommunityBinding
 import com.comphy.photo.ui.custom.CustomLoading
+import com.comphy.photo.ui.main.fragment.feed.FeedFragment
+import com.comphy.photo.ui.profile.fragment.ProfilePostFragment
 import com.comphy.photo.utils.Extension
 import com.comphy.photo.utils.Extension.changeDrawable
 import com.comphy.photo.utils.Extension.isItsWidthBiggerThanHeight
 import com.comphy.photo.utils.Extension.sizeInMb
-import com.comphy.photo.vo.MediaSize
-import com.comphy.photo.vo.OrientationType
-import com.comphy.photo.vo.PostType
-import com.comphy.photo.vo.UploadType
+import com.comphy.photo.vo.*
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
@@ -51,6 +50,7 @@ import java.io.File
 class CreatePostActivity : BasePostActivity() {
 
     companion object {
+        private const val EXTRA_SOURCE = "extra_source"
         private const val EXTRA_TEXT = "extra_text"
         private const val EXTRA_IMAGE = "extra_image"
         private const val EXTRA_VIDEO = "extra_video"
@@ -73,6 +73,7 @@ class CreatePostActivity : BasePostActivity() {
     }
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
     private val viewModel: CreatePostViewModel by viewModels()
+    private var extraSource: Int? = null
     private var extraText: String? = null
     private var extraImage: String? = null
     private var extraVideo: String? = null
@@ -103,11 +104,13 @@ class CreatePostActivity : BasePostActivity() {
             viewModel.getJoinedCommunities()
         }
 
+        extraSource = intent.getIntExtra(EXTRA_SOURCE, -1)
         extraText = intent.getStringExtra(EXTRA_TEXT)
         extraImage = intent.getStringExtra(EXTRA_IMAGE)
         extraVideo = intent.getStringExtra(EXTRA_VIDEO)
 
-        setCreatePostType()
+        if (extraSource == null || extraSource == -1) finish()
+        else setCreatePostType()
     }
 
     override fun init() {
@@ -138,7 +141,10 @@ class CreatePostActivity : BasePostActivity() {
 
     override fun setupObserver() {
         viewModel.isFetching.observe(this) { if (it) customLoading.show() else customLoading.dismiss() }
-        viewModel.isLoading.observe(this) { setButtonLoading(it) }
+        viewModel.isLoading.observe(this) {
+            setButtonLoading(it)
+            binding.layoutUpload.isEnabled = !it
+        }
         viewModel.exceptionResponse.observe(this) { if (it != null) toast(it) }
         viewModel.cities.observe(this) {
             val locationAdapter =
@@ -172,7 +178,9 @@ class CreatePostActivity : BasePostActivity() {
             }
         }
         viewModel.userCreatedCommunity.observe(this) { availableCommunity.addAll(it) }
-        viewModel.userJoinedCommunity.observe(this) { availableCommunity.addAll(it) }
+        viewModel.userJoinedCommunity.observe(this) {
+            it.forEach { item -> availableCommunity.add(item.community) }
+        }
         viewModel.uploadsUrl.observe(this) {
             val reqFile = File(selectedMediaPath).asRequestBody()
             lifecycleScope.launch {
@@ -223,7 +231,6 @@ class CreatePostActivity : BasePostActivity() {
             }
         }
         viewModel.successResponse.observe(this) {
-            toast(it)
             val nextScreenTimer = object : CountDownTimer(10000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     val nextScreen = "Feed Post (${millisUntilFinished / 1000}s)"
@@ -237,7 +244,17 @@ class CreatePostActivity : BasePostActivity() {
                     }
                 }
 
-                override fun onFinish() = finish()
+                override fun onFinish() {
+                    bottomSheetDialog.dismiss()
+                    when (extraSource) {
+                        PostSource.SOURCE_FEED -> FeedFragment().shouldRefresh = true
+                        PostSource.SOURCE_PROFILE -> ProfilePostFragment().shouldRefresh = true
+                        PostSource.SOURCE_COMMUNITY -> {
+                            // TODO: REFRESH POST IN COMMUNITY
+                        }
+                    }
+                    finish()
+                }
             }
 
             bottomSheetDialog.setContentView(bottomSheetBinding.root)
@@ -458,9 +475,7 @@ class CreatePostActivity : BasePostActivity() {
                     categoryIds.forEach {
                         if (it == categoryId) {
                             binding.layoutSheetCreatePost.edtCommunityCategory.setText(
-                                categories[categoryIds.indexOf(
-                                    it
-                                )]
+                                categories[categoryIds.indexOf(it)]
                             )
                             binding.layoutSheetCreatePost.edtCommunityCategory.isEnabled = false
                         }
@@ -573,29 +588,6 @@ class CreatePostActivity : BasePostActivity() {
         } else {
             binding.layoutUpload.isEnabled = false
         }
-    }
-
-    private fun showBottomSheetDialog() {
-        val nextScreenTimer = object : CountDownTimer(10000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val nextScreen = "Feed Post (${millisUntilFinished / 1000}s)"
-                bottomSheetBinding.btnSheetAction.apply {
-                    setBackgroundColor(color(R.color.primary_green))
-                    text = nextScreen
-                    setOnClickListener {
-                        cancel()
-                        onFinish()
-                    }
-                }
-            }
-
-            override fun onFinish() = finish()
-        }
-
-        bottomSheetDialog.setContentView(bottomSheetBinding.root)
-        bottomSheetDialog.show()
-        nextScreenTimer.start()
-        bottomSheetDialog.setOnDismissListener { nextScreenTimer.onFinish() }
     }
 
     private fun observeMediaOrientation(fitOrientation: Int) {

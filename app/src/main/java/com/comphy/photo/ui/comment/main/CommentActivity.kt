@@ -103,7 +103,7 @@ class CommentActivity : AppCompatActivity() {
             )
 
             Glide.with(this@CommentActivity)
-                .load(extraUserData!!.profileUrl)
+                .load(extraUserData!!.profilePhotoLink)
                 .centerCrop()
                 .placeholder(drawable(R.drawable.ic_placeholder_people))
                 .error(drawable(R.drawable.ic_placeholder_people))

@@ -1,6 +1,6 @@
 package com.comphy.photo.data.source.remote.response.job.bookmark
 
-
+import com.comphy.photo.data.source.remote.response.job.list.JobResponseContentItem
 import com.google.gson.annotations.SerializedName
 
 data class BookmarkJobResponseContentItem(
@@ -14,7 +14,7 @@ data class BookmarkJobResponseContentItem(
     val id: Int,
 
     @SerializedName("jobVacancy")
-    val jobVacancy: JobVacancy,
+    val jobVacancy: JobResponseContentItem,
 
     @SerializedName("updated_date")
     val updatedDate: String? = null

@@ -15,8 +15,8 @@
         android:paddingHorizontal="16dp"
         android:paddingTop="19dp"
         android:paddingBottom="18dp"
-        app:carbon_cornerRadiusBottomEnd="14dp"
-        app:carbon_cornerRadiusBottomStart="14dp"
+        app:carbon_cornerRadiusBottomEnd="18dp"
+        app:carbon_cornerRadiusBottomStart="18dp"
         app:carbon_elevation="30dp"
         app:carbon_elevationShadowColor="#FFEACB"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:includeFontPadding="false"
-            android:text="@string/course_chapter_title"
+            android:text="@string/string_empty"
             android:textColor="@color/neutral_black_50"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/btnBack"
@@ -69,7 +69,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="52dp">
 
             <carbon.widget.ImageView
                 android:id="@+id/imgCourseSubject"
@@ -82,17 +83,70 @@
                 app:carbon_elevationShadowColor="#FFE0B0"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txtCourseSubjectDesc"
+            <carbon.widget.ConstraintLayout
+                android:id="@+id/layoutCourseSubjectDesc"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
-                android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/neutral_black"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/imgCourseSubject"
+                android:layout_marginTop="14dp"
+                android:background="@color/white"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="24dp"
+                app:carbon_cornerRadius="18dp"
+                app:carbon_elevation="30dp"
+                app:carbon_elevationShadowColor="#FFEACB"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgCourseSubject">
+
+                <TextView
+                    android:id="@+id/txtCourseSubjectDesc"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/string_empty"
+                    android:textColor="@color/neutral_black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </carbon.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txtNextSubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="@string/string_next_subject"
+                android:textColor="@color/primary_orange"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@id/imgCourseSubject"
-                app:layout_constraintTop_toBottomOf="@id/imgCourseSubject" />
+                app:layout_constraintTop_toBottomOf="@id/layoutCourseSubjectDesc" />
+
+            <carbon.widget.Button
+                android:id="@+id/btnNextSubject"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/state_button"
+                android:drawableEnd="@drawable/ic_more_med"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="24dp"
+                android:stateListAnimator="@null"
+                android:text="@string/string_empty"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/primary_gray"
+                android:textSize="14sp"
+                app:carbon_cornerRadius="18dp"
+                app:carbon_elevation="30dp"
+                app:carbon_elevationShadowColor="#FFEACB"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtNextSubject" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

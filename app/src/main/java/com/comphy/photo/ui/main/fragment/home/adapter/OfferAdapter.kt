@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.comphy.photo.R
+import com.comphy.photo.data.model.OfferModel
 import com.comphy.photo.databinding.ItemOfferBinding
 
-class OfferAdapter : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
+class OfferAdapter(
+    private val offers: List<OfferModel>,
+    private val onClick: (url: String) -> Unit
+) : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -18,13 +21,18 @@ class OfferAdapter : RecyclerView.Adapter<OfferAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: OfferAdapter.ViewHolder, position: Int) {
-        Glide.with(holder.itemView)
-            .load(R.drawable.img_shutterstock)
-            .fitCenter()
-            .into(holder.binding.imgOfferLogo)
+        val offer = offers[position]
+
+        with(holder.binding) {
+            Glide.with(holder.itemView)
+                .load(offer.image)
+                .fitCenter()
+                .into(imgOfferLogo)
+        }
+        holder.itemView.setOnClickListener { onClick(offer.url) }
     }
 
-    override fun getItemCount(): Int = 9
+    override fun getItemCount(): Int = offers.size
 
     inner class ViewHolder(var binding: ItemOfferBinding) : RecyclerView.ViewHolder(binding.root)
 }

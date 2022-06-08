@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CourseActivity : AppCompatActivity() {
+
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityCourseBinding.inflate(layoutInflater)
     }

@@ -20,6 +20,8 @@ class FeedAdapter(
     private val onProfileClick: (userId: Int) -> Unit,
     private val onFollowClick: (userId: Int, isFollowed: Int) -> Unit,
     private val onBookmarkClick: (position: Int, postId: String, isSaved: Boolean) -> Unit,
+    private val onEditClick: (position: Int, content: FeedResponseContentItem) -> Unit,
+    private val onDeleteClick: (position: Int, postId: String) -> Unit,
     private val onLikeClick: (position: Int, postId: String, isLiked: Boolean) -> Unit,
     private val onCommentClick: (postId: String, commentCount: Int) -> Unit,
     private val videoHolder: (FeedVideoViewHolder) -> Unit
@@ -63,6 +65,8 @@ class FeedAdapter(
                 onProfileClick = { onProfileClick(it) },
                 onFollowClick = { postId, isFollowed -> onFollowClick(postId, isFollowed) },
                 onBookmarkClick = { postId, isSaved -> onBookmarkClick(position, postId, isSaved) },
+                onEditClick = { content -> onEditClick(position, content) },
+                onDeleteClick = { postId -> onDeleteClick(position, postId) },
                 onLikeClick = { postId, isLiked -> onLikeClick(position, postId, isLiked) },
                 onCommentClick = { postId, commentCount -> onCommentClick(postId, commentCount) }
             )
@@ -73,6 +77,8 @@ class FeedAdapter(
                 onProfileClick = { onProfileClick(it) },
                 onFollowClick = { postId, isFollowed -> onFollowClick(postId, isFollowed) },
                 onBookmarkClick = { postId, isSaved -> onBookmarkClick(position, postId, isSaved) },
+                onEditClick = { content -> onEditClick(position, content) },
+                onDeleteClick = { postId -> onDeleteClick(position, postId) },
                 onLikeClick = { postId, isLiked -> onLikeClick(position, postId, isLiked) },
                 onCommentClick = { postId, commentCount -> onCommentClick(postId, commentCount) }
             )
@@ -84,6 +90,8 @@ class FeedAdapter(
                     onProfileClick = { onProfileClick(it) },
                     onFollowClick = { postId, isFollowed -> onFollowClick(postId, isFollowed) },
                     onBookmarkClick = { postId, isSaved -> onBookmarkClick(position, postId, isSaved) },
+                    onEditClick = { content -> onEditClick(position, content) },
+                    onDeleteClick = { postId -> onDeleteClick(position, postId) },
                     onLikeClick = { postId, isLiked -> onLikeClick(position, postId, isLiked) },
                     onCommentClick = { postId, commentCount -> onCommentClick(postId, commentCount) }
                 )

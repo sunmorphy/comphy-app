@@ -3,6 +3,7 @@ package com.comphy.photo.ui.community.detail
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ScrollView
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -40,15 +41,16 @@ class CommunityDetailActivity : AppCompatActivity() {
             R.string.community_tab_photo
         )
         private const val EXTRA_DETAIL = "extra_detail"
+        private const val EXTRA_CONTENT_ITEM = "extra_content_item"
     }
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+    val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityCommunityDetailBinding.inflate(layoutInflater)
     }
     private val viewModel: CommunityDetailViewModel by viewModels()
     private val customLoading by lazy(LazyThreadSafetyMode.NONE) { CustomLoading(this) }
-    private val viewPagerSetupHelper by lazy(LazyThreadSafetyMode.NONE) { ViewPagerSetupHelper(this) }
-    private val bottomSheetDialog by lazy(LazyThreadSafetyMode.NONE) {
+    val viewPagerSetupHelper by lazy(LazyThreadSafetyMode.NONE) { ViewPagerSetupHelper(this) }
+    val bottomSheetDialog by lazy(LazyThreadSafetyMode.NONE) {
         BottomSheetDialog(this, R.style.CustomBottomSheetTheme)
     }
     private val bottomSheetCommunityCodeBinding by lazy(LazyThreadSafetyMode.NONE) {
@@ -74,6 +76,7 @@ class CommunityDetailActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             viewModel.getCreatedCommunity()
+            viewModel.getUserDetails()
             if (isAdmin()) viewModel.getAdminCommunityDetails(extraDetail!!.id)
             else viewModel.getCommunityDetails(extraDetail!!.id)
             viewModel.getCommunityMembers(extraDetail!!.id)
@@ -104,6 +107,16 @@ class CommunityDetailActivity : AppCompatActivity() {
     }
 
     private fun setupWidgets() {
+        binding.btnBackToTop.setOnClickListener {
+            binding.mainView.fullScroll(ScrollView.FOCUS_UP)
+            binding.vpTabCommunity.clearFocus()
+        }
+        viewPagerSetupHelper.setupNormal(
+            binding.tabCommunity,
+            binding.vpTabCommunity,
+            pagerAdapter(listOf(CommunityPostFragment(), CommunityPhotoFragment())),
+            TAB_TITLES
+        )
         Glide.with(this)
             .load(extraDetail!!.profilePhotoCommunityLink)
             .placeholder(drawable(R.drawable.ic_placeholder_people))
@@ -134,7 +147,7 @@ class CommunityDetailActivity : AppCompatActivity() {
                 visibility = View.VISIBLE
                 setOnClickListener {
                     start<EditCommunityActivity> {
-                        putExtra("extra_content_item", contentItem)
+                        putExtra(EXTRA_CONTENT_ITEM, contentItem)
                     }
                 }
             }
@@ -162,50 +175,8 @@ class CommunityDetailActivity : AppCompatActivity() {
 
             }
         }
-
-        binding.btnSettings.apply {
-            if (isAdmin()) {
-                visibility = View.VISIBLE
-                setOnClickListener {
-                    start<EditCommunityActivity> {
-                        putExtra("extra_content_item", contentItem)
-                    }
-                }
-            } else {
-                visibility = View.INVISIBLE
-            }
-        }
-
-        binding.btnJoinCommunity.apply {
-            if (isAdmin()) visibility = View.GONE
-            else {
-                if (contentItem!!.joined) {
-                    backgroundTintList = colorSL(R.color.button_disabled)
-                    setTextColor(colorSL(R.color.text_disabled))
-                    setOnClickListener {
-                        lifecycleScope.launch { viewModel.leaveCommunity(contentItem!!.id) }
-                    }
-                } else {
-                    backgroundTintList = colorSL(R.color.primary_orange)
-                    setTextColor(colorSL(R.color.white))
-                    setOnClickListener {
-                        if (contentItem!!.communityCode != null) setupCommunityCodeBottomSheet()
-                        else lifecycleScope.launch { viewModel.joinCommunity(contentItem!!.id) }
-                    }
-                }
-                visibility = View.VISIBLE
-            }
-        }
         binding.btnShare.setOnClickListener { setupBottomSheetShareCommunity() }
         binding.txtCommunityMembersCount.setOnClickListener { setupBottomSheetCommunityMembers() }
-
-        viewPagerSetupHelper.setup(
-            binding.tabCommunity,
-            binding.vpTabCommunity,
-            supportFragmentManager,
-            pagerAdapter(listOf(CommunityPostFragment(), CommunityPhotoFragment())),
-            TAB_TITLES
-        )
     }
 
     private fun setupCommunityCodeBottomSheet() {
@@ -220,16 +191,19 @@ class CommunityDetailActivity : AppCompatActivity() {
             bottomSheetCommunityCodeBinding.edtCode1.text.toString() + bottomSheetCommunityCodeBinding.edtCode2.text.toString() + bottomSheetCommunityCodeBinding.edtCode3.text.toString() + bottomSheetCommunityCodeBinding.edtCode4.text.toString()
 
         codeInputWidgets.forEach {
+            it.isFocusable = true
+            it.isClickable = true
+            it.isFocusableInTouchMode = true
             it.doAfterTextChanged {
                 bottomSheetCommunityCodeBinding.errorLayout.visibility = View.GONE
                 isFieldEmpty(codeInputWidgets)
-            }
-        }
-        bottomSheetCommunityCodeBinding.btnJoin.apply {
-            isEnabled = !isFieldEmpty(codeInputWidgets)
-            if (isEnabled) setOnClickListener {
-                isCancelled = false
-                lifecycleScope.launch { viewModel.joinCommunity(extraDetail!!.id, codeResult) }
+                bottomSheetCommunityCodeBinding.btnSaveChange.apply {
+                    isEnabled = !isFieldEmpty(codeInputWidgets)
+                    if (isEnabled) setOnClickListener {
+                        isCancelled = false
+                        lifecycleScope.launch { viewModel.joinCommunity(extraDetail!!.id, codeResult) }
+                    }
+                }
             }
         }
 
@@ -258,8 +232,7 @@ class CommunityDetailActivity : AppCompatActivity() {
         return false
     }
 
-    private fun isAdmin(): Boolean {
-        ownedCommunity.forEach { return extraDetail!!.id == it.id }
-        return false
-    }
+    private fun isAdmin(): Boolean = extraDetail!!.theAdmin
+//        ownedCommunity.forEach { return extraDetail!!.id == it.id }
+//        return false
 }

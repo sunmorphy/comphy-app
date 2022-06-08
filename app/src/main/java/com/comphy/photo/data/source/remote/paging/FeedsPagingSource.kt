@@ -25,7 +25,7 @@ class FeedsPagingSource(
         return try {
             val response = apiService.getFeedPosts(
                 page = pageIndex,
-                perPage = 20
+                perPage = 10
             ).data?.parseTo(
                 BaseResponseContent::class.java
             )?.content!!.parseTo(
@@ -33,7 +33,7 @@ class FeedsPagingSource(
             )
             LoadResult.Page(
                 data = response,
-                prevKey = null,
+                prevKey = if (pageIndex == DEFAULT_PAGE_INDEX) null else pageIndex - 1,
                 nextKey = if (response.isEmpty()) null else pageIndex + 1
             )
         } catch (e: IOException) {

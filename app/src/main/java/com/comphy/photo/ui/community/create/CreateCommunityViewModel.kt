@@ -7,7 +7,7 @@ import com.comphy.photo.data.repository.UploadRepository
 import com.comphy.photo.data.repository.UserRepository
 import com.comphy.photo.data.source.local.entity.CityEntity
 import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
-import com.comphy.photo.data.source.remote.response.community.create.CreateCommunityBody
+import com.comphy.photo.data.source.remote.response.community.create.CommunityBody
 import com.comphy.photo.data.source.remote.response.upload.DataItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.onCompletion
@@ -80,7 +80,7 @@ class CreateCommunityViewModel @Inject constructor(
         profilePhotoCommunityLink: String? = null,
         bannerPhotoCommunityLink: String? = null
     ) = communityRepository.createCommunity(
-        createCommunityBody = CreateCommunityBody(
+        communityBody = CommunityBody(
             communityType = communityType,
             categoryCommunityId = categoryCommunityId,
             description = description,

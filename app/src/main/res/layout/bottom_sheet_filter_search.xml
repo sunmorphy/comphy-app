@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="21dp">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="145dp"
+        android:layout_marginTop="24dp"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txtFilterLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="@string/explore_search_filter"
+        android:textColor="@color/primary_orange"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator" />
+
+    <TextView
+        android:id="@+id/txtLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawablePadding="13dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/set_post_input_location_hint"
+        android:textColor="@color/neutral_black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/txtFilterLocation"
+        app:layout_constraintTop_toBottomOf="@id/txtFilterLocation" />
+
+    <carbon.widget.LinearLayout
+        android:id="@+id/layoutLocation"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="18dp"
+        app:carbon_cornerRadius="14dp"
+        app:carbon_elevation="30dp"
+        app:carbon_elevationShadowColor="#FFF4E5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtLocation">
+
+        <AutoCompleteTextView
+            android:id="@+id/edtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/state_field"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="@string/job_filter_search_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingHorizontal="29dp"
+            android:paddingVertical="18dp"
+            android:textColor="@color/neutral_black"
+            android:textColorHint="@color/neutral_black_20"
+            android:textSize="12sp" />
+
+    </carbon.widget.LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnApply"
+        style="@style/ActivableMaterialButtonStyle"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:enabled="false"
+        android:fontFamily="@font/poppins_bold"
+        android:includeFontPadding="false"
+        android:letterSpacing="0"
+        android:paddingVertical="12dp"
+        android:stateListAnimator="@null"
+        android:text="@string/string_apply"
+        android:textAllCaps="false"
+        android:textColor="@color/state_button_text_activable"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@id/layoutLocation"
+        app:layout_constraintStart_toStartOf="@id/layoutLocation"
+        app:layout_constraintTop_toBottomOf="@id/layoutLocation" />
+
+    <ImageView
+        android:id="@+id/imgLoadingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:rotation="90"
+        android:src="@drawable/ic_loading_btn"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/btnApply"
+        app:layout_constraintEnd_toEndOf="@id/btnApply"
+        app:layout_constraintStart_toStartOf="@id/btnApply"
+        app:layout_constraintTop_toTopOf="@id/btnApply"
+        tools:ignore="ContentDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

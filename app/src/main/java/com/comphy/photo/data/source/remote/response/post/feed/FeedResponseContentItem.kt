@@ -2,22 +2,23 @@ package com.comphy.photo.data.source.remote.response.post.feed
 
 import android.os.Parcelable
 import com.comphy.photo.data.source.remote.response.community.category.CategoryCommunityResponseContentItem
+import com.comphy.photo.data.source.remote.response.community.follow.Community
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FeedResponseContentItem(
     @SerializedName("aperture")
-    val aperture: String? = null,
+    var aperture: String? = null,
 
     @SerializedName("camera")
-    val camera: String? = null,
+    var camera: String? = null,
 
     @SerializedName("categoryCommunity")
     val categoryCommunity: CategoryCommunityResponseContentItem,
 
     @SerializedName("community")
-    val community: String? = null,
+    val community: Community? = null,
 
     @SerializedName("created_date")
     val createdDate: Long? = null,
@@ -26,10 +27,10 @@ data class FeedResponseContentItem(
     val deletedDate: String? = null,
 
     @SerializedName("description")
-    val description: String? = null,
+    var description: String? = null,
 
     @SerializedName("flash")
-    val flash: String? = null,
+    var flash: String? = null,
 
     @SerializedName("id")
     val id: String,
@@ -38,10 +39,10 @@ data class FeedResponseContentItem(
     var isFollowed: Int,
 
     @SerializedName("iso")
-    val iso: String? = null,
+    var iso: String? = null,
 
     @SerializedName("lens")
-    val lens: String? = null,
+    var lens: String? = null,
 
     @SerializedName("liked")
     var liked: Boolean,
@@ -65,16 +66,16 @@ data class FeedResponseContentItem(
     val `public`: Boolean,
 
     @SerializedName("shutterSpeed")
-    val shutterSpeed: String? = null,
+    var shutterSpeed: String? = null,
 
     @SerializedName("title")
-    val title: String,
+    var title: String,
 
     @SerializedName("totalComments")
     val totalComments: Int,
 
     @SerializedName("totalLikes")
-    val totalLikes: Int,
+    var totalLikes: Int,
 
     @SerializedName("updated_date")
     val updatedDate: String? = null,

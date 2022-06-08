@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<carbon.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="570dp"
+    android:background="@drawable/bg_bottom_sheet"
+    app:carbon_elevation="30dp"
+    app:carbon_elevationShadowColor="#FFF4E5">
+
+    <carbon.widget.ImageView
+        android:id="@+id/imgIndicator"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:layout_marginHorizontal="144dp"
+        android:layout_marginTop="12dp"
+        android:background="#EFEFEF"
+        app:carbon_cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/layoutCustomBar"
+        app:layout_constraintTop_toBottomOf="@id/imgIndicator">
+
+        <carbon.widget.ConstraintLayout
+            android:id="@+id/rootView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="32dp">
+
+            <TextView
+                android:id="@+id/txtPostTitle"
+                style="@style/TextTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:drawablePadding="13dp"
+                android:text="@string/post_input_title"
+                app:drawableEndCompat="@drawable/ic_required_small"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtPostTitleMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/post_input_title_max_char"
+                android:textColor="#D5D5D5"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/txtPostTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txtPostTitle" />
+
+            <carbon.widget.EditText
+                android:id="@+id/edtPostTitle"
+                style="@style/EditTextCustomStyle"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/post_input_title_hint"
+                android:inputType="text"
+                android:maxLength="40"
+                android:paddingHorizontal="29dp"
+                android:paddingVertical="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtPostTitle" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutDataExif"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@id/edtPostTitle"
+                app:layout_constraintStart_toStartOf="@id/edtPostTitle"
+                app:layout_constraintTop_toBottomOf="@id/edtPostTitle">
+
+                <TextView
+                    android:id="@+id/txtPostCamera"
+                    style="@style/TextTitleStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/post_input_camera"
+                    app:layout_constraintEnd_toStartOf="@id/txtPostIso"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <carbon.widget.EditText
+                    android:id="@+id/edtPostCamera"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/post_input_camera_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintEnd_toEndOf="@id/txtPostCamera"
+                    app:layout_constraintStart_toStartOf="@id/txtPostCamera"
+                    app:layout_constraintTop_toBottomOf="@id/txtPostCamera" />
+
+                <TextView
+                    android:id="@+id/txtPostIso"
+                    style="@style/TextTitleStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/post_input_iso"
+                    app:layout_constraintBottom_toBottomOf="@id/txtPostCamera"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/txtPostCamera"
+                    app:layout_constraintTop_toTopOf="@id/txtPostCamera" />
+
+                <carbon.widget.EditText
+                    android:id="@+id/edtPostIso"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_input_iso_hint"
+                    android:inputType="number"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintBottom_toBottomOf="@id/edtPostCamera"
+                    app:layout_constraintEnd_toEndOf="@id/txtPostIso"
+                    app:layout_constraintStart_toStartOf="@id/txtPostIso"
+                    app:layout_constraintTop_toTopOf="@id/edtPostCamera" />
+
+                <TextView
+                    android:id="@+id/txtPostLens"
+                    style="@style/TextTitleStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/post_input_lens"
+                    app:layout_constraintEnd_toEndOf="@id/edtPostCamera"
+                    app:layout_constraintStart_toStartOf="@id/edtPostCamera"
+                    app:layout_constraintTop_toBottomOf="@id/edtPostCamera" />
+
+                <carbon.widget.EditText
+                    android:id="@+id/edtPostLens"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/post_input_lens_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintEnd_toEndOf="@id/txtPostLens"
+                    app:layout_constraintStart_toStartOf="@id/txtPostLens"
+                    app:layout_constraintTop_toBottomOf="@id/txtPostLens" />
+
+                <TextView
+                    android:id="@+id/txtPostShutter"
+                    style="@style/TextTitleStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:text="@string/post_input_shutter"
+                    app:layout_constraintBottom_toBottomOf="@id/txtPostLens"
+                    app:layout_constraintEnd_toEndOf="@id/edtPostIso"
+                    app:layout_constraintStart_toStartOf="@id/edtPostIso"
+                    app:layout_constraintTop_toTopOf="@id/txtPostLens" />
+
+                <carbon.widget.EditText
+                    android:id="@+id/edtPostShutter"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_input_shutter_hint"
+                    android:inputType="number"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintBottom_toBottomOf="@id/edtPostLens"
+                    app:layout_constraintEnd_toEndOf="@id/txtPostShutter"
+                    app:layout_constraintStart_toStartOf="@id/txtPostShutter"
+                    app:layout_constraintTop_toTopOf="@id/edtPostLens" />
+
+                <TextView
+                    android:id="@+id/txtPostFlash"
+                    style="@style/TextTitleStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/post_input_flash"
+                    app:layout_constraintEnd_toEndOf="@id/edtPostLens"
+                    app:layout_constraintStart_toStartOf="@id/edtPostLens"
+                    app:layout_constraintTop_toBottomOf="@id/edtPostLens" />
+
+                <carbon.widget.EditText
+                    android:id="@+id/edtPostFlash"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/post_input_flash_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintEnd_toEndOf="@id/txtPostFlash"
+                    app:layout_constraintStart_toStartOf="@id/txtPostFlash"
+                    app:layout_constraintTop_toBottomOf="@id/txtPostFlash" />
+
+                <TextView
+                    android:id="@+id/txtPostAperture"
+                    style="@style/TextTitleStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:text="@string/post_input_aperture"
+                    app:layout_constraintBottom_toBottomOf="@id/txtPostFlash"
+                    app:layout_constraintEnd_toEndOf="@id/edtPostShutter"
+                    app:layout_constraintStart_toStartOf="@id/edtPostShutter"
+                    app:layout_constraintTop_toTopOf="@id/txtPostFlash" />
+
+                <carbon.widget.EditText
+                    android:id="@+id/edtPostAperture"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/post_input_aperture_hint"
+                    android:inputType="text"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintBottom_toBottomOf="@id/edtPostFlash"
+                    app:layout_constraintEnd_toEndOf="@id/txtPostAperture"
+                    app:layout_constraintStart_toStartOf="@id/txtPostAperture"
+                    app:layout_constraintTop_toTopOf="@id/edtPostFlash" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCaption"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_0"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/layoutDataExif"
+                app:layout_constraintEnd_toEndOf="@id/layoutDataExif"
+                app:layout_constraintStart_toStartOf="@id/layoutDataExif"
+                app:layout_constraintTop_toTopOf="@id/layoutDataExif">
+
+                <TextView
+                    android:id="@+id/txtPostCaption"
+                    style="@style/TextTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="13dp"
+                    android:text="@string/post_input_caption"
+                    app:drawableEndCompat="@drawable/ic_required_small"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtPostCaptionMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/post_input_caption_max_char"
+                    android:textColor="#D5D5D5"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/txtPostCaption"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txtPostCaption" />
+
+                <carbon.widget.EditText
+                    android:id="@+id/edtPostCaption"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_0"
+                    android:layout_marginTop="12dp"
+                    android:gravity="top|start"
+                    android:hint="@string/post_input_caption_hint"
+                    android:inputType="textMultiLine"
+                    android:paddingHorizontal="29dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtPostCaption" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </carbon.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <carbon.widget.ConstraintLayout
+        android:id="@+id/layoutCustomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="24dp"
+        android:paddingBottom="32dp"
+        app:carbon_cornerRadiusTopEnd="24dp"
+        app:carbon_cornerRadiusTopStart="24dp"
+        app:carbon_elevation="24dp"
+        app:carbon_elevationShadowColor="#FCF2E3"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveChange"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:backgroundTint="@color/state_button_activable"
+            android:enabled="false"
+            android:fontFamily="@font/poppins_bold"
+            android:includeFontPadding="false"
+            android:letterSpacing="0"
+            android:paddingVertical="12dp"
+            android:stateListAnimator="@null"
+            android:text="@string/string_save_change"
+            android:textAllCaps="false"
+            android:textColor="@color/state_button_text_activable"
+            android:textSize="14sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgLoadingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:rotation="90"
+            android:src="@drawable/ic_loading_btn"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/btnSaveChange"
+            app:layout_constraintEnd_toEndOf="@id/btnSaveChange"
+            app:layout_constraintStart_toStartOf="@id/btnSaveChange"
+            app:layout_constraintTop_toTopOf="@id/btnSaveChange"
+            tools:ignore="ContentDescription" />
+
+    </carbon.widget.ConstraintLayout>
+
+</carbon.widget.ConstraintLayout>

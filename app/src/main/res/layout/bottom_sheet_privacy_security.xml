@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="436dp"
     android:background="@drawable/bg_bottom_sheet"
+    android:paddingBottom="239dp"
     app:carbon_elevation="30dp"
     app:carbon_elevationShadowColor="#FFE0B0">
 
@@ -50,25 +51,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtPrivacySecurity" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnUpgradeAccount"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/primary_green"
-        android:fontFamily="@font/poppins_bold"
-        android:includeFontPadding="false"
-        android:letterSpacing="0"
-        android:paddingVertical="12dp"
-        android:stateListAnimator="@null"
-        android:text="@string/home_community_upgrade"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:cornerRadius="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/btnChangePassword"
-        app:layout_constraintStart_toStartOf="@id/btnChangePassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
