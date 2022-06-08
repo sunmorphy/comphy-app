@@ -45,82 +45,72 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtUpgradeAccount"
+            android:id="@+id/txtSaveEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="17dp"
             android:fontFamily="@font/poppins_medium"
             android:includeFontPadding="false"
-            android:text="@string/string_upgrade_account"
+            android:text="@string/strings_save"
             android:textColor="@color/neutral_black_50"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/btnBack"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/btnBack" />
-    </carbon.widget.ConstraintLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpPayment"
-        android:layout_width="match_parent"
-        android:layout_height="287dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="17dp"
-        android:overScrollMode="never"
-        app:layout_constraintTop_toBottomOf="@id/layoutCustomBar" />
-
-    <com.zhpan.indicator.IndicatorView
-        android:id="@+id/vpPaymentIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@id/vpPayment"
-        app:layout_constraintStart_toStartOf="@+id/vpPayment"
-        app:layout_constraintTop_toBottomOf="@id/vpPayment" />
-
-    <carbon.widget.ConstraintLayout
-        android:id="@+id/customLayoutMethod"
-        android:layout_width="@dimen/dp_0"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="56dp"
-        android:background="@color/white"
-        app:carbon_cornerRadius="14dp"
-        app:carbon_elevation="22dp"
-        app:carbon_elevationShadowColor="#FFEACB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vpPaymentIndicator">
-
-        <TextView
-            android:id="@+id/txtMethodOfPayment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEvent"
+            android:layout_width="101dp"
+            android:layout_height="38dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="@string/strings_method_of_payment"
-            android:textColor="@color/neutral_black_40"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/primary_orange"
+            android:fontFamily="@font/poppins_semibold"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/strings_event"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:cornerRadius="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="Parent" />
+            app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
-        <TextView
-            android:id="@+id/txtMethodsOfPayment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="42dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/strings_methods_of_payment"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnJobVacancy"
+            android:layout_width="101dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/dp_0"
+            android:backgroundTint="@android:color/transparent"
+            android:fontFamily="@font/poppins_semibold"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/strings_job"
+            android:textAllCaps="false"
             android:textColor="@color/neutral_black_40"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtMethodOfPayment" />
+            android:textSize="12sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintStart_toEndOf="@id/btnEvent"
+            app:layout_constraintTop_toTopOf="@id/btnEvent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPost"
+            android:layout_width="101dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/dp_0"
+            android:backgroundTint="@android:color/transparent"
+            android:fontFamily="@font/poppins_semibold"
+            android:padding="@dimen/dp_0"
+            android:stateListAnimator="@null"
+            android:text="@string/strings_post"
+            android:textAllCaps="false"
+            android:textColor="@color/neutral_black_40"
+            android:textSize="12sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintStart_toEndOf="@id/btnJobVacancy"
+            app:layout_constraintTop_toTopOf="@id/btnEvent" />
 
     </carbon.widget.ConstraintLayout>
 

@@ -461,6 +461,14 @@
     <string name="string_txt_money">Rp</string>
     <string name="strings_limit_account">Unlimited Full Access to the features we provide</string>
     <string name="string_upgrade_accounts">Upgrade Akun Sekarang!</string>
+    <string name="pricing">300K</string>
+    <string name="free_account">Free Account</string>
+    <string name="premium_account">Premium Account</string>
+    <string name="pricing2">0</string>
+    <string name="desc_pricing2">2 Create Community and 8 Communities you can join</string>
+    <string name="type_accounr">Premium Account</string>
+    <string name="pricing3">50K</string>
+    <string name="desc_pricing3">5 Create Community and 15 Communities you can join</string>
 
 
 </resources>
