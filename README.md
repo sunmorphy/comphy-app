@@ -1,8 +1,14 @@
-# Comphy App
+# <a href="https://play.google.com/store/apps/details?id=com.comphy.photo"><img src="/assets/Group 12.png" alt="image" height="128px"/></a>
+
+Comphy Merupakan sebuah wadah komunitas bagi para penggiat dibidang fotografi baik untuk kalangan Profesional, Masyarakat yang sedang memulai belajar fotografi maupun Masyarakat yang mempunyai ketertarikan di bidang fotografi.
 
 
+## Preview
 
-## Getting started
+![comphy-preview](/assets/Frame 264.png)
+![comphy-preview](/assets/Frame 263.png)
+![comphy-preview](/assets/Frame 262.png)
+![comphy-preview](/assets/Frame 259.png)
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
