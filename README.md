@@ -12,6 +12,10 @@ Comphy Merupakan sebuah wadah komunitas bagi para penggiat dibidang fotografi ba
 <img src="/assets/Frame 264.png" alt="image" width="200px"/><img src="/assets/Frame 263.png" alt="image" width="200px"/><img src="/assets/Frame 262.png" alt="image" width="200px"/><img src="/assets/Frame 259.png" alt="image" width="200px"/>  
   
 <br>
+
+## Download
+
+<a href='https://play.google.com/store/apps/details?id=com.comphy.photo&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
   
 ## Contributors
 
