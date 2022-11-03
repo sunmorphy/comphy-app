@@ -19,6 +19,8 @@ Comphy Merupakan sebuah wadah komunitas bagi para penggiat dibidang fotografi ba
   
 ## Contributors
 
+#### Our app is now available on Google Play.
+
 <a href="https://github.com/rafusr/comphy-app/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=rafusr/comphy-app" />
 </a>
