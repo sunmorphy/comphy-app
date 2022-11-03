@@ -15,11 +15,11 @@ Comphy Merupakan sebuah wadah komunitas bagi para penggiat dibidang fotografi ba
 
 ## Download
 
+#### Our app is now available on Google Play.
+
 <a href='https://play.google.com/store/apps/details?id=com.comphy.photo&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
   
 ## Contributors
-
-#### Our app is now available on Google Play.
 
 <a href="https://github.com/rafusr/comphy-app/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=rafusr/comphy-app" />
